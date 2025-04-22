@@ -16,6 +16,6 @@ This system integrates with multiple banks to provide real-time SMS notification
 
 ## 📝Notion for tracking and documentation
 
-[![Gantt Chart](https://img.shields.io/badge/Gantt%20Chart-000000?style=flat&logo=notion&logoColor=white)]()
+[![Gantt Chart](https://img.shields.io/badge/Gantt%20Chart-000000?style=flat&logo=notion&logoColor=white)](https://www.notion.so/1ddabe7b7b2a8097aa0fd36bc5f6db11?v=1ddabe7b7b2a806b935b000c485c4c1e)
 
 </div>

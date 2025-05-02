@@ -1,0 +1,740 @@
+openapi: 3.0.3
+info:
+  title: Dragon Vault Bank API
+  description: |
+    API specification for Dragon Vault Banking System, providing endpoints for both account holders and bank tellers.
+  version: 1.0.0
+  contact:
+    name: Dragon Vault Support
+    email: support@dragonvault.site
+
+servers:
+  - url: https://dragonVault.site/bank-api
+    description: Production server
+
+tags:
+  - name: Account Holder
+    description: Operations available to bank account holders
+  - name: Bank Teller
+    description: Operations available to bank tellers
+  - name: Authentication
+    description: Authentication operations for both account holders and tellers
+  - name: Transactions
+    description: Operations for financial transactions
+
+paths:
+  /register:
+    post:
+      tags:
+        - Account Holder
+        - Authentication
+      summary: Register a new bank account
+      description: Creates a new bank account for a customer.
+      operationId: createAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: Account successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        '400':
+          description: Bad request - Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /login:
+    post:
+      tags:
+        - Account Holder
+        - Authentication
+      summary: Authenticate an account holder
+      description: Authenticates an account holder using their account number and password.
+      operationId: loginAccountHolder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /account/balance:
+    get:
+      tags:
+        - Account Holder
+      summary: Get account balance
+      description: Retrieves the current balance for an authenticated account holder.
+      operationId: getAccountBalance
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+        - in: query
+          name: account_number
+          required: false
+          schema:
+            type: integer
+            format: int64
+          description: Optional if tied to authenticated user
+      responses:
+        '200':
+          description: Account balance retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalanceResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /fund-transfer-internal:
+    post:
+      tags:
+        - Account Holder
+        - Transactions
+      summary: Transfer funds internally
+      description: Transfers funds between two accounts within Dragon Vault.
+      operationId: transferFundsInternal
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternalTransferRequest'
+      responses:
+        '200':
+          description: Transfer initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferInitiationResponse'
+        '400':
+          description: Bad request - Invalid parameters or insufficient balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /fund-transfer-external:
+    post:
+      tags:
+        - Account Holder
+        - Transactions
+      summary: Transfer funds externally
+      description: Transfers funds from a Dragon Vault account to an account at another bank.
+      operationId: transferFundsExternal
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalTransferRequest'
+      responses:
+        '200':
+          description: Transfer initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferInitiationResponse'
+        '400':
+          description: Bad request - Invalid parameters or insufficient balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /validate-otp:
+    post:
+      tags:
+        - Account Holder
+        - Transactions
+      summary: Validate OTP for transaction
+      description: Validates the One-Time Password sent to the user's mobile number for transaction authorization.
+      operationId: validateOtp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OtpValidationRequest'
+      responses:
+        '200':
+          description: OTP validation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpValidationResponse'
+        '400':
+          description: Bad request - Invalid OTP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpErrorResponse'
+
+  /receive-external-transfer:
+    post:
+      tags:
+        - Transactions
+      summary: Receive funds from external banks
+      description: Handles incoming funds from external banks.
+      operationId: receiveExternalTransfer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReceiveExternalRequest'
+      responses:
+        '200':
+          description: Funds received successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReceiveExternalResponse'
+        '404':
+          description: Recipient account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /teller/login:
+    post:
+      tags:
+        - Bank Teller
+        - Authentication
+      summary: Authenticate a bank teller
+      description: Authenticates a bank teller to access the system.
+      operationId: loginTeller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TellerLoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TellerLoginResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /teller/transaction:
+    post:
+      tags:
+        - Bank Teller
+        - Transactions
+      summary: Process deposit or withdrawal
+      description: Allows a teller to deposit funds into or withdraw funds from a customer's account.
+      operationId: processTellerTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TellerTransactionRequest'
+      responses:
+        '200':
+          description: Transaction processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TellerTransactionResponse'
+        '400':
+          description: Bad request - Invalid parameters or insufficient balance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /teller/validate-otp:
+    post:
+      tags:
+        - Bank Teller
+        - Transactions
+      summary: Validate OTP for teller transaction
+      description: For high-value transactions, tellers may need to validate using OTP.
+      operationId: validateTellerOtp
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TellerOtpValidationRequest'
+      responses:
+        '200':
+          description: OTP validation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TellerOtpValidationResponse'
+        '400':
+          description: Bad request - Invalid OTP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OtpErrorResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    RegisterRequest:
+      type: object
+      required:
+        - first_name
+        - middle_initial
+        - last_name
+        - password
+        - email_address
+        - mobile_number
+      properties:
+        first_name:
+          type: string
+          example: John
+        middle_initial:
+          type: string
+          example: D
+        last_name:
+          type: string
+          example: Smith
+        password:
+          type: string
+          format: password
+          example: SecureP@ssw0rd123
+        email_address:
+          type: string
+          format: email
+          example: john.smith@example.com
+        mobile_number:
+          type: string
+          example: "09123456789"
+
+    RegisterResponse:
+      type: object
+      properties:
+        account_successfully_created:
+          type: boolean
+          example: true
+        bearer_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+        account_number:
+          type: integer
+          format: int64
+          example: 1234567890
+
+    LoginRequest:
+      type: object
+      required:
+        - account_number
+        - password
+      properties:
+        account_number:
+          type: integer
+          format: int64
+          example: 1234567890
+        password:
+          type: string
+          format: password
+          example: SecureP@ssw0rd123
+
+    LoginResponse:
+      type: object
+      properties:
+        login_successful:
+          type: boolean
+          example: true
+        bearer_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+        user_id:
+          type: string
+          example: abc123
+
+    AccountBalanceResponse:
+      type: object
+      properties:
+        account_number:
+          type: integer
+          format: int64
+          example: 1234567890
+        balance:
+          type: number
+          format: double
+          example: 5000.00
+        currency:
+          type: string
+          example: PHP
+        as_of:
+          type: string
+          format: date-time
+          example: 2025-05-02T08:30:45Z
+
+    InternalTransferRequest:
+      type: object
+      required:
+        - transaction_amount
+        - source_account_no
+        - recipient_account_no
+        - redirect_url
+      properties:
+        transaction_amount:
+          type: number
+          format: double
+          example: 1000.00
+        source_account_no:
+          type: integer
+          format: int64
+          example: 1234567890
+        recipient_account_no:
+          type: integer
+          format: int64
+          example: 9876543210
+        redirect_url:
+          type: string
+          format: uri
+          example: https://dragonVault.site/transfer-result
+
+    ExternalTransferRequest:
+      type: object
+      required:
+        - transaction_amount
+        - source_account_no
+        - recipient_account_no
+        - recipient_bank_code
+        - redirect_url
+      properties:
+        transaction_amount:
+          type: number
+          format: double
+          example: 2000.00
+        source_account_no:
+          type: integer
+          format: int64
+          example: 1234567890
+        recipient_account_no:
+          type: integer
+          format: int64
+          example: 9876543210
+        recipient_bank_code:
+          type: string
+          example: "OTHRBNK001"
+        redirect_url:
+          type: string
+          format: uri
+          example: https://dragonVault.site/transfer-result
+
+    TransferInitiationResponse:
+      type: object
+      properties:
+        fund_transfer_success:
+          type: boolean
+          example: true
+        transaction_id:
+          type: integer
+          format: int64
+          example: 2343241
+        otp_required:
+          type: boolean
+          example: true
+        otp_session_id:
+          type: string
+          example: abc123xyz
+
+    OtpValidationRequest:
+      type: object
+      required:
+        - otp_code
+        - otp_session_id
+        - transaction_id
+      properties:
+        otp_code:
+          type: string
+          example: "123456"
+        otp_session_id:
+          type: string
+          example: abc123xyz
+        transaction_id:
+          type: integer
+          format: int64
+          example: 2343241
+
+    OtpValidationResponse:
+      type: object
+      properties:
+        validation_successful:
+          type: boolean
+          example: true
+        transaction_id:
+          type: integer
+          format: int64
+          example: 2343241
+        redirect_url:
+          type: string
+          format: uri
+          example: https://dragonVault.site/transfer-result?fund_transfer_success=true&transaction_id=2343241
+
+    OtpErrorResponse:
+      type: object
+      properties:
+        error_message:
+          type: string
+          example: "Invalid OTP code"
+        attempts_remaining:
+          type: integer
+          example: 2
+
+    ReceiveExternalRequest:
+      type: object
+      required:
+        - transaction_amount
+        - source_account_no
+        - source_bank_code
+        - recipient_account_no
+      properties:
+        transaction_amount:
+          type: number
+          format: double
+          example: 3000.00
+        source_account_no:
+          type: integer
+          format: int64
+          example: 9876543210
+        source_bank_code:
+          type: string
+          example: "EXTBNK001"
+        recipient_account_no:
+          type: integer
+          format: int64
+          example: 1234567890
+
+    ReceiveExternalResponse:
+      type: object
+      properties:
+        fund_transfer_success:
+          type: boolean
+          example: true
+        transaction_id:
+          type: integer
+          format: int64
+          example: 29485420343
+
+    TellerLoginRequest:
+      type: object
+      required:
+        - teller_id
+        - password
+      properties:
+        teller_id:
+          type: string
+          example: "T12345"
+        password:
+          type: string
+          format: password
+          example: "SecureTeller@123"
+
+    TellerLoginResponse:
+      type: object
+      properties:
+        login_successful:
+          type: boolean
+          example: true
+        bearer_token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...
+        teller_name:
+          type: string
+          example: "Jane Doe"
+        branch_code:
+          type: string
+          example: "DV001"
+
+    TellerTransactionRequest:
+      type: object
+      required:
+        - teller_id
+        - account_no
+        - transaction_type
+        - transaction_amount
+      properties:
+        teller_id:
+          type: string
+          example: "T12345"
+        account_no:
+          type: integer
+          format: int64
+          example: 1234567890
+        transaction_type:
+          type: string
+          enum: [deposit, withdrawal]
+          example: "deposit"
+        transaction_amount:
+          type: number
+          format: double
+          example: 1000.00
+
+    TellerTransactionResponse:
+      type: object
+      properties:
+        transaction_success:
+          type: boolean
+          example: true
+        transaction_id:
+          type: integer
+          format: int64
+          example: 998877
+        account_no:
+          type: integer
+          format: int64
+          example: 1234567890
+        previous_balance:
+          type: number
+          format: double
+          example: 5000.00
+        new_balance:
+          type: number
+          format: double
+          example: 6000.00
+        transaction_timestamp:
+          type: string
+          format: date-time
+          example: "2025-05-02T10:15:30Z"
+
+    TellerOtpValidationRequest:
+      type: object
+      required:
+        - teller_id
+        - otp_code
+        - transaction_id
+      properties:
+        teller_id:
+          type: string
+          example: "T12345"
+        otp_code:
+          type: string
+          example: "123456"
+        transaction_id:
+          type: integer
+          format: int64
+          example: 998878
+
+    TellerOtpValidationResponse:
+      type: object
+      properties:
+        validation_successful:
+          type: boolean
+          example: true
+        transaction_id:
+          type: integer
+          format: int64
+          example: 998878
+        transaction_status:
+          type: string
+          example: "completed"
+
+    ErrorResponse:
+      type: object  
+      properties:
+        error_message:
+          type: string
+          example: "Account not found or invalid teller credentials"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []

@@ -1,0 +1,34 @@
+-- Account Holders
+INSERT INTO account_holder (first_name, last_name, middle_initial, phone_number, email, username, password)
+VALUES 
+('Juan', 'Dela Cruz', 'D', '09171234567', 'juan@example.com', 'juan123', 'hashed_password1'),
+('Maria', 'Santos', 'L', '09181234567', 'maria@example.com', 'maria456', 'hashed_password2');
+
+-- Accounts
+INSERT INTO account (account_number, account_holder_id, account_type, balance)
+VALUES 
+(1000000001, 1, 'Savings', 5000.00),
+(1000000002, 2, 'Checking', 8000.00);
+
+-- Bank Tellers
+INSERT INTO bank_teller (teller_id, first_name, last_name, branch, username, password)
+VALUES 
+('T001', 'Ana', 'Reyes', 'Makati', 'ana_teller', 'hashed_teller_pass');
+
+-- Teller Transactions
+INSERT INTO teller_transaction (teller_id, account_number, transaction_type, amount)
+VALUES 
+('T001', 1000000001, 'Deposit', 1000.00),
+('T001', 1000000002, 'Withdrawal', 500.00);
+
+-- User Transactions
+INSERT INTO user_transaction (account_number, transaction_type, otp_code, amount, status, recipient_account_number, recipient_bank_code)
+VALUES 
+(1000000001, 'Internal transfer', '123456', 1500.00, 'Pending', 1000000002, NULL),
+(1000000002, 'Transfer to other bank', '654321', 2000.00, 'Pending', 1234567890, 'BANK123');
+
+-- OTP Logs
+INSERT INTO otp_log (account_number, otp_code, expires_at)
+VALUES 
+(1000000001, '123456', NOW() + INTERVAL 5 MINUTE),
+(1000000002, '654321', NOW() + INTERVAL 5 MINUTE);

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dragon Vault - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Welcome to Dragon Vault</h1>
+      <button id="logoutBtn">Logout</button>
+    </header>
+
+    <section id="account-info">
+      <h2>Account Info</h2>
+      <p><strong>Account Number:</strong> <span id="accountNumber"></span></p>
+      <p><strong>Balance:</strong> ₱<span id="accountBalance">0.00</span></p>
+    </section>
+
+    <section id="transfer-section">
+      <h2>Fund Transfer</h2>
+      <form id="transferForm">
+        <label>
+          Transfer Type:
+          <select id="transferType" required>
+            <option value="internal">Internal (Same Bank)</option>
+            <option value="external">External (Other Bank)</option>
+          </select>
+        </label>
+
+        <label>
+          Recipient Account No:
+          <input type="number" id="recipientAccount" required/>
+        </label>
+
+        <div id="externalBankCodeDiv" style="display:none;">
+          <label>
+            Recipient Bank Code:
+            <input type="text" id="recipientBankCode"/>
+          </label>
+        </div>
+
+        <label>
+          Amount:
+          <input type="number" step="0.01" id="transferAmount" required/>
+        </label>
+
+        <button type="submit">Proceed</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

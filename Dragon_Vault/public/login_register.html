@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dragon Vault | Login & Register</title>
+  <link rel="stylesheet" href="css/login_register.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <!-- Login Form -->
+    <h2>Login</h2>
+    <form id="login_form">
+      <div class="form-group">
+        <label for="login_username">Username</label>
+        <input type="text" id="login_username" required />
+      </div>
+      <div class="form-group">
+        <label for="login_password">Password</label>
+        <input type="password" id="login_password" required />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <h2>Register</h2>
+    <form id="register_form">
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" required />
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" required />
+      </div>
+      <div class="form-group">
+        <label for="middle_initial">Middle Initial</label>
+        <input type="text" id="middle_initial" maxlength="1" />
+      </div>
+      <div class="form-group">
+        <label for="phone_number">Phone Number</label>
+        <input type="text" id="phone_number" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label for="register_username">Username</label>
+        <input type="text" id="register_username" required />
+      </div>
+      <div class="form-group">
+        <label for="register_password">Password</label>
+        <input type="password" id="register_password" required />
+      </div>
+      <div class="form-group">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" required />
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script src="js/login_register.js"></script>
+</body>
+</html>

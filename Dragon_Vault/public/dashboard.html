@@ -1,57 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dragon Vault - Dashboard</title>
-  <link rel="stylesheet" href="css/style.css"/>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Welcome to Dragon Vault</h1>
-      <button id="logoutBtn">Logout</button>
-    </header>
-
-    <section id="account-info">
-      <h2>Account Info</h2>
-      <p><strong>Account Number:</strong> <span id="accountNumber"></span></p>
-      <p><strong>Balance:</strong> ₱<span id="accountBalance">0.00</span></p>
-    </section>
-
-    <section id="transfer-section">
-      <h2>Fund Transfer</h2>
-      <form id="transferForm">
-        <label>
-          Transfer Type:
-          <select id="transferType" required>
-            <option value="internal">Internal (Same Bank)</option>
-            <option value="external">External (Other Bank)</option>
-          </select>
-        </label>
-
-        <label>
-          Recipient Account No:
-          <input type="number" id="recipientAccount" required/>
-        </label>
-
-        <div id="externalBankCodeDiv" style="display:none;">
-          <label>
-            Recipient Bank Code:
-            <input type="text" id="recipientBankCode"/>
-          </label>
-        </div>
-
-        <label>
-          Amount:
-          <input type="number" step="0.01" id="transferAmount" required/>
-        </label>
-
-        <button type="submit">Proceed</button>
-      </form>
-    </section>
-  </div>
-
-  <script src="js/dashboard.js"></script>
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/dashboard.css" />
+        <link rel="icon" href="./assets/logo.png" />
+        <title>DragonVault</title>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img
+                    src="./assets/logo.png"
+                    alt="DragonVault"
+                    class="logo-img" />
+                <h1 class="logo-text">DragonVault</h1>
+            </div>
+            <nav class="nav-buttons">
+                <button class="nav-btn active">Home</button>
+                <button class="nav-btn">About Us</button>
+                <button class="nav-btn">Log out</button>
+            </nav>
+        </header>
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1 class="welcome-title">Welcome, John Doe!</h1>
+                <p class="last-login">Last login: Today 2:00 PM</p>
+            </section>
+            <div class="dashboard-grid">
+                <div class="balance-card">
+                    <h2 class="balance-title">Account Balance</h2>
+                    <div class="balance-amount">₱ 0.00</div>
+                </div>
+                <div class="transfer-card">
+                    <h2 class="transfer-title">Transfer Funds</h2>
+                    <select id="transferType" class="select-btn">
+                        <option value="" disabled selected>Select Type</option>
+                        <option value="internal">Internal (Same Bank)</option>
+                        <option value="external">External (Other Bank)</option>
+                    </select>
+                </div>
+            </div>
+            <section class="transactions-section">
+                <h2 class="transactions-header">Recent Transactions</h2>
+                <div class="transactions-content">
+                    No recent transactions to display
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer-content">
+                &copy; 2025 DragonVault! All rights reserved.
+                <div class="footer-links">
+                    <a href="#">Terms and Conditions</a>
+                    <a href="#">About</a>
+                </div>
+            </div>
+        </footer>
+        <script src="./js/dashboard.js"></script>
+    </body>
 </html>

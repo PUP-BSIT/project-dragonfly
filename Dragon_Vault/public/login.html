@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/login.css">
+        <link rel="icon" href="assets/logo.png">
+        <title>DragonVault - Sign In</title>
+    </head>
+    <body>
+        <div class="header">
+            <div class="logo">
+                <img src="assets/logo.png" 
+                    alt="Dragon Vault Logo" 
+                    class="logo-image" />
+            </div>
+            <div class="brand-name">DragonVault</div>
+        </div>
+        <div class="container">
+            <div class="login-box">
+                <h1 class="login-title">Sign in to your account</h1>
+                <p class="welcome-text">Welcome back to DragonVault!</p>
+                <form id="login_form">
+                    <div class="form-group">
+                        <input type="text" 
+                            id="login_username" 
+                            class="input-field" 
+                            placeholder="Account Number:" 
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" 
+                            id="login_password" 
+                            class="input-field" 
+                            placeholder="Password:" 
+                            required />
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="signin-btn">SIGN IN</button>
+                    <div class="register-link">
+                        Don't have an account? 
+                        <a href="register.html">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="login.js"></script>
+    </body>
+</html>

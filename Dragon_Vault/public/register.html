@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+    <head>
+        <meta name="viewport" 
+            content="width=device-width, 
+            initial-scale=1.0" />
+        <link rel="stylesheet" href="css/register.css" />
+        <link rel="icon" href="assets/logo.png">
+        <title>DragonVault - Create Account</title>
+    </head>
+    <body>
+        <div class="header">
+            <div class="logo">
+                <img src="assets/logo.png" 
+                    alt="Dragon Vault Logo" 
+                    class="logo-image" />
+            </div>
+            <div class="brand-name">DragonVault</div>
+        </div>
+        <div class="container">
+            <div class="register-box">
+                <h1 class="register-title">Create a New Account</h1>
+                <p class="welcome-text">Welcome to DragonVault!</p>
+                <form id="register_form">
+                    <div class="form-section">
+                        <label class="section-label">Name:</label>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text"
+                                    id="first_name"
+                                    class="input-field"
+                                    placeholder="First Name:"
+                                    required />
+                            </div>
+                            <div class="form-group">
+                                <input type="text"
+                                    id="middle_initial"
+                                    class="input-field"
+                                    placeholder="Middle Initial:"
+                                    maxlength="1" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <input type="text"
+                                    id="last_name"
+                                    class="input-field"
+                                    placeholder="Last Name:"
+                                    required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="section-label">
+                                    Email Account:
+                                </label>
+                                <input type="email"
+                                    id="email"
+                                    class="input-field"
+                                    placeholder="yourexample@gmail.com"
+                                    required />
+                            </div>
+                            <div class="form-group">
+                                <label class="section-label">
+                                    Mobile Number:
+                                </label>
+                                <input type="tel"
+                                    id="phone_number"
+                                    class="input-field"
+                                    placeholder="09XXXXXXXXX"
+                                    required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label class="section-label">Username:</label>
+                                <input type="text"
+                                    id="register_username"
+                                    class="input-field"
+                                    placeholder="Username:"
+                                    required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <label class="section-label">
+                            Choose your password:
+                        </label>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <input type="password"
+                                    id="register_password"
+                                    class="input-field"
+                                    placeholder="Password:"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <input type="password"
+                                    id="confirm_password"
+                                    class="input-field"
+                                    placeholder="Confirm Password:"
+                                    required />
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="register-btn">
+                        Register
+                    </button>
+                    <div class="login-link">
+                        Already have an account? 
+                        <a href="login.html">LOGIN</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="register.js"></script>
+    </body>
+</html>

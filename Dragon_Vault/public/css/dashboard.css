@@ -94,11 +94,6 @@ body {
     margin-bottom: 8px;
 }
 
-.last-login {
-    font-size: 16px;
-    opacity: 0.8;
-}
-
 .dashboard-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

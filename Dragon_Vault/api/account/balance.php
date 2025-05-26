@@ -1,22 +1,35 @@
 <?php
 session_start();
-require_once '../../includes/db.php';
+header("Content-Type: application/json");
 
 if (!isset($_SESSION['account_holder_id'])) {
-  http_response_code(401);
-  echo json_encode(['error' => 'Unauthorized']);
-  exit;
+    http_response_code(401);
+    echo json_encode(["success" => false, "error" => "Unauthorized. Please log in."]);
+    exit();
 }
 
-$account_holder_id = $_SESSION['account_holder_id'];
+require_once '../../includes/db.php';
 
-$sql = "SELECT a.account_number, a.balance
-        FROM account a
-        WHERE a.account_holder_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $account_holder_id);
-$stmt->execute();
-$result = $stmt->get_result()->fetch_assoc();
+$accountHolderId = $_SESSION['account_holder_id'];
 
-echo json_encode($result);
-?>
+try {
+    // Get full name by concatenating first_name and last_name
+    $stmtUser = $pdo->prepare("SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM account_holder WHERE account_holder_id = ?");
+    $stmtUser->execute([$accountHolderId]);
+    $user = $stmtUser->fetch();
+
+    // Get total balance across all accounts
+    $stmtBalance = $pdo->prepare("SELECT SUM(balance) AS total_balance FROM account WHERE account_holder_id = ?");
+    $stmtBalance->execute([$accountHolderId]);
+    $balanceResult = $stmtBalance->fetch();
+
+    echo json_encode([
+        "success" => true,
+        "full_name" => $user['full_name'],
+        "total_balance" => $balanceResult['total_balance'] ?? 0.00,
+        "recent_transactions" => [] // Add real transactions later
+    ]);
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Server error: " . $e->getMessage()]);
+}

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => {
       console.error('Error fetching dashboard data:', err);
-      transactionsContentElem.textContent = '❌ An error occurred while loading transactions.';
+      transactionsContentElem.textContent = 'An error occurred while loading transactions.';
     });
 
   // Logout button functionality

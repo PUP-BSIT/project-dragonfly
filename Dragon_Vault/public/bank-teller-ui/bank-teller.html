@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DragonVault Teller UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="./asset-img/logo.png" alt="DragonVault Logo" class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-button" onclick="goToStep('step-home')">Home</button>
+      <a href="#">About Us</a>
+      <button class="nav-button" onclick="goToStep('step-login')">Log out</button>
+    </nav>
+  </header>
+
+  <!-- Login -->
+  <section id="step-login" class="step active">
+    <div class="login-card">
+      <h2>Log in as Bank Teller</h2>
+      <p>Welcome back to DragonVault!</p>
+      <input type="text" id="login-teller-id" placeholder="Teller ID">
+      <input type="password" id="login-password" placeholder="Password">
+      <small>Forgot Password? Contact your branch manager</small>
+      <button class="login-button" onclick="loginTeller()">Login</button>
+    </div>
+  </section>
+
+  <!-- Home -->
+  <section id="step-home" class="step">
+    <div class="welcome-banner">
+      <h2>Welcome, Bank Teller!</h2>
+      <p>What would you like to do today?</p>
+    </div>
+    <div class="actions">
+      <a class="action-box" onclick="goToStep('step-find-account-deposit')">Process Deposit</a>
+      <a class="action-box" onclick="goToStep('step-find-account-withdraw')">Process Withdraw</a>
+      <a class="action-box" onclick="goToStep('step-history')">View Transaction History</a>
+    </div>
+  </section>
+
+  <!-- Deposit: Find Account -->
+  <section id="step-find-account-deposit" class="step">
+    <div class="card">
+      <h2>Deposit - Find Account</h2>
+      <input type="text" id="account-number-deposit" placeholder="Account Number">
+      <input type="text" id="customer-name-deposit" placeholder="Customer Name">
+      <button onclick="mockSearch('deposit')">Search</button>
+      <button onclick="goToStep('step-home')">Cancel</button>
+    </div>
+  </section>
+
+  <!-- Withdraw: Find Account -->
+  <section id="step-find-account-withdraw" class="step">
+    <div class="card">
+      <h2>Withdraw - Find Account</h2>
+      <input type="text" id="account-number-withdraw" placeholder="Account Number">
+      <input type="text" id="customer-name-withdraw" placeholder="Customer Name">
+      <button onclick="mockSearch('withdraw')">Search</button>
+      <button onclick="goToStep('step-find-account-withdraw')">Cancel</button>
+    </div>
+  </section>
+
+  <!-- Deposit Details -->
+  <section id="step-deposit" class="step">
+    <div class="card">
+      <h2>Deposit Details</h2>
+      <p><strong>Account #:</strong> <span id="account-display-deposit"></span></p>
+      <p><strong>Name:</strong> <span id="name-display-deposit"></span></p>
+      <input type="number" id="deposit-amount" placeholder="Enter Amount">
+      <button onclick="confirmTransaction('deposit')">Continue</button>
+      <button onclick="goToStep('step-find-account-deposit')">Cancel</button>
+    </div>
+  </section>
+
+  <!-- Withdraw Details -->
+  <section id="step-withdraw" class="step">
+    <div class="card">
+      <h2>Withdraw Details</h2>
+      <p><strong>Account #:</strong> <span id="account-display-withdraw"></span></p>
+      <p><strong>Name:</strong> <span id="name-display-withdraw"></span></p>
+      <input type="number" id="withdraw-amount" placeholder="Enter Amount">
+      <button onclick="confirmTransaction('withdraw')">Continue</button>
+      <button onclick="goToStep('step-find-account-withdraw')">Cancel</button>
+    </div>
+  </section>
+
+  <!-- Confirm -->
+  <section id="step-confirm" class="step">
+    <div class="card">
+      <h2>Confirm Transaction</h2>
+      <p><strong>Type:</strong> <span id="confirm-type"></span></p>
+      <p><strong>Account:</strong> <span id="confirm-account"></span></p>
+      <p><strong>Name:</strong> <span id="confirm-name"></span></p>
+      <p><strong>Amount:</strong> ₱<span id="confirm-amount"></span></p>
+      <button onclick="goToStep('step-receipt')">Confirm</button>
+      <button onclick="goToStep('step-confirm')">Cancel</button>
+    </div>
+  </section>
+
+  <!-- Receipt -->
+  <section id="step-receipt" class="step">
+    <div class="card">
+      <h2>Receipt</h2>
+      <p><strong>Transaction:</strong> <span id="receipt-type"></span></p>
+      <p><strong>Account:</strong> <span id="receipt-account"></span></p>
+      <p><strong>Name:</strong> <span id="receipt-name"></span></p>
+      <p><strong>Amount:</strong> ₱<span id="receipt-amount"></span></p>
+      <p><strong>Date:</strong> <span id="receipt-date"></span></p>
+      <button onclick="goToStep('step-complete')">Done</button>
+      <button onclick="goToStep('step-confirm')">Cancel</button>
+    </div>
+  </section>
+
+  <!-- Complete -->
+  <section id="step-complete" class="step">
+    <div class="card">
+      <h2>Transaction Complete</h2>
+      <p>Transaction has been processed successfully.</p>
+      <button onclick="goToStep('step-home')">Return Home</button>
+    </div>
+  </section>
+
+  <!-- History -->
+  <section id="step-history" class="step">
+    <div class="card">
+      <h2>Transaction History</h2>
+      <ul id="history-list"></ul>
+      <button onclick="goToStep('step-home')">Back</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+/* Base Reset */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #1b0036;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Header/NavBar */
+.header {
+  background: #0c001a;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 32px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a,
+.nav-links button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  background: #5a008f;
+  box-shadow: 0 0 5px 2px #a100ff;
+}
+
+/* Log out button consistency */
+.nav-button {
+  padding: 6px 12px;
+  background-color: #444;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Step Sections */
+.step {
+  display: none;
+  padding: 80px 20px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.step.active {
+  display: block;
+}
+
+/* Login Card */
+.login-card {
+  background: #0d001f;
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 350px;
+  margin: 120px auto 0;
+  text-align: center;
+  box-shadow: 0 0 12px #450078;
+}
+
+.login-card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.login-card p {
+  font-size: 13px;
+  color: #ccc;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+  background: #250048;
+  color: white;
+}
+
+.login-card small {
+  display: block;
+  font-size: 11px;
+  color: #bbb;
+  margin-bottom: 15px;
+}
+
+.login-button {
+  background: #9f00e8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-button:hover {
+  background: #b100ff;
+}
+
+/* Common Card Styles */
+.card {
+  background: #20003d;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px #5a009c;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.card input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: none;
+  background-color: #310056;
+  color: white;
+}
+
+.card button {
+  background: #9f00e8;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.card button:hover {
+  background: #b100ff;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  text-align: center;
+  margin: 40px auto 20px;
+}
+
+.welcome-banner h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.welcome-banner p {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Actions on Home Page */
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.action-box {
+  background: #2c004f;
+  padding: 20px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  min-width: 160px;
+  color: white;
+  box-shadow: 0 0 10px #6a00b6;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.action-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #9f00e8;
+}
+
+/* History list */
+#history-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 14px;
+}
+
+#history-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #4a0070;
+}

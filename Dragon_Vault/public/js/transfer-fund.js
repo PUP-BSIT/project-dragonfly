@@ -1,6 +1,6 @@
 let currentScreen = 1;
 let selectedTransferType = "dragonvault";
-
+    
 function showScreen(screenNumber) {
     // Hide all screens
     document.querySelectorAll(".screen").forEach((screen) => {
@@ -11,12 +11,17 @@ function showScreen(screenNumber) {
     document.getElementById(`screen${screenNumber}`).classList.add("active");
     currentScreen = screenNumber;
 
-    // Update form data if moving from screen 2 to 3
+    // Load balance when showing screen 2
+    if (screenNumber === 2) {
+        loadAvailableBalance();
+    }
+
+    // Update confirmation data when showing screen 3
     if (screenNumber === 3) {
         updateConfirmationData();
     }
 
-    // Update receipt data if moving to screen 5
+    // Update receipt data when showing screen 5
     if (screenNumber === 5) {
         updateReceiptData();
     }
@@ -51,8 +56,7 @@ function selectTransferType(element, type) {
 }
 
 function updateConfirmationData() {
-    const accountNumber =
-        document.getElementById("accountNumber").value || "123456";
+    const accountNumber = document.getElementById("accountNumber").value || "123456";
     const amount = document.getElementById("amount").value || "500.00";
     const bankSelect = document.getElementById("bankSelect");
     const selectedBank = bankSelect.options[bankSelect.selectedIndex].text;
@@ -71,8 +75,7 @@ function updateConfirmationData() {
 }
 
 function updateReceiptData() {
-    const accountNumber =
-        document.getElementById("accountNumber").value || "123456";
+    const accountNumber = document.getElementById("accountNumber").value || "123456";
     const amount = document.getElementById("amount").value || "500.00";
     const bankSelect = document.getElementById("bankSelect");
     const selectedBank = bankSelect.options[bankSelect.selectedIndex].text;
@@ -118,7 +121,6 @@ function moveToNext(current, index) {
 
 function cancelTransaction() {
     if (confirm("Are you sure you want to cancel this transaction?")) {
-        // Navigate to dashboard instead of showScreen(1)
         window.location.href = "dashboard.html";
     }
 }
@@ -127,9 +129,7 @@ function resetForm() {
     document.getElementById("accountNumber").value = "";
     document.getElementById("amount").value = "";
     document.getElementById("bankSelect").value = "";
-    document
-        .querySelectorAll(".otp-input")
-        .forEach((input) => (input.value = ""));
+    document.querySelectorAll(".otp-input").forEach((input) => (input.value = ""));
 
     // Reset transfer type selection
     document.querySelectorAll(".radio-option").forEach((option) => {
@@ -152,19 +152,210 @@ function printReceipt() {
 }
 
 function returnToHome() {
-    // Navigate to dashboard instead of showScreen(1)
     window.location.href = "dashboard.html";
 }
 
-// Add keyboard navigation for OTP inputs
+function showOtpScreen() {
+    // Validate required fields before showing OTP
+    const accountNumber = document.getElementById("accountNumber").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    
+    if (!accountNumber) {
+        alert("Please enter recipient account number");
+        return;
+    }
+    
+    if (!amount || parseFloat(amount) <= 0) {
+        alert("Please enter a valid amount");
+        return;
+    }
+    
+    // If bank transfer, validate bank selection
+    if (selectedTransferType === "bank") {
+        const bankSelect = document.getElementById("bankSelect");
+        if (!bankSelect.value) {
+            alert("Please select a bank");
+            return;
+        }
+    }
+    
+    showScreen(4); // Show the OTP screen
+}
+
+function verifyOtp() {
+    const otpInputs = document.querySelectorAll(".otp-input");
+    const enteredOtp = Array.from(otpInputs)
+        .map(input => input.value)
+        .join("");
+
+    // Check if all OTP fields are filled
+    if (enteredOtp.length !== 6) {
+        alert("Please enter the complete 6-digit OTP");
+        return;
+    }
+
+    // Dummy OTP for testing - in real implementation, this should be validated server-side
+    const correctOtp = "123456";
+
+    if (enteredOtp === correctOtp) {
+        // Submit the transfer
+        submitTransfer();
+    } else {
+        alert("Invalid OTP. Please try again.");
+        // Clear OTP inputs
+        otpInputs.forEach(input => input.value = "");
+        otpInputs[0].focus();
+    }
+}
+
+function submitTransfer() {
+    const recipient = document.getElementById("accountNumber").value;
+    const amount = document.getElementById("amount").value;
+
+    // Show loading or disable button to prevent double submission
+    const submitButton = document.querySelector('#screen4 .btn-primary');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Processing...';
+    submitButton.disabled = true;
+
+    // Determine which API endpoint to use based on transfer type
+    const apiEndpoint = selectedTransferType === "dragonvault" 
+        ? "api/transfer/internal.php" 
+        : "api/transfer/external.php"; // You'll need to create this for bank transfers
+
+    fetch(apiEndpoint, {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/x-www-form-urlencoded" 
+        },
+        body: `recipient_account=${encodeURIComponent(recipient)}&amount=${encodeURIComponent(amount)}`
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => Promise.reject(err));
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Transaction successful, show receipt
+            showScreen(5);
+        } else {
+            alert(data.error || "Transfer failed");
+            // Reset button
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert(error.error || "Something went wrong. Please try again.");
+        // Reset button
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    });
+}
+
+function loadAvailableBalance() {
+    // Show loading state
+    const balanceElement = document.getElementById('availableBalance');
+    balanceElement.textContent = 'Loading...';
+
+    fetch('/Dragon_Vault/api/account/balance.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                const formattedBalance = parseFloat(data.total_balance || 0).toFixed(2);
+                balanceElement.textContent = formattedBalance;
+            } else {
+                console.error('Failed to fetch balance:', data.error);
+                balanceElement.textContent = '0.00';
+                if (data.error.includes('Unauthorized')) {
+                    alert('Session expired. Please log in again.');
+                    window.location.href = 'login.html';
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            balanceElement.textContent = '0.00';
+            // Don't show alert for network errors in balance loading
+        });
+}
+
+// Add keyboard navigation for OTP inputs and other event listeners
 document.addEventListener("DOMContentLoaded", function () {
     const otpInputs = document.querySelectorAll(".otp-input");
 
     otpInputs.forEach((input, index) => {
+        // Handle backspace navigation
         input.addEventListener("keydown", function (e) {
             if (e.key === "Backspace" && !input.value && index > 0) {
                 otpInputs[index - 1].focus();
             }
         });
+
+        // Handle numeric input only
+        input.addEventListener("input", function (e) {
+            // Only allow digits
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            
+            // Move to next field if current is filled
+            if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+        });
+
+        // Handle paste event
+        input.addEventListener("paste", function (e) {
+            e.preventDefault();
+            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = pastedData.replace(/[^0-9]/g, '').substring(0, 6);
+            
+            // Fill OTP inputs with pasted digits
+            for (let i = 0; i < digits.length && i < otpInputs.length; i++) {
+                otpInputs[i].value = digits[i];
+            }
+            
+            // Focus on the next empty field or the last field
+            const nextEmptyIndex = Math.min(digits.length, otpInputs.length - 1);
+            otpInputs[nextEmptyIndex].focus();
+        });
     });
+
+    // Add form validation for amount field
+    const amountInput = document.getElementById("amount");
+    if (amountInput) {
+        amountInput.addEventListener("input", function(e) {
+            // Allow only numbers and decimal point
+            let value = e.target.value.replace(/[^0-9.]/g, '');
+            
+            // Ensure only one decimal point
+            const parts = value.split('.');
+            if (parts.length > 2) {
+                value = parts[0] + '.' + parts.slice(1).join('');
+            }
+            
+            // Limit to 2 decimal places
+            if (parts[1] && parts[1].length > 2) {
+                value = parts[0] + '.' + parts[1].substring(0, 2);
+            }
+            
+            e.target.value = value;
+        });
+    }
+
+    // Add validation for account number field
+    const accountInput = document.getElementById("accountNumber");
+    if (accountInput) {
+        accountInput.addEventListener("input", function(e) {
+            // Remove any non-numeric characters for account number
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+    }
 });

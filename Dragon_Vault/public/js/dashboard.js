@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     transactionsContentElem.innerHTML = "";
                     data.recent_transactions.forEach((txn) => {
                         const txnDiv = document.createElement("div");
-                        txnDiv.style.marginBottom = "15px";
+                        txnDiv.className = "transaction-item";
                         txnDiv.innerHTML = `
               <div><strong>Date:</strong> ${txn.date}</div>
               <div><strong>Description:</strong> ${txn.description}</div>
@@ -57,32 +57,37 @@ document.addEventListener("DOMContentLoaded", () => {
             transactionsContentElem.textContent =
                 "An error occurred while loading transactions.";
         });
-
-    // Logout button functionality
-    const logoutBtn = document.querySelector(".nav-buttons button:last-child");
-    logoutBtn.addEventListener("click", () => {
-        fetch("/Dragon_Vault/api/auth/logout.php", {
-            method: "POST",
-            credentials: "include",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.success) {
-                    window.location.href =
-                        "/Dragon_Vault/public/landing-page.html";
-                } else {
-                    alert("Logout failed. Try again.");
-                }
-            })
-            .catch((err) => {
-                console.error("Logout error:", err);
-                alert("An error occurred during logout.");
-            });
-    });
 });
 
 function goToTransfer() {
     window.location.href = "transfer-fund.html";
+}
+
+function goToHome() {
+    window.location.href = "dashboard.html";
+}
+
+function goToProfile() {
+    window.location.href = "profile.html";
+}
+
+function logout() {
+    fetch("/Dragon_Vault/api/auth/logout.php", {
+        method: "POST",
+        credentials: "include",
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.success) {
+                window.location.href = "/Dragon_Vault/public/landing-page.html";
+            } else {
+                alert("Logout failed. Try again.");
+            }
+        })
+        .catch((err) => {
+            console.error("Logout error:", err);
+            alert("An error occurred during logout.");
+        });
 }
 
 document.querySelectorAll(".nav-btn").forEach((button) => {

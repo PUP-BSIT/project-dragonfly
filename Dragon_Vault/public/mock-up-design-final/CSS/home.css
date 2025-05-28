@@ -1,0 +1,135 @@
+/* General Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #1b0036;
+  color: white;
+}
+
+/* Reuse Header from login.css */
+.header {
+  background: #0c001a;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; /* Changed from width: 100% to right: 0 */
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0; /* Prevent nav links from shrinking */
+}
+
+.nav-links a,
+.nav-links button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  background-color: #450078;
+}
+
+/* Home Section Styling */
+.step {
+  display: none;
+  padding-top: 70px;
+}
+
+.step.active {
+  display: block;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background-color: #4a2a8a;
+  padding: 25px;
+  margin: 30px 20px;
+  border-radius: 4px;
+}
+
+.welcome-banner h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.welcome-banner p {
+  margin: 10px 0 0;
+  font-size: 14px;
+}
+
+/* Actions Section */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+}
+
+/* Action Boxes */
+.actions a {
+  text-decoration: none;
+}
+
+.action-box-1,
+.action-box-2,
+.action-box-3 {
+  background-color: #0c001a;
+  padding: 40px;
+  border-radius: 40px;
+  text-align: center;
+  width: 200px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.action-box-1:hover,
+.action-box-2:hover,
+.action-box-3:hover {
+  background-color: #220046;
+  transform: translateY(-5px);
+}
+
+.action-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #f2e6ff;
+}

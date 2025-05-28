@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DragonVault Teller UI</title>
+  <link rel="stylesheet" href="CSS/history.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="./asset-img/logo.png" alt="DragonVault Logo" class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-button" onclick="goHome()">Home</button>
+      <a href="#">About Us</a>
+      <button class="nav-button" onclick="logout()">Log out</button>
+    </nav>
+  </header>
+
+  <section id="step-history" class="step active">
+    <div class="card">
+      <h2>Transaction History</h2>
+      <ul id="history-list"></ul>
+      <button onclick="goHome()">Back</button>
+    </div>
+  </section>
+
+  <script src="./JS/history.js"></script>
+</body>
+</html>

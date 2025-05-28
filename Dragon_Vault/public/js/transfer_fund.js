@@ -1,7 +1,12 @@
 let currentScreen = 1;
 let selectedTransferType = "dragonvault";
-    
+
 function showScreen(screenNumber) {
+    // Validate current screen before proceeding
+    if (!validateCurrentScreen()) {
+        return; // Don't proceed if validation fails
+    }
+
     // Hide all screens
     document.querySelectorAll(".screen").forEach((screen) => {
         screen.classList.remove("active");
@@ -11,25 +16,222 @@ function showScreen(screenNumber) {
     document.getElementById(`screen${screenNumber}`).classList.add("active");
     currentScreen = screenNumber;
 
-    // Load balance when showing screen 2
-    if (screenNumber === 2) {
-        loadAvailableBalance();
-    }
-
-    // Update confirmation data when showing screen 3
+    // Update form data if moving from screen 2 to 3
     if (screenNumber === 3) {
         updateConfirmationData();
     }
 
-    // Update receipt data when showing screen 5
+    // Update receipt data if moving to screen 5
     if (screenNumber === 5) {
         updateReceiptData();
     }
 }
 
+function validateCurrentScreen() {
+    switch (currentScreen) {
+        case 1:
+            // Screen 1 validation - transfer type must be selected (already handled by default selection)
+            return true;
+
+        case 2:
+            // Screen 2 validation - check account number, amount, and bank (if required)
+            return validateScreen2();
+
+        case 3:
+            // Screen 3 validation - confirmation screen, no input validation needed
+            return true;
+
+        case 4:
+            // Screen 4 validation - OTP must be complete
+            return validateScreen4();
+
+        default:
+            return true;
+    }
+}
+
+function validateScreen2() {
+    const accountNumber = document.getElementById("accountNumber").value.trim();
+    const amount = document.getElementById("amount").value.trim();
+    const bankSelect = document.getElementById("bankSelect");
+
+    let isValid = true;
+    let errorMessage = "";
+
+    // Clear previous error styles
+    clearFieldErrors();
+
+    // Validate account number
+    if (!accountNumber) {
+        showFieldError("accountNumber", "Account number is required");
+        isValid = false;
+        errorMessage += "• Account number is required\n";
+    } else if (accountNumber.length < 6) {
+        showFieldError(
+            "accountNumber",
+            "Account number must be at least 6 digits"
+        );
+        isValid = false;
+        errorMessage += "• Account number must be at least 6 digits\n";
+    }
+
+    // Validate amount
+    if (!amount) {
+        showFieldError("amount", "Amount is required");
+        isValid = false;
+        errorMessage += "• Amount is required\n";
+    } else {
+        const numericAmount = parseFloat(amount.replace(/[^\d.]/g, ""));
+        if (isNaN(numericAmount) || numericAmount <= 0) {
+            showFieldError("amount", "Please enter a valid amount");
+            isValid = false;
+            errorMessage += "• Please enter a valid amount\n";
+        } else if (numericAmount < 1) {
+            showFieldError("amount", "Minimum transfer amount is PHP 1.00");
+            isValid = false;
+            errorMessage += "• Minimum transfer amount is PHP 1.00\n";
+        } else if (numericAmount > 500000) {
+            showFieldError(
+                "amount",
+                "Maximum transfer amount is PHP 500,000.00"
+            );
+            isValid = false;
+            errorMessage += "• Maximum transfer amount is PHP 500,000.00\n";
+        }
+    }
+
+    // Validate bank selection (only if bank transfer is selected)
+    if (selectedTransferType === "bank" && !bankSelect.value) {
+        showFieldError("bankSelect", "Please select a bank");
+        isValid = false;
+        errorMessage += "• Please select a bank\n";
+    }
+
+    // Show error message if validation fails
+    if (!isValid) {
+        showErrorMessage(errorMessage.trim());
+    }
+
+    return isValid;
+}
+
+function validateScreen4() {
+    const otpInputs = document.querySelectorAll(".otp-input");
+    let otpValue = "";
+
+    otpInputs.forEach((input) => {
+        otpValue += input.value.trim();
+    });
+
+    if (otpValue.length !== 6) {
+        // Clear previous error classes
+        otpInputs.forEach((input) => {
+            input.classList.remove("error-field");
+        });
+
+        // Highlight empty OTP fields
+        otpInputs.forEach((input) => {
+            if (!input.value.trim()) {
+                input.classList.add("error-field");
+            }
+        });
+
+        showErrorMessage("Please enter the complete 6-digit OTP code");
+        return false;
+    }
+
+    // Validate that all characters are numeric
+    if (!/^\d{6}$/.test(otpValue)) {
+        otpInputs.forEach((input) => {
+            if (!/^\d$/.test(input.value)) {
+                input.classList.add("error-field");
+            }
+        });
+        showErrorMessage("OTP must contain only numbers");
+        return false;
+    }
+
+    return true;
+}
+
+function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    field.classList.add("error-field");
+
+    // Add error message below the field if it doesn't exist
+    let errorDiv = field.parentNode.querySelector(".error-message");
+    if (!errorDiv) {
+        errorDiv = document.createElement("div");
+        errorDiv.className = "error-message";
+        field.parentNode.appendChild(errorDiv);
+    }
+    errorDiv.textContent = message;
+}
+
+function clearFieldErrors() {
+    // Clear field error classes
+    document.querySelectorAll(".form-input, .form-select").forEach((field) => {
+        field.classList.remove("error-field");
+    });
+
+    // Clear OTP field error classes
+    document.querySelectorAll(".otp-input").forEach((field) => {
+        field.classList.remove("error-field");
+    });
+
+    // Remove error messages
+    document.querySelectorAll(".error-message").forEach((errorDiv) => {
+        errorDiv.remove();
+    });
+
+    // Hide main error message
+    const mainErrorDiv = document.getElementById("main-error-message");
+    if (mainErrorDiv) {
+        mainErrorDiv.remove();
+    }
+}
+
+function showErrorMessage(message) {
+    // Remove existing error message
+    const existingError = document.getElementById("main-error-message");
+    if (existingError) {
+        existingError.remove();
+    }
+
+    // Create and show new error message
+    const errorDiv = document.createElement("div");
+    errorDiv.id = "main-error-message";
+    errorDiv.className = "main-error-message";
+    errorDiv.textContent = message;
+
+    // Insert error message at the top of the current card
+    const activeCard = document.querySelector(".screen.active .card");
+    const firstChild = activeCard.children[1]; // After the title
+    activeCard.insertBefore(errorDiv, firstChild);
+
+    // Auto-hide error message after 5 seconds
+    setTimeout(() => {
+        if (errorDiv.parentNode) {
+            errorDiv.remove();
+        }
+    }, 5000);
+}
+
 function goBack() {
     if (currentScreen > 1) {
-        showScreen(currentScreen - 1);
+        // Clear errors when going back
+        clearFieldErrors();
+        currentScreen = currentScreen - 1;
+
+        // Hide all screens
+        document.querySelectorAll(".screen").forEach((screen) => {
+            screen.classList.remove("active");
+        });
+
+        // Show previous screen
+        document
+            .getElementById(`screen${currentScreen}`)
+            .classList.add("active");
     }
 }
 
@@ -53,10 +255,14 @@ function selectTransferType(element, type) {
         bankSelection.classList.remove("active");
         document.getElementById("bankSelect").value = "";
     }
+
+    // Clear any existing errors
+    clearFieldErrors();
 }
 
 function updateConfirmationData() {
-    const accountNumber = document.getElementById("accountNumber").value || "123456";
+    const accountNumber =
+        document.getElementById("accountNumber").value || "123456";
     const amount = document.getElementById("amount").value || "500.00";
     const bankSelect = document.getElementById("bankSelect");
     const selectedBank = bankSelect.options[bankSelect.selectedIndex].text;
@@ -75,7 +281,8 @@ function updateConfirmationData() {
 }
 
 function updateReceiptData() {
-    const accountNumber = document.getElementById("accountNumber").value || "123456";
+    const accountNumber =
+        document.getElementById("accountNumber").value || "123456";
     const amount = document.getElementById("amount").value || "500.00";
     const bankSelect = document.getElementById("bankSelect");
     const selectedBank = bankSelect.options[bankSelect.selectedIndex].text;
@@ -113,14 +320,21 @@ function updateReceiptData() {
 }
 
 function moveToNext(current, index) {
+    // Only allow numeric input
+    current.value = current.value.replace(/[^0-9]/g, "");
+
     if (current.value.length === 1 && index < 5) {
         const otpInputs = document.querySelectorAll(".otp-input");
         otpInputs[index + 1].focus();
     }
+
+    // Clear error class when user starts typing
+    current.classList.remove("error-field");
 }
 
 function cancelTransaction() {
     if (confirm("Are you sure you want to cancel this transaction?")) {
+        // Navigate to dashboard instead of showScreen(1)
         window.location.href = "dashboard.html";
     }
 }
@@ -129,7 +343,9 @@ function resetForm() {
     document.getElementById("accountNumber").value = "";
     document.getElementById("amount").value = "";
     document.getElementById("bankSelect").value = "";
-    document.querySelectorAll(".otp-input").forEach((input) => (input.value = ""));
+    document
+        .querySelectorAll(".otp-input")
+        .forEach((input) => (input.value = ""));
 
     // Reset transfer type selection
     document.querySelectorAll(".radio-option").forEach((option) => {
@@ -145,6 +361,9 @@ function resetForm() {
 
     // Hide bank selection
     document.getElementById("bankSelection").classList.remove("active");
+
+    // Clear all errors
+    clearFieldErrors();
 }
 
 function printReceipt() {
@@ -152,6 +371,7 @@ function printReceipt() {
 }
 
 function returnToHome() {
+    // Navigate to dashboard instead of showScreen(1)
     window.location.href = "dashboard.html";
 }
 
@@ -310,71 +530,60 @@ function loadAvailableBalance() {
 // Add keyboard navigation for OTP inputs and other event listeners
 document.addEventListener("DOMContentLoaded", function () {
     const otpInputs = document.querySelectorAll(".otp-input");
+    const accountInput = document.getElementById("accountNumber");
+    const amountInput = document.getElementById("amount");
 
+    // OTP input handling
     otpInputs.forEach((input, index) => {
-        // Handle backspace navigation
         input.addEventListener("keydown", function (e) {
             if (e.key === "Backspace" && !input.value && index > 0) {
                 otpInputs[index - 1].focus();
             }
         });
 
-        // Handle numeric input only
-        input.addEventListener("input", function (e) {
-            // Only allow digits
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            
-            // Move to next field if current is filled
-            if (e.target.value.length === 1 && index < otpInputs.length - 1) {
-                otpInputs[index + 1].focus();
-            }
-        });
-
-        // Handle paste event
-        input.addEventListener("paste", function (e) {
-            e.preventDefault();
-            const pastedData = (e.clipboardData || window.clipboardData).getData('text');
-            const digits = pastedData.replace(/[^0-9]/g, '').substring(0, 6);
-            
-            // Fill OTP inputs with pasted digits
-            for (let i = 0; i < digits.length && i < otpInputs.length; i++) {
-                otpInputs[i].value = digits[i];
-            }
-            
-            // Focus on the next empty field or the last field
-            const nextEmptyIndex = Math.min(digits.length, otpInputs.length - 1);
-            otpInputs[nextEmptyIndex].focus();
+        // Clear error on input
+        input.addEventListener("input", function () {
+            input.classList.remove("error-field");
         });
     });
 
-    // Add form validation for amount field
-    const amountInput = document.getElementById("amount");
-    if (amountInput) {
-        amountInput.addEventListener("input", function(e) {
-            // Allow only numbers and decimal point
-            let value = e.target.value.replace(/[^0-9.]/g, '');
-            
-            // Ensure only one decimal point
-            const parts = value.split('.');
-            if (parts.length > 2) {
-                value = parts[0] + '.' + parts.slice(1).join('');
+    // Account number validation
+    if (accountInput) {
+        accountInput.addEventListener("input", function () {
+            // Remove non-numeric characters
+            this.value = this.value.replace(/[^0-9]/g, "");
+
+            // Clear error class
+            this.classList.remove("error-field");
+
+            // Remove error message
+            const errorDiv = this.parentNode.querySelector(".error-message");
+            if (errorDiv) {
+                errorDiv.remove();
             }
-            
-            // Limit to 2 decimal places
-            if (parts[1] && parts[1].length > 2) {
-                value = parts[0] + '.' + parts[1].substring(0, 2);
-            }
-            
-            e.target.value = value;
         });
     }
 
-    // Add validation for account number field
-    const accountInput = document.getElementById("accountNumber");
-    if (accountInput) {
-        accountInput.addEventListener("input", function(e) {
-            // Remove any non-numeric characters for account number
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    // Amount input validation
+    if (amountInput) {
+        amountInput.addEventListener("input", function () {
+            // Allow only numbers and decimal point
+            this.value = this.value.replace(/[^0-9.]/g, "");
+
+            // Ensure only one decimal point
+            const parts = this.value.split(".");
+            if (parts.length > 2) {
+                this.value = parts[0] + "." + parts.slice(1).join("");
+            }
+
+            // Clear error class
+            this.classList.remove("error-field");
+
+            // Remove error message
+            const errorDiv = this.parentNode.querySelector(".error-message");
+            if (errorDiv) {
+                errorDiv.remove();
+            }
         });
     }
 });

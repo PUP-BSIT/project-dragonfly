@@ -429,6 +429,29 @@ body {
     display: flex;
 }
 
+/* Error styling classes */
+.error-field {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2) !important;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.main-error-message {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    white-space: pre-line;
+}
+
 @media (max-width: 640px) {
     .card {
         margin: 10px;

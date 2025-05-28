@@ -10,15 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }).then((response) => response.json());
     }
 
-    // Named function to create bank account for an account holder
-    function createBankAccount(accountHolderId) {
-        return fetch("/Dragon_Vault/api/account/create_account.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ account_holder_id: accountHolderId }),
-        }).then((response) => response.json());
-    }
-
     // Named function to handle login (for auto-login after registration)
     function handleLogin(username, password) {
         return fetch("/Dragon_Vault/api/auth/login.php", {
@@ -36,21 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = {
                 first_name: document.getElementById("first_name").value.trim(),
                 last_name: document.getElementById("last_name").value.trim(),
-                middle_initial:
-                    document.getElementById("middle_initial").value.trim() ||
-                    null,
-                phone_number: document
-                    .getElementById("phone_number")
-                    .value.trim(),
+                middle_initial: document.getElementById("middle_initial").value.trim() || null,
+                phone_number: document.getElementById("phone_number").value.trim(),
                 email: document.getElementById("email").value.trim(),
-                username: document
-                    .getElementById("register_username")
-                    .value.trim(),
+                username: document.getElementById("register_username").value.trim(),
                 password: document.getElementById("register_password").value,
             };
 
-            const confirmPassword =
-                document.getElementById("confirm_password").value;
+            const confirmPassword = document.getElementById("confirm_password").value;
 
             if (data.password !== confirmPassword) {
                 alert("Passwords do not match.");
@@ -60,18 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             registerUser(data)
                 .then((result) => {
                     if (!result.success) {
-                        throw new Error(
-                            result.message || "Registration failed."
-                        );
-                    }
-                    return createBankAccount(result.account_holder_id);
-                })
-                .then((accountResult) => {
-                    if (!accountResult.success) {
-                        throw new Error(
-                            accountResult.message ||
-                                "Failed to create bank account."
-                        );
+                        throw new Error(result.message || "Registration failed.");
                     }
                     return handleLogin(data.username, data.password);
                 })
@@ -84,10 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .catch((error) => {
                     console.error("Registration failed:", error);
-                    alert(
-                        error.message ||
-                            "An error occurred during registration."
-                    );
+                    alert(error.message || "An error occurred during registration.");
                 });
         });
     }

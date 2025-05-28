@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DragonVault Teller UI</title>
+  <link rel="stylesheet" href="./CSS/deposit-withdraw-find-acc.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="./asset-img/logo.png" alt="DragonVault Logo" class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-button" onclick="goHome()">Home</button>
+      <a href="#">About Us</a>
+      <button class="nav-button" onclick="logout()">Log out</button>
+    </nav>
+  </header>
+  
+  <!-- Withdraw: Find Account -->
+  <section id="step-find-account-withdraw" class="step active">
+    <div class="card">
+      <h2>Withdraw - Find Account</h2>
+      <input type="text" id="account-number-withdraw" placeholder="Account Number">
+      <input type="text" id="customer-name-withdraw" placeholder="Customer Name">
+      <button onclick="searchAccount()">Search</button>
+      <button onclick="goHome()">Cancel</button>
+    </div>
+  </section>
+
+  <script src="./JS/withdraw-find-acc.js"></script>
+</body>
+</html>

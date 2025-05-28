@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DragonVault Teller UI</title>
+  <link rel="stylesheet" href="./CSS/receipt.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="./asset-img/logo.png" alt="DragonVault Logo" class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-button" onclick="goHome()">Home</button>
+      <a href="#">About Us</a>
+      <button class="nav-button" onclick="logout()">Log out</button>
+    </nav>
+  </header>
+
+  <!-- Receipt -->
+  <section id="step-receipt" class="step active">
+    <div class="card">
+      <h2>Receipt</h2>
+      <p><strong>Transaction:</strong> <span id="receipt-type"></span></p>
+      <p><strong>Account:</strong> <span id="receipt-account"></span></p>
+      <p><strong>Name:</strong> <span id="receipt-name"></span></p>
+      <p><strong>Amount:</strong> ₱<span id="receipt-amount"></span></p>
+      <p><strong>Date:</strong> <span id="receipt-date"></span></p>
+      <button onclick="completeTransaction()">Done</button>
+      <button onclick="goBack()">Cancel</button>
+    </div>
+  </section>
+
+  <script src="./JS/receipt.js"></script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Times New Roman", sans-serif;
+    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    gap: 10px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+}
+
+.logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+.main-content {
+    flex: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-title {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    padding: 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.radio-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.radio-option.selected {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: rgba(139, 92, 246, 0.4);
+}
+
+.radio-circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all 0.3s ease;
+}
+
+.radio-circle.selected {
+    border-color: #8b5cf6;
+    background: #8b5cf6;
+}
+
+.radio-circle.selected::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+}
+
+.radio-text {
+    flex: 1;
+}
+
+.radio-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.radio-desc {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.balance-box {
+    background: linear-gradient(135deg, #6b46c1 0%, #8b5cf6 100%);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.balance-label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.balance-amount {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #f0f0f0;
+}
+
+.form-input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-select {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    padding-right: 50px;
+}
+
+.form-input:focus,
+.form-select:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-select option {
+    background: #1e293b;
+    color: white;
+    padding: 8px;
+}
+
+.button-group {
+    display: flex;
+    gap: 16px;
+    margin-top: 30px;
+}
+
+.btn {
+    flex: 1;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(220, 38, 38, 0.3);
+}
+
+.btn-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+}
+
+.btn-purple:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+}
+
+.confirmation-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+
+.confirmation-label {
+    color: #ccc;
+}
+
+.confirmation-value {
+    font-weight: 600;
+}
+
+.otp-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.otp-message {
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.otp-phone {
+    color: #8b5cf6;
+    font-weight: 600;
+}
+
+.otp-label {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.otp-input {
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.resend-link {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.resend-link:hover {
+    color: #f87171;
+}
+
+.receipt-info {
+    margin: 30px 0;
+}
+
+.receipt-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.receipt-label {
+    color: #ccc;
+}
+
+.receipt-value {
+    font-weight: 600;
+}
+
+.success-message {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #10b981;
+    font-weight: 500;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.bank-selection {
+    display: none;
+}
+
+.bank-selection.active {
+    display: block;
+}
+
+/* New rules for bank confirmation and receipt visibility */
+#bankConfirmation {
+    display: none;
+}
+
+#bankConfirmation.active {
+    display: flex;
+}
+
+#receiptBankRow {
+    display: none;
+}
+
+#receiptBankRow.active {
+    display: flex;
+}
+
+/* Error styling classes */
+.error-field {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2) !important;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.main-error-message {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    white-space: pre-line;
+}
+
+@media (max-width: 640px) {
+    .card {
+        margin: 10px;
+        padding: 30px 24px;
+    }
+
+    .header {
+        padding: 16px 20px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .card-title {
+        font-size: 28px;
+    }
+
+    .otp-inputs {
+        gap: 8px;
+    }
+
+    .otp-input {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}

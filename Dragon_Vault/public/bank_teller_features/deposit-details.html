@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DragonVault Teller UI</title>
+  <link rel="stylesheet" href="./CSS/deposit-withdraw-details.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="./asset-img/logo.png" alt="DragonVault Logo" class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-button" onclick="goHome()">Home</button>
+      <a href="#">About Us</a>
+      <button class="nav-button" onclick="logout()">Log out</button>
+    </nav>
+  </header>
+
+  <!-- Deposit Details -->
+  <section id="step-deposit" class="step active">
+    <div class="card">
+      <h2>Deposit Details</h2>
+      <p><strong>Account #:</strong> <span id="account-display-deposit"></span></p>
+      <p><strong>Name:</strong> <span id="name-display-deposit"></span></p>
+      <input type="number" id="deposit-amount" placeholder="Enter Amount">
+      <button onclick="confirmTransaction()">Continue</button>
+      <button onclick="goBack()">Cancel</button>
+    </div>
+  </section>
+
+  <script src="./JS/deposit-details.js"></script>
+</body>
+</html>

@@ -15,15 +15,23 @@
                 <h1 class="logo-text">DragonVault</h1>
             </div>
             <nav class="nav-buttons">
-                <button class="nav-btn active">Home</button>
-                <button class="nav-btn">About Us</button>
-                <button class="nav-btn">Log out</button>
+                <button class="nav-btn active" 
+                    onclick="goToHome()">
+                    Home
+                </button>
+                <button class="nav-btn" 
+                    onclick="goToProfile()">
+                    Profile
+                </button>
+                <button class="nav-btn" 
+                    onclick="logout()">
+                    Log out
+                </button>
             </nav>
         </header>
         <main class="main-content">
             <section class="welcome-section">
                 <h1 class="welcome-title">Welcome, John Doe!</h1>
-                <p class="last-login">Last login: Today 2:00 PM</p>
             </section>
             <div class="dashboard-grid">
                 <div class="balance-card">
@@ -32,11 +40,11 @@
                 </div>
                 <div class="transfer-card">
                     <h2 class="transfer-title">Transfer Funds</h2>
-                    <select id="transferType" class="select-btn">
-                        <option value="" disabled selected>Select Type</option>
-                        <option value="internal">Internal (Same Bank)</option>
-                        <option value="external">External (Other Bank)</option>
-                    </select>
+                    <button id="transferBtn" 
+                        class="select-btn" 
+                        onclick="goToTransfer()">
+                        Start Transfer
+                    </button>
                 </div>
             </div>
             <section class="transactions-section">

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DragonVault Teller UI</title>
+  <link rel="stylesheet" href="./CSS/login.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-container">
+      <img src="./asset-img/logo.png" alt="DragonVault Logo" class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+  </header>
+  
+  <section id="step-login" class="step active">
+    <div class="login-card">
+      <h2>Log in as Bank Teller</h2>
+      <p>Welcome back to DragonVault!</p>
+      <input type="text" id="login-teller-id" placeholder="Teller ID">
+      <input type="password" id="login-password" placeholder="Password">
+      <small>Forgot Password? Contact your branch manager</small>
+      <button class="login-button" onclick="loginTeller()">Login</button>
+    </div>
+  </section>
+
+  <script src="./JS/login.js"></script>
+</body>
+</html>

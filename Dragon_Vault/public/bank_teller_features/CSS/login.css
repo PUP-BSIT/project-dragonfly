@@ -1,0 +1,123 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #1b0036;
+  color: white;
+}
+
+/* Header (reused across pages) */
+.header {
+  background: #0c001a;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a,
+.nav-links button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  background-color: #450078;
+}
+
+/* Login Card */
+.step {
+  display: none;
+  padding-top: 70px;
+}
+
+.step.active {
+  display: block;
+}
+
+.login-card {
+  background: #0d001f;
+  border-radius: 10px;
+  padding: 40px;
+  max-width: 400px;
+  margin: 100px auto 0;
+  text-align: center;
+  box-shadow: 0 0 10px #450078;
+}
+
+.login-card h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.login-card p {
+  font-size: 15px;
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.login-card small {
+  display: block;
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.login-button {
+  background: #9f00e8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  width: 40%;
+}
+
+.login-button:hover {
+  background: #8a00cc;
+}

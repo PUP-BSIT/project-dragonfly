@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Teller Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sign in to your account</h1>
+        <p class="welcome-text">Welcome back to DragonVault!</p>
+
+        <form class="login-form" id="login_form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <p class="forgot-password"><a href="#">Forgot Password?</a></p>
+
+            <button type="button" class="sign-in-button" 
+                    id="sign_in_button">SIGN IN</button>
+        </form>
+
+        <p class="register-link">
+            Don't have an account?
+            <a href="../teller_registration/register.html">Register</a>
+        </p>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+
+</html>

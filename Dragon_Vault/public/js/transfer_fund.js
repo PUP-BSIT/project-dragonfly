@@ -194,14 +194,13 @@ function verifyOtp() {
         return;
     }
 
-    // Dummy OTP for testing - in real implementation, this should be validated server-side
-    const correctOtp = "123456";
-
-    if (enteredOtp === correctOtp) {
+    // For testing purposes, accept any 6-digit OTP
+    // In production, you should validate this against the server
+    if (enteredOtp.match(/^\d{6}$/)) {
         // Submit the transfer
         submitTransfer();
     } else {
-        alert("Invalid OTP. Please try again.");
+        alert("Invalid OTP format. Please enter 6 digits.");
         // Clear OTP inputs
         otpInputs.forEach(input => input.value = "");
         otpInputs[0].focus();
@@ -218,10 +217,17 @@ function submitTransfer() {
     submitButton.textContent = 'Processing...';
     submitButton.disabled = true;
 
-    // Determine which API endpoint to use based on transfer type
-    const apiEndpoint = selectedTransferType === "dragonvault" 
-        ? "api/transfer/internal.php" 
-        : "api/transfer/external.php"; // You'll need to create this for bank transfers
+    // Determine API endpoint - fix the path to match your file structure
+    let apiEndpoint;
+    if (selectedTransferType === "dragonvault") {
+        apiEndpoint = "Dragon_Vault/api/transfer/internal.php"; // Adjust path as needed
+    } else {
+        apiEndpoint = "./api/transfer/external.php"; // You'll need to create this
+        alert("External bank transfers are not yet implemented.");
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        return;
+    }
 
     fetch(apiEndpoint, {
         method: "POST",
@@ -231,26 +237,38 @@ function submitTransfer() {
         body: `recipient_account=${encodeURIComponent(recipient)}&amount=${encodeURIComponent(amount)}`
     })
     .then(response => {
+        // Check if response is ok first
         if (!response.ok) {
-            return response.json().then(err => Promise.reject(err));
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
+        return response.text(); // Get as text first to see what we're getting
     })
-    .then(data => {
-        if (data.success) {
-            // Transaction successful, show receipt
-            showScreen(5);
-        } else {
-            alert(data.error || "Transfer failed");
-            // Reset button
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
+    .then(text => {
+        console.log("Response text:", text); // Debug log
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                // Transaction successful, show receipt
+                // Update receipt with actual transaction data
+                if (data.transaction_id) {
+                    document.getElementById("receiptTxnId").textContent = data.transaction_id;
+                }
+                showScreen(5);
+            } else {
+                alert(data.error || "Transfer failed");
+            }
+        } catch (e) {
+            console.error("JSON parse error:", e);
+            console.error("Response text:", text);
+            alert("Server response error. Please try again.");
         }
     })
     .catch(error => {
-        console.error("Error:", error);
-        alert(error.error || "Something went wrong. Please try again.");
-        // Reset button
+        console.error("Fetch error:", error);
+        alert("Network error. Please check your connection and try again.");
+    })
+    .finally(() => {
+        // Reset button state
         submitButton.textContent = originalText;
         submitButton.disabled = false;
     });
@@ -261,7 +279,8 @@ function loadAvailableBalance() {
     const balanceElement = document.getElementById('availableBalance');
     balanceElement.textContent = 'Loading...';
 
-    fetch('/Dragon_Vault/api/account/balance.php')
+    // Fix the path to match your file structure
+    fetch('Dragon_Vault/api/account/balance.php')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -275,14 +294,14 @@ function loadAvailableBalance() {
             } else {
                 console.error('Failed to fetch balance:', data.error);
                 balanceElement.textContent = '0.00';
-                if (data.error.includes('Unauthorized')) {
+                if (data.error && data.error.includes('Unauthorized')) {
                     alert('Session expired. Please log in again.');
                     window.location.href = 'login.html';
                 }
             }
         })
         .catch(error => {
-            console.error('Fetch error:', error);
+            console.error('Balance fetch error:', error);
             balanceElement.textContent = '0.00';
             // Don't show alert for network errors in balance loading
         });

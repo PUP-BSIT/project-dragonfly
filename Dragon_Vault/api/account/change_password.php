@@ -8,6 +8,7 @@ if (!isset($_SESSION['account_holder_id'])) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
+
 if (!isset($data['currentPassword'], $data['newPassword'])) {
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;

@@ -21,6 +21,7 @@ $email = trim($data['email']);
 $phone = isset($data['phone']) ? trim($data['phone']) : null;
 
 // Split full name
+
 $nameParts = explode(' ', $fullName);
 $first_name = $nameParts[0];
 $middle_initial = null;

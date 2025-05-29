@@ -1,7 +1,7 @@
 <!DOCTYPE html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/contact_us.css">
         <link rel="icon" href="assets/logo.png">
         <title>DragonVault - Sign In</title>
     </head>
@@ -16,40 +16,40 @@
             </div>
             <nav class="nav-links">
                 <a href="landing_page.html">Home</a>
-                <a href="contact_us.html">Contact Us</a>
                 <a href="#">About Us</a>
             </nav>
         </div>
         <div class="container">
-            <div class="login-box">
-                <h1 class="login-title">Log in to your account</h1>
-                <p class="welcome-text">Welcome back to DragonVault!</p>
-                <form id="login_form">
+            <div class="contact-box">
+                <h1 class="contact-title">Contact Us</h1>
+                <form id="contact_form">
                     <div class="form-group">
                         <input type="name" 
-                            id="login_username" 
+                            id="contact_username" 
                             class="input-field" 
-                            placeholder="Username:" 
+                            placeholder="Your Name:" 
                             required />
                     </div>
                     <div class="form-group">
-                        <input type="password" 
-                            id="login_password" 
+                        <input type="email" 
+                            id="contact_password" 
                             class="input-field" 
-                            placeholder="Password:" 
+                            placeholder="Your Email:" 
                             required />
                     </div>
-                    <div class="forgot-password">
-                        <a href="#">Forgot Password?</a>
+                    <div class="form-group">
+                        <textarea 
+                            id="contact_message" 
+                            class="input-field" 
+                            placeholder="Your Message:" 
+                            rows="4" 
+                            required></textarea>
                     </div>
-                    <button type="submit" class="signin-btn">SIGN IN</button>
-                    <div class="register-link">
-                        Don't have an account? 
-                        <a href="register.html">Register</a>
+                    <button type="submit" class="signin-btn">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
-        <script src="./js/login.js"></script>
+        <script src="#"></script>
     </body>
 </html>

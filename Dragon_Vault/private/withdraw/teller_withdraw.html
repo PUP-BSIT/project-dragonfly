@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Withdraw - Dragon Vault</title>
+  <link rel="stylesheet" href="../css/teller_dashboard.css">
+</head>
+<body>
+  <h2>Withdraw Transaction</h2>
+
+  <form id="lookupForm">
+    <label>Enter Account Number:</label>
+    <input type="number" id="account_number" required>
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="account_details" style="display: none;">
+    <p><strong>Name:</strong> <span id="customer_name"></span></p>
+    <p><strong>Account Type:</strong> <span id="account_type"></span></p>
+    <p><strong>Balance:</strong> ₱<span id="account_balance"></span></p>
+
+    <form id="withdrawForm">
+      <label>Withdraw Amount:</label>
+      <input type="number" id="withdraw_amount" min="1" required>
+      <button type="submit">Proceed</button>
+    </form>
+  </div>
+
+  <div id="error_message" style="color:red;"></div>
+
+  <script src="../js/teller_withdraw.js"></script>
+</body>
+</html>

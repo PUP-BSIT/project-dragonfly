@@ -75,36 +75,29 @@ body {
     padding: 20px;
 }
 
-.login-box {
+.contact-box {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
 
-.login-box:hover {
+.contact-box:hover {
     box-shadow: 0 20px 40px rgba(123, 44, 191, 0.3);
     transform: translateY(-5px);
 }
 
-.login-title {
+.contact-title {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 10px;
     color: white;
-}
-
-.welcome-text {
-    text-align: center;
-    color: #cccccc;
-    margin-bottom: 30px;
-    font-size: 16px;
 }
 
 .form-group {
@@ -131,22 +124,6 @@ body {
     color: #666;
 }
 
-.forgot-password {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.forgot-password a {
-    color: #cccccc;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease;
-}
-
-.forgot-password a:hover {
-    color: #9d4edd;
-}
-
 .signin-btn {
     width: 100%;
     padding: 15px;
@@ -168,26 +145,8 @@ body {
     box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
 }
 
-.register-link {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #cccccc;
-}
-
-.register-link a {
-    color: #9d4edd;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.register-link a:hover {
-    color: #c77dff;
-}
-
 @media (max-width: 480px) {
-    .login-box {
+    .contact-box {
         padding: 30px 20px;
         margin: 20px;
     }
@@ -200,7 +159,7 @@ body {
         font-size: 20px;
     }
 
-    .login-title {
+    .contact-title {
         font-size: 24px;
     }
 }

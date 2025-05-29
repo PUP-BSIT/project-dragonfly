@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/Dragon_Vault/api/transactions/get_teller_transactions.php")
+  fetch("/Dragon_Vault/api/teller/get_teller_profile.php", {
+    method: "GET",
+    credentials: "include"
+  })
     .then(response => response.json())
     .then(data => {
       if (data.transactions) {

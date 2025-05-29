@@ -283,3 +283,33 @@ body {
         font-size: 36px;
     }
 }
+
+.view-all-container {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.view-all-btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.transaction-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+    align-items: center;
+}
+
+.transaction-item span {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

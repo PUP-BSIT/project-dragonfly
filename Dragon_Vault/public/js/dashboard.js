@@ -98,3 +98,32 @@ document.querySelectorAll(".nav-btn").forEach((button) => {
         this.classList.add("active");
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetchRecentTransactions();
+});
+
+function fetchRecentTransactions() {
+    fetch('/Dragon_Vault/api/account/get_recent_transaction.php')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById("transactionsList");
+            if (!data.success || data.transactions.length === 0) {
+                container.innerHTML = "<p>No recent transactions to display</p>";
+                return;
+            }
+
+            container.innerHTML = data.transactions.map(tx => `
+                <div class="transaction-item">
+                    <span class="source">${tx.source.toUpperCase()}</span>
+                    <span class="type">${tx.transaction_type}</span>
+                    <span class="amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</span>
+                    <span class="timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</span>
+                </div>
+            `).join('');
+        })
+        .catch(err => {
+            console.error('Failed to fetch transactions:', err);
+            document.getElementById("transactionsList").innerHTML = "<p>Error loading transactions</p>";
+        });
+}

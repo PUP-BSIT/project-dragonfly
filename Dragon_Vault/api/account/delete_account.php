@@ -14,39 +14,30 @@ if (!isset($data['password'])) {
     exit;
 }
 
-require_once '../includes/db.php';
+require_once '../../includes/db.php';
 
 $account_holder_id = $_SESSION['account_holder_id'];
 $password = $data['password'];
 
 // Verify current password
-$sql = "SELECT password FROM account_holder WHERE account_holder_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $account_holder_id);
-$stmt->execute();
-$stmt->bind_result($hashedPassword);
-$stmt->fetch();
+$stmt = $pdo->prepare("SELECT password FROM account_holder WHERE account_holder_id = ?");
+$stmt->execute([$account_holder_id]);
+$hashedPassword = $stmt->fetchColumn();
 
-if (!password_verify($password, $hashedPassword)) {
+if (!$hashedPassword || !password_verify($password, $hashedPassword)) {
     echo json_encode(['success' => false, 'message' => 'Incorrect password']);
     exit;
 }
 
-// Delete related data first if necessary (e.g., accounts, transactions)
-// If foreign keys are ON DELETE CASCADE, this is automatic, else delete manually:
-// Example manual cascade (adjust if needed):
-// $conn->query("DELETE FROM user_transaction WHERE account_number IN (SELECT account_number FROM account WHERE account_holder_id = $account_holder_id)");
-// $conn->query("DELETE FROM account WHERE account_holder_id = $account_holder_id");
+// First, delete accounts belonging to the user
+$pdo->prepare("DELETE FROM account WHERE account_holder_id = ?")->execute([$account_holder_id]);
 
-// Delete account_holder
-$sqlDelete = "DELETE FROM account_holder WHERE account_holder_id = ?";
-$stmtDelete = $conn->prepare($sqlDelete);
-$stmtDelete->bind_param('i', $account_holder_id);
+// Then delete the user record
+$deleteStmt = $pdo->prepare("DELETE FROM account_holder WHERE account_holder_id = ?");
+$success = $deleteStmt->execute([$account_holder_id]);
 
-if ($stmtDelete->execute()) {
-    // Destroy session after deletion
+if ($success) {
     session_destroy();
-    echo json_encode(['success' => true]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Failed to delete account']);
 }
+
+echo json_encode(['success' => $success]);

@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Teller Dashboard</title>
-  <link rel="stylesheet" href="css/teller_dashboard.css" />
-</head>
-<body>
-  <div class="dashboard">
-    <h2>Welcome, <span id="tellerName">Teller</span>!</h2>
-    <nav>
-      <ul>
-        <li><a href="teller_profile.html">View Profile</a></li>
-        <li><a href="./deposit/teller_deposit.html">Process Deposit</a></li>
-        <li><a href="./withdraw/teller_withdraw.html">Process Withdrawal</a></li>
-        <li><button id="logoutBtn">Logout</button></li>
-      </ul>
-    </nav>
-  </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Teller Dashboard</title>
+        <link rel="stylesheet" href="css/teller_dashboard.css" />
+    </head>
+    <body>
+        <div class="dashboard">
+            <h2>Welcome, <span id="tellerName">Teller</span>!</h2>
+            <nav>
+                <ul>
+                    <li><a href="teller_profile.html">View Profile</a></li>
+                    <li>
+                        <a href="./deposit/teller_deposit.html"
+                            >Process Deposit</a
+                        >
+                    </li>
+                    <li>
+                        <a href="./withdraw/teller_withdraw.html"
+                            >Process Withdrawal</a
+                        >
+                    </li>
+                    <li><button id="logoutBtn">Logout</button></li>
+                </ul>
+            </nav>
+        </div>
 
-  <script src="js/teller_dashboard.js"></script>
-</body>
+        <script src="js/teller_dashboard.js"></script>
+    </body>
 </html>

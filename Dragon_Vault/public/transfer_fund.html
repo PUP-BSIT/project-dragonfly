@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./css/transfer_fund.css" />
-        <link rel="icon" href="./assets/logo.png" />
+        <link rel="icon" href="../assets/logo.png" />
         <title>DragonVault - Digital Banking</title>
     </head>
     <body>
@@ -12,7 +12,7 @@
             <div class="header">
                 <div class="logo">
                     <img
-                        src="assets/logo.png"
+                        src="../assets/logo.png"
                         alt="Dragon Vault Logo"
                         class="logo-image" />
                 </div>
@@ -73,9 +73,7 @@
                         <h1 class="card-title">Transfer Details</h1>
                         <div class="balance-box">
                             <div class="balance-label">Available Balance</div>
-                            <div    
-                                    class="balance-amount" 
-                                    id="availableBalance">
+                            <div class="balance-amount" id="availableBalance">
                                 0.00
                             </div>
                         </div>
@@ -149,12 +147,14 @@
                             >
                         </div>
                         <div class="button-group">
-                            <button class="btn btn-primary" 
-                                    onclick="showOtpScreen()">
+                            <button
+                                class="btn btn-primary"
+                                onclick="showOtpScreen()">
                                 CONFIRM
                             </button>
-                            <button class="btn btn-secondary" 
-                                    onclick="goBack()">
+                            <button
+                                class="btn btn-secondary"
+                                onclick="goBack()">
                                 Back
                             </button>
                         </div>
@@ -209,9 +209,9 @@
                             </div>
                         </div>
                         <div class="button-group">
-                            <button 
-                                    class="btn btn-primary" 
-                                    onclick="verifyOtp()">
+                            <button
+                                class="btn btn-primary"
+                                onclick="verifyOtp()">
                                 SUBMIT
                             </button>
                             <button

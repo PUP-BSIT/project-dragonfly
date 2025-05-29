@@ -8,6 +8,7 @@ if (!isset($_SESSION['account_holder_id'])) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
+
 if (!isset($data['password'])) {
     echo json_encode(['success' => false, 'message' => 'Password required']);
     exit;
@@ -40,4 +41,3 @@ if ($success) {
 }
 
 echo json_encode(['success' => $success]);
-

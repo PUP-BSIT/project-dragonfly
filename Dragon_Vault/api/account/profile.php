@@ -7,6 +7,7 @@ if (!isset($_SESSION['account_holder_id'])) {
     exit;
 }
 
+
 require_once '../../includes/db.php';  // This defines $pdo
 
 $account_holder_id = $_SESSION['account_holder_id'];

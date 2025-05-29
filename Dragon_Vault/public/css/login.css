@@ -15,31 +15,56 @@ body {
 
 .header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    display: flex;
     align-items: center;
     padding: 20px 30px;
     gap: 10px;
 }
 
-.logo {
-    width: 70px;
-    height: 70px;
-    border-radius: 8px;
+.logo-img {
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px;
-}
-
-.logo-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.brand-name {
     font-size: 24px;
+}
+
+.logo-text {
+    font-size: 28px;
     font-weight: bold;
     color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: white;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #9b5dd4;
+    transform: translateY(-3px);
 }
 
 .container {

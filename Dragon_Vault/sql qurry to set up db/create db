@@ -26,18 +26,17 @@ CREATE TABLE IF NOT EXISTS account (
 
 -- Bank Teller Table
 CREATE TABLE IF NOT EXISTS bank_teller (
-    teller_id INT NOT NULL PRIMARY KEY,
+    teller_id VARCHAR(10) NOT NULL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    email   
+    email VARCHAR(100) NOT NULL,
     branch VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    CONSTRAINT unique_email UNIQUE (email),
+    CONSTRAINT unique_username UNIQUE (username),
+    CONSTRAINT unique_teller_id UNIQUE (teller_id)
 );
-ALTER TABLE bank_teller
-ADD CONSTRAINT unique_email UNIQUE (email),
-ADD CONSTRAINT unique_username UNIQUE (username),
-ADD CONSTRAINT unique_teller_id UNIQUE (teller_id);
 
 -- Teller Transaction Table
 CREATE TABLE IF NOT EXISTS teller_transaction (

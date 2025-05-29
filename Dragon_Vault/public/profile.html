@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/dashboard.css" />
+        <link rel="stylesheet" href="css/profile.css" />
+        <link rel="icon" href="logo.png" />
+        <title>Profile - DragonVault</title>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="DragonVault" class="logo-img" />
+                <h1 class="logo-text">DragonVault</h1>
+            </div>
+            <nav class="nav-buttons">
+                <button class="nav-btn" onclick="goToHome()">Home</button>
+                <button class="nav-btn active" onclick="goToProfile()">
+                    Profile
+                </button>
+                <button class="nav-btn" onclick="logout()">Log out</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section class="profile-header">
+                <h1 class="profile-title">My Profile</h1>
+                <p class="profile-subtitle">
+                    Manage your account information and settings
+                </p>
+            </section>
+
+            <div class="profile-container">
+                <!-- Profile Information Display -->
+                <div class="profile-info-card" id="profileDisplay">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">
+                            <span class="avatar-initials" id="avatarInitials"
+                                >JD</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-group">
+                            <label class="detail-label">Full Name</label>
+                            <div class="detail-value" id="displayFullName">
+                                John Doe
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label class="detail-label">Email Address</label>
+                            <div class="detail-value" id="displayEmail">
+                                john.doe@email.com
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label class="detail-label">Phone Number</label>
+                            <div class="detail-value" id="displayPhone">
+                                +63 912 345 6789
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="edit-btn" onclick="toggleEditMode()">
+                            <span class="btn-icon">✏️</span>
+                            Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Edit Form -->
+                <div
+                    class="profile-edit-card"
+                    id="profileEdit"
+                    style="display: none">
+                    <form class="edit-form" id="editForm">
+                        <div class="form-group">
+                            <label class="form-label" for="editFullName"
+                                >Full Name</label
+                            >
+                            <input
+                                type="text"
+                                id="editFullName"
+                                name="fullName"
+                                class="form-input"
+                                required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="editEmail"
+                                >Email Address</label
+                            >
+                            <input
+                                type="email"
+                                id="editEmail"
+                                name="email"
+                                class="form-input"
+                                required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="editPhone"
+                                >Phone Number</label
+                            >
+                            <input
+                                type="tel"
+                                id="editPhone"
+                                name="phone"
+                                class="form-input" />
+                        </div>
+
+                        <div class="form-actions">
+                            <button
+                                type="button"
+                                class="cancel-btn"
+                                onclick="cancelEdit()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="save-btn">
+                                <span class="btn-icon">💾</span>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Security Section -->
+                <div class="security-card">
+                    <h2 class="card-title">Security Settings</h2>
+
+                    <div class="security-actions">
+                        <button
+                            class="security-btn change-password-btn"
+                            onclick="changePassword()">
+                            <span class="btn-icon">🔒</span>
+                            Change Password
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="danger-card">
+                    <h2 class="card-title danger-title">Danger Zone</h2>
+                    <p class="danger-description">
+                        Once you delete your account, there is no going back.
+                        Please be certain.
+                    </p>
+
+                    <div class="danger-actions">
+                        <button
+                            class="delete-btn"
+                            onclick="confirmDeleteAccount()">
+                            <span class="btn-icon">🗑️</span>
+                            Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                &copy; 2025 DragonVault! All rights reserved.
+                <div class="footer-links">
+                    <a href="#">Terms and Conditions</a>
+                    <a href="#">About</a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Password Change Modal -->
+        <div class="modal" id="passwordModal" style="display: none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Change Password</h3>
+                    <button class="modal-close" onclick="closePasswordModal()">
+                        &times;
+                    </button>
+                </div>
+                <form class="password-form" id="passwordForm">
+                    <div class="form-group">
+                        <label class="form-label" for="currentPassword"
+                            >Current Password</label
+                        >
+                        <input
+                            type="password"
+                            id="currentPassword"
+                            name="currentPassword"
+                            class="form-input"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="newPassword"
+                            >New Password</label
+                        >
+                        <input
+                            type="password"
+                            id="newPassword"
+                            name="newPassword"
+                            class="form-input"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword"
+                            >Confirm New Password</label
+                        >
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            class="form-input"
+                            required />
+                    </div>
+
+                    <div class="modal-actions">
+                        <button
+                            type="button"
+                            class="cancel-btn"
+                            onclick="closePasswordModal()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="save-btn">
+                            Update Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal" id="deleteModal" style="display: none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Delete Account</h3>
+                    <button class="modal-close" onclick="closeDeleteModal()">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="delete-warning">
+                        ⚠️ This action cannot be undone. This will permanently
+                        delete your account and remove all your data from our
+                        servers.
+                    </p>
+                    <div class="form-group">
+                        <label class="form-label" for="deletePassword"
+                            >Enter your password to confirm:</label
+                        >
+                        <input
+                            type="password"
+                            id="deletePassword"
+                            name="deletePassword"
+                            class="form-input"
+                            required />
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeDeleteModal()">
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        class="delete-confirm-btn"
+                        onclick="deleteAccount()">
+                        Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/profile.js"></script>
+    </body>
+</html>

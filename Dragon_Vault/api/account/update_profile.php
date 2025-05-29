@@ -8,20 +8,19 @@ if (!isset($_SESSION['account_holder_id'])) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-
 if (!isset($data['fullName'], $data['email'])) {
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;
 }
 
-require_once '../includes/db.php';
+require_once '../../includes/db.php';
 
 $account_holder_id = $_SESSION['account_holder_id'];
 $fullName = trim($data['fullName']);
 $email = trim($data['email']);
 $phone = isset($data['phone']) ? trim($data['phone']) : null;
 
-// Split fullName into first, middle initial, last
+// Split full name
 $nameParts = explode(' ', $fullName);
 $first_name = $nameParts[0];
 $middle_initial = null;
@@ -32,33 +31,25 @@ if (count($nameParts) === 2) {
 } elseif (count($nameParts) > 2) {
     $middle_initial = substr($nameParts[1], 0, 1);
     $last_name = $nameParts[count($nameParts) - 1];
-    // If there are more than 3 parts, you could improve this logic as needed
 }
 
-// Validate email format
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email format']);
     exit;
 }
 
-// Optional: check if email is already used by another user
+// Check if email already exists
 $sqlCheck = "SELECT account_holder_id FROM account_holder WHERE email = ? AND account_holder_id != ?";
-$stmtCheck = $conn->prepare($sqlCheck);
-$stmtCheck->bind_param('si', $email, $account_holder_id);
-$stmtCheck->execute();
-$stmtCheck->store_result();
-if ($stmtCheck->num_rows > 0) {
+$stmtCheck = $pdo->prepare($sqlCheck);
+$stmtCheck->execute([$email, $account_holder_id]);
+if ($stmtCheck->fetch()) {
     echo json_encode(['success' => false, 'message' => 'Email already in use']);
     exit;
 }
 
-// Update query
+// Update
 $sql = "UPDATE account_holder SET first_name = ?, middle_initial = ?, last_name = ?, email = ?, phone_number = ? WHERE account_holder_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('sssssi', $first_name, $middle_initial, $last_name, $email, $phone, $account_holder_id);
+$stmt = $pdo->prepare($sql);
+$success = $stmt->execute([$first_name, $middle_initial, $last_name, $email, $phone, $account_holder_id]);
 
-if ($stmt->execute()) {
-    echo json_encode(['success' => true]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Failed to update profile']);
-}
+echo json_encode(['success' => $success]);

@@ -7,19 +7,22 @@ if (!isset($_SESSION['account_holder_id'])) {
     exit;
 }
 
-require_once '../includes/db.php';  // Your DB connection file
+require_once '../../includes/db.php';  // This defines $pdo
 
 $account_holder_id = $_SESSION['account_holder_id'];
 
-$sql = "SELECT CONCAT(first_name, ' ', COALESCE(middle_initial, ''), ' ', last_name) AS full_name, email, phone_number AS phone, created_at 
-        FROM account_holder WHERE account_holder_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('i', $account_holder_id);
-$stmt->execute();
-$result = $stmt->get_result();
+try {
+    $stmt = $pdo->prepare("SELECT CONCAT(first_name, ' ', COALESCE(middle_initial, ''), ' ', last_name) AS full_name, email, phone_number AS phone, created_at 
+                           FROM account_holder 
+                           WHERE account_holder_id = ?");
+    $stmt->execute([$account_holder_id]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($user = $result->fetch_assoc()) {
-    echo json_encode(['success' => true, 'user' => $user]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'User not found']);
+    if ($user) {
+        echo json_encode(['success' => true, 'user' => $user]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'User not found']);
+    }
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Database error', 'error' => $e->getMessage()]);
 }

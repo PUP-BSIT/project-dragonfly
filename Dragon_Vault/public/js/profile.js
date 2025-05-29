@@ -36,13 +36,6 @@ function displayUserProfile(user) {
     document.getElementById("displayEmail").textContent = user.email;
     document.getElementById("displayPhone").textContent =
         user.phone || "Not provided";
-
-    const createdDate = new Date(user.created_at).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-    document.getElementById("displayCreatedDate").textContent = createdDate;
 }
 
 // Get initials from full name
@@ -261,7 +254,7 @@ function deleteAccount() {
                 alert(
                     "Your account has been successfully deleted. You will be redirected to the homepage."
                 );
-                window.location.href = "/Dragon_Vault/public/landing-page.html";
+                window.location.href = "/Dragon_Vault/public/landing_page.html";
             } else {
                 alert(data.message || "Failed to delete account. Please verify your password and try again.");
             }
@@ -293,7 +286,7 @@ function logout() {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "/Dragon_Vault/public/landing-page.html";
+                window.location.href = "/Dragon_Vault/public/landing_page.html";
             } else {
                 alert("Logout failed. Try again.");
             }

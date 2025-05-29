@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Times New Roman", sans-serif;
+    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    gap: 10px;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: white;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #9b5dd4;
+    transform: translateY(-3px);
+}
+
+.container {
+    flex: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.contact-box {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.contact-box:hover {
+    box-shadow: 0 20px 40px rgba(123, 44, 191, 0.3);
+    transform: translateY(-5px);
+}
+
+.contact-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-field:focus {
+    background: white;
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+}
+
+.input-field::placeholder {
+    color: #666;
+}
+
+.signin-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.signin-btn:hover {
+    background: linear-gradient(45deg, #9d4edd, #c77dff);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+}
+
+@media (max-width: 480px) {
+    .contact-box {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .header {
+        padding: 15px 20px;
+    }
+
+    .brand-name {
+        font-size: 20px;
+    }
+
+    .contact-title {
+        font-size: 24px;
+    }
+}

@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function goToTransfer() {
-    window.location.href = "transfer-fund.html";
+    window.location.href = "transfer_fund.html";
 }
 
 function goToHome() {
@@ -79,7 +79,7 @@ function logout() {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "/Dragon_Vault/public/landing-page.html";
+                window.location.href = "/Dragon_Vault/public/landing_page.html";
             } else {
                 alert("Logout failed. Try again.");
             }

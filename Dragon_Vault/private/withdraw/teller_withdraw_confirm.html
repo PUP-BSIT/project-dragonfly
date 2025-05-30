@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <title>Confirm Withdrawal</title>
+   <link rel="stylesheet" href="../css/teller_withdraw_confirm.css">
 </head>
 <body>
-  <h2>Confirm Withdrawal</h2>
-  <p><strong>Account Number:</strong> <span id="acc_num"></span></p>
-  <p><strong>Customer Name:</strong> <span id="cust_name"></span></p>
-  <p><strong>Account Type:</strong> <span id="acc_type"></span></p>
-  <p><strong>Current Balance:</strong> ₱<span id="bal"></span></p>
-  <p><strong>Withdraw Amount:</strong> ₱<span id="withdraw_amt"></span></p>
+  <div class="confirm-container">
+    <h2>Confirm Withdrawal</h2>
+    <p><strong>Account Number:</strong> <span id="acc_num"></span></p>
+    <p><strong>Customer Name:</strong> <span id="cust_name"></span></p>
+    <p><strong>Account Type:</strong> <span id="acc_type"></span></p>
+    <p><strong>Current Balance:</strong> ₱<span id="bal"></span></p>
+    <p><strong>Withdraw Amount:</strong> ₱<span id="withdraw_amt"></span></p>
 
-  <button id="confirm_btn">Confirm</button>
-  <button id="cancel_btn">Cancel</button>
-
+    <div class="button-container">
+      <button id="confirm_btn">Confirm</button>
+      <button id="cancel_btn">Cancel</button>
+ </div>
+</div>
   <script src="../js/teller_withdraw_confirm.js"></script>
 </body>
 </html>

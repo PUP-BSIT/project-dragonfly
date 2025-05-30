@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Teller Dashboard</title>
-        <link rel="stylesheet" href="css/teller_dashboard.css" />
-    </head>
-    <body>
-        <div class="dashboard">
-            <h2>Welcome, <span id="tellerName">Teller</span>!</h2>
-            <nav>
-                <ul>
-                    <li><a href="teller_profile.html">View Profile</a></li>
-                    <li>
-                        <a href="./deposit/teller_deposit.html"
-                            >Process Deposit</a
-                        >
-                    </li>
-                    <li>
-                        <a href="./withdraw/teller_withdraw.html"
-                            >Process Withdrawal</a
-                        >
-                    </li>
-                    <li><button id="logoutBtn">Logout</button></li>
-                </ul>
-            </nav>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teller Dashboard</title>
+  <link rel="stylesheet" href="css/teller_dashboard.css" />
+</head>
+<body>
+  <div class="navigation-bar">
+    <div class="logo-container">
+      <img src="../assets/logo.png" alt="logo" class="logo" />
+      <div class="name">
+        <p>DragonVault</p>
+      </div>
+    </div>
 
-        <script src="js/teller_dashboard.js"></script>
-    </body>
+    <div class="nav-options">
+      <a href="teller_dashboard.html">Home</a>
+      <a href="teller_profile.html">Profile</a>
+      <a href="#" id="logoutBtn">Log out</a>
+    </div>
+  </div>
+
+  <div id="step-home" class="step active">
+    <div class="welcome-banner">
+      <h2>Welcome, Bank Teller!</h2>
+      <p>What would you like to do today?</p>
+    </div>
+    <div class="actions">
+      <a href="./deposit/teller_deposit.html">
+        <div class="action-box-1">
+          <p class="action-text">Process Deposit</p>
+        </div>
+      </a>
+
+      <a href="./withdraw/teller_withdraw.html">
+        <div class="action-box-2">
+          <p class="action-text">Process Withdraw</p>
+        </div>
+      </a>
+
+      <a href="./teller_transactions.html">
+        <div class="action-box-3">
+          <p class="action-text">View Transaction History</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script src="js/teller_dashboard.js"></script>
+</body>
 </html>

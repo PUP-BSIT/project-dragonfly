@@ -1,0 +1,71 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #1b0036;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.receipt-container {
+  background: #0d001f;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 12px #450078;
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+}
+
+h2 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 25px;
+  margin-top: 0;
+}
+
+p {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+span {
+  color: #9f00e8;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(to right, #9f00e8, #6a00a3);
+    transition: background 0.3s;
+    flex: 0 0 auto;
+    min-width: 80px;
+}
+
+button:hover {
+  background: linear-gradient(to right, #8a00cc, #53008a);
+}
+
+#cancel_btn {
+  background: linear-gradient(to right, #666, #444);
+}
+
+#cancel_btn:hover {
+  background: linear-gradient(to right, #555, #333);
+}

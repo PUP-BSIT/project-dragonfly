@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 60px 20px;
+  background-color: #1b0036;
+  color: white;
+}
+
+/* Page Title */
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 22px;
+  color: #ffffff;
+}
+
+/* Lookup Form Styling */
+form#lookupForm,
+form#withdrawForm {
+  background: #0d001f;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px #450078;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #22003d;
+  color: white;
+}
+
+/* Button Styling */
+form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(to right, #9f00e8, #6a00a3);
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background: linear-gradient(to right, #8a00cc, #53008a);
+}
+
+/* Account Details Box */
+#account_details {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #0d001f;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px #450078;
+  margin-top: 20px;
+}
+
+#account_details p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+#account_details span {
+  color: #9f00e8;
+}
+
+/* Error Message */
+#error_message {
+  text-align: center;
+  margin-top: 20px;
+  color: #ff4d4d;
+  font-size: 14px;
+}

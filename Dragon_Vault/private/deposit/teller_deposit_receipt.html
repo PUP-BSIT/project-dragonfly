@@ -3,23 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <title>Deposit Receipt</title>
+  <link rel="stylesheet" href="../css/teller_deposit_receipt.css">
 </head>
 <body>
-  <h2>TRANSACTION RECEIPT</h2>
-  <p><strong>Date:</strong> <span id="date"></span></p>
-  <p><strong>Time:</strong> <span id="time"></span></p>
-  <p><strong>Transaction Type:</strong> DEPOSIT</p>
-  <p><strong>Account Number:</strong> <span id="account_number"></span></p>
-  <p><strong>Customer:</strong> <span id="customer_name"></span></p>
-  <p><strong>Amount:</strong> ₱<span id="deposit_amount"></span></p>
-  <p><strong>Previous Balance:</strong> ₱<span id="previous_balance"></span></p>
-  <p><strong>New Balance:</strong> ₱<span id="new_balance"></span></p>
-  <p><strong>Transaction ID:</strong> <span id="transaction_id"></span></p>
-  <p><strong>Teller ID:</strong> <span id="teller_id"></span></p>
+  <div class="receipt-container">
+    <h2>TRANSACTION RECEIPT</h2>
+    <p><strong>Date:</strong> <span id="date"></span></p>
+    <p><strong>Time:</strong> <span id="time"></span></p>
+    <p><strong>Transaction Type:</strong> DEPOSIT</p>
+    <p><strong>Account Number:</strong> <span id="account_number"></span></p>
+    <p><strong>Customer:</strong> <span id="customer_name"></span></p>
+    <p><strong>Amount:</strong> ₱<span id="deposit_amount"></span></p>
+    <p><strong>Previous Balance:</strong> ₱<span id="previous_balance"></span></p>
+    <p><strong>New Balance:</strong> ₱<span id="new_balance"></span></p>
+    <p><strong>Transaction ID:</strong> <span id="transaction_id"></span></p>
+    <p><strong>Teller ID:</strong> <span id="teller_id"></span></p>
 
-  <button id="print_btn">Print Receipt</button>
-  <button id="new_transaction_btn">New Transaction</button>
-  <button id="dashboard_btn">Return to Dashboard</button>
+    <div class="button-container">
+      <button id="print_btn">Print Receipt</button>
+      <button id="new_transaction_btn">New Transaction</button>
+      <button id="dashboard_btn">Return to Dashboard</button>
+    </div>
+  </div>
 
   <script src="../js/teller_deposit_receipt.js"></script>
 </body>

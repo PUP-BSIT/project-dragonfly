@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/transaction_history.js" defer></script>
+</head>
+<body>
+    <h1>Transaction History</h1>
+
+    <section>
+        <h2>User Transactions</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Recipient Account</th>
+                    <th>Recipient Bank</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="user-transaction-body">
+                <!-- User transactions will be populated here -->
+            </tbody>
+        </table>
+    </section>
+
+    <section style="margin-top: 40px;">
+        <h2>Teller Transactions</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Teller</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="teller-transaction-body">
+                <!-- Teller transactions will be populated here -->
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

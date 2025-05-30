@@ -199,6 +199,25 @@ function handlePasswordChange(e) {
         });
 }
 
+function logout() {
+    fetch("/Dragon_Vault/api/auth/logout.php", {
+        method: "POST",
+        credentials: "include"
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.success) {
+            window.location.href = "/Dragon_Vault/private/teller_login.html";
+        } else {
+            alert("Logout failed. Please try again.");
+        }
+    })
+    .catch((err) => {
+        console.error("Logout error:", err);
+        alert("An error occurred during logout.");
+    });
+}
+
 // Show success message
 function showSuccessMessage(message) {
     alert(message); // You can replace this with a custom toast if desired

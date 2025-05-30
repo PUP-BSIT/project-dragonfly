@@ -1,55 +1,103 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/contact_us.css">
-        <link rel="icon" href="assets/logo.png">
-        <title>DragonVault - Sign In</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/contact_us.css" />
+        <link rel="icon" href="../assets/logo.png" />
+        <title>DragonVault - Contact Us</title>
     </head>
     <body>
         <div class="header">
             <div class="logo">
                 <img
-                    src="./assets/logo.png"
+                    src="../assets/logo.png"
                     alt="DragonVault"
                     class="logo-img" />
                 <h1 class="logo-text">DragonVault</h1>
             </div>
             <nav class="nav-links">
                 <a href="landing_page.html">Home</a>
-                <a href="#">About Us</a>
+                <a href="about_us.html">About Us</a>
             </nav>
         </div>
+
         <div class="container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <img
+                            src="../assets/placeholder.png"
+                            alt="location icon"
+                            class="feature-icon" />
+                    </div>
+                    <div class="info-content">
+                        <h3>Address</h3>
+                        <p>
+                            F3Q2+GF3, General Santos Ave, Taguig City, Metro
+                            Manila
+                        </p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <img
+                            src="../assets/telephone.png"
+                            alt="location icon"
+                            class="feature-icon" />
+                    </div>
+                    <div class="info-content">
+                        <h3>Phone</h3>
+                        <p>09123456789</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <img
+                            src="../assets/message.png"
+                            alt="location icon"
+                            class="feature-icon" />
+                    </div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p>dragonvault@mail.site</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="contact-box">
                 <h1 class="contact-title">Contact Us</h1>
                 <form id="contact_form">
                     <div class="form-group">
-                        <input type="name" 
-                            id="contact_username" 
-                            class="input-field" 
-                            placeholder="Your Name:" 
+                        <input
+                            type="text"
+                            id="contact_username"
+                            class="input-field"
+                            placeholder="Your Name:"
                             required />
                     </div>
                     <div class="form-group">
-                        <input type="email" 
-                            id="contact_password" 
-                            class="input-field" 
-                            placeholder="Your Email:" 
+                        <input
+                            type="email"
+                            id="contact_email"
+                            class="input-field"
+                            placeholder="Your Email:"
                             required />
                     </div>
                     <div class="form-group">
-                        <textarea 
-                            id="contact_message" 
-                            class="input-field" 
-                            placeholder="Your Message:" 
-                            rows="4" 
+                        <textarea
+                            id="contact_message"
+                            class="input-field"
+                            placeholder="Your Message:"
+                            rows="4"
                             required></textarea>
                     </div>
                     <button type="submit" class="signin-btn">Submit</button>
-                    </div>
                 </form>
             </div>
         </div>
-        <script src="#"></script>
     </body>
 </html>

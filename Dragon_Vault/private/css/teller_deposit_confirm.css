@@ -11,6 +11,36 @@ body {
   box-sizing: border-box;
 }
 
+.header {
+  background: #0c001a;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .confirm-container {
   background: #0d001f;
   padding: 40px;

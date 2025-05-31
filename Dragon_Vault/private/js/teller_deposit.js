@@ -31,3 +31,11 @@ document.getElementById("depositForm").addEventListener("submit", function(e) {
   sessionStorage.setItem("deposit_amount", amount);
   window.location.href = "teller_deposit_confirm.html";
 });
+
+document.getElementById('back_btn').addEventListener('click', function () {
+  window.location.href = 'teller_dashboard.html'; 
+});
+
+function goToHome() {
+    window.location.href = "../teller_dashboard.html";
+}

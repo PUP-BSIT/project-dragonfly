@@ -28,3 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Failed to load transactions.");
     });
 });
+
+function goToHome() {
+    window.location.href = 'teller_dashboard.html'; 
+}

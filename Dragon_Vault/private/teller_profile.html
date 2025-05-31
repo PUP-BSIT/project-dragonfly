@@ -1,20 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Teller Profile</title>
-  <!-- <link rel="stylesheet" href="css/teller_profile.css"> -->
-</head>
-<body>
-  <h1>Teller Profile</h1>
-  <div id="profile">
-    <p><strong>Teller ID:</strong> <span id="tellerId"></span></p>
-    <p><strong>Name:</strong> <span id="name"></span></p>
-    <p><strong>Email:</strong> <span id="email"></span></p>
-    <p><strong>Branch:</strong> <span id="branch"></span></p>
-    <p><strong>Username:</strong> <span id="username"></span></p>
-  </div>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/teller_profile.css" />
+        <link rel="icon" href="../assets/logo.png" />
+        <title>Profile - DragonVault</title>
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img
+                    src="../assets/logo.png"
+                    alt="DragonVault"
+                    class="logo-img" />
+                <h1 class="logo-text">DragonVault</h1>
+            </div>
+            <nav class="nav-buttons">
+                <button class="nav-btn" onclick="goToHome()">Home</button>
+                <button class="nav-btn active" onclick="goToProfile()">
+                    Profile
+                </button>
+                <button class="nav-btn" onclick="logout()">Log out</button>
+            </nav>
+        </header>
 
-  <script src="js/teller_profile.js"></script>
-</body>
+        <main class="main-content">
+            <section class="profile-header">
+                <h1 class="profile-title">My Profile</h1>
+                <p class="profile-subtitle">
+                    Manage your account information and settings
+                </p>
+            </section>
+
+            <div class="profile-container">
+                <!-- Profile Information Display -->
+                <div class="profile-info-card" id="profileDisplay">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">
+                            <span class="avatar-initials" id="avatarInitials"
+                                >JD</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="detail-group">
+                            <label class="detail-label">Full Name</label>
+                            <div class="detail-value" id="displayFullName">
+                                John Doe
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label class="detail-label">Email Address</label>
+                            <div class="detail-value" id="displayEmail">
+                                john.doe@email.com
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <label class="detail-label">Branch</label>
+                            <div class="detail-value" id="displayBranch">Makati</div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="edit-btn" onclick="toggleEditMode()">
+                            <span class="btn-icon"></span>
+                            Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Edit Form -->
+                <div class="profile-edit-card" id="profileEdit" style="display: none">
+                    <form class="edit-form" id="editForm">
+                        <div class="form-group">
+                            <label class="form-label" for="editFirstName">First Name</label>
+                            <input type="text" id="editFirstName" name="firstName" class="form-input" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="editLastName">Last Name</label>
+                            <input type="text" id="editLastName" name="lastName" class="form-input" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="editEmail">Email Address</label>
+                            <input type="email" id="editEmail" name="email" class="form-input" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="editBranch">Branch</label>
+                            <input type="text" id="editBranch" name="branch" class="form-input" required />
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" onclick="cancelEdit()">Cancel</button>
+                            <button type="submit" class="save-btn">
+                                <span class="btn-icon"></span> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <!-- Security Section -->
+                <div class="security-card">
+                    <h2 class="card-title">Security Settings</h2>
+
+                    <div class="security-actions">
+                        <button
+                            class="security-btn change-password-btn"
+                            onclick="changePassword()">
+                            <span class="btn-icon"></span>
+                            Change Password
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Password Change Modal -->
+        <div class="modal" id="passwordModal" style="display: none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Change Password</h3>
+                    <button class="modal-close" onclick="closePasswordModal()">
+                        &times;
+                    </button>
+                </div>
+                <form class="password-form" id="passwordForm">
+                    <div class="form-group">
+                        <label class="form-label" for="currentPassword"
+                            >Current Password</label
+                        >
+                        <input
+                            type="password"
+                            id="currentPassword"
+                            name="currentPassword"
+                            class="form-input"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="newPassword"
+                            >New Password</label
+                        >
+                        <input
+                            type="password"
+                            id="newPassword"
+                            name="newPassword"
+                            class="form-input"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword"
+                            >Confirm New Password</label
+                        >
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            class="form-input"
+                            required />
+                    </div>
+
+                    <div class="modal-actions">
+                        <button
+                            type="button"
+                            class="cancel-btn"
+                            onclick="closePasswordModal()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="save-btn">
+                            Update Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-content">
+                &copy; 2025 DragonVault! All rights reserved.
+                <div class="footer-links">
+                    <a href="terms_and_conditions.html">Terms and Conditions</a>
+                    <a href="about_us.html">About</a>
+                </div>
+            </div>
+        </footer>
+        <script src="js/teller_profile.js"></script>
+    </body>
 </html>

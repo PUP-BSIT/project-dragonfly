@@ -31,3 +31,7 @@ document.getElementById("withdrawForm").addEventListener("submit", function(e) {
   sessionStorage.setItem("withdraw_amount", amount);
   window.location.href = "teller_withdraw_confirm.html";
 });
+
+function goToHome() {
+    window.location.href = "../teller_dashboard.html";
+}

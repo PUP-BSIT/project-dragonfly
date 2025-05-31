@@ -11,6 +11,39 @@ body {
   box-sizing: border-box;
 }
 
+.header {
+  background: #0c001a;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  margin-right: 12px;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 1px;
+}
+
 .receipt-container {
   background: #0d001f;
   padding: 40px;

@@ -35,3 +35,7 @@ document.getElementById("depositForm").addEventListener("submit", function(e) {
 document.getElementById('back_btn').addEventListener('click', function () {
   window.location.href = 'teller_dashboard.html'; 
 });
+
+function goToHome() {
+    window.location.href = "../teller_dashboard.html";
+}

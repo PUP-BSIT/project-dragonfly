@@ -44,6 +44,10 @@ body {
     font-size: 22px;
     font-weight: bold;
     color: white;
+    margin: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 .nav-buttons {

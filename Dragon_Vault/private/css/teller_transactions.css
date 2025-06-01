@@ -160,7 +160,7 @@ h1 {
 /* Specific column styling */
 #transactionTable tbody td:first-child {
   font-weight: bold;
-  color: #4a2a8a;
+  color: #ad84ff;
 }
 
 #transactionTable tbody tr:hover td:first-child {

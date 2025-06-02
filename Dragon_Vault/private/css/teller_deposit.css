@@ -1,18 +1,18 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 60px 20px;
+  padding: 80px 20px 20px; 
   background-color: #1b0036;
   color: white;
 }
 
 .header {
   background: #0c001a;
-  padding: 8px 20px;
+  padding: 10px 20px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
+  height: 60px; 
   position: fixed;
   top: 0;
   left: 0;
@@ -27,12 +27,12 @@ body {
 }
 
 .logo {
-  height: 30px;
+  height: 40px; /* Increased from 30px to match proportions */
   margin-right: 10px;
 }
 
 .brand-name {
-  font-size: 16px;
+  font-size: 18px; /* Increased from 16px */
   font-weight: bold;
 }
 

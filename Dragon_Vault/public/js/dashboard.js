@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(
                     "Failed to load account information. Please log in again."
                 );
-                window.location.href = "/Dragon_Vault/public/landing-page.html";
+                window.location.href = "/Dragon_Vault/public/landing_page.html";
             }
         })
         .catch((err) => {

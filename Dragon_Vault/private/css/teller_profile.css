@@ -1,5 +1,4 @@
 /* Profile Page Specific Styles */
-
 .profile-header {
     background: linear-gradient(
         135deg,
@@ -25,7 +24,6 @@
     opacity: 0.8;
     margin: 0;
 }
-
 .profile-container {
     display: flex;
     flex-direction: column;

@@ -17,9 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("account_number").textContent = sessionStorage.getItem("account_number");
   document.getElementById("customer_name").textContent = sessionStorage.getItem("customer_name");
-  document.getElementById("withdraw_amount").textContent = parseFloat(sessionStorage.getItem("withdraw_amount")).toFixed(2);
-  document.getElementById("previous_balance").textContent = parseFloat(sessionStorage.getItem("previous_balance")).toFixed(2);
-  document.getElementById("new_balance").textContent = parseFloat(sessionStorage.getItem("new_balance")).toFixed(2);
+  document.getElementById("withdraw_amount").textContent = "₱" + parseFloat(sessionStorage.getItem("withdraw_amount")).toFixed(2);
+  document.getElementById("previous_balance").textContent = "₱" + parseFloat(sessionStorage.getItem("previous_balance")).toFixed(2);
+  document.getElementById("new_balance").textContent = "₱" + parseFloat(sessionStorage.getItem("new_balance")).toFixed(2);
   document.getElementById("transaction_id").textContent = sessionStorage.getItem("transaction_id");
   document.getElementById("teller_id").textContent = sessionStorage.getItem("teller_id");
 

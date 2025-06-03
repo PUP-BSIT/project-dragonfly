@@ -20,7 +20,6 @@ $first_name = trim($data['first_name']);
 $last_name = trim($data['last_name']);
 $email = trim($data['email']);
 $branch = trim($data['branch']);
-
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email format']);
     exit;

@@ -222,7 +222,3 @@ function logout() {
 function showSuccessMessage(message) {
     alert(message); // You can replace this with a custom toast if desired
 }
-
-function goToHome() {
-    window.location.href = 'teller_dashboard.html'; 
-}

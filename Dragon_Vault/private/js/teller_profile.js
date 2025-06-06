@@ -7,9 +7,18 @@ document.addEventListener("DOMContentLoaded", () => {
     setupEventListeners();
 });
 
+// Navigation functions
+function goToHome() {
+    window.location.href = "/Dragon_Vault/private/teller_dashboard.html";
+}
+
+function goToProfile() {
+    window.location.href = "/Dragon_Vault/private/teller_profile.html";
+}
+
 // Load user profile data
 function loadUserProfile() {
-    fetch(API_BASE + "teller/get_teller_profile.php", {
+    fetch(API_BASE + "teller/profile.php", {
         method: "GET",
         credentials: "include",
     })
@@ -19,13 +28,14 @@ function loadUserProfile() {
                 currentUserData = data.user;
                 displayUserProfile(data.user);
             } else {
+                console.error("Profile load error:", data.message);
                 alert("Failed to load profile. Please log in again.");
                 window.location.href = "/Dragon_Vault/private/teller_login.html";
             }
         })
         .catch((err) => {
             console.error("Error fetching profile:", err);
-            alert("An error occurred while loading your profile.");
+            alert("An error occurred while loading your profile. Please try again.");
         });
 }
 

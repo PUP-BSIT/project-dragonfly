@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function goToTransfer() {
-    window.location.href = "transfer_fund.html";
+    window.location.href = "transfer_initiate.html";
 }
 
 function goToHome() {

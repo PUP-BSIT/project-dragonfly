@@ -326,3 +326,10 @@ body {
     padding: 15px;
     line-height: 1.5;
 }
+
+.account-number {
+    font-size: 1.7em;
+    color: #ececec;
+    margin-top: 5px;
+    font-weight: normal;
+}

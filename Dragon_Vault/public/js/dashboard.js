@@ -1,4 +1,3 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 
 document.addEventListener("DOMContentLoaded", () => {
     const balanceAmountElem = document.querySelector(".balance-amount");
@@ -6,9 +5,30 @@ document.addEventListener("DOMContentLoaded", () => {
         ".transactions-content"
     );
     const welcomeTitleElem = document.querySelector(".welcome-title");
+    const accountNumberElem = document.querySelector(".account-number");
+
+    // Function to format account number (show last 4 digits, rest as asterisks)
+    // Account numbers are always 10 digits: format as ****-**-XXXX
+    function formatAccountNumber(accountNumber) {
+        if (!accountNumber) {
+            return "Account: ****-****-**";
+        }
+        
+        const accountStr = accountNumber.toString();
+        
+        // For 10-digit account numbers: show last 4 digits, mask the rest
+        if (accountStr.length === 10) {
+            const lastFour = accountStr.substring(6, 10); // Get last 4 digits
+            return `Account: ****-**-${lastFour}`;
+        } else {
+            // Fallback for any unexpected account number lengths
+            const lastFour = accountStr.slice(-4); // Get last 4 digits regardless of length
+            return `Account: ****-**-${lastFour}`;
+        }
+    }
 
     // Fetch account balance and recent transactions
-    fetch(API_BASE + "account/balance.php", {
+    fetch("/Dragon_Vault/api/account/balance.php", {
         method: "GET",
         credentials: "include",
     })
@@ -17,6 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.success) {
                 // Display full name
                 welcomeTitleElem.textContent = `Welcome, ${data.full_name}!`;
+
+                // Display masked account number with first 4 digits visible
+                if (data.account_number) {
+                    accountNumberElem.textContent = formatAccountNumber(data.account_number);
+                }
 
                 // Display total balance
                 const formattedBalance = parseFloat(
@@ -51,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(
                     "Failed to load account information. Please log in again."
                 );
-                window.location.href = "../../index.html";
+                window.location.href = "/Dragon_Vault/public/landing_page.html";
             }
         })
         .catch((err) => {
@@ -74,14 +99,14 @@ function goToProfile() {
 }
 
 function logout() {
-    fetch(API_BASE + "auth/logout.php", {
+    fetch("/Dragon_Vault/api/auth/logout.php", {
         method: "POST",
         credentials: "include",
     })
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "../../index.html";
+                window.location.href = "/Dragon_Vault/public/landing_page.html";
             } else {
                 alert("Logout failed. Try again.");
             }
@@ -106,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchRecentTransactions() {
-    fetch(API_BASE + "account/get_recent_transaction.php")
+    fetch('/Dragon_Vault/api/account/get_recent_transaction.php')
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById("transactionsList");

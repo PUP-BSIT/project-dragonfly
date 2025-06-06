@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 let currentUserData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -7,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Load user profile data
 function loadUserProfile() {
-    fetch("/Dragon_Vault/api/teller/profile.php", {
+    fetch(API_BASE + "teller/get_teller_profile.php", {
         method: "GET",
         credentials: "include",
     })
@@ -111,7 +113,7 @@ function handleProfileUpdate(e) {
     const originalText = saveBtn.innerHTML;
     saveBtn.innerHTML = "Saving...";
 
-    fetch("/Dragon_Vault/api/teller/update_profile.php", {
+    fetch(API_BASE + "teller/update_profile.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -172,7 +174,7 @@ function handlePasswordChange(e) {
     saveBtn.textContent = "Updating...";
     saveBtn.disabled = true;
 
-    fetch("/Dragon_Vault/api/teller/change_password.php", {
+    fetch(API_BASE + "teller/change_password.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -200,7 +202,7 @@ function handlePasswordChange(e) {
 }
 
 function logout() {
-    fetch("/Dragon_Vault/api/auth/logout.php", {
+    fetch(API_BASE + "auth/logout.php", {
         method: "POST",
         credentials: "include"
     })

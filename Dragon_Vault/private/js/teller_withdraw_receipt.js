@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
   const requiredFields = [
     "account_number", "customer_name", "withdraw_amount",

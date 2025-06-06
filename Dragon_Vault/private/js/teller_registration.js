@@ -1,9 +1,11 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("teller_register_form");
 
   // Register teller
   function registerTeller(data) {
-    return fetch("/Dragon_Vault/api/auth/teller_registration.php", {
+    return fetch(API_BASE + "auth/teller_registration.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Auto-login teller after successful registration
   function loginTeller(username, password) {
-    return fetch("/Dragon_Vault/api/auth/teller_login.php", {
+    return fetch(API_BASE + "auth/teller_login.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

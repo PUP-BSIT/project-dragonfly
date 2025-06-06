@@ -1,5 +1,7 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/Dragon_Vault/api/transactions/get_teller_transactions.php", {
+  fetch(API_BASE + 'transactions/get_teller_transactions.php', {
     method: "GET",
     credentials: "include"
   })

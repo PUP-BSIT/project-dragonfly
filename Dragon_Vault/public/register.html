@@ -96,22 +96,38 @@
                             Choose your password:
                         </label>
                         <div class="form-row">
-                            <div class="form-group full-width">
+                            <div class="form-group full-width password-container">
                                 <input type="password"
                                     id="register_password"
                                     class="input-field"
                                     placeholder="Password:"
                                     required />
+                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('register_password', this)">
+                                    Show
+                                </button>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group full-width">
+                            <div class="form-group full-width password-container">
                                 <input type="password"
                                     id="confirm_password"
                                     class="input-field"
                                     placeholder="Confirm Password:"
                                     required />
+                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirm_password', this)">
+                                    Show
+                                </button>
                             </div>
+                        </div>
+                        <div class="password-requirements">
+                            <p>Password must contain:</p>
+                            <ul>
+                                <li id="req-uppercase"><span class="req-status">Not met</span> Uppercase letter</li>
+                                <li id="req-lowercase"><span class="req-status">Not met</span> Lowercase letter</li>
+                                <li id="req-number"><span class="req-status">Not met</span> Number</li>
+                                <li id="req-special"><span class="req-status">Not met</span> Special character</li>
+                                <li id="req-length"><span class="req-status">Not met</span> At least 8 characters</li>
+                            </ul>
                         </div>
                     </div>
                     <button type="submit" class="register-btn">

@@ -153,6 +153,54 @@ function closePasswordModal() {
     document.getElementById("passwordForm").reset();
 }
 
+// Password requirement check for profile change password
+function checkProfilePasswordRequirements(password) {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const isLongEnough = password.length >= 8;
+
+    const uppercaseLi = document.getElementById("profile-req-uppercase");
+    const lowercaseLi = document.getElementById("profile-req-lowercase");
+    const numberLi = document.getElementById("profile-req-number");
+    const specialLi = document.getElementById("profile-req-special");
+    const lengthLi = document.getElementById("profile-req-length");
+
+    const uppercaseStatus = uppercaseLi.querySelector('.req-status');
+    const lowercaseStatus = lowercaseLi.querySelector('.req-status');
+    const numberStatus = numberLi.querySelector('.req-status');
+    const specialStatus = specialLi.querySelector('.req-status');
+    const lengthStatus = lengthLi.querySelector('.req-status');
+
+    uppercaseStatus.textContent = hasUpperCase ? "Met" : "Not met";
+    lowercaseStatus.textContent = hasLowerCase ? "Met" : "Not met";
+    numberStatus.textContent = hasNumbers ? "Met" : "Not met";
+    specialStatus.textContent = hasSpecialChar ? "Met" : "Not met";
+    lengthStatus.textContent = isLongEnough ? "Met" : "Not met";
+
+    uppercaseLi.classList.toggle('met', hasUpperCase);
+    uppercaseLi.classList.toggle('not-met', !hasUpperCase);
+    lowercaseLi.classList.toggle('met', hasLowerCase);
+    lowercaseLi.classList.toggle('not-met', !hasLowerCase);
+    numberLi.classList.toggle('met', hasNumbers);
+    numberLi.classList.toggle('not-met', !hasNumbers);
+    specialLi.classList.toggle('met', hasSpecialChar);
+    specialLi.classList.toggle('not-met', !hasSpecialChar);
+    lengthLi.classList.toggle('met', isLongEnough);
+    lengthLi.classList.toggle('not-met', !isLongEnough);
+
+    return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough;
+}
+
+// Add input event listener for real-time feedback
+const newPasswordInput = document.getElementById("newPassword");
+if (newPasswordInput) {
+    newPasswordInput.addEventListener("input", (e) => {
+        checkProfilePasswordRequirements(e.target.value);
+    });
+}
+
 // Handle password change
 function handlePasswordChange(e) {
     e.preventDefault();
@@ -167,8 +215,9 @@ function handlePasswordChange(e) {
         return;
     }
 
-    if (newPassword.length < 8) {
-        alert("New password must be at least 8 characters long.");
+    // Strong password validation
+    if (!checkProfilePasswordRequirements(newPassword)) {
+        alert("Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters.");
         return;
     }
 

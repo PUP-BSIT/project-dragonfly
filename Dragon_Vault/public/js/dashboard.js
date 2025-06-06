@@ -1,3 +1,4 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 
 document.addEventListener("DOMContentLoaded", () => {
     const balanceAmountElem = document.querySelector(".balance-amount");

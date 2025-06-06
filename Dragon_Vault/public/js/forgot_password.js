@@ -4,6 +4,8 @@ let phoneNumber = "";
 let resendTimer = 0;
 let resendInterval;
 
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 // Screen navigation
 function showScreen(screenNum) {
     document.querySelectorAll(".screen").forEach((screen) => {

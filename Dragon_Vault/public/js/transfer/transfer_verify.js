@@ -1,4 +1,4 @@
-const API_BASE = "/Dragon_Vault/api/";
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 
 // Navigation module for handling screen transitions and navigation
 const Navigation = {

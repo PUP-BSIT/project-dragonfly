@@ -1,6 +1,6 @@
 <?php
 $host = 'srv607.hstgr.io';
-$db   = 'u147312066_dragonvaultdb';
+$db   = 'u147312066_DragonVaultDB';
 $user = 'u147312066_dragonfly';
 $pass = 'Dragonfly_2025';
 
@@ -11,3 +11,4 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 ?>
+    

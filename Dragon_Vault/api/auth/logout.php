@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../_headers.php';
 
 // Destroy all session variables
 $_SESSION = [];

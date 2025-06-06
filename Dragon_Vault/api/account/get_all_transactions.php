@@ -1,6 +1,6 @@
 <?php
 session_start();
-header("Content-Type: application/json");
+require_once __DIR__ . '/../_headers.php';
 require_once '../../includes/db.php';
 
 if (!isset($_SESSION['account_holder_id'])) {

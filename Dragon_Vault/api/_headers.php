@@ -1,6 +1,6 @@
 <?php
 // CORS
-$allowed_origin = 'https://dragonvault.site';
+$allowed_origin = '*';
 header("Access-Control-Allow-Origin: $allowed_origin");
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');

@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(
                     "Failed to load account information. Please log in again."
                 );
-                window.location.href = "/Dragon_Vault/public/landing_page.html";
+                window.location.href = "index.html";
             }
         })
         .catch((err) => {
@@ -81,7 +81,7 @@ function logout() {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "/Dragon_Vault/public/landing_page.html";
+                window.location.href = "index.html";
             } else {
                 alert("Logout failed. Try again.");
             }

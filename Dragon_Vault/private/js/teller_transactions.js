@@ -1,4 +1,4 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = "/Dragon_Vault/api/";
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch(API_BASE + 'transactions/get_teller_transactions.php', {

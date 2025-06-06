@@ -1,8 +1,8 @@
 <?php
-$host = 'srv607.hstgr.io';
+$host = 'localhost';
 $db   = 'u147312066_DragonVaultDB';
-$user = 'u147312066_dragonfly';
-$pass = 'Dragonfly_2025';
+$user = 'root';
+$pass = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);

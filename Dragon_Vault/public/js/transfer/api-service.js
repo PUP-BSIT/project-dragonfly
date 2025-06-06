@@ -1,10 +1,12 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 // API Service module for handling API calls and data fetching
 const ApiService = {
     loadAvailableBalance() {
         const balanceElement = document.getElementById('availableBalance');
         balanceElement.textContent = 'Loading...';
 
-        fetch('/Dragon_Vault/api/account/balance.php')
+        fetch(API_BASE + "account/balance.php")
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -41,9 +43,9 @@ const ApiService = {
 
         let apiEndpoint;
         if (Navigation.selectedTransferType === "dragonvault") {
-            apiEndpoint = "/Dragon_Vault/api/transfer/internal.php";
+            apiEndpoint = API_BASE + "transfer/internal.php";
         } else {
-            apiEndpoint = "./api/transfer/external.php";
+            apiEndpoint = API_BASE + "transfer/external.php";
             alert("External bank transfers are not yet implemented.");
             submitButton.textContent = originalText;
             submitButton.disabled = false;

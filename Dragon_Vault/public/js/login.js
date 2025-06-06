@@ -1,9 +1,11 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login_form");
 
     // Named function to handle login
     function handleLogin(username, password) {
-        return fetch("/Dragon_Vault/api/auth/login.php", {
+        return fetch(API_BASE + "auth/login.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),

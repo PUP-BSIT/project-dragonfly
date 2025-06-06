@@ -1,3 +1,4 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 // Main module for initializing the application and setting up event listeners
 document.addEventListener("DOMContentLoaded", function () {
     // Load initial balance

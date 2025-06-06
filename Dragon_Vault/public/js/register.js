@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
     const registerForm = document.getElementById("register_form");
     const passwordInput = document.getElementById("register_password");
@@ -84,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Named function to register user
     function registerUser(data) {
-        return fetch("/Dragon_Vault/api/auth/register.php", {
+        return fetch(API_BASE + "auth/register.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Named function to handle login (for auto-login after registration)
     function handleLogin(username, password) {
-        return fetch("/Dragon_Vault/api/auth/login.php", {
+        return fetch(API_BASE + "auth/login.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),

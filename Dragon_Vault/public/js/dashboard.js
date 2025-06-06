@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
     const balanceAmountElem = document.querySelector(".balance-amount");
     const transactionsContentElem = document.querySelector(
@@ -6,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const welcomeTitleElem = document.querySelector(".welcome-title");
 
     // Fetch account balance and recent transactions
-    fetch("/Dragon_Vault/api/account/balance.php", {
+    fetch(API_BASE + "account/balance.php", {
         method: "GET",
         credentials: "include",
     })
@@ -72,7 +74,7 @@ function goToProfile() {
 }
 
 function logout() {
-    fetch("/Dragon_Vault/api/auth/logout.php", {
+    fetch(API_BASE + "auth/logout.php", {
         method: "POST",
         credentials: "include",
     })
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchRecentTransactions() {
-    fetch('/Dragon_Vault/api/account/get_recent_transaction.php')
+    fetch(API_BASE + "account/get_recent_transaction.php")
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById("transactionsList");

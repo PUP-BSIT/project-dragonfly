@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 // Validation module for handling form validations and error handling
 const Validation = {
     validateCurrentScreen() {

@@ -1,3 +1,4 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 let currentUserData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Load user profile data
 function loadUserProfile() {
-    fetch("/Dragon_Vault/api/account/profile.php", {
+    fetch(API_BASE + "account/profile.php", {
         method: "GET",
         credentials: "include",
     })
@@ -18,7 +19,7 @@ function loadUserProfile() {
                 displayUserProfile(data.user);
             } else {
                 alert("Failed to load profile. Please log in again.");
-                window.location.href = "/Dragon_Vault/public/landing-page.html";
+                window.location.href = "../../index.html";
             }
         })
         .catch((err) => {
@@ -113,7 +114,7 @@ function handleProfileUpdate(e) {
     saveBtn.innerHTML = '<span class="btn-icon">⏳</span> Saving...';
     saveBtn.disabled = true;
 
-    fetch("/Dragon_Vault/api/account/update_profile.php", {
+    fetch(API_BASE + "account/update_profile.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -153,6 +154,54 @@ function closePasswordModal() {
     document.getElementById("passwordForm").reset();
 }
 
+// Password requirement check for profile change password
+function checkProfilePasswordRequirements(password) {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const isLongEnough = password.length >= 8;
+
+    const uppercaseLi = document.getElementById("profile-req-uppercase");
+    const lowercaseLi = document.getElementById("profile-req-lowercase");
+    const numberLi = document.getElementById("profile-req-number");
+    const specialLi = document.getElementById("profile-req-special");
+    const lengthLi = document.getElementById("profile-req-length");
+
+    const uppercaseStatus = uppercaseLi.querySelector('.req-status');
+    const lowercaseStatus = lowercaseLi.querySelector('.req-status');
+    const numberStatus = numberLi.querySelector('.req-status');
+    const specialStatus = specialLi.querySelector('.req-status');
+    const lengthStatus = lengthLi.querySelector('.req-status');
+
+    uppercaseStatus.textContent = hasUpperCase ? "Met" : "Not met";
+    lowercaseStatus.textContent = hasLowerCase ? "Met" : "Not met";
+    numberStatus.textContent = hasNumbers ? "Met" : "Not met";
+    specialStatus.textContent = hasSpecialChar ? "Met" : "Not met";
+    lengthStatus.textContent = isLongEnough ? "Met" : "Not met";
+
+    uppercaseLi.classList.toggle('met', hasUpperCase);
+    uppercaseLi.classList.toggle('not-met', !hasUpperCase);
+    lowercaseLi.classList.toggle('met', hasLowerCase);
+    lowercaseLi.classList.toggle('not-met', !hasLowerCase);
+    numberLi.classList.toggle('met', hasNumbers);
+    numberLi.classList.toggle('not-met', !hasNumbers);
+    specialLi.classList.toggle('met', hasSpecialChar);
+    specialLi.classList.toggle('not-met', !hasSpecialChar);
+    lengthLi.classList.toggle('met', isLongEnough);
+    lengthLi.classList.toggle('not-met', !isLongEnough);
+
+    return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough;
+}
+
+// Add input event listener for real-time feedback
+const newPasswordInput = document.getElementById("newPassword");
+if (newPasswordInput) {
+    newPasswordInput.addEventListener("input", (e) => {
+        checkProfilePasswordRequirements(e.target.value);
+    });
+}
+
 // Handle password change
 function handlePasswordChange(e) {
     e.preventDefault();
@@ -167,8 +216,9 @@ function handlePasswordChange(e) {
         return;
     }
 
-    if (newPassword.length < 8) {
-        alert("New password must be at least 8 characters long.");
+    // Strong password validation
+    if (!checkProfilePasswordRequirements(newPassword)) {
+        alert("Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters.");
         return;
     }
 
@@ -177,7 +227,7 @@ function handlePasswordChange(e) {
     submitBtn.textContent = "Updating...";
     submitBtn.disabled = true;
 
-    fetch("/Dragon_Vault/api/account/change_password.php", {
+    fetch(API_BASE + "account/change_password.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -238,7 +288,7 @@ function deleteAccount() {
     deleteBtn.textContent = "Deleting...";
     deleteBtn.disabled = true;
 
-    fetch("/Dragon_Vault/api/account/delete_account.php", {
+    fetch(API_BASE + "account/delete_account.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -254,7 +304,7 @@ function deleteAccount() {
                 alert(
                     "Your account has been successfully deleted. You will be redirected to the homepage."
                 );
-                window.location.href = "/Dragon_Vault/public/landing_page.html";
+                window.location.href = "../../index.html";
             } else {
                 alert(data.message || "Failed to delete account. Please verify your password and try again.");
             }
@@ -279,14 +329,14 @@ function goToProfile() {
 }
 
 function logout() {
-    fetch("/Dragon_Vault/api/auth/logout.php", {
+    fetch(API_BASE + "auth/logout.php", {
         method: "POST",
         credentials: "include",
     })
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "/Dragon_Vault/public/landing_page.html";
+                window.location.href = "../../index.html";
             } else {
                 alert("Logout failed. Try again.");
             }

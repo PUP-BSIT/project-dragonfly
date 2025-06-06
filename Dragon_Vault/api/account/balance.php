@@ -23,13 +23,20 @@ try {
     $stmtBalance->execute([$accountHolderId]);
     $balanceResult = $stmtBalance->fetch();
 
+    //acc number
+    $stmtAccount = $pdo->prepare("SELECT account_number FROM account WHERE account_holder_id = ? LIMIT 1");
+    $stmtAccount->execute([$accountHolderId]);
+    $accountResult = $stmtAccount->fetch();
+
     echo json_encode([
         "success" => true,
         "full_name" => $user['full_name'],
+        "account_number" => $accountResult['account_number'] ?? null, 
         "total_balance" => $balanceResult['total_balance'] ?? 0.00,
-        "recent_transactions" => [] // Add real transactions later
+        "recent_transactions" => [] 
     ]);
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(["success" => false, "error" => "Server error: " . $e->getMessage()]);
 }
+?>

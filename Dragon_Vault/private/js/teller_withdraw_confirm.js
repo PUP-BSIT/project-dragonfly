@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
   if (!sessionStorage.getItem("account_number") || !sessionStorage.getItem("withdraw_amount")) {
     alert("Missing transaction data. Redirecting to withdrawal page.");
@@ -12,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("withdraw_amt").textContent = sessionStorage.getItem("withdraw_amount");
 
   document.getElementById("confirm_btn").addEventListener("click", () => {
-    fetch("/Dragon_Vault/api/transactions/withdraw_confirm.php", {
+    fetch(API_BASE + "transactions/withdraw_confirm.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

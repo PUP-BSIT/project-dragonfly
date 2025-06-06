@@ -1,5 +1,7 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/Dragon_Vault/api/auth/get_teller_info.php")
+  fetch(API_BASE + "auth/get_teller_info.php")
     .then(res => res.json())
     .then(data => {
       if (data.success) {
@@ -11,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   document.getElementById("logoutBtn").addEventListener("click", () => {
-    fetch("/Dragon_Vault/api/auth/logout.php", { method: "POST" })
+    fetch(API_BASE + "auth/logout.php", { method: "POST" })
       .then(() => {
         window.location.href = "teller_login.html";
       });

@@ -1,3 +1,5 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Validate required session data
   const requiredFields = [

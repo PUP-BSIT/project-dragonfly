@@ -1,6 +1,6 @@
 <?php
 session_start();
-header("Content-Type: application/json");
+require_once __DIR__ . '/../_headers.php';
 require_once '../../includes/db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);

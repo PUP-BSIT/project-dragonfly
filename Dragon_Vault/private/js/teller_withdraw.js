@@ -1,8 +1,10 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.getElementById("lookupForm").addEventListener("submit", function(e) {
   e.preventDefault();
   const accountNumber = document.getElementById("account_number").value;
 
-  fetch("/Dragon_Vault/api/transactions/fetch_account.php", {
+  fetch(API_BASE + 'transactions/fetch_account.php', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ account_number: accountNumber })

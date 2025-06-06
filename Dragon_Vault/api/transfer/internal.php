@@ -1,6 +1,6 @@
 <?php
 session_start();
-header("Content-Type: application/json");
+require_once __DIR__ . '/../_headers.php';
 
 // Allow only POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -38,11 +38,16 @@ if (!is_numeric($_POST['amount']) || $amount != $_POST['amount']) {
 }
 
 try {
+    // Debug logging
+    error_log("Starting transfer process");
+    error_log("POST data: " . print_r($_POST, true));
+    error_log("Session data: " . print_r($_SESSION, true));
+    
     $pdo->beginTransaction();
 
-    // Get sender's account information
+    // Get sender's account information - FIXED: removed account_id
     $stmtSender = $pdo->prepare("
-        SELECT a.account_id, a.account_number, a.balance 
+        SELECT a.account_number, a.balance 
         FROM account a 
         WHERE a.account_holder_id = ? 
         ORDER BY a.balance DESC 
@@ -66,9 +71,9 @@ try {
         exit();
     }
 
-    // Get recipient's account information
+    // Get recipient's account information - FIXED: removed account_id
     $stmtRecipient = $pdo->prepare("
-        SELECT a.account_id, a.account_number, a.account_holder_id 
+        SELECT a.account_number, a.account_holder_id 
         FROM account a 
         WHERE a.account_number = ?
     ");
@@ -90,9 +95,9 @@ try {
         exit();
     }
 
-    // Deduct amount from sender's account
-    $stmtDeduct = $pdo->prepare("UPDATE account SET balance = balance - ? WHERE account_id = ?");
-    $deductResult = $stmtDeduct->execute([$amount, $senderAccount['account_id']]);
+    // Deduct amount from sender's account - FIXED: use account_number as identifier
+    $stmtDeduct = $pdo->prepare("UPDATE account SET balance = balance - ? WHERE account_number = ?");
+    $deductResult = $stmtDeduct->execute([$amount, $senderAccount['account_number']]);
 
     if (!$deductResult) {
         $pdo->rollBack();
@@ -101,9 +106,9 @@ try {
         exit();
     }
 
-    // Add amount to recipient's account
-    $stmtAdd = $pdo->prepare("UPDATE account SET balance = balance + ? WHERE account_id = ?");
-    $addResult = $stmtAdd->execute([$amount, $recipientAccountData['account_id']]);
+    // Add amount to recipient's account - FIXED: use account_number as identifier
+    $stmtAdd = $pdo->prepare("UPDATE account SET balance = balance + ? WHERE account_number = ?");
+    $addResult = $stmtAdd->execute([$amount, $recipientAccountData['account_number']]);
 
     if (!$addResult) {
         $pdo->rollBack();
@@ -112,24 +117,27 @@ try {
         exit();
     }
 
-    // Record the transaction (assuming you have a transactions table)
+    // Record the transaction
     $transactionId = 'TXN' . date('YmdHis') . rand(1000, 9999);
     
-    // Insert transaction record - adjust table name and columns as per your database structure
+    // Debug log before transaction insert
+    error_log("Attempting to insert transaction record with ID: " . $transactionId);
+    
+    // Insert transaction record using the correct table name and columns
     $stmtTransaction = $pdo->prepare("
-        INSERT INTO transactions 
-        (transaction_id, sender_account_id, recipient_account_id, amount, transaction_type, status, created_at) 
-        VALUES (?, ?, ?, ?, 'internal_transfer', 'completed', NOW())
+        INSERT INTO user_transaction 
+        (account_number, transaction_type, amount, status, recipient_account_number, transaction_timestamp, recipient_bank_code) 
+        VALUES (?, 'Internal transfer', ?, 'Completed', ?, NOW(), 'Dragon Vault')
     ");
     
     $transactionResult = $stmtTransaction->execute([
-        $transactionId,
-        $senderAccount['account_id'],
-        $recipientAccountData['account_id'],
-        $amount
+        $senderAccount['account_number'],
+        $amount,
+        $recipientAccount
     ]);
 
     if (!$transactionResult) {
+        error_log("Transaction insert error: " . print_r($stmtTransaction->errorInfo(), true));
         // Don't rollback here as the transfer was successful, just log the error
         error_log("Failed to record transaction: " . implode(", ", $stmtTransaction->errorInfo()));
     }
@@ -137,9 +145,9 @@ try {
     // Commit the transaction
     $pdo->commit();
 
-    // Get updated balance for response
-    $stmtUpdatedBalance = $pdo->prepare("SELECT balance FROM account WHERE account_id = ?");
-    $stmtUpdatedBalance->execute([$senderAccount['account_id']]);
+    // Get updated balance for response - FIXED: use account_number as identifier
+    $stmtUpdatedBalance = $pdo->prepare("SELECT balance FROM account WHERE account_number = ?");
+    $stmtUpdatedBalance->execute([$senderAccount['account_number']]);
     $updatedBalance = $stmtUpdatedBalance->fetchColumn();
 
     echo json_encode([
@@ -148,18 +156,30 @@ try {
         "transaction_id" => $transactionId,
         "amount_transferred" => number_format($amount, 2),
         "remaining_balance" => number_format($updatedBalance, 2),
-        "recipient_account" => $recipientAccount
+        "recipient_account" => $recipientAccount,
+        "recipient_bank" => "Dragon Vault"
     ]);
 
 } catch (PDOException $e) {
     $pdo->rollBack();
     error_log("Database error in internal transfer: " . $e->getMessage());
+    error_log("SQL State: " . $e->getCode());
+    error_log("Error Info: " . print_r($e->errorInfo, true));
     http_response_code(500);
-    echo json_encode(["success" => false, "error" => "Database error occurred. Please try again."]);
+    echo json_encode([
+        "success" => false, 
+        "error" => "Database error occurred. Please try again.",
+        "debug_info" => "Error logged. Check server logs for details."
+    ]);
 } catch (Exception $e) {
     $pdo->rollBack();
     error_log("General error in internal transfer: " . $e->getMessage());
+    error_log("Stack trace: " . $e->getTraceAsString());
     http_response_code(500);
-    echo json_encode(["success" => false, "error" => "An error occurred. Please try again."]);
+    echo json_encode([
+        "success" => false, 
+        "error" => "An error occurred. Please try again.",
+        "debug_info" => "Error logged. Check server logs for details."
+    ]);
 }
 ?>

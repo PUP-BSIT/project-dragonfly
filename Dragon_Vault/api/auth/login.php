@@ -1,6 +1,6 @@
 <?php
-header("Content-Type: application/json");
 session_start();
+require_once __DIR__ . '/../_headers.php';
 
 // Allow only POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Content-Type: application/json');
+require_once __DIR__ . '/../_headers.php';
 
 if (!isset($_SESSION['account_holder_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not logged in']);

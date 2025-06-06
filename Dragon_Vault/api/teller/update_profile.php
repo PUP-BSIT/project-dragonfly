@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Content-Type: application/json');
+require_once __DIR__ . '/../_headers.php';
 
 if (!isset($_SESSION['teller_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not logged in']);
@@ -8,7 +8,7 @@ if (!isset($_SESSION['teller_id'])) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (!isset($data['fullName'], $data['email'], $data['branch'])) {
+if (!isset($data['first_name'], $data['last_name'], $data['email'], $data['branch'])) {
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;
 }
@@ -16,15 +16,10 @@ if (!isset($data['fullName'], $data['email'], $data['branch'])) {
 require_once '../../includes/db.php';
 
 $teller_id = $_SESSION['teller_id'];
-$fullName = trim($data['fullName']);
+$first_name = trim($data['first_name']);
+$last_name = trim($data['last_name']);
 $email = trim($data['email']);
 $branch = trim($data['branch']);
-
-// Split full name
-$nameParts = explode(' ', $fullName);
-$first_name = $nameParts[0];
-$last_name = isset($nameParts[1]) ? $nameParts[1] : '';
-
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email format']);
     exit;

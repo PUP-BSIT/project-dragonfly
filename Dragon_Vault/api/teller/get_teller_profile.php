@@ -1,8 +1,6 @@
 <?php
 session_start();
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: https://yourfrontenddomain.com");
-header("Access-Control-Allow-Credentials: true");
+require_once __DIR__ . '/../_headers.php';
 require_once '../../includes/db.php';
 
 if (!isset($_SESSION['teller_id'])) {

@@ -1,6 +1,7 @@
 <?php
 require_once '../../includes/db.php';
 session_start();
+require_once __DIR__ . '/../_headers.php';
 
 if (!isset($_SESSION['teller_id'])) {
     http_response_code(401);

@@ -1,5 +1,7 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("/Dragon_Vault/api/account/get_all_transactions.php")
+    fetch(API_BASE + "account/get_all_transactions.php")
         .then(response => response.json())
         .then(data => {
             if (!data.success) {

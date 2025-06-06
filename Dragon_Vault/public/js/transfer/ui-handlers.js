@@ -1,5 +1,3 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
-
 // UI Handlers module for managing UI interactions and updates
 const UIHandlers = {
     selectTransferType(element, type) {

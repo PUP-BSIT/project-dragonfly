@@ -1,5 +1,3 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
-
 // API Service module for handling API calls and data fetching
 const ApiService = {
     loadAvailableBalance() {

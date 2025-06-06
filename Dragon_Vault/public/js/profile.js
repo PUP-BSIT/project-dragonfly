@@ -19,7 +19,7 @@ function loadUserProfile() {
                 displayUserProfile(data.user);
             } else {
                 alert("Failed to load profile. Please log in again.");
-                window.location.href = "index.html";
+                window.location.href = "../../index.html";
             }
         })
         .catch((err) => {
@@ -304,7 +304,7 @@ function deleteAccount() {
                 alert(
                     "Your account has been successfully deleted. You will be redirected to the homepage."
                 );
-                window.location.href = "index.html";
+                window.location.href = "../../index.html";
             } else {
                 alert(data.message || "Failed to delete account. Please verify your password and try again.");
             }
@@ -336,7 +336,7 @@ function logout() {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "index.html";
+                window.location.href = "../../index.html";
             } else {
                 alert("Logout failed. Try again.");
             }

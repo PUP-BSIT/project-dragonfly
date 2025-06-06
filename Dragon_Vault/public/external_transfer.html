@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/transfer_fund.css" />
+        <link rel="icon" href="../assets/logo.png" />
+        <title>DragonVault - External Transfer</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="logo">
+                    <img
+                        src="../assets/logo.png"
+                        alt="Dragon Vault Logo"
+                        class="logo-image" />
+                </div>
+                <div class="brand-name">DragonVault</div>
+            </div>
+            <div class="main-content">
+                <!-- Screen 1: Transfer Details -->
+                <div class="screen active" id="screen1">
+                    <div class="card">
+                        <h1 class="card-title">External Transfer</h1>
+                        <div class="balance-box">
+                            <div class="balance-label">Available Balance</div>
+                            <div class="balance-amount" id="availableBalance">
+                                0.00
+                            </div>
+                        </div>
+                        <!-- Bank Selection -->
+                        <div class="form-group">
+                            <label class="form-label">Select Bank</label>
+                            <select class="form-select" id="bankSelect">
+                                <option value="">Select Bank</option>
+                                <option value="blinders-vault">
+                                    Blinders Vault
+                                </option>
+                                <option value="stackovercash">
+                                    StackOverCash
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">To Account:</label>
+                            <input
+                                type="text"
+                                class="form-input"
+                                placeholder="Recipient Account Number"
+                                id="accountNumber" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Amount:</label>
+                            <input
+                                type="text"
+                                class="form-input"
+                                placeholder="PHP"
+                                id="amount" />
+                        </div>
+                        <div class="button-group">
+                            <button
+                                class="btn btn-primary"
+                                onclick="showScreen(2)">
+                                TRANSFER
+                            </button>
+                            <button
+                                class="btn btn-secondary"
+                                onclick="cancelTransaction()">
+                                CANCEL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Screen 2: Confirm Transaction -->
+                <div class="screen" id="screen2">
+                    <div class="card">
+                        <h1 class="card-title">CONFIRM TRANSACTION</h1>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label">Bank:</span>
+                            <span
+                                class="confirmation-value"
+                                id="confirmBank"></span>
+                        </div>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label"
+                                >Recipient Account Number:</span
+                            >
+                            <span class="confirmation-value" id="confirmAccount"
+                                >123456</span
+                            >
+                        </div>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label">Amount:</span>
+                            <span class="confirmation-value" id="confirmAmount"
+                                >P 500.00</span
+                            >
+                        </div>
+                        <div class="button-group">
+                            <button
+                                class="btn btn-primary"
+                                onclick="submitTransfer()">
+                                CONFIRM
+                            </button>
+                            <button
+                                class="btn btn-secondary"
+                                onclick="goBack()">
+                                Back
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Screen 3: Transaction Receipt -->
+                <div class="screen" id="screen3">
+                    <div class="card">
+                        <h1 class="card-title">TRANSACTION RECEIPT</h1>
+
+                        <div class="receipt-info">
+                            <div class="receipt-row">
+                                <span class="receipt-label">Date:</span>
+                                <span class="receipt-value" id="receiptDate"
+                                    >05/06/2025</span
+                                >
+                            </div>
+                            <div class="receipt-row">
+                                <span class="receipt-label">Time:</span>
+                                <span class="receipt-value" id="receiptTime"
+                                    >10:30 AM</span
+                                >
+                            </div>
+                            <div class="receipt-row">
+                                <span class="receipt-label">Bank:</span>
+                                <span
+                                    class="receipt-value"
+                                    id="receiptBank"></span>
+                            </div>
+                            <div class="receipt-row">
+                                <span class="receipt-label"
+                                    >Recipient Account Number:</span
+                                >
+                                <span class="receipt-value" id="receiptAccount"
+                                    >123456</span
+                                >
+                            </div>
+                            <div class="receipt-row">
+                                <span class="receipt-label">Amount:</span>
+                                <span class="receipt-value" id="receiptAmount"
+                                    >P 500.00</span
+                                >
+                            </div>
+                            <div class="receipt-row">
+                                <span class="receipt-label"
+                                    >Transaction ID:</span
+                                >
+                                <span class="receipt-value" id="receiptTxnId"
+                                    >T12345</span
+                                >
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button
+                                class="btn btn-purple"
+                                onclick="printReceipt()">
+                                PRINT
+                            </button>
+                            <button
+                                class="btn btn-purple"
+                                onclick="showScreen(4)">
+                                DONE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Screen 4: Transaction Completed -->
+                <div class="screen" id="screen4">
+                    <div class="card">
+                        <h1 class="card-title">TRANSACTION COMPLETED</h1>
+
+                        <div class="success-message">
+                            External transfer has been processed successfully!
+                        </div>
+
+                        <div class="button-group">
+                            <button
+                                class="btn btn-purple"
+                                onclick="returnToHome()">
+                                RETURN TO HOME
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./js/external_transfer.js"></script>
+    </body>
+</html>

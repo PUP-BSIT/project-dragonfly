@@ -330,6 +330,10 @@ body {
 .account-number {
     font-size: 1.7em;
     color: #ececec;
-    margin-top: 5px;
+    margin-top: 8px;
     font-weight: normal;
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
 }

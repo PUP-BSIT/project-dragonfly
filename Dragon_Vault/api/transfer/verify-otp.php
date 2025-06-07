@@ -102,9 +102,87 @@ try {
 
     error_log("Updated source account balance during verification");
 
-    // Update recipient account balance
-    // This should only happen for internal transfers (recipient_bank_code = 'Dragon Vault')
-    if ($transaction['recipient_bank_code'] === 'Dragon Vault') {
+    // Handle external bank transfer if applicable
+    if ($transaction['recipient_bank_code'] !== 'Dragon Vault') {
+        $external_transfer_success = false;
+        $external_response = null;
+
+        if ($transaction['recipient_bank_code'] === 'StackOverCash') {
+            $external_payload = [
+                'transaction_amount' => floatval($transaction['amount']),
+                'source_account_no' => $source_account_no,
+                'source_bank_code' => 'Dragon Vault',
+                'recipient_account_no' => $transaction['recipient_account_number']
+            ];
+
+            error_log("Calling StackOverCash API with payload: " . json_encode($external_payload));
+
+            $ch = curl_init('https://dev.stackovercash.site/api/services/soc_transfer');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($external_payload));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json'
+            ]);
+
+            $response = curl_exec($ch);
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            error_log("StackOverCash API Response (HTTP $http_code): " . $response);
+
+            if ($http_code === 200) {
+                $external_response = json_decode($response, true);
+                $external_transfer_success = isset($external_response['success']) && $external_response['success'] === true;
+            }
+        } else if ($transaction['recipient_bank_code'] === 'Blinders Vault') {
+            $external_payload = [
+                'transaction_amount' => floatval($transaction['amount']),
+                'source_account_no' => $source_account_no,
+                'source_bank_code' => 'Dragon Vault',
+                'recipient_account_no' => $transaction['recipient_account_number']
+            ];
+
+            error_log("Calling Blinders Vault API with payload: " . json_encode($external_payload));
+
+            $ch = curl_init('https://darkorange-cormorant-406076.hostingersite.com/php/receive_external_transfer.php');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($external_payload));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json'
+            ]);
+
+            $response = curl_exec($ch);
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            error_log("Blinders Vault API Response (HTTP $http_code): " . $response);
+
+            if ($http_code === 200) {
+                $external_response = json_decode($response, true);
+                $external_transfer_success = isset($external_response['success']) && $external_response['success'] === true;
+            }
+        }
+
+        if (!$external_transfer_success) {
+            // If external transfer fails, revert the source account balance
+            $stmt_revert = $pdo->prepare("
+                UPDATE account 
+                SET balance = balance + ? 
+                WHERE account_number = ?
+            ");
+            $stmt_revert->execute([$transaction['amount'], $source_account_no]);
+            
+            // Mark transaction as failed
+            $stmt_fail = $pdo->prepare("UPDATE user_transaction SET status = 'Failed' WHERE user_transaction_id = ?");
+            $stmt_fail->execute([$transaction['user_transaction_id']]);
+            
+            throw new Exception('Failed to process external transfer: ' . 
+                ($external_response ? json_encode($external_response) : 'Unknown error'));
+        }
+    } else {
+        // Update recipient account balance for internal transfers
         $stmt = $pdo->prepare("
             UPDATE account 
             SET balance = balance + ? 
@@ -116,8 +194,6 @@ try {
              error_log("Updated recipient account balance for internal transfer");
         } else {
             error_log("Recipient account number is NULL for internal transfer: " . json_encode($transaction));
-            // Depending on desired behavior, you might rollback or handle differently
-            // For now, we'll log and proceed without updating recipient balance
         }
     }
 

@@ -197,7 +197,13 @@ const ApiService = {
                 if (data.transaction_id) {
                     document.getElementById("receiptTxnId").textContent = data.transaction_id;
                 }
-                Navigation.showScreen(5);
+
+                // If this is an external bank transfer, call the respective bank's API
+                if (transferDetails.type === 'bank' && transferDetails.bank) {
+                    return this.processExternalTransfer(transferDetails);
+                } else {
+                    Navigation.showScreen(5);
+                }
             } else {
                 alert(data.error || "OTP verification failed");
             }
@@ -209,6 +215,51 @@ const ApiService = {
         .finally(() => {
             submitButton.textContent = originalText;
             submitButton.disabled = false;
+        });
+    },
+
+    processExternalTransfer(transferDetails) {
+        const sourceAccount = localStorage.getItem('accountNumber');
+        const payload = {
+            transaction_amount: parseFloat(transferDetails.amount),
+            source_account_no: sourceAccount,
+            source_bank_code: "Dragon Vault",
+            recipient_account_no: transferDetails.recipient
+        };
+
+        let apiEndpoint;
+        if (transferDetails.bank === "StackOverCash") {
+            apiEndpoint = "https://dev.stackovercash.site/api/services/soc_transfer";
+        } else if (transferDetails.bank === "Blinders Vault") {
+            apiEndpoint = "https://darkorange-cormorant-406076.hostingersite.com/php/receive_external_transfer.php";
+        } else {
+            throw new Error("Invalid bank selection");
+        }
+
+        return fetch(apiEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                Navigation.showScreen(5);
+            } else {
+                throw new Error(data.error || data.message || "Failed to process external transfer");
+            }
+        })
+        .catch(error => {
+            console.error("External transfer error:", error);
+            alert("Failed to process external transfer. Please contact support.");
+            throw error;
         });
     },
 

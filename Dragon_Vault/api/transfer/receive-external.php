@@ -63,10 +63,17 @@ try {
     $stmt->execute([$recipient_account_no]);
     $recipient_account_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    error_log("Checking recipient account: " . $recipient_account_no);
+    error_log("Recipient account data: " . json_encode($recipient_account_data));
+
     if (!$recipient_account_data) {
         $pdo->rollBack();
         http_response_code(400);
-        echo json_encode(['fund_transfer_success' => false, 'error' => 'Recipient account not found in Dragon Vault']);
+        echo json_encode([
+            'fund_transfer_success' => false, 
+            'error' => 'Recipient account not found in Dragon Vault',
+            'details' => 'Account number: ' . $recipient_account_no
+        ]);
         exit();
     }
 
@@ -103,20 +110,20 @@ try {
     $status = 'Completed';
 
     $transaction_insert_result = $stmt_transaction->execute([
-        $recipient_account_no, // The internal account receiving funds
+        $source_account_no, 
         $transaction_type,
         $transaction_amount,
         $status,
-        $source_account_no, // Store source account as recipient_account_number
-        $source_bank_code,  // Store source bank as recipient_bank_code
+        $recipient_account_no, 
+        $source_bank_code, 
     ]);
 
     if (!$transaction_insert_result) {
-         $pdo->rollBack();
-         error_log("Error inserting inbound transaction record: " . print_r($stmt_transaction->errorInfo(), true));
-         http_response_code(500);
-         echo json_encode(['fund_transfer_success' => false, 'error' => 'Failed to record incoming transaction']);
-         exit();
+        $pdo->rollBack();
+        error_log("Error inserting inbound transaction record: " . print_r($stmt_transaction->errorInfo(), true));
+        http_response_code(500);
+        echo json_encode(['fund_transfer_success' => false, 'error' => 'Failed to record incoming transaction']);
+        exit();
     }
 
     $transaction_id = $pdo->lastInsertId();

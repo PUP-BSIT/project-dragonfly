@@ -18,10 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Get POST data
-$transaction_amount = isset($_POST['transaction_amount']) ? floatval($_POST['transaction_amount']) : 0;
-$source_account_no = isset($_POST['source_account_no']) ? $_POST['source_account_no'] : '';
-$source_bank_code = isset($_POST['source_bank_code']) ? $_POST['source_bank_code'] : '';
-$recipient_account_no = isset($_POST['recipient_account_no']) ? $_POST['recipient_account_no'] : '';
+$json_data = json_decode(file_get_contents('php://input'), true);
+
+if ($json_data === null) {
+    http_response_code(400);
+    echo json_encode(['fund_transfer_success' => false, 'error' => 'Invalid JSON data']);
+    exit();
+}
+
+$transaction_amount = isset($json_data['transaction_amount']) ? floatval($json_data['transaction_amount']) : 0;
+$source_account_no = isset($json_data['source_account_no']) ? $json_data['source_account_no'] : '';
+$source_bank_code = isset($json_data['source_bank_code']) ? $json_data['source_bank_code'] : '';
+$recipient_account_no = isset($json_data['recipient_account_no']) ? $json_data['recipient_account_no'] : '';
 
 // Log incoming request
 error_log("Receive External Transfer Request: " . json_encode([
@@ -83,10 +91,8 @@ try {
             status, 
             recipient_account_number,
             recipient_bank_code,
-            source_account_number,
-            source_bank_code,
             transaction_timestamp
-        ) VALUES (?, ?, ?, 'Completed', ?, ?, ?, ?, NOW())
+        ) VALUES (?, ?, ?, ?, ?, ?, NOW())
     ");
     
     // Note: For an incoming external transfer, the 'account_number' column in user_transaction
@@ -94,17 +100,15 @@ try {
     // The source account details are stored in source_account_number and source_bank_code.
     
     $transaction_type = 'External transfer (inbound)'; // Define a type for incoming external transfers
-    $status = 'Completed'; // Mark as completed immediately upon successful deposit
+    $status = 'Completed';
 
     $transaction_insert_result = $stmt_transaction->execute([
         $recipient_account_no, // The internal account receiving funds
         $transaction_type,
         $transaction_amount,
         $status,
-        null, // recipient_account_number is for outbound transfers
-        'Dragon Vault', // recipient_bank_code is our bank for inbound
-        $source_account_no,
-        $source_bank_code
+        $source_account_no, // Store source account as recipient_account_number
+        $source_bank_code,  // Store source bank as recipient_bank_code
     ]);
 
     if (!$transaction_insert_result) {

@@ -73,10 +73,6 @@ try {
         throw new Exception('Insufficient balance');
     }
 
-    // Note: For actual external transfers, you would typically interact with an external bank API here
-    // The following code only creates a pending transaction record in your database.
-    // The actual transfer of funds from your bank's main account would happen upon OTP verification.
-
     // Generate OTP
     $otp = 123456;
 

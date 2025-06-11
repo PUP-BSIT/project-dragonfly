@@ -47,7 +47,7 @@ if (empty($source_account_no) || empty($source_bank_code) || empty($recipient_ac
 }
 
 // Validate source bank code against allowed external banks
-$allowed_source_banks = ['Blinders Vault', 'StackOverCash']; // Add other external banks here
+$allowed_source_banks = ['Blind Vault', 'StackOverCash']; // Add other external banks here
 if (!in_array($source_bank_code, $allowed_source_banks)) {
     http_response_code(400);
     echo json_encode(['fund_transfer_success' => false, 'error' => 'Invalid source bank code']);

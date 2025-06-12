@@ -33,7 +33,16 @@
         <main class="main-content">
             <section class="welcome-section">
                 <h1 class="welcome-title">Welcome, John Doe!</h1>
-                <div class="account-number">Account Number: ****-****-**</div>
+                <div class="account-number-container">
+                    <div class="account-number">Account Number: ****-****-**</div>
+                    <img 
+                        src="../assets/hide.png" 
+                        alt="Toggle visibility" 
+                        class="toggle-visibility-icon" 
+                        id="toggleVisibilityIcon"
+                        onclick="toggleAccountNumberVisibility()"
+                    />
+                </div>
             </section>
             <div class="dashboard-grid">
                 <div class="balance-card">
@@ -55,7 +64,7 @@
                     Loading...
                 </div>
                 <div class="view-all-container">
-                    <a href="transaction_history.html">
+                    <a href="transaction_page.html">
                         <button class="view-all-btn">
                             View All
                         </button>

@@ -1,173 +1,382 @@
-body {
-  font-family: Arial, sans-serif;
+/* Reset and base styles */
+* {
   margin: 0;
-  background-color: #1b0036;
-  color: white;
-  height: 100vh;
-  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1b0036;
+  color: white;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* Header */
 .header {
   background: #0c001a;
-  padding: 8px 20px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
 .logo {
-  height: 30px;
-  margin-right: 10px;
+  height: 35px;
+  width: 35px;
   border-radius: 50%;
-  width: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
+  object-fit: cover;
 }
 
 .brand-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
+  color: #f2e6ff;
 }
 
-.nav-links {
+/* Main content */
+.main-content {
+  padding-top: 70px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  padding: 70px 20px 20px;
 }
 
-.nav-links a,
-.nav-links button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 5px;
-  transition: background 0.3s;
-  text-decoration: none;
-}
-
-.nav-links a:hover,
-.nav-links button:hover {
-  background-color: #450078;
-}
-
-/* Login Card */
-.step {
-  display: none;
-  padding-top: 70px;
-}
-
-.step.active {
-  display: block;
-}
-
-/* Registration Form Container */
+/* Registration container */
 .registration-container {
-  background: #0d001f;  
-  border-radius: 4px;
-  padding: 50px;
+  background: linear-gradient(145deg, #0d001f, #1a0033);
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
   max-width: 500px;
-  box-shadow: 0 0 10px #450078;
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-height: calc(100vh - 50px);
+  box-shadow: 0 8px 25px rgba(69, 0, 120, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .registration-container h2 {
-  font-size: 20px;
+  font-size: 28px;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  color: #f2e6ff;
+  font-weight: bold;
 }
 
-/* Form Elements */
+/* Form groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Form labels */
 form label {
   display: block;
-  margin-bottom: 4px;
-  font-size: 17px;
+  margin-bottom: 8px;
+  font-size: 16px;
   color: #ddd;
+  font-weight: 500;
 }
 
+/* Form inputs */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
   width: 100%;
-  padding: 9px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: none;
-  font-size: 15px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 16px;
   background-color: #2c004e;
   color: white;
-  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 form input:focus {
   outline: none;
-  box-shadow: 0 0 5px #9f00e8;
+  box-shadow: 0 0 0 2px #9f00e8;
   background-color: #3d006a;
+  border-color: #9f00e8;
 }
 
-.form-note {
-  padding: 2px;  
+form input::placeholder {
+  color: #aaa;
 }
-  
 
-/* Submit Button */
+/* Submit button */
 button[type="submit"] {
-  background: #9f00e8;
+  background: linear-gradient(135deg, #9f00e8, #b300ff);
   color: white;
   border: none;
-  padding: 14px 22px;
-  border-radius: 5px;
-  font-size: 14px;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
   width: 100%;
-  transition: background 0.3s;
-}
-
-button[type="submit"]:hover {
-  background: #8a00cc;
-}
-
-/* Message Styling */
-#error_message,
-#success_message {
-  text-align: center;
-  font-size: 13px;
+  transition: all 0.3s ease;
   margin-top: 10px;
 }
 
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #8a00cc, #9900e6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(159, 0, 232, 0.4);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Message container */
+.message-container {
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+/* Messages */
+.error-message {
+  color: #ff6b6b;
+  text-align: center;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.success-message {
+  color: #51cf66;
+  text-align: center;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* Form note */
 .form-note {
   text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
+  margin-top: 20px;
+  font-size: 15px;
+  color: #ccc;
 }
 
 .form-note a {
   color: #9f00e8;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .form-note a:hover {
+  color: #b300ff;
   text-decoration: underline;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .main-content {
+    padding: 80px 30px 30px;
+  }
+  
+  .registration-container {
+    padding: 35px;
+    max-width: 450px;
+  }
+  
+  .registration-container h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 15px;
+  }
+  
+  .logo {
+    height: 30px;
+    width: 30px;
+  }
+  
+  .brand-name {
+    font-size: 16px;
+  }
+  
+  .main-content {
+    padding: 70px 15px 20px;
+  }
+  
+  .registration-container {
+    padding: 25px;
+    border-radius: 10px;
+  }
+  
+  .registration-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 18px;
+  }
+  
+  form label {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  button[type="submit"] {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+  
+  .form-note {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .header {
+    padding: 8px 12px;
+  }
+  
+  .logo {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .brand-name {
+    font-size: 14px;
+  }
+  
+  .main-content {
+    padding: 65px 10px 15px;
+  }
+  
+  .registration-container {
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .registration-container h2 {
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  form label {
+    font-size: 14px;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+  
+  button[type="submit"] {
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+  
+  .error-message,
+  .success-message {
+    font-size: 13px;
+  }
+  
+  .form-note {
+    font-size: 13px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .registration-container {
+    padding: 15px;
+  }
+  
+  .registration-container h2 {
+    font-size: 18px;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    padding: 10px;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+  .main-content {
+    padding: 60px 15px 10px;
+  }
+  
+  .registration-container {
+    padding: 20px;
+  }
+  
+  .registration-container h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+}
+
+/* Focus styles for better accessibility */
+form input:focus,
+button:focus {
+  outline: 2px solid #9f00e8;
+  outline-offset: 2px;
+}
+
+/* Loading state */
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .registration-container {
+    border: 2px solid white;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="password"] {
+    border: 1px solid white;
+  }
 }

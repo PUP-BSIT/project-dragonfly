@@ -14,47 +14,48 @@
         <p>DragonVault</p>
       </div>
     </div>
-
+    
+    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    
     <div class="nav-options">
       <a href="teller_dashboard.html">Home</a>
       <a href="teller_profile.html">Profile</a>
       <a href="#" id="logoutBtn">Log out</a>
     </div>
   </div>
-
+  
   <div id="step-home" class="step active">
     <div class="welcome-banner">
       <h2>Welcome, <span id="tellerName">Bank Teller</span>!</h2>
       <p>What would you like to do today?</p>
-   </div>
-   
+    </div>
+    
     <div class="actions">
       <a href="./deposit/teller_deposit.html">
-        <div class="action-box-1">
+        <div class="action-box action-box-1">
+          <img src="../assets/deposit_icon.png" alt="Deposit" class="action-icon"/>
           <p class="action-text">Process Deposit</p>
-          <img src="../assets/deposit_icon.png" alt="Deposit" 
-            class="action-icon"/>
         </div>
       </a>
-
       <a href="./withdraw/teller_withdraw.html">
-        <div class="action-box-2">
+        <div class="action-box action-box-2">
+          <img src="../assets/withdraw__icon.png" alt="Withdraw" class="action-icon"/>
           <p class="action-text">Process Withdraw</p>
-           <img src="../assets/withdraw__icon.png" alt="Deposit" 
-            class="action-icon"/>
         </div>
       </a>
-
       <a href="./teller_transactions.html">
-        <div class="action-box-3">
+        <div class="action-box action-box-3">
+          <img src="../assets/history_icon.png" alt="History" class="action-icon"/>
           <p class="action-text">View Transaction History</p>
-           <img src="../assets/history_icon.png" alt="Deposit" 
-            class="action-icon"/>
         </div>
       </a>
     </div>
   </div>
-
+  
   <script src="js/teller_dashboard.js"></script>
 </body>
 </html>

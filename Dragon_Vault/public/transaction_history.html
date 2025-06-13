@@ -1,75 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Transaction History</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/transaction_page.css">
-    <script src="js/transaction_history.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaction History - DragonVault</title>
+    <link rel="stylesheet" href="./css/dashboard.css" />
+    <link rel="stylesheet" href="./css/transaction_page.css" />
+    <link rel="icon" href="../assets/logo.png" />
+    <script src="./js/transaction_history.js" defer></script>
 </head>
 <body>
-    <div class="transactions-container">
-        <h1>Transaction History</h1>
+    <header class="header">
+        <div class="logo">
+            <img src="../assets/logo.png" alt="DragonVault" class="logo-img" />
+            <h1 class="logo-text">DragonVault</h1>
+        </div>
+        <nav class="nav-buttons">
+            <button class="nav-btn" onclick="goToHome()">Home</button>
+            <button class="nav-btn" onclick="goToProfile()">Profile</button>
+            <button class="nav-btn" onclick="logout()">Log out</button>
+        </nav>
+    </header>
 
-        <section>
-            <h2>User Transactions (Outbound)</h2>
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Type</th>
-                        <th>Account Number</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Recipient Account</th>
-                        <th>Recipient Bank</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody id="user-outbound-transaction-body">
-                    <!-- User outbound transactions will be populated here -->
-                </tbody>
-            </table>
-        </section>
+    <main class="main-content">
+        <div class="transactions-container">
+            <h1>Transaction History</h1>
 
-        <section>
-            <h2>User Transactions (Inbound)</h2>
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Type</th>
-                        <th>Account Number</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Sender Account</th>
-                        <th>Sender Bank</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody id="user-inbound-transaction-body">
-                    <!-- User inbound transactions will be populated here -->
-                </tbody>
-            </table>
-        </section>
+            <div class="transaction-tabs">
+                <button class="tab-btn active" data-tab="outbound">Outbound Transactions</button>
+                <button class="tab-btn" data-tab="inbound">Inbound Transactions</button>
+                <button class="tab-btn" data-tab="teller">Teller Transactions</button>
+            </div>
 
-        <section>
-            <h2>Teller Transactions</h2>
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Teller</th>
-                        <th>Timestamp</th>
-                    </tr>
-                </thead>
-                <tbody id="teller-transaction-body">
-                    <!-- Teller transactions will be populated here -->
-                </tbody>
-            </table>
-        </section>
-    </div>
+            <div class="tab-content active" id="outbound-tab">
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Account Number</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Recipient Account</th>
+                            <th>Recipient Bank</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-outbound-transaction-body">
+                        <!-- User outbound transactions will be populated here -->
+                    </tbody>
+                </table>
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="load-more-outbound">Load More</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="inbound-tab">
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Account Number</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Sender Account</th>
+                            <th>Sender Bank</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-inbound-transaction-body">
+                        <!-- User inbound transactions will be populated here -->
+                    </tbody>
+                </table>
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="load-more-inbound">Load More</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="teller-tab">
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Teller</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teller-transaction-body">
+                        <!-- Teller transactions will be populated here -->
+                    </tbody>
+                </table>
+                <div class="load-more-container">
+                    <button class="load-more-btn" id="load-more-teller">Load More</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            &copy; 2025 DragonVault! All rights reserved.
+            <div class="footer-links">
+                <a href="terms_and_conditions.html">Terms and Conditions</a>
+                <a href="about_us.html">About Us</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

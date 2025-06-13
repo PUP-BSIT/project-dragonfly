@@ -338,3 +338,27 @@ body {
     margin-top: 8px;
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Account Number Container with Toggle Icon */
+.account-number-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.toggle-visibility-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.toggle-visibility-icon:hover {
+    opacity: 1;
+}
+
+.toggle-visibility-icon:active {
+    transform: scale(0.95);
+}

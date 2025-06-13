@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/transfer_fund.css" />
+        <link rel="icon" href="../assets/logo.png" />
+        <title>DragonVault - Initiate Transfer</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="logo">
+                    <img src="../assets/logo.png" alt="Dragon Vault Logo" class="logo-image" />
+                </div>
+                <div class="brand-name">DragonVault</div>
+            </div>
+            <div class="main-content">
+                <!-- Screen 1: Select Type -->
+                <div class="screen active" id="screen1">
+                    <div class="card">
+                        <h1 class="card-title">Select Type</h1>
+                        <h2 class="section-title">Select Transfer Type</h2>
+                        <div class="radio-group">
+                            <div class="radio-option selected" onclick="selectTransferType(this, 'dragonvault')">
+                                <div class="radio-circle selected"></div>
+                                <div class="radio-text">
+                                    <div class="radio-title">Transfer to DragonVault Account</div>
+                                    <div class="radio-desc">Send money to another DragonVault account</div>
+                                </div>
+                            </div>
+                            <div class="radio-option" onclick="selectTransferType(this, 'bank')">
+                                <div class="radio-circle"></div>
+                                <div class="radio-text">
+                                    <div class="radio-title">Transfer to other Bank</div>
+                                    <div class="radio-desc">Send money to accounts at other banks</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="showScreen(2)">CONTINUE</button>
+                            <button class="btn btn-secondary" onclick="cancelTransaction()">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screen 2: Transfer Details -->
+                <div class="screen" id="screen2">
+                    <div class="card">
+                        <h1 class="card-title">Transfer Details</h1>
+                        <div class="balance-box">
+                            <div class="balance-label">Available Balance</div>
+                            <div class="balance-amount" id="availableBalance">0.00</div>
+                        </div>
+                        <!-- Bank Selection - Only shown for bank transfers -->
+                        <div class="form-group bank-selection" id="bankSelection">
+                            <label class="form-label">Select Bank</label>
+                            <select class="form-select" id="bankSelect">
+                                <option value="">Select Bank</option>
+                                <option value="Blinders Vault">Blinders Vault</option>
+                                <option value="StackOverCash">StackOverCash</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">To Account:</label>
+                            <input type="text" class="form-input" placeholder="Recipient Account Number" id="accountNumber" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Amount:</label>
+                            <input type="text" class="form-input" placeholder="PHP" id="amount" />
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="showScreen(3)">TRANSFER</button>
+                            <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screen 3: Confirm Transaction -->
+                <div class="screen" id="screen3">
+                    <div class="card">
+                        <h1 class="card-title">CONFIRM TRANSACTION</h1>
+                        <div class="confirmation-item" id="bankConfirmation">
+                            <span class="confirmation-label">Bank:</span>
+                            <span class="confirmation-value" id="confirmBank"></span>
+                        </div>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label">Recipient Account Number:</span>
+                            <span class="confirmation-value" id="confirmAccount">123456</span>
+                        </div>
+                        <div class="confirmation-item">
+                            <span class="confirmation-label">Amount:</span>
+                            <span class="confirmation-value" id="confirmAmount">P 500.00</span>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="initiateTransfer()">CONFIRM</button>
+                            <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load JavaScript -->
+        <script src="./js/transfer/transfer_initiate.js"></script>
+    </body>
+</html> 

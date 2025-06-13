@@ -251,6 +251,12 @@ body {
     margin-top: 30px;
 }
 
+.button-group-centered {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
 .btn {
     flex: 1;
     padding: 16px 24px;

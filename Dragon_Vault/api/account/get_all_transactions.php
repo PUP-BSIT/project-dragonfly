@@ -24,15 +24,25 @@ try {
     // Prepare placeholders for IN clause
     $placeholders = implode(',', array_fill(0, count($accountNumbers), '?'));
 
-    // User Transactions
-    $userQuery = "
+    // User Outbound Transactions
+    $userOutboundQuery = "
         SELECT * FROM user_transaction 
         WHERE account_number IN ($placeholders) 
         ORDER BY transaction_type ASC, transaction_timestamp DESC
     ";
-    $userStmt = $pdo->prepare($userQuery);
-    $userStmt->execute($accountNumbers);
-    $userTransactions = $userStmt->fetchAll(PDO::FETCH_ASSOC);
+    $userOutboundStmt = $pdo->prepare($userOutboundQuery);
+    $userOutboundStmt->execute($accountNumbers);
+    $userOutboundTransactions = $userOutboundStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // User Inbound Transactions
+    $userInboundQuery = "
+        SELECT * FROM user_transaction 
+        WHERE recipient_account_number IN ($placeholders)
+        ORDER BY transaction_type ASC, transaction_timestamp DESC
+    ";
+    $userInboundStmt = $pdo->prepare($userInboundQuery);
+    $userInboundStmt->execute($accountNumbers);
+    $userInboundTransactions = $userInboundStmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Teller Transactions (joined with teller info)
     $tellerQuery = "
@@ -48,7 +58,8 @@ try {
 
     echo json_encode([
         "success" => true,
-        "user_transactions" => $userTransactions,
+        "user_outbound_transactions" => $userOutboundTransactions,
+        "user_inbound_transactions" => $userInboundTransactions,
         "teller_transactions" => $tellerTransactions
     ]);
 

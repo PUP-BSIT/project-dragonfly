@@ -9,24 +9,46 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const userTable = document.getElementById("user-transaction-body");
+            const userOutboundTable = document.getElementById("user-outbound-transaction-body");
+            const userInboundTable = document.getElementById("user-inbound-transaction-body");
             const tellerTable = document.getElementById("teller-transaction-body");
 
-            data.user_transactions.forEach(tx => {
+            // Ensure arrays exist before iterating
+            const userOutboundTransactions = data.user_outbound_transactions || [];
+            const userInboundTransactions = data.user_inbound_transactions || [];
+            const tellerTransactions = data.teller_transactions || [];
+
+            userOutboundTransactions.forEach(tx => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${tx.user_transaction_id}</td>
                     <td>${tx.transaction_type}</td>
+                    <td>${tx.account_number || 'N/A'}</td>
                     <td>${tx.amount}</td>
                     <td>${tx.status}</td>
                     <td>${tx.recipient_account_number || 'N/A'}</td>
                     <td>${tx.recipient_bank_code || 'N/A'}</td>
                     <td>${tx.transaction_timestamp}</td>
                 `;
-                userTable.appendChild(row);
+                userOutboundTable.appendChild(row);
             });
 
-            data.teller_transactions.forEach(tx => {
+            userInboundTransactions.forEach(tx => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${tx.user_transaction_id}</td>
+                    <td>${tx.transaction_type}</td>
+                    <td>${tx.recipient_account_number || 'N/A'}</td>
+                    <td>${tx.amount}</td>
+                    <td>${tx.status}</td>
+                    <td>${tx.account_number || 'N/A'}</td>
+                    <td>${tx.recipient_bank_code || 'N/A'}</td>
+                    <td>${tx.transaction_timestamp}</td>
+                `;
+                userInboundTable.appendChild(row);
+            });
+
+            tellerTransactions.forEach(tx => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${tx.teller_transaction_id}</td>

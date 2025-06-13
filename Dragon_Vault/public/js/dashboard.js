@@ -1,3 +1,4 @@
+const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 
 document.addEventListener("DOMContentLoaded", () => {
     const balanceAmountElem = document.querySelector(".balance-amount");
@@ -6,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     const welcomeTitleElem = document.querySelector(".welcome-title");
     const accountNumberElem = document.querySelector(".account-number");
+
+    // Global variables to store account number and visibility state
+    let fullAccountNumber = '';
+    let isAccountNumberVisible = false;
 
     // Function to format account number (show last 4 digits, rest as asterisks)
     // Account numbers are always 10 digits: format as ****-**-XXXX
@@ -27,6 +32,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Function to format full account number for display
+    function formatFullAccountNumber(accountNumber) {
+        if (!accountNumber) {
+            return "Account: ****-****-**";
+        }
+        
+        const accountStr = accountNumber.toString();
+        
+        // For 10-digit account numbers: format as XXXX-XX-XXXX
+        if (accountStr.length === 10) {
+            return `Account: ${accountStr.substring(0, 4)}-${accountStr.substring(4, 6)}-${accountStr.substring(6, 10)}`;
+        } else {
+            // Fallback for any unexpected account number lengths
+            return `Account: ${accountStr}`;
+        }
+    }
+
+    // Function to toggle account number visibility
+    window.toggleAccountNumberVisibility = function() {
+        const toggleIcon = document.getElementById('toggleVisibilityIcon');
+        
+        if (isAccountNumberVisible) {
+            // Hide the account number
+            accountNumberElem.textContent = formatAccountNumber(fullAccountNumber);
+            toggleIcon.src = '../assets/hide.png';
+            toggleIcon.alt = 'Show account number';
+            isAccountNumberVisible = false;
+        } else {
+            // Show the full account number
+            accountNumberElem.textContent = formatFullAccountNumber(fullAccountNumber);
+            toggleIcon.src = '../assets/unhide.png';
+            toggleIcon.alt = 'Hide account number';
+            isAccountNumberVisible = true;
+        }
+    };
+
     // Fetch account balance and recent transactions
     fetch("/Dragon_Vault/api/account/balance.php", {
         method: "GET",
@@ -38,8 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Display full name
                 welcomeTitleElem.textContent = `Welcome, ${data.full_name}!`;
 
-                // Display masked account number with first 4 digits visible
+                // Store the full account number and display masked version
                 if (data.account_number) {
+                    fullAccountNumber = data.account_number;
                     accountNumberElem.textContent = formatAccountNumber(data.account_number);
                 }
 
@@ -76,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(
                     "Failed to load account information. Please log in again."
                 );
-                window.location.href = "/Dragon_Vault/public/landing_page.html";
+                window.location.href = "../../index.html";
             }
         })
         .catch((err) => {
@@ -87,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function goToTransfer() {
-    window.location.href = "transfer_fund.html";
+    window.location.href = "transfer_initiate.html";
 }
 
 function goToHome() {
@@ -106,7 +148,7 @@ function logout() {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "/Dragon_Vault/public/landing_page.html";
+                window.location.href = "../../index.html";
             } else {
                 alert("Logout failed. Try again.");
             }

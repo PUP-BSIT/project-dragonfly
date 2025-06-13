@@ -12,9 +12,11 @@ if (!isset($_SESSION['teller_id'])) {
 $teller_id = $_SESSION['teller_id'];
 
 try {
-    $stmt = $pdo->prepare("SELECT tt.teller_transaction_id, tt.account_number, tt.transaction_type, tt.amount, tt.transaction_timestamp, a.account_holder_id
+    $stmt = $pdo->prepare("SELECT tt.teller_transaction_id, tt.account_number, tt.transaction_type, tt.amount, tt.transaction_timestamp,
+                           CONCAT(ah.first_name, ' ', ah.last_name) as account_holder_name
                            FROM teller_transaction tt
                            JOIN account a ON tt.account_number = a.account_number
+                           JOIN account_holder ah ON a.account_holder_id = ah.account_holder_id
                            WHERE tt.teller_id = ?
                            ORDER BY tt.transaction_timestamp DESC");
     $stmt->execute([$teller_id]);

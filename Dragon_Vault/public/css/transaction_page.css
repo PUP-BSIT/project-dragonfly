@@ -1,35 +1,78 @@
-.transactions-container {
-    max-width: 1000px;
-    margin: 40px auto;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c003e; /* Dark purple background */
+    color: #e0b0ff; /* Light purple for general text */
+    margin: 0;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.transactions-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #3f005e; /* Slightly lighter purple for container */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+h1 {
+    text-align: center;
+    color: #e0b0ff; /* Light purple for main title */
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+h2 {
+    text-align: center;
+    color: #f0f0f0; /* White for section headers */
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #5a008c; /* Darker purple accent */
+    padding-bottom: 10px;
 }
 
 .transaction-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: #4a006e; /* Even lighter purple for table body */
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners are applied */
 }
 
 .transaction-table th,
 .transaction-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
+    border: 1px solid #5a008c; /* Darker purple border */
+    padding: 12px 15px;
+    text-align: left; /* Align text to left for readability */
+    color: #f0f0f0; /* White for table text */
 }
 
 .transaction-table th {
-    background-color: #4CAF50;
+    background-color: #6a00a8; /* Primary purple for headers */
     color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
 }
 
 .transaction-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #5a008c; /* Alternate row background for readability */
 }
 
-h2 {
-    text-align: center;
-    color: #333;
+.transaction-table tr:hover {
+    background-color: #7a00b8; /* Hover effect with a brighter purple */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

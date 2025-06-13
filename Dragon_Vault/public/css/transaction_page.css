@@ -50,26 +50,59 @@ h2 {
     flex-wrap: wrap;
 }
 
-.tab-btn {
-    padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
+.search-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#transaction-search {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#transaction-search::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#transaction-search:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+/* Button Formatting (General) */
+.tab-btn,
+.sort-btn {
+    font-family: "Times New Roman", Times, serif;
+    padding: 10px 20px; /* Slightly reduced padding for compactness */
     border: none;
     border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 16px;
-    font-family: "Times New Roman", Times, serif;
+    margin: 5px; /* Added margin for spacing between buttons */
 }
 
-.tab-btn:hover {
+.tab-btn:hover,
+.sort-btn:hover {
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); /* Softer shadow */
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
 }
 
-.tab-btn.active {
+.tab-btn.active,
+.sort-btn.active {
     background: rgba(139, 92, 246, 0.4);
-    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.6); /* Stronger shadow for active */
 }
 
 .tab-content {

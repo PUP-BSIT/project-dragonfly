@@ -25,6 +25,10 @@
         <div class="transactions-container">
             <h1>Transaction History</h1>
 
+            <div class="search-container">
+                <input type="text" id="transaction-search" placeholder="Search transactions...">
+            </div>
+
             <div class="transaction-tabs">
                 <button class="tab-btn active" data-tab="outbound">Outbound Transactions</button>
                 <button class="tab-btn" data-tab="inbound">Inbound Transactions</button>
@@ -32,6 +36,10 @@
             </div>
 
             <div class="tab-content active" id="outbound-tab">
+                <div class="sort-controls">
+                    <button class="sort-btn active" data-sort-order="DESC" data-type="outbound">Most Recent First</button>
+                    <button class="sort-btn" data-sort-order="ASC" data-type="outbound">Oldest First</button>
+                </div>
                 <table class="transaction-table">
                     <thead>
                         <tr>
@@ -55,6 +63,10 @@
             </div>
 
             <div class="tab-content" id="inbound-tab">
+                <div class="sort-controls">
+                    <button class="sort-btn active" data-sort-order="DESC" data-type="inbound">Most Recent First</button>
+                    <button class="sort-btn" data-sort-order="ASC" data-type="inbound">Oldest First</button>
+                </div>
                 <table class="transaction-table">
                     <thead>
                         <tr>
@@ -78,6 +90,10 @@
             </div>
 
             <div class="tab-content" id="teller-tab">
+                <div class="sort-controls">
+                    <button class="sort-btn active" data-sort-order="DESC" data-type="teller">Most Recent First</button>
+                    <button class="sort-btn" data-sort-order="ASC" data-type="teller">Oldest First</button>
+                </div>
                 <table class="transaction-table">
                     <thead>
                         <tr>

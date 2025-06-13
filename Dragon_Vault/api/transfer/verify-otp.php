@@ -145,7 +145,7 @@ try {
 
             error_log("Calling Blinders Vault API with payload: " . json_encode($external_payload));
 
-            $ch = curl_init('https://darkorange-cormorant-406076.hostingersite.com/php/receive_external_transfer.php');
+            $ch = curl_init('https://blindvault.site/php/receive_external_transfer.php');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($external_payload));

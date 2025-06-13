@@ -34,6 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
     sessionStorage.setItem("withdraw_amount", amount);
     window.location.href = "teller_withdraw_confirm.html";
   });
+  
+  document.getElementById('back_btn').addEventListener('click', function () {
+    window.location.href = "../teller_dashboard.html"; 
+  });
 
   function goToHome() {
     window.location.href = "../teller_dashboard.html";

@@ -213,6 +213,165 @@ body {
     box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
 }
 
+/* Mobile S  */
+@media (max-width: 320px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 8px;
+    }
+
+    .logo {
+        padding: 10px 8px;
+        gap: 6px;
+    }
+
+    .logo-img {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 4px 6px;
+        margin-block: 0;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 16px;
+        padding: 10px 4px;
+        max-width: 100%;
+    }
+
+    .contact-info h2 {
+        font-size: 18px;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .info-item {
+        padding: 10px;
+        margin-bottom: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
+
+    .info-content h3 {
+        font-size: 14px;
+    }
+
+    .info-content p {
+        font-size: 12px;
+    }
+
+    .contact-box {
+        padding: 16px 6px;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .contact-title {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .input-field,
+    .signin-btn {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .logo {
+        padding: 10px 20px;
+        gap: 8px;
+    }
+
+    .logo-img {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .logo-text {
+        font-size: 22px;
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+        padding: 5px 8px;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .contact-info h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .info-item {
+        padding: 15px;
+    }
+
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        margin-right: 15px;
+    }
+
+    .info-content h3 {
+        font-size: 18px;
+    }
+
+    .info-content p {
+        font-size: 14px;
+    }
+
+    .contact-box {
+        padding: 30px 20px;
+        margin: 0 auto;
+    }
+
+    .contact-title {
+        font-size: 24px;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

@@ -192,6 +192,240 @@ body {
     color: #c77dff;
 }
 
+@media (max-width: 320px) {
+    .register-box {
+        padding: 20px 8px;
+        margin: 10px;
+        max-width: 120%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 8px;
+    }
+
+    .logo {
+        padding: 10px 8px;
+        gap: 6px;
+    }
+
+    .logo-img {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 4px 6px;
+    }
+
+    .register-title {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    .welcome-text {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .section-label {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .input-field {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .register-btn {
+        padding: 10px;
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    .login-link {
+        font-size: 12px;
+    }
+
+    .password-requirements {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .password-requirements li {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 376px) {
+    .register-box {
+        padding: 28px 12px;
+        margin: 12px;
+        max-width: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 12px;
+    }
+
+    .logo {
+        padding: 12px 10px;
+        gap: 8px;
+    }
+
+    .logo-img {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-links a {
+        font-size: 15px;
+        padding: 5px 8px;
+    }
+
+    .register-title {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .welcome-text {
+        font-size: 13px;
+        margin-bottom: 18px;
+    }
+
+    .section-label {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .input-field {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .register-btn {
+        padding: 12px;
+        font-size: 14px;
+        margin-bottom: 14px;
+    }
+
+    .login-link {
+        font-size: 13px;
+    }
+
+    .password-requirements {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .password-requirements li {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 426px) {
+    .register-box {
+        padding: 32px 16px;
+        margin: 14px;
+        max-width: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 14px 14px;
+    }
+
+    .logo {
+        padding: 14px 12px;
+        gap: 9px;
+    }
+
+    .logo-img {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+
+    .register-title {
+        font-size: 22px;
+        margin-bottom: 9px;
+    }
+
+    .welcome-text {
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .section-label {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .input-field {
+        padding: 13px;
+        font-size: 15px;
+    }
+
+    .register-btn {
+        padding: 13px;
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
+
+    .login-link {
+        font-size: 13.5px;
+    }
+
+    .password-requirements {
+        padding: 9px;
+        font-size: 13.5px;
+    }
+
+    .password-requirements li {
+        font-size: 13.5px;
+    }
+}
+
 @media (max-width: 600px) {
     .form-row {
         flex-direction: column;

@@ -186,6 +186,195 @@ body {
     color: #c77dff;
 }
 
+@media (max-width: 320px) {
+    .login-box {
+        padding: 20px 8px;
+        margin: 10px;
+        max-width: 98vw;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 8px;
+    }
+
+    .logo {
+        padding: 10px 8px;
+        gap: 6px;
+    }
+
+    .logo-img {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 3px 6px;
+    }
+
+    .login-title {
+        font-size: 18px;
+    }
+
+    .welcome-text {
+        font-size: 12px;
+        margin-bottom: 18px;
+    }
+
+    .input-field {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .signin-btn {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .register-link,
+    .forgot-password a {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 376px) {
+    .login-box {
+        padding: 24px 12px;
+        margin: 12px;
+        max-width: 96vw;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 12px 12px;
+    }
+
+    .logo {
+        padding: 12px 12px;
+        gap: 8px;
+    }
+
+    .logo-img {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .nav-links a {
+        font-size: 16px;
+        padding: 4px 8px;
+    }
+
+    .login-title {
+        font-size: 20px;
+    }
+
+    .welcome-text {
+        font-size: 14px;
+        margin-bottom: 22px;
+    }
+
+    .input-field {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .signin-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .register-link,
+    .forgot-password a {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 426px) {
+    .login-box {
+        padding: 32px 16px;
+        margin: 16px;
+        max-width: 94vw;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 14px 16px;
+    }
+
+    .logo {
+        padding: 14px 16px;
+        gap: 9px;
+    }
+
+    .logo-img {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+    .logo-text,
+    .brand-name {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        gap: 22px;
+    }
+
+    .nav-links a {
+        font-size: 17px;
+        padding: 5px 9px;
+    }
+
+    .login-title {
+        font-size: 24px;
+    }
+
+    .welcome-text {
+        font-size: 15px;
+        margin-bottom: 26px;
+    }
+
+    .input-field {
+        padding: 13px;
+        font-size: 16px;
+    }
+
+    .signin-btn {
+        padding: 13px;
+        font-size: 16px;
+    }
+
+    .register-link,
+    .forgot-password a {
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 480px) {
     .login-box {
         padding: 30px 20px;

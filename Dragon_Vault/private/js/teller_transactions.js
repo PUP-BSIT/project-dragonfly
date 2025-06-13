@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Clear any existing rows
+      tbody.innerHTML = '';
+
       if (data.transactions.length === 0) {
         const row = document.createElement("tr");
         row.innerHTML = `<td colspan="6">No transactions found.</td>`;
@@ -29,12 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
       data.transactions.forEach(tx => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${tx.teller_transaction_id}</td>
-          <td>${tx.account_number}</td>
-          <td>${tx.account_holder_name || 'N/A'}</td>
-          <td>${tx.transaction_type}</td>
-          <td>₱${parseFloat(tx.amount).toFixed(2)}</td>
-          <td>${new Date(tx.transaction_timestamp).toLocaleString()}</td>
+          <td data-label="Transaction ID">${tx.teller_transaction_id}</td>
+          <td data-label="Account Number">${tx.account_number}</td>
+          <td data-label="Account Holder Name">${tx.account_holder_name || 'N/A'}</td>
+          <td data-label="Type">${tx.transaction_type}</td>
+          <td data-label="Amount (₱)">₱${parseFloat(tx.amount).toFixed(2)}</td>
+          <td data-label="Date & Time">${new Date(tx.transaction_timestamp).toLocaleString()}</td>
         `;
         tbody.appendChild(row);
       });
@@ -46,5 +49,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function goToHome() {
-    window.location.href = 'teller_dashboard.html'; 
+  window.location.href = 'teller_dashboard.html';
 }

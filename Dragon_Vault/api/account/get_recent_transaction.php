@@ -30,13 +30,17 @@ $query = "
     FROM user_transaction 
     WHERE account_number IN ($placeholders)
     UNION
+    SELECT 'user_inbound' AS source, transaction_type, amount, transaction_timestamp
+    FROM user_transaction
+    WHERE recipient_account_number IN ($placeholders)
+    UNION
     SELECT 'teller' AS source, transaction_type, amount, transaction_timestamp 
     FROM teller_transaction 
     WHERE account_number IN ($placeholders)
     ORDER BY transaction_timestamp DESC
     LIMIT 5
 ";
-$params = array_merge($accounts, $accounts);
+$params = array_merge($accounts, $accounts, $accounts);
 $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);

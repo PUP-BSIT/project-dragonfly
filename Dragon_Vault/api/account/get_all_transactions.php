@@ -10,6 +10,9 @@ if (!isset($_SESSION['account_holder_id'])) {
 
 $accountHolderId = $_SESSION['account_holder_id'];
 
+// Get sort order from request, default to DESC
+$sortOrder = isset($_GET['sort_order']) && in_array(strtoupper($_GET['sort_order']), ['ASC', 'DESC']) ? strtoupper($_GET['sort_order']) : 'DESC';
+
 try {
     // Get all account numbers for this account holder
     $stmt = $pdo->prepare("SELECT account_number FROM account WHERE account_holder_id = ?");
@@ -28,7 +31,7 @@ try {
     $userOutboundQuery = "
         SELECT * FROM user_transaction 
         WHERE account_number IN ($placeholders) 
-        ORDER BY transaction_type ASC, transaction_timestamp DESC
+        ORDER BY transaction_timestamp $sortOrder
     ";
     $userOutboundStmt = $pdo->prepare($userOutboundQuery);
     $userOutboundStmt->execute($accountNumbers);
@@ -38,7 +41,7 @@ try {
     $userInboundQuery = "
         SELECT * FROM user_transaction 
         WHERE recipient_account_number IN ($placeholders)
-        ORDER BY transaction_type ASC, transaction_timestamp DESC
+        ORDER BY transaction_timestamp $sortOrder
     ";
     $userInboundStmt = $pdo->prepare($userInboundQuery);
     $userInboundStmt->execute($accountNumbers);
@@ -50,7 +53,7 @@ try {
         FROM teller_transaction tt 
         JOIN bank_teller bt ON tt.teller_id = bt.teller_id
         WHERE account_number IN ($placeholders) 
-        ORDER BY tt.transaction_type ASC, tt.transaction_timestamp DESC
+        ORDER BY tt.transaction_timestamp $sortOrder
     ";
     $tellerStmt = $pdo->prepare($tellerQuery);
     $tellerStmt->execute($accountNumbers);

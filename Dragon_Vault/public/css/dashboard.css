@@ -533,22 +533,7 @@ body {
     cursor: pointer;
 }
 
-.transaction-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 2fr;
-    gap: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-    align-items: center;
-}
-
-.transaction-item span {
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
+/* Existing CSS for transactions-content */
 .transactions-content {
     background: linear-gradient(
         135deg,
@@ -561,20 +546,71 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     color: rgba(255, 255, 255, 0.7);
     font-size: 18px;
     flex-direction: column;
-    gap: 15px;
-    padding: 20px;
+    gap: 10px; /* Space between transaction items */
+    padding: 10px; /* Padding inside the content box */
+    width: 100%; /* Ensure it takes full available width */
 }
 
+/* Consolidated and refined transaction-item styles */
 .transaction-item {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    padding: 15px;
+    padding: 0; /* Padding will be on the inner spans */
     line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 60px; /* Consistent height for each item */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.transaction-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.transaction-item span {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 15px 10px; /* Padding inside each column */
+    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Vertical separators */
+    box-sizing: border-box; /* Include padding in span's total width */
+}
+
+.transaction-item span:last-child {
+    border-right: none; /* No border for the last column */
+}
+
+.transaction-item .source-label {
+    flex: 0 0 80px; /* Fixed width for source label */
+    font-weight: bold;
+    text-align: left;
+}
+
+.transaction-item .type {
+    flex: 2; /* Allows type to take more space */
+    min-width: 100px; /* Minimum width for uniformity */
+    text-align: left;
+}
+
+.transaction-item .amount {
+    flex: 1; /* Allows amount to take some space */
+    min-width: 80px; /* Minimum width for uniformity */
+    text-align: right;
+}
+
+.transaction-item .timestamp {
+    flex: 1.5; /* Allows timestamp to take more space */
+    min-width: 120px; /* Minimum width for uniformity */
+    text-align: right;
 }
 
 .account-number {

@@ -63,18 +63,26 @@
                     </div>
                     <div class="info-content">
                         <h3>Email</h3>
-                        <p>dragonvault@mail.site</p>
+                        <p>dragonvault2025@gmail.com</p>
                     </div>
                 </div>
             </div>
 
             <div class="contact-box">
                 <h1 class="contact-title">Contact Us</h1>
-                <form id="contact_form">
+                <form
+                    action="https://api.web3forms.com/submit"
+                    method="POST"
+                    id="contact_form">
+                    <input
+                        type="hidden"
+                        name="access_key"
+                        value="d12f2289-4183-49d8-acc4-fa1eac419241" />
                     <div class="form-group">
                         <input
                             type="text"
                             id="contact_username"
+                            name="name"
                             class="input-field"
                             placeholder="Your Name:"
                             required />
@@ -83,6 +91,7 @@
                         <input
                             type="email"
                             id="contact_email"
+                            name="email"
                             class="input-field"
                             placeholder="Your Email:"
                             required />
@@ -90,6 +99,7 @@
                     <div class="form-group">
                         <textarea
                             id="contact_message"
+                            name="message"
                             class="input-field"
                             placeholder="Your Message:"
                             rows="4"

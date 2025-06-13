@@ -144,24 +144,6 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Danger Zone -->
-                <div class="danger-card">
-                    <h2 class="card-title danger-title">Danger Zone</h2>
-                    <p class="danger-description">
-                        Once you delete your account, there is no going back.
-                        Please be certain.
-                    </p>
-
-                    <div class="danger-actions">
-                        <button
-                            class="delete-btn"
-                            onclick="confirmDeleteAccount()">
-                            <span class="btn-icon"></span>
-                            Delete Account
-                        </button>
-                    </div>
-                </div>
             </div>
         </main>
         <!-- Password Change Modal -->
@@ -199,11 +181,26 @@
                         <div class="password-requirements">
                             <p>Password must contain:</p>
                             <ul>
-                                <li id="profile-req-uppercase"><span class="req-status">Not met</span> Uppercase letter</li>
-                                <li id="profile-req-lowercase"><span class="req-status">Not met</span> Lowercase letter</li>
-                                <li id="profile-req-number"><span class="req-status">Not met</span> Number</li>
-                                <li id="profile-req-special"><span class="req-status">Not met</span> Special character</li>
-                                <li id="profile-req-length"><span class="req-status">Not met</span> At least 8 characters</li>
+                                <li id="profile-req-uppercase">
+                                    <span class="req-status">Not met</span>
+                                    Uppercase letter
+                                </li>
+                                <li id="profile-req-lowercase">
+                                    <span class="req-status">Not met</span>
+                                    Lowercase letter
+                                </li>
+                                <li id="profile-req-number">
+                                    <span class="req-status">Not met</span>
+                                    Number
+                                </li>
+                                <li id="profile-req-special">
+                                    <span class="req-status">Not met</span>
+                                    Special character
+                                </li>
+                                <li id="profile-req-length">
+                                    <span class="req-status">Not met</span> At
+                                    least 8 characters
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -232,50 +229,6 @@
                         </button>
                     </div>
                 </form>
-            </div>
-        </div>
-
-        <!-- Delete Confirmation Modal -->
-        <div class="modal" id="deleteModal" style="display: none">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Delete Account</h3>
-                    <button class="modal-close" onclick="closeDeleteModal()">
-                        &times;
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="delete-warning">
-                        This action cannot be undone. This will permanently
-                        delete your account and remove all your data from our
-                        servers.
-                    </p>
-                    <div class="form-group">
-                        <label class="form-label" for="deletePassword"
-                            >Enter your password to confirm:</label
-                        >
-                        <input
-                            type="password"
-                            id="deletePassword"
-                            name="deletePassword"
-                            class="form-input"
-                            required />
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    <button
-                        type="button"
-                        class="cancel-btn"
-                        onclick="closeDeleteModal()">
-                        Cancel
-                    </button>
-                    <button
-                        type="button"
-                        class="delete-confirm-btn"
-                        onclick="deleteAccount()">
-                        Delete My Account
-                    </button>
-                </div>
             </div>
         </div>
         <footer class="footer">

@@ -182,14 +182,30 @@ function fetchRecentTransactions() {
                 return;
             }
 
-            container.innerHTML = data.transactions.map(tx => `
+            container.innerHTML = data.transactions.map(tx => {
+                let transactionTypeDisplay = tx.transaction_type;
+                let sourceDisplay = tx.source.toUpperCase(); // Default to original source
+
+                if (tx.source === 'user' || tx.source === 'user_inbound') {
+                    sourceDisplay = 'USER';
+                    // Keep transactionTypeDisplay as tx.transaction_type for inbound, and change for outbound
+                    if (tx.source === 'user') {
+                        transactionTypeDisplay = 'Sent Transfer';
+                    }
+                } else if (tx.source === 'teller') {
+                    sourceDisplay = 'TELLER';
+                    // tx.transaction_type is already correct for teller (Deposit/Withdrawal)
+                }
+
+                return `
                 <div class="transaction-item">
-                    <span class="source">${tx.source.toUpperCase()}</span>
-                    <span class="type">${tx.transaction_type}</span>
+                    <span class="source-label">${sourceDisplay}</span>
+                    <span class="type">${transactionTypeDisplay}</span>
                     <span class="amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</span>
                     <span class="timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</span>
                 </div>
-            `).join('');
+            `;
+            }).join('');
         })
         .catch(err => {
             console.error('Failed to fetch transactions:', err);

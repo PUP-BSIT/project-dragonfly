@@ -213,6 +213,100 @@ body {
     margin-bottom: 20px;
 }
 
+/* Transaction content and item styles */
+.transactions-content {
+    background: linear-gradient(
+        135deg,
+        rgba(67, 56, 202, 0.6),
+        rgba(99, 102, 241, 0.4)
+    );
+    min-height: 200px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+.transaction-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 0;
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 60px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.transaction-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.transaction-item span {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 15px 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+}
+
+.transaction-item span:last-child {
+    border-right: none;
+}
+
+.transaction-item .source-label {
+    flex: 0 0 80px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.transaction-item .type {
+    flex: 2;
+    min-width: 100px;
+    text-align: left;
+}
+
+.transaction-item .amount {
+    flex: 1;
+    min-width: 80px;
+    text-align: right;
+}
+
+.transaction-item .timestamp {
+    flex: 1.5;
+    min-width: 120px;
+    text-align: right;
+}
+
+.view-all-container {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.view-all-btn {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .footer {
     background-color: rgba(255, 255, 255, 0.05);
     padding: 10px 25px;
@@ -243,8 +337,63 @@ body {
     text-decoration: underline;
 }
 
-.transaction-item {
-    margin-bottom: 15px;
+.account-number {
+    font-size: 1.7em;
+    color: #ececec;
+    font-weight: normal;
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Account Number Container with Toggle Icon */
+.account-number-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.toggle-visibility-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.toggle-visibility-icon:hover {
+    opacity: 1;
+}
+
+.toggle-visibility-icon:active {
+    transform: scale(0.95);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        padding: 15px 20px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .welcome-title {
+        font-size: 24px;
+    }
+
+    .balance-amount {
+        font-size: 36px;
+    }
 }
 
 /* Mobile S  */
@@ -495,156 +644,4 @@ body {
         padding: 6px 8px;
         margin-top: 6px;
     }
-}
-
-@media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .header {
-        padding: 15px 20px;
-    }
-
-    .main-content {
-        padding: 20px;
-    }
-
-    .welcome-title {
-        font-size: 24px;
-    }
-
-    .balance-amount {
-        font-size: 36px;
-    }
-}
-
-.view-all-container {
-    text-align: right;
-    margin-top: 10px;
-}
-
-.view-all-btn {
-    padding: 8px 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* Existing CSS for transactions-content */
-.transactions-content {
-    background: linear-gradient(
-        135deg,
-        rgba(67, 56, 202, 0.6),
-        rgba(99, 102, 241, 0.4)
-    );
-    min-height: 200px;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 18px;
-    flex-direction: column;
-    gap: 10px; /* Space between transaction items */
-    padding: 10px; /* Padding inside the content box */
-    width: 100%; /* Ensure it takes full available width */
-}
-
-/* Consolidated and refined transaction-item styles */
-.transaction-item {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 0; /* Padding will be on the inner spans */
-    line-height: 1.5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-height: 60px; /* Consistent height for each item */
-    box-sizing: border-box;
-    transition: background-color 0.3s ease;
-}
-
-.transaction-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.transaction-item span {
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 15px 10px; /* Padding inside each column */
-    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Vertical separators */
-    box-sizing: border-box; /* Include padding in span's total width */
-}
-
-.transaction-item span:last-child {
-    border-right: none; /* No border for the last column */
-}
-
-.transaction-item .source-label {
-    flex: 0 0 80px; /* Fixed width for source label */
-    font-weight: bold;
-    text-align: left;
-}
-
-.transaction-item .type {
-    flex: 2; /* Allows type to take more space */
-    min-width: 100px; /* Minimum width for uniformity */
-    text-align: left;
-}
-
-.transaction-item .amount {
-    flex: 1; /* Allows amount to take some space */
-    min-width: 80px; /* Minimum width for uniformity */
-    text-align: right;
-}
-
-.transaction-item .timestamp {
-    flex: 1.5; /* Allows timestamp to take more space */
-    min-width: 120px; /* Minimum width for uniformity */
-    text-align: right;
-}
-
-.account-number {
-    font-size: 1.7em;
-    color: #ececec;
-    font-weight: normal;
-    border: 2px solid white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    display: inline-block;
-    margin-top: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Account Number Container with Toggle Icon */
-.account-number-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.toggle-visibility-icon {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
-}
-
-.toggle-visibility-icon:hover {
-    opacity: 1;
-}
-
-.toggle-visibility-icon:active {
-    transform: scale(0.95);
 }

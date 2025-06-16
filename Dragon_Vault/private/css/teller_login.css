@@ -111,3 +111,31 @@ button[type="submit"]:hover {
   font-size: 13px;
   margin-top: 10px;
 }
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* Make space for the eye icon */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;      
+  top: 40%;           
+  transform: translateY(-50%); 
+  width: 20px;    
+  height: 20px;      
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+.password-toggle:hover {
+  opacity: 1;
+}

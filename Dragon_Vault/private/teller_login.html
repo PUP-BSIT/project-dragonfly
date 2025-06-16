@@ -22,7 +22,10 @@
       <input type="text" id="username_input" name="username" required>
 
       <label for="password_input">Password:</label>
-      <input type="password" id="password_input" name="password" required>
+      <div class="password-container">
+        <input type="password" id="password_input" name="password" required>
+        <img src="../assets/hide.png" alt="Toggle Password" class="password-toggle" id="password_toggle">
+      </div>
 
       <button type="submit">Login</button>
       <p id="error_message" style="color:red;"></p>

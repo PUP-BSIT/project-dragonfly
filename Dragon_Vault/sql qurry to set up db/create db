@@ -66,10 +66,11 @@ CREATE TABLE IF NOT EXISTS user_transaction (
 -- OTP Log Table (Optional)
 CREATE TABLE IF NOT EXISTS otp_log (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    account_number BIGINT NOT NULL,
+    account_number BIGINT,
+    phone_number VARCHAR(15),
     otp_code VARCHAR(6) NOT NULL,
-    purpose ENUM('Transaction', 'Login') DEFAULT 'Transaction',
+    purpose ENUM('Transaction', 'Login', 'Registration', 'Forgot Password') DEFAULT 'Transaction',
     expires_at DATETIME NOT NULL,
     is_used BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (account_number) REFERENCES account(account_number)
+    FOREIGN KEY (account_number) REFERENCES account(account_number) ON DELETE SET NULL
 );

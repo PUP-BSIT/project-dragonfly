@@ -130,7 +130,7 @@ function updatePasswordRequirements() {
 // API simulation (replace with actual API calls)
 async function sendOtp(phone) {
     try {
-        const response = await fetch(`${API_BASE}otp/send_otp.php`, {
+        const response = await fetch(`${API_BASE}otp/send_forgot_password_otp.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -146,15 +146,15 @@ async function sendOtp(phone) {
 }
 
 async function verifyOtp(phone, otp) {
-    // Placeholder for actual API call
     try {
-        const response = await fetch(`${API_BASE}otp/verify_otp.php`, {
+        const response = await fetch(`${API_BASE}otp/verify_forgot_password_otp.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ phone_number: phone, otp: otp })
         });
+
         const data = await response.json();
         return { success: data.success };
     } catch (error) {

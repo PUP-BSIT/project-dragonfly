@@ -13,22 +13,9 @@ if (empty($phone_number) || empty($otp)) {
 }
 
 try {
-    // First, find the account_holder_id using the phone_number
-    $stmt = $pdo->prepare("SELECT account_holder_id FROM account_holder WHERE phone_number = ?");
-    $stmt->execute([$phone_number]);
-    $account_holder = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$account_holder) {
-        http_response_code(404);
-        echo json_encode(['success' => false, 'message' => 'Phone number not found']);
-        exit();
-    }
-
-    $account_holder_id = $account_holder['account_holder_id'];
-
-    // Validate OTP against otp_log table
-    $stmt = $pdo->prepare("SELECT * FROM otp_log WHERE account_number = ? AND otp_code = ? AND expires_at > NOW() AND is_used = FALSE");
-    $stmt->execute([$account_holder_id, $otp]);
+    // Validate OTP against otp_log table for 'Forgot Password' purpose using phone_number
+    $stmt = $pdo->prepare("SELECT * FROM otp_log WHERE phone_number = ? AND otp_code = ? AND purpose = 'Forgot Password' AND expires_at > NOW() AND is_used = FALSE");
+    $stmt->execute([$phone_number, $otp]);
     $otp_entry = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($otp_entry) {

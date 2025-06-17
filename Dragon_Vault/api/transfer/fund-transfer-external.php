@@ -76,44 +76,46 @@ try {
     // Generate OTP
     $otp = 654321;
 
-    // Create transaction record with OTP - OTP will be verified later
+    // Store OTP in otp_log table and get its id
+    $stmt = $pdo->prepare("
+        INSERT INTO otp_log (
+            account_number,
+            phone_number,
+            otp_code,
+            purpose,
+            expires_at,
+            is_used
+        ) VALUES (?, ?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
+    ");
+    $stmt->execute([$source_account['account_number'], $source_account['phone_number'], $otp]);
+    $otp_log_id = $pdo->lastInsertId();
+
+    // Create transaction record with OTP and otp_log_id
     $stmt = $pdo->prepare("
         INSERT INTO user_transaction (
             account_number, 
             transaction_type, 
+            otp_code, 
             amount, 
             status, 
             recipient_account_number,
             recipient_bank_code,
             transaction_timestamp,
-            otp_code
-        ) VALUES (?, ?, ?, 'Pending', ?, ?, NOW(), ?)
+            otp_log_id
+        ) VALUES (?, ?, ?, ?, 'Pending', ?, ?, NOW(), ?)
     ");
     $stmt->execute([
         $source_account['account_number'],
         $transaction_type,
+        $otp,
         $transaction_amount,
         $recipient_account_no,
         $recipient_bank_code,
-        $otp
+        $otp_log_id
     ]);
     $transaction_id = $pdo->lastInsertId();
 
     error_log("Created external transaction with ID: " . $transaction_id);
-
-    // Store OTP in otp_log table
-    $stmt = $pdo->prepare("
-        INSERT INTO otp_log (
-            account_number,
-            otp_code,
-            purpose,
-            expires_at,
-            is_used
-        ) VALUES (?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
-    ");
-    $stmt->execute([$source_account['account_number'], $otp]);
-
-    error_log("Stored OTP in otp_log table for external transfer");
 
     // Send OTP via SMS (implement your SMS sending logic here)
     

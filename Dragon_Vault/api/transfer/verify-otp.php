@@ -207,18 +207,28 @@ try {
 
     error_log("Updated transaction status to Completed");
 
-    // Mark OTP as used in otp_log
-    $stmt = $pdo->prepare("
-        UPDATE otp_log 
-        SET is_used = 1 
-        WHERE account_number = ? 
-        AND otp_code = ? 
-        AND purpose = 'Transaction'
-        AND is_used = 0
-    ");
-    $stmt->execute([$source_account_no, $otp]);
-
-    error_log("Marked OTP as used");
+    // Mark OTP as used in otp_log using otp_log_id
+    if (!empty($transaction['otp_log_id'])) {
+        $stmt = $pdo->prepare("
+            UPDATE otp_log 
+            SET is_used = 1 
+            WHERE id = ?
+        ");
+        $stmt->execute([$transaction['otp_log_id']]);
+        error_log("Marked OTP as used by otp_log_id");
+    } else {
+        // Fallback for legacy transactions
+        $stmt = $pdo->prepare("
+            UPDATE otp_log 
+            SET is_used = 1 
+            WHERE account_number = ? 
+            AND otp_code = ? 
+            AND purpose = 'Transaction'
+            AND is_used = 0
+        ");
+        $stmt->execute([$source_account_no, $otp]);
+        error_log("Marked OTP as used by account_number and otp_code (legacy)");
+    }
 
     // Commit transaction
     $pdo->commit();

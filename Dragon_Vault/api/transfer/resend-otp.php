@@ -51,15 +51,7 @@ try {
     // Generate new OTP
     $new_otp = 123456;
 
-    // Update transaction with new OTP
-    $stmt = $pdo->prepare("
-        UPDATE user_transaction 
-        SET otp_code = ? 
-        WHERE user_transaction_id = ?
-    ");
-    $stmt->execute([$new_otp, $transaction['user_transaction_id']]);
-
-    // Store new OTP in otp_log table
+    // Insert new OTP into otp_log and get its id
     $stmt = $pdo->prepare("
         INSERT INTO otp_log (
             account_number,
@@ -70,6 +62,15 @@ try {
         ) VALUES (?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
     ");
     $stmt->execute([$source_account_no, $new_otp]);
+    $otp_log_id = $pdo->lastInsertId();
+
+    // Update transaction with new OTP and new otp_log_id
+    $stmt = $pdo->prepare("
+        UPDATE user_transaction 
+        SET otp_code = ?, otp_log_id = ?
+        WHERE user_transaction_id = ?
+    ");
+    $stmt->execute([$new_otp, $otp_log_id, $transaction['user_transaction_id']]);
 
     // Send new OTP via SMS (implement your SMS sending logic here)
     // For now, we'll just log it

@@ -74,9 +74,9 @@ try {
     }
 
     // Generate OTP
-    $otp = 123456;
+    $otp = 654321;
 
-    // Create transaction record with OTP
+    // Create transaction record with OTP - OTP will be verified later
     $stmt = $pdo->prepare("
         INSERT INTO user_transaction (
             account_number, 
@@ -85,9 +85,9 @@ try {
             status, 
             recipient_account_number,
             recipient_bank_code,
-            otp_code,
-            transaction_timestamp
-        ) VALUES (?, ?, ?, 'Pending', ?, ?, ?, NOW())
+            transaction_timestamp,
+            otp_code
+        ) VALUES (?, ?, ?, 'Pending', ?, ?, NOW(), ?)
     ");
     $stmt->execute([
         $source_account['account_number'],
@@ -116,9 +116,7 @@ try {
     error_log("Stored OTP in otp_log table for external transfer");
 
     // Send OTP via SMS (implement your SMS sending logic here)
-    // For now, we'll just log it
-    error_log("OTP for external transaction $transaction_id: $otp sent to {$source_account['phone_number']}");
-
+    
     // Commit transaction
     $pdo->commit();
 

@@ -56,7 +56,7 @@ try {
     error_log("Attempting to find pending transaction with OTP. Found: " . json_encode($transaction));
 
     if (!$transaction) {
-        throw new Exception('Invalid OTP or no matching pending transaction found');
+        throw new Exception('The OTP code you entered does not match. Please try again.');
     }
 
     // Log the found transaction

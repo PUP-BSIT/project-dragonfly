@@ -81,9 +81,9 @@ try {
     }
 
     // Generate OTP
-    $otp = 123456;
+    $otp = 654321;
 
-    // Create transaction record with OTP
+    // Create transaction record with OTP - OTP will be verified later
     $stmt = $pdo->prepare("
         INSERT INTO user_transaction (
             account_number, 
@@ -92,9 +92,9 @@ try {
             status, 
             recipient_account_number,
             recipient_bank_code,
-            otp_code,
-            transaction_timestamp
-        ) VALUES (?, ?, ?, 'Pending', ?, ?, ?, NOW())
+            transaction_timestamp,
+            otp_code
+        ) VALUES (?, ?, ?, 'Pending', ?, ?, NOW(), ?)
     ");
     $stmt->execute([
         $source_account['account_number'],

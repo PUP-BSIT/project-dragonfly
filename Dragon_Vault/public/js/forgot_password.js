@@ -129,7 +129,7 @@ function updatePasswordRequirements() {
 
 // API simulation (replace with actual API calls)
 async function sendOtp(phone) {
-    // Simulate API call
+    // Simulate API call with hardcoded OTP
     return new Promise((resolve) => {
         setTimeout(() => {
             console.log(`OTP sent to ${phone}`);
@@ -139,23 +139,34 @@ async function sendOtp(phone) {
 }
 
 async function verifyOtp(phone, otp) {
-    // Simulate API call
+    // Simulate API call with hardcoded OTP
     return new Promise((resolve) => {
         setTimeout(() => {
-            const isValid = otp === "123456"; // Demo OTP
+            const isValid = otp === "123456"; // Hardcoded OTP
             resolve({ success: isValid });
         }, 1000);
     });
 }
 
 async function resetPassword(phone, newPassword) {
-    // Simulate API call
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            console.log(`Password reset for ${phone}`);
-            resolve({ success: true });
-        }, 1000);
-    });
+    try {
+        const response = await fetch(`${API_BASE}auth/reset_password.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phone_number: phone,
+                new_password: newPassword
+            })
+        });
+
+        const data = await response.json();
+        return { success: data.success };
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        return { success: false };
+    }
 }
 
 // Event listeners

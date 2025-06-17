@@ -303,7 +303,7 @@ button[type="submit"]:active {
   }
   
   button[type="submit"] {
-    padding: 12px 18px;
+    padding: 14px 18px;
     font-size: 15px;
   }
   
@@ -379,4 +379,32 @@ button[type="submit"]:disabled {
   form input[type="password"] {
     border: 1px solid white;
   }
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; 
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;      
+  top: 50%;           
+  transform: translateY(-50%); 
+  width: 20px;    
+  height: 20px;      
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+.password-toggle:hover {
+  opacity: 1;
 }

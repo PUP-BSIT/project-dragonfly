@@ -12,6 +12,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }).then((response) => response.json());
   }
 
+    // Password toggle functionality
+    const passwordInput = document.getElementById("password_input");
+    const passwordToggle = document.getElementById("password_toggle");
+
+  // Show/hide eye icon based on input
+  passwordInput.addEventListener("input", function() {
+    if (passwordInput.value.length > 0) {
+      passwordToggle.style.display = "block";
+    } else {
+      passwordToggle.style.display = "none";
+    }
+  });
+
+  // Toggle password visibility
+  passwordToggle.addEventListener("click", function() {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      passwordToggle.src = "../assets/unhide.png";
+      passwordToggle.alt = "Hide Password";
+    } else {
+      passwordInput.type = "password";
+      passwordToggle.src = "../assets/hide.png";
+      passwordToggle.alt = "Show Password";
+    }
+  });
+
   // Auto-login teller after successful registration
   function loginTeller(username, password) {
     return fetch(API_BASE + "auth/teller_login.php", {

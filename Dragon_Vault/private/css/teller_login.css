@@ -120,7 +120,7 @@ button[type="submit"]:hover {
 
 .password-container input {
   width: 100%;
-  padding-right: 40px; /* Make space for the eye icon */
+  padding-right: 40px; 
 }
 
 .password-toggle {

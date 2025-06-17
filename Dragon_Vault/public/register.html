@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8" />
         <meta name="viewport" 
             content="width=device-width, 
             initial-scale=1.0" />
@@ -24,120 +26,171 @@
         </div>
         <div class="container">
             <div class="register-box">
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFillReg"></div>
+                </div>
+
                 <h1 class="register-title">Create a New Account</h1>
                 <p class="welcome-text">Welcome to DragonVault!</p>
-                <form id="register_form">
-                    <div class="form-section">
-                        <label class="section-label">Name:</label>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text"
-                                    id="first_name"
-                                    class="input-field"
-                                    placeholder="First Name:"
-                                    required />
+
+                <!-- Registration Form Screen -->
+                <div class="screen active" id="registrationScreen">
+                    <form id="register_form">
+                        <div class="form-section">
+                            <label class="section-label">Name:</label>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text"
+                                        id="first_name"
+                                        class="input-field"
+                                        placeholder="First Name:"
+                                        required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text"
+                                        id="middle_initial"
+                                        class="input-field"
+                                        placeholder="Middle Initial:"
+                                        maxlength="1" />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text"
-                                    id="middle_initial"
-                                    class="input-field"
-                                    placeholder="Middle Initial:"
-                                    maxlength="1" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group full-width">
-                                <input type="text"
-                                    id="last_name"
-                                    class="input-field"
-                                    placeholder="Last Name:"
-                                    required />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-section">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="section-label">
-                                    Email Account:
-                                </label>
-                                <input type="email"
-                                    id="email"
-                                    class="input-field"
-                                    placeholder="yourexample@gmail.com"
-                                    required />
-                            </div>
-                            <div class="form-group">
-                                <label class="section-label">
-                                    Mobile Number:
-                                </label>
-                                <input type="tel"
-                                    id="phone_number"
-                                    class="input-field"
-                                    placeholder="09XXXXXXXXX"
-                                    required />
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <input type="text"
+                                        id="last_name"
+                                        class="input-field"
+                                        placeholder="Last Name:"
+                                        required />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-section">
-                        <div class="form-row">
-                            <div class="form-group full-width">
-                                <label class="section-label">Username:</label>
-                                <input type="text"
-                                    id="register_username"
-                                    class="input-field"
-                                    placeholder="Username:"
-                                    required />
+                        <div class="form-section">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="section-label">
+                                        Email Account:
+                                    </label>
+                                    <input type="email"
+                                        id="email"
+                                        class="input-field"
+                                        placeholder="yourexample@gmail.com"
+                                        required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="section-label">
+                                        Mobile Number:
+                                    </label>
+                                    <input type="tel"
+                                        id="phone_number"
+                                        class="input-field"
+                                        placeholder="09XXXXXXXXX"
+                                        required />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-section">
-                        <label class="section-label">
-                            Choose your password:
-                        </label>
-                        <div class="form-row">
-                            <div class="form-group full-width password-container">
-                                <input type="password"
-                                    id="register_password"
-                                    class="input-field"
-                                    placeholder="Password:"
-                                    required />
-                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('register_password', this)">
-                                    Show
-                                </button>
+                        <div class="form-section">
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label class="section-label">Username:</label>
+                                    <input type="text"
+                                        id="register_username"
+                                        class="input-field"
+                                        placeholder="Username:"
+                                        required />
+                                </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group full-width password-container">
-                                <input type="password"
-                                    id="confirm_password"
-                                    class="input-field"
-                                    placeholder="Confirm Password:"
-                                    required />
-                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirm_password', this)">
-                                    Show
-                                </button>
+                        <div class="form-section">
+                            <label class="section-label">
+                                Choose your password:
+                            </label>
+                            <div class="form-row">
+                                <div class="form-group full-width password-container">
+                                    <input type="password"
+                                        id="register_password"
+                                        class="input-field"
+                                        placeholder="Password:"
+                                        required />
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('register_password', this)">
+                                        Show
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width password-container">
+                                    <input type="password"
+                                        id="confirm_password"
+                                        class="input-field"
+                                        placeholder="Confirm Password:"
+                                        required />
+                                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirm_password', this)">
+                                        Show
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="password-requirements">
+                                <div class="requirement" id="req-uppercase">
+                                    <span>•</span> Uppercase letter
+                                </div>
+                                <div class="requirement" id="req-lowercase">
+                                    <span>•</span> Lowercase letter
+                                </div>
+                                <div class="requirement" id="req-number">
+                                    <span>•</span> Number
+                                </div>
+                                <div class="requirement" id="req-special">
+                                    <span>•</span> Special character
+                                </div>
+                                <div class="requirement" id="req-length">
+                                    <span>•</span> At least 8 characters
+                                </div>
+                                <div class="requirement" id="matchReqReg">
+                                    <span>•</span> Passwords match
+                                </div>
                             </div>
                         </div>
-                        <div class="password-requirements">
-                            <p>Password must contain:</p>
-                            <ul>
-                                <li id="req-uppercase"><span class="req-status">Not met</span> Uppercase letter</li>
-                                <li id="req-lowercase"><span class="req-status">Not met</span> Lowercase letter</li>
-                                <li id="req-number"><span class="req-status">Not met</span> Number</li>
-                                <li id="req-special"><span class="req-status">Not met</span> Special character</li>
-                                <li id="req-length"><span class="req-status">Not met</span> At least 8 characters</li>
-                            </ul>
+                        <button type="submit" class="primary-btn">
+                            Sign Up
+                        </button>
+                        <div class="login-link">
+                            Already have an account? 
+                            <a href="login.html">LOGIN</a>
                         </div>
-                    </div>
-                    <button type="submit" class="register-btn">
-                        Sign Up
-                    </button>
-                    <div class="login-link">
-                        Already have an account? 
-                        <a href="login.html">LOGIN</a>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
+                <!-- OTP Verification Screen -->
+                <div class="screen" id="otpVerificationScreen">
+                    <h1 class="screen-title">Verify Your Phone Number</h1>
+                    <p class="screen-subtitle">
+                        We've sent a 6-digit verification code to <span id="maskedPhoneForReg"></span>.
+                    </p>
+
+                    <form id="otp_form">
+                        <div class="otp-container">
+                            <input type="text" class="otp-input" maxlength="1" />
+                            <input type="text" class="otp-input" maxlength="1" />
+                            <input type="text" class="otp-input" maxlength="1" />
+                            <input type="text" class="otp-input" maxlength="1" />
+                            <input type="text" class="otp-input" maxlength="1" />
+                            <input type="text" class="otp-input" maxlength="1" />
+                        </div>
+
+                        <div class="resend-container">
+                            Didn't receive the code?
+                            <span class="resend-link" id="resendRegOtpLink">Resend OTP</span>
+                            <span class="timer" id="regTimer"></span>
+                        </div>
+
+                        <button type="submit" class="primary-btn" id="verifyRegOtpBtn">
+                            Verify Code
+                        </button>
+                        <button type="button" class="secondary-btn" id="backToRegFormBtn">
+                            Back to Registration
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
         <script src="js/register.js"></script>

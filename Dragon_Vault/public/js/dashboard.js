@@ -1,5 +1,19 @@
 const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 
+// Expire pending transactions with expired OTPs before loading dashboard data
+fetch(API_BASE + "transfer/expire_pending_transactions.php")
+    .then(res => res.json())
+    .then(data => {
+        if (!data.success) {
+            console.warn("Failed to expire pending transactions:", data.error);
+        } else {
+            console.log(data.message);
+        }
+    })
+    .catch(err => {
+        console.warn("Error calling expire_pending_transactions.php:", err);
+    });
+
 document.addEventListener("DOMContentLoaded", () => {
     const balanceAmountElem = document.querySelector(".balance-amount");
     const transactionsContentElem = document.querySelector(

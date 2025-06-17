@@ -31,6 +31,14 @@ try {
         exit;
     }
 
+    // Check if phone number already exists
+    $checkPhone = $pdo->prepare("SELECT COUNT(*) FROM account_holder WHERE phone_number = ?");
+    $checkPhone->execute([$phone_number]);
+    if ($checkPhone->fetchColumn() > 0) {
+        echo json_encode(["success" => false, "message" => "Phone number is already registered."]);
+        exit;
+    }
+
     // Insert new account holder
     $stmt = $pdo->prepare("INSERT INTO account_holder (first_name, last_name, middle_initial, phone_number, email, username, password)
                            VALUES (?, ?, ?, ?, ?, ?, ?)");

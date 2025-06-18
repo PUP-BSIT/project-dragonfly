@@ -1,5 +1,19 @@
 <?php
-require_once '../_headers.php';
+// CORS - Allow only partner banks for this specific endpoint
+$allowed_origins = [
+    'https://blindvault.site',
+    'https://stackovercash.site'
+];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400'); // 24 hours
+}
+
+// Don't include _headers.php as we're handling CORS specifically for this endpoint
 require_once '../../includes/db.php';
 
 // Start session if not already started

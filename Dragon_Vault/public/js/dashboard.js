@@ -2,6 +2,8 @@ const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
 
 // SSE connection for monitoring expired transactions
 let eventSource = null;
+let reconnectAttempts = 0;
+const MAX_RECONNECT_ATTEMPTS = 5;
 
 function initializeSSE() {
     if (eventSource) {
@@ -9,6 +11,12 @@ function initializeSSE() {
     }
 
     eventSource = new EventSource(API_BASE + "events/stream-transactions.php");
+
+    // Handle connection established
+    eventSource.addEventListener('connected', function(event) {
+        console.log('SSE Connected:', event.data);
+        reconnectAttempts = 0; // Reset reconnect attempts on successful connection
+    });
 
     // Handle specific events
     eventSource.addEventListener('transaction_expired', function(event) {
@@ -20,20 +28,26 @@ function initializeSSE() {
     });
 
     eventSource.addEventListener('error', function(event) {
-        const data = JSON.parse(event.data);
-        console.warn("SSE Error:", data.error);
+        console.warn("SSE Error:", event);
+        
+        // Check if we should attempt to reconnect
+        if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+            reconnectAttempts++;
+            console.log(`Attempting to reconnect (${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
+            setTimeout(initializeSSE, 5000);
+        } else {
+            console.error("Max reconnection attempts reached. Please refresh the page.");
+            if (eventSource) {
+                eventSource.close();
+                eventSource = null;
+            }
+        }
     });
 
     eventSource.addEventListener('heartbeat', function(event) {
         // Just keep the connection alive
         console.debug("SSE Heartbeat:", new Date().toISOString());
     });
-
-    eventSource.onerror = function(error) {
-        console.error("SSE Connection Error:", error);
-        // Attempt to reconnect after 5 seconds
-        setTimeout(initializeSSE, 5000);
-    };
 }
 
 // Format account number (show last 4 digits, rest as asterisks)
@@ -94,42 +108,72 @@ function toggleAccountNumberVisibility() {
 
 // Fetch and display recent transactions
 function fetchRecentTransactions() {
-    fetch('/Dragon_Vault/api/account/get_recent_transaction.php')
-        .then(res => res.json())
-        .then(data => {
-            const container = document.getElementById("transactionsList");
-            if (!data.success || data.transactions.length === 0) {
-                container.innerHTML = "<p>No recent transactions to display</p>";
+    console.log('Fetching recent transactions...');
+    fetch('/Dragon_Vault/api/account/get_recent_transaction.php', {
+        method: 'GET',
+        credentials: 'include', // Important for session cookies
+        headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache'
+        }
+    })
+    .then(res => {
+        console.log('Response status:', res.status);
+        if (!res.ok) {
+            if (res.status === 401) {
+                console.error('Session expired or not logged in');
+                handleError("Session expired. Please log in again.");
                 return;
             }
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+    })
+    .then(data => {
+        console.log('Received data:', data);
+        const container = document.querySelector(".transactions-content");
+        if (!data.success) {
+            console.error('API returned error:', data.message);
+            if (data.message === 'Not logged in') {
+                handleError("Session expired. Please log in again.");
+                return;
+            }
+            container.innerHTML = `<p>Error: ${data.message || 'Failed to load transactions'}</p>`;
+            return;
+        }
+        if (data.transactions.length === 0) {
+            container.innerHTML = "<p>No recent transactions to display</p>";
+            return;
+        }
 
-            container.innerHTML = data.transactions.map(tx => {
-                let transactionTypeDisplay = tx.transaction_type;
-                let sourceDisplay = tx.source.toUpperCase(); // Default to original source
+        container.innerHTML = data.transactions.map(tx => {
+            let transactionTypeDisplay = tx.transaction_type;
+            let sourceDisplay = tx.source.toUpperCase(); // Default to original source
 
-                if (tx.source === 'user' || tx.source === 'user_inbound') {
-                    sourceDisplay = 'USER';
-                    if (tx.source === 'user') {
-                        transactionTypeDisplay = 'Sent Transfer';
-                    }
-                } else if (tx.source === 'teller') {
-                    sourceDisplay = 'TELLER';
+            if (tx.source === 'user' || tx.source === 'user_inbound') {
+                sourceDisplay = 'USER';
+                if (tx.source === 'user') {
+                    transactionTypeDisplay = 'Sent Transfer';
                 }
+            } else if (tx.source === 'teller') {
+                sourceDisplay = 'TELLER';
+            }
 
-                return `
-                <div class="transaction-item">
-                    <span class="source-label">${sourceDisplay}</span>
-                    <span class="type">${transactionTypeDisplay}</span>
-                    <span class="amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</span>
-                    <span class="timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</span>
-                </div>
-            `;
-            }).join('');
-        })
-        .catch(err => {
-            console.error('Failed to fetch transactions:', err);
-            document.getElementById("transactionsList").innerHTML = "<p>Error loading transactions</p>";
-        });
+            return `
+            <div class="transaction-item">
+                <span class="source-label">${sourceDisplay}</span>
+                <span class="type">${transactionTypeDisplay}</span>
+                <span class="amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</span>
+                <span class="timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</span>
+            </div>
+        `;
+        }).join('');
+    })
+    .catch(err => {
+        console.error('Failed to fetch transactions:', err);
+        document.querySelector(".transactions-content").innerHTML = 
+            `<p>Error loading transactions: ${err.message}</p>`;
+    });
 }
 
 // Navigation functions
@@ -146,13 +190,23 @@ function goToProfile() {
 }
 
 function logout() {
+    // Close SSE connection first
+    if (eventSource) {
+        eventSource.close();
+        eventSource = null;
+    }
+
     fetch("/Dragon_Vault/api/auth/logout.php", {
         method: "POST",
-        credentials: "include",
+        credentials: "include"
     })
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
+                // Clear any local storage or session storage if needed
+                localStorage.clear();
+                sessionStorage.clear();
+                // Redirect to login page
                 window.location.href = "../../index.html";
             } else {
                 alert("Logout failed. Try again.");
@@ -175,55 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const welcomeTitleElem = document.querySelector(".welcome-title");
     const accountNumberElem = document.querySelector(".account-number");
 
-    // Initialize SSE connection
-    initializeSSE();
-
-    // Fetch account balance and recent transactions
-    fetch("/Dragon_Vault/api/account/balance.php", {
-        method: "GET",
-        credentials: "include",
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.success) {
-                welcomeTitleElem.textContent = `Welcome, ${data.full_name}!`;
-
-                if (data.account_number) {
-                    fullAccountNumber = data.account_number;
-                    accountNumberElem.textContent = formatAccountNumber(data.account_number);
-                }
-
-                const formattedBalance = parseFloat(data.total_balance).toLocaleString("en-PH", {
-                    style: "currency",
-                    currency: "PHP",
-                });
-                balanceAmountElem.textContent = formattedBalance;
-
-                if (data.recent_transactions.length === 0) {
-                    transactionsContentElem.textContent = "No recent transactions to display";
-                } else {
-                    transactionsContentElem.innerHTML = "";
-                    data.recent_transactions.forEach((txn) => {
-                        const txnDiv = document.createElement("div");
-                        txnDiv.className = "transaction-item";
-                        txnDiv.innerHTML = `
-                            <div><strong>Date:</strong> ${txn.date}</div>
-                            <div><strong>Description:</strong> ${txn.description}</div>
-                            <div><strong>Amount:</strong> ₱${parseFloat(txn.amount).toFixed(2)}</div>
-                        `;
-                        transactionsContentElem.appendChild(txnDiv);
-                    });
-                }
-            } else {
-                alert("Failed to load account information. Please log in again.");
-                window.location.href = "../../index.html";
-            }
-        })
-        .catch((err) => {
-            console.error("Error fetching dashboard data:", err);
-            transactionsContentElem.textContent = "An error occurred while loading transactions.";
-        });
-
     // Set up navigation button click handlers
     document.querySelectorAll(".nav-btn").forEach((button) => {
         button.addEventListener("click", function () {
@@ -232,13 +237,71 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Initial fetch of recent transactions
+    // Fetch account data and transactions
     fetchRecentTransactions();
+    fetchAccountData();
+
+    // Initialize SSE connection
+    initializeSSE();
 });
+
+// Function to fetch account data
+function fetchAccountData() {
+    console.log('Fetching account data...');
+    fetch("/Dragon_Vault/api/account/balance.php", {
+        method: "GET",
+        credentials: "include"
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        })
+        .then((data) => {
+            if (data.success) {
+                updateDashboard(data);
+                // Fetch transactions after account data is loaded
+            } else {
+                handleError("Failed to load account information");
+            }
+        })
+        .catch((err) => {
+            console.error("Error fetching dashboard data:", err);
+            handleError("An error occurred while loading data");
+        });
+}
+
+// Function to update dashboard with account data
+function updateDashboard(data) {
+    const welcomeTitleElem = document.querySelector(".welcome-title");
+    const balanceAmountElem = document.querySelector(".balance-amount");
+    const accountNumberElem = document.querySelector(".account-number");
+
+    welcomeTitleElem.textContent = `Welcome, ${data.full_name}!`;
+
+    if (data.account_number) {
+        fullAccountNumber = data.account_number;
+        accountNumberElem.textContent = formatAccountNumber(data.account_number);
+    }
+
+    const formattedBalance = parseFloat(data.total_balance).toLocaleString("en-PH", {
+        style: "currency",
+        currency: "PHP",
+    });
+    balanceAmountElem.textContent = formattedBalance;
+}
+
+// Function to handle errors
+function handleError(message) {
+    alert(message + ". Please log in again.");
+    window.location.href = "../../index.html";
+}
 
 // Clean up SSE connection when leaving the page
 window.addEventListener('beforeunload', () => {
     if (eventSource) {
         eventSource.close();
+        eventSource = null;
     }
 });

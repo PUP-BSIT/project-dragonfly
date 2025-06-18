@@ -114,5 +114,5 @@ while (true) {
     ]);
     
     // Sleep for 10 seconds before next check
-    sleep(10);
+    sleep(0.5);
 } 

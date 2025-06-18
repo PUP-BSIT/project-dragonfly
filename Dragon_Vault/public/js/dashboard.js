@@ -6,48 +6,51 @@ let reconnectAttempts = 0;
 const MAX_RECONNECT_ATTEMPTS = 5;
 
 function initializeSSE() {
+    // Don't initialize if already connected
     if (eventSource) {
-        eventSource.close();
+        return;
     }
 
-    eventSource = new EventSource(API_BASE + "events/stream-transactions.php");
+    try {
+        eventSource = new EventSource(API_BASE + "events/stream-transactions.php");
 
-    // Handle connection established
-    eventSource.addEventListener('connected', function(event) {
-        console.log('SSE Connected:', event.data);
-        reconnectAttempts = 0; // Reset reconnect attempts on successful connection
-    });
+        // Handle connection established
+        eventSource.addEventListener('connected', function(event) {
+            console.log('SSE Connected:', event.data);
+            reconnectAttempts = 0;
+        });
 
-    // Handle specific events
-    eventSource.addEventListener('transaction_expired', function(event) {
-        const data = JSON.parse(event.data);
-        console.log(data.message);
-        if (data.expired_transactions > 0) {
-            fetchRecentTransactions();
-        }
-    });
+        // Handle specific events
+        eventSource.addEventListener('transaction_expired', function(event) {
+            const data = JSON.parse(event.data);
+            console.log(data.message);
+            if (data.expired_transactions > 0) {
+                fetchRecentTransactions();
+            }
+        });
 
-    eventSource.addEventListener('error', function(event) {
-        console.warn("SSE Error:", event);
-        
-        // Check if we should attempt to reconnect
-        if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-            reconnectAttempts++;
-            console.log(`Attempting to reconnect (${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
-            setTimeout(initializeSSE, 5000);
-        } else {
-            console.error("Max reconnection attempts reached. Please refresh the page.");
+        eventSource.addEventListener('error', function(event) {
+            console.warn("SSE Error:", event);
+            
+            // Close the connection on error
             if (eventSource) {
                 eventSource.close();
                 eventSource = null;
             }
-        }
-    });
+        });
 
-    eventSource.addEventListener('heartbeat', function(event) {
-        // Just keep the connection alive
-        console.debug("SSE Heartbeat:", new Date().toISOString());
-    });
+        eventSource.addEventListener('heartbeat', function(event) {
+            // Just keep the connection alive
+            console.debug("SSE Heartbeat:", new Date().toISOString());
+        });
+    } catch (error) {
+        console.warn("Failed to initialize SSE:", error);
+        // Don't retry on initialization error
+        if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+        }
+    }
 }
 
 // Format account number (show last 4 digits, rest as asterisks)
@@ -237,12 +240,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Fetch account data and transactions
-    fetchRecentTransactions();
+    // Fetch account data and transactions first
     fetchAccountData();
+    fetchRecentTransactions();
 
-    // Initialize SSE connection
-    initializeSSE();
+    // Initialize SSE connection after a short delay
+    setTimeout(initializeSSE, 500);
 });
 
 // Function to fetch account data

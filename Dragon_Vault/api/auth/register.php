@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../_headers.php';
 ob_start();
 require_once '../../includes/db.php';

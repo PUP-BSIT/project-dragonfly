@@ -2,11 +2,6 @@
 require_once '../_headers.php';
 require_once '../../includes/db.php';
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Check if user is logged in
 if (!isset($_SESSION['account_holder_id'])) {
     $response = ['success' => false, 'error' => 'Unauthorized access'];

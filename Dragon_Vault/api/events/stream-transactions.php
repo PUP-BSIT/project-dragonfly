@@ -2,6 +2,13 @@
 require_once '../_headers.php';
 require_once '../../includes/db.php';
 
+// Check if user is logged in
+if (!isset($_SESSION['account_holder_id'])) {
+    http_response_code(401);
+    echo "data: " . json_encode(['error' => 'Unauthorized']) . "\n\n";
+    exit();
+}
+
 // Set headers for SSE
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
@@ -64,18 +71,48 @@ function checkExpiredTransactions($pdo) {
     }
 }
 
+// Send initial connection success message
+sendSSE([
+    'event' => 'connected',
+    'success' => true,
+    'message' => 'SSE connection established',
+    'timestamp' => date('Y-m-d H:i:s')
+]);
+
 // Keep the connection alive and check periodically
+$checkInterval = 30; // seconds
+$lastCheck = time();
+
 while (true) {
-    // Check for expired transactions
-    checkExpiredTransactions($pdo);
+    // Check if client is still connected
+    if (connection_aborted()) {
+        break;
+    }
+
+    // Check if session is still valid
+    if (!isset($_SESSION['account_holder_id'])) {
+        sendSSE([
+            'event' => 'error',
+            'success' => false,
+            'error' => 'Session expired',
+            'timestamp' => date('Y-m-d H:i:s')
+        ]);
+        break;
+    }
+
+    // Check for expired transactions every 30 seconds
+    if (time() - $lastCheck >= $checkInterval) {
+        checkExpiredTransactions($pdo);
+        $lastCheck = time();
+    }
     
-    // Send a heartbeat every 30 seconds to keep the connection alive
+    // Send a heartbeat every 10 seconds to keep the connection alive
     sendSSE([
         'event' => 'heartbeat',
         'type' => 'heartbeat',
         'timestamp' => date('Y-m-d H:i:s')
     ]);
     
-    // Sleep for 30 seconds before next check
-    sleep(30);
+    // Sleep for 10 seconds before next check
+    sleep(10);
 } 

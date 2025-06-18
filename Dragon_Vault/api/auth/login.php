@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../_headers.php';
 
 // Allow only POST requests
@@ -31,9 +30,13 @@ $stmt->execute([$username]);
 $user = $stmt->fetch();
 
 if ($user && password_verify($password, $user['password'])) {
+    // Regenerate session ID to prevent session fixation
+    regenerate_session();
+    
     // Login success, set session variables
     $_SESSION['account_holder_id'] = $user['account_holder_id'];
     $_SESSION['username'] = $user['username'];
+    $_SESSION['last_activity'] = time();
 
     echo json_encode([
         "success" => true,

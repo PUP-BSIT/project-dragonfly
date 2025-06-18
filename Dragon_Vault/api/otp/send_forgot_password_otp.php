@@ -38,18 +38,30 @@ try {
 
     $account_number = $account['account_number'];
 
-    // Generate a 6-digit OTP
-    $otp_code = "654321";
+    // Generate a random 6-digit OTP
+    $otp_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
     // Set OTP expiration (e.g., 5 minutes from now)
     $expires_at = date('Y-m-d H:i:s', strtotime('+5 minutes'));
 
     // Store OTP in the database
-    // For 'Forgot Password' purpose, we use the actual account_number.
     $stmt = $pdo->prepare("INSERT INTO otp_log (account_number, phone_number, otp_code, purpose, expires_at) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute([$account_number, $phone_number, $otp_code, 'Forgot Password', $expires_at]);
 
-    // In a real application, you would send the OTP via SMS here.
+    // Send OTP via SMS
+    $smsData = [
+        'phone_number' => $phone_number,
+        'otp' => $otp_code,
+        'purpose' => 'Forgot Password'
+    ];
+
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $smsResponse = curl_exec($ch);
+    curl_close($ch);
 
     echo json_encode(['success' => true, 'message' => 'OTP sent successfully']);
 } catch (PDOException $e) {

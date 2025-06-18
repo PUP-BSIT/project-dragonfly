@@ -27,8 +27,8 @@ if (empty($first_name) || empty($last_name) || empty($phone_number) || empty($em
 try {
     // If it's a resend request, skip account checks and session storage
     if (isset($data['resend']) && $data['resend'] === true) {
-        // Generate a 6-digit OTP
-        $otp_code = "654321"; // Hardcoded as per your request
+        // Generate a random 6-digit OTP
+        $otp_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
         // Set OTP expiration (e.g., 5 minutes from now)
         $expires_at = date('Y-m-d H:i:s', strtotime('+5 minutes'));
@@ -36,6 +36,21 @@ try {
         // Store OTP in the database
         $stmt = $pdo->prepare("INSERT INTO otp_log (phone_number, otp_code, purpose, expires_at) VALUES (?, ?, ?, ?)");
         $stmt->execute([$phone_number, $otp_code, 'Registration', $expires_at]);
+
+        // Send OTP via SMS
+        $smsData = [
+            'phone_number' => $phone_number,
+            'otp' => $otp_code,
+            'purpose' => 'Registration'
+        ];
+
+        $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        $smsResponse = curl_exec($ch);
+        curl_close($ch);
 
         error_log("Resend Registration OTP for " . $phone_number . ": " . $otp_code);
 
@@ -81,8 +96,8 @@ try {
         'password' => password_hash($password, PASSWORD_BCRYPT) // Hash password now for security
     ];
 
-    // Generate a 6-digit OTP
-    $otp_code = "654321";
+    // Generate a random 6-digit OTP
+    $otp_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
     // Set OTP expiration (e.g., 5 minutes from now)
     $expires_at = date('Y-m-d H:i:s', strtotime('+5 minutes'));
@@ -91,9 +106,20 @@ try {
     $stmt = $pdo->prepare("INSERT INTO otp_log (phone_number, otp_code, purpose, expires_at) VALUES (?, ?, ?, ?)");
     $stmt->execute([$phone_number, $otp_code, 'Registration', $expires_at]);
 
-    // In a real application, you would send the OTP via SMS here.
-    // For now, we'll just log it for demonstration.
-    error_log("Registration OTP for " . $phone_number . ": " . $otp_code);
+    // Send OTP via SMS
+    $smsData = [
+        'phone_number' => $phone_number,
+        'otp' => $otp_code,
+        'purpose' => 'Registration'
+    ];
+
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $smsResponse = curl_exec($ch);
+    curl_close($ch);
 
     echo json_encode([
         "success" => true,

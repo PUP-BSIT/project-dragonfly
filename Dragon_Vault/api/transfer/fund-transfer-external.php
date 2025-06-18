@@ -68,8 +68,8 @@ try {
         throw new Exception('Insufficient balance');
     }
 
-    // Generate OTP
-    $otp = 654321;
+    // Generate a random 6-digit OTP
+    $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
     // Store OTP in otp_log table and get its id
     $stmt = $pdo->prepare("
@@ -112,7 +112,20 @@ try {
 
     error_log("Created external transaction with ID: " . $transaction_id);
 
-    // Send OTP via SMS (implement your SMS sending logic here)
+    // Send OTP via SMS
+    $smsData = [
+        'phone_number' => $source_account['phone_number'],
+        'otp' => $otp,
+        'purpose' => 'Transaction'
+    ];
+
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $smsResponse = curl_exec($ch);
+    curl_close($ch);
     
     // Commit transaction
     $pdo->commit();

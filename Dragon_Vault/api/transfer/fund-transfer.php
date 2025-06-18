@@ -75,8 +75,8 @@ try {
         throw new Exception('Recipient account not found');
     }
 
-    // Generate OTP
-    $otp = 654321;
+    // Generate a random 6-digit OTP
+    $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
     // Store OTP in otp_log table and get its id
     $stmt = $pdo->prepare("
@@ -119,9 +119,53 @@ try {
 
     error_log("Created transaction with ID: " . $transaction_id);
 
-    // Send OTP via SMS (implement your SMS sending logic here)
-    // For now, we'll just log it
-    error_log("OTP for transaction $transaction_id: $otp sent to {$source_account['phone_number']}");
+    // Send OTP via SMS
+    $smsData = [
+        'phone_number' => $source_account['phone_number'],
+        'otp' => $otp,
+        'purpose' => 'Transaction'
+    ];
+
+    error_log("Attempting to send SMS OTP for transaction: " . json_encode($smsData));
+
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_VERBOSE, true);
+    
+    // Create a temporary file handle for CURL debug output
+    $verbose = fopen('php://temp', 'w+');
+    curl_setopt($ch, CURLOPT_STDERR, $verbose);
+    
+    $smsResponse = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    // Get the verbose debug information
+    rewind($verbose);
+    $verboseLog = stream_get_contents($verbose);
+    error_log("CURL Verbose Log: " . $verboseLog);
+    
+    if (curl_errno($ch)) {
+        $error = curl_error($ch);
+        error_log("SMS API Error: " . $error);
+        curl_close($ch);
+        throw new Exception("Failed to send SMS: " . $error);
+    }
+    
+    curl_close($ch);
+    fclose($verbose);
+
+    error_log("SMS API Response (HTTP $httpCode): " . $smsResponse);
+
+    $smsResult = json_decode($smsResponse, true);
+    if ($httpCode !== 200 || !isset($smsResult['success']) || !$smsResult['success']) {
+        error_log("Failed to send SMS. HTTP Code: $httpCode, Response: " . $smsResponse);
+        throw new Exception("Failed to send OTP via SMS. Please try again.");
+    }
 
     // Commit transaction
     $pdo->commit();

@@ -1,20 +1,66 @@
 <?php
-session_start();
 require_once __DIR__ . '/../_headers.php';
 ob_start();
 require_once '../../includes/db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$first_name = $data['first_name'];
-$last_name = $data['last_name'];
+$first_name = $data['first_name'] ?? '';
+$last_name = $data['last_name'] ?? '';
 $middle_initial = $data['middle_initial'] ?? null;
-$phone_number = $data['phone_number'];
-$email = $data['email'];
-$username = $data['username'];
-$password = password_hash($data['password'], PASSWORD_BCRYPT);
+$phone_number = $data['phone_number'] ?? '';
+$email = $data['email'] ?? '';
+$username = $data['username'] ?? '';
+$password = $data['password'] ?? ''; // Password will be hashed upon final registration
+
+// Basic validation to prevent empty submissions
+if (empty($first_name) || empty($last_name) || empty($phone_number) || empty($email) || empty($username) || empty($password)) {
+    // Check if it's a resend request, in which case only phone_number is required
+    if (isset($data['resend']) && $data['resend'] === true && !empty($phone_number)) {
+        // Skip full validation for resend, proceed to OTP generation
+    } else {
+        echo json_encode(["success" => false, "message" => "All fields are required."]);
+        exit;
+    }
+}
 
 try {
+    // If it's a resend request, skip account checks and session storage
+    if (isset($data['resend']) && $data['resend'] === true) {
+        // Generate a random 6-digit OTP
+        $otp_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        // Set OTP expiration (e.g., 5 minutes from now)
+        $expires_at = date('Y-m-d H:i:s', strtotime('+5 minutes'));
+
+        // Store OTP in the database
+        $stmt = $pdo->prepare("INSERT INTO otp_log (phone_number, otp_code, purpose, expires_at) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$phone_number, $otp_code, 'Registration', $expires_at]);
+
+        // Send OTP via SMS
+        $smsData = [
+            'phone_number' => $phone_number,
+            'otp' => $otp_code,
+            'purpose' => 'Registration'
+        ];
+
+        $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        $smsResponse = curl_exec($ch);
+        curl_close($ch);
+
+        error_log("Resend Registration OTP for " . $phone_number . ": " . $otp_code);
+
+        echo json_encode([
+            "success" => true,
+            "message" => "New OTP sent successfully to your phone number."
+        ]);
+        exit();
+    }
+
     // Check if username already exists
     $checkUsername = $pdo->prepare("SELECT COUNT(*) FROM account_holder WHERE username = ?");
     $checkUsername->execute([$username]);
@@ -39,31 +85,46 @@ try {
         exit;
     }
 
-    // Insert new account holder
-    $stmt = $pdo->prepare("INSERT INTO account_holder (first_name, last_name, middle_initial, phone_number, email, username, password)
-                           VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$first_name, $last_name, $middle_initial, $phone_number, $email, $username, $password]);
+    // Store registration data in session for later use after OTP verification
+    $_SESSION['registration_data'] = [
+        'first_name' => $first_name,
+        'last_name' => $last_name,
+        'middle_initial' => $middle_initial,
+        'phone_number' => $phone_number,
+        'email' => $email,
+        'username' => $username,
+        'password' => password_hash($password, PASSWORD_BCRYPT) // Hash password now for security
+    ];
 
-    // Get the ID of the newly created account holder
-    $holder_id = $pdo->lastInsertId();
+    // Generate a random 6-digit OTP
+    $otp_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
-    // Get the last account_number and increment it
-    $stmt = $pdo->query("SELECT MAX(account_number) AS last_account_number FROM account");
-    $lastAccountNumber = $stmt->fetch(PDO::FETCH_ASSOC)['last_account_number'] ?? 1000000000; // Default start
+    // Set OTP expiration (e.g., 5 minutes from now)
+    $expires_at = date('Y-m-d H:i:s', strtotime('+5 minutes'));
 
-    $newAccountNumber = $lastAccountNumber + 1;
+    // Store OTP in the database
+    $stmt = $pdo->prepare("INSERT INTO otp_log (phone_number, otp_code, purpose, expires_at) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$phone_number, $otp_code, 'Registration', $expires_at]);
 
-    // Insert new account record with new account_number
-    $insertAccount = $pdo->prepare("INSERT INTO account (account_number, account_holder_id, account_type, balance)
-                                    VALUES (?, ?, 'Savings', 0.00)");
-    $insertAccount->execute([$newAccountNumber, $holder_id]);
+    // Send OTP via SMS
+    $smsData = [
+        'phone_number' => $phone_number,
+        'otp' => $otp_code,
+        'purpose' => 'Registration'
+    ];
 
-    // Return success response with account holder ID
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $smsResponse = curl_exec($ch);
+    curl_close($ch);
+
     echo json_encode([
-        "success" => true, 
-        "message" => "Account holder and savings account created successfully.",
-        "account_holder_id" => $holder_id,
-        "account_number" => $newAccountNumber
+        "success" => true,
+        "message" => "OTP sent successfully to your phone number. Please verify to complete registration.",
+        "phone_number" => $phone_number // Return phone number for masking on frontend
     ]);
 
 } catch (PDOException $e) {

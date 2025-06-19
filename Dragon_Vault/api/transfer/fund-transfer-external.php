@@ -2,11 +2,6 @@
 require_once '../_headers.php';
 require_once '../../includes/db.php';
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Check if user is logged in
 if (!isset($_SESSION['account_holder_id'])) {
     $response = ['success' => false, 'error' => 'Unauthorized access'];
@@ -73,52 +68,65 @@ try {
         throw new Exception('Insufficient balance');
     }
 
-    // Generate OTP
-    $otp = 123456;
+    // Generate a random 6-digit OTP
+    $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
-    // Create transaction record with OTP
+    // Store OTP in otp_log table and get its id
+    $stmt = $pdo->prepare("
+        INSERT INTO otp_log (
+            account_number,
+            phone_number,
+            otp_code,
+            purpose,
+            expires_at,
+            is_used
+        ) VALUES (?, ?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
+    ");
+    $stmt->execute([$source_account['account_number'], $source_account['phone_number'], $otp]);
+    $otp_log_id = $pdo->lastInsertId();
+
+    // Create transaction record with OTP and otp_log_id
     $stmt = $pdo->prepare("
         INSERT INTO user_transaction (
             account_number, 
             transaction_type, 
+            otp_code, 
             amount, 
             status, 
             recipient_account_number,
             recipient_bank_code,
-            otp_code,
-            transaction_timestamp
-        ) VALUES (?, ?, ?, 'Pending', ?, ?, ?, NOW())
+            transaction_timestamp,
+            otp_log_id
+        ) VALUES (?, ?, ?, ?, 'Pending', ?, ?, NOW(), ?)
     ");
     $stmt->execute([
         $source_account['account_number'],
         $transaction_type,
+        $otp,
         $transaction_amount,
         $recipient_account_no,
         $recipient_bank_code,
-        $otp
+        $otp_log_id
     ]);
     $transaction_id = $pdo->lastInsertId();
 
     error_log("Created external transaction with ID: " . $transaction_id);
 
-    // Store OTP in otp_log table
-    $stmt = $pdo->prepare("
-        INSERT INTO otp_log (
-            account_number,
-            otp_code,
-            purpose,
-            expires_at,
-            is_used
-        ) VALUES (?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
-    ");
-    $stmt->execute([$source_account['account_number'], $otp]);
+    // Send OTP via SMS
+    $smsData = [
+        'phone_number' => $source_account['phone_number'],
+        'otp' => $otp,
+        'purpose' => 'Transaction'
+    ];
 
-    error_log("Stored OTP in otp_log table for external transfer");
-
-    // Send OTP via SMS (implement your SMS sending logic here)
-    // For now, we'll just log it
-    error_log("OTP for external transaction $transaction_id: $otp sent to {$source_account['phone_number']}");
-
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $smsResponse = curl_exec($ch);
+    curl_close($ch);
+    
     // Commit transaction
     $pdo->commit();
 

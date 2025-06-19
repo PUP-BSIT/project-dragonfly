@@ -1,8 +1,16 @@
 <?php
-session_start();
 require_once __DIR__ . '/../_headers.php';
 
+// Debug session state
+error_log("Session state in get_recent_transaction.php: " . json_encode([
+    'session_id' => session_id(),
+    'account_holder_id' => $_SESSION['account_holder_id'] ?? 'not set',
+    'username' => $_SESSION['username'] ?? 'not set',
+    'last_activity' => $_SESSION['last_activity'] ?? 'not set'
+]));
+
 if (!isset($_SESSION['account_holder_id'])) {
+    error_log("Session check failed: account_holder_id not set");
     echo json_encode(['success' => false, 'message' => 'Not logged in']);
     exit;
 }
@@ -44,5 +52,12 @@ $params = array_merge($accounts, $accounts, $accounts);
 $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Convert transaction timestamps to Asia/Manila timezone for consistent display
+foreach ($transactions as &$transaction) {
+    $dateTime = new DateTime($transaction['transaction_timestamp'], new DateTimeZone('UTC'));
+    $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
+    $transaction['transaction_timestamp'] = $dateTime->format('Y-m-d H:i:s');
+}
 
 echo json_encode(['success' => true, 'transactions' => $transactions]);

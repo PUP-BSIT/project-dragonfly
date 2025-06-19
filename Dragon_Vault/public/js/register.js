@@ -1,9 +1,116 @@
+let currentRegScreen = 1;
+let registrationPhoneNumber = "";
+let resendRegTimer = 0;
+let resendRegInterval;
+
 const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+
+// Screen navigation
+function showRegScreen(screenNum) {
+    document.querySelectorAll(".screen").forEach((screen) => {
+        screen.classList.remove("active");
+    });
+    if (screenNum === 1) {
+        document.getElementById("registrationScreen").classList.add("active");
+    } else if (screenNum === 2) {
+        document.getElementById("otpVerificationScreen").classList.add("active");
+    }
+    currentRegScreen = screenNum;
+    updateRegProgressBar();
+}
+
+function updateRegProgressBar() {
+    const progress = (currentRegScreen / 2) * 100; // 2 screens for registration flow
+    document.getElementById("progressFillReg").style.width = `${progress}%`;
+}
+
+// Phone number masking
+function maskPhoneNumber(phone) {
+    const cleaned = phone.replace(/\D/g, "");
+    return cleaned.replace(/(\d{3})\d{4}(\d{3})/, "$1****$2");
+}
+
+// OTP input handling
+function setupOtpInputs(containerId) {
+    const otpInputs = document.querySelectorAll(`#${containerId} .otp-input`);
+
+    otpInputs.forEach((input, index) => {
+        input.addEventListener("input", function (e) {
+            if (e.target.value.length === 1) {
+                if (index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            } else if (e.target.value.length === 0 && e.inputType === 'deleteContentBackward') {
+                if (index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            }
+        });
+
+        input.addEventListener("keydown", function (e) {
+            if (e.key === "Backspace" && e.target.value === "" && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });
+}
+
+function getOtpValue(containerId) {
+    const otpInputs = document.querySelectorAll(`#${containerId} .otp-input`);
+    return Array.from(otpInputs)
+        .map((input) => input.value)
+        .join("");
+}
+
+function clearOtpInputs(containerId) {
+    document.querySelectorAll(`#${containerId} .otp-input`).forEach((input) => {
+        input.value = "";
+    });
+    document.querySelector(`#${containerId} .otp-input`).focus();
+}
+
+// Resend timer
+function startResendTimer(timerElementId, resendLinkId, intervalVarName) {
+    const timerElement = document.getElementById(timerElementId);
+    const resendLink = document.getElementById(resendLinkId);
+    resendRegTimer = 60;
+    resendLink.classList.add("disabled");
+
+    window[intervalVarName] = setInterval(() => {
+        timerElement.textContent = `(${resendRegTimer}s)`;
+        resendRegTimer--;
+
+        if (resendRegTimer < 0) {
+            clearInterval(window[intervalVarName]);
+            resendLink.classList.remove("disabled");
+            timerElement.textContent = "";
+        }
+    }, 1000);
+}
+
+// API calls
+async function verifyRegistrationOtp(phone, otp) {
+    try {
+        const response = await fetch(`${API_BASE}auth/verify_registration_otp.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ phone_number: phone, otp: otp })
+        });
+        const data = await response.json();
+        return { success: data.success, message: data.message };
+    } catch (error) {
+        console.error('Error verifying registration OTP:', error);
+        return { success: false, message: 'Failed to verify OTP.' };
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const registerForm = document.getElementById("register_form");
     const passwordInput = document.getElementById("register_password");
     const confirmPasswordInput = document.getElementById("confirm_password");
+    const signUpBtn = document.querySelector(".primary-btn");
 
     // Password visibility toggle function
     window.togglePasswordVisibility = function(inputId, btn) {
@@ -14,61 +121,55 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Real-time password requirement checking
-    function checkPasswordRequirements(password) {
+    function checkPasswordRequirements() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
         const hasUpperCase = /[A-Z]/.test(password);
         const hasLowerCase = /[a-z]/.test(password);
         const hasNumbers = /\d/.test(password);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?\":{}|<>]/.test(password);
         const isLongEnough = password.length >= 8;
+        const passwordsMatch = password === confirmPassword && password.length > 0;
 
-        const uppercaseStatus = document.getElementById("req-uppercase").querySelector('.req-status');
-        const lowercaseStatus = document.getElementById("req-lowercase").querySelector('.req-status');
-        const numberStatus = document.getElementById("req-number").querySelector('.req-status');
-        const specialStatus = document.getElementById("req-special").querySelector('.req-status');
-        const lengthStatus = document.getElementById("req-length").querySelector('.req-status');
+        // Update requirement indicators
+        document.getElementById("req-uppercase").className = `requirement ${
+            hasUpperCase ? "valid" : "invalid"
+        }`;
+        document.getElementById("req-lowercase").className = `requirement ${
+            hasLowerCase ? "valid" : "invalid"
+        }`;
+        document.getElementById("req-number").className = `requirement ${
+            hasNumbers ? "valid" : "invalid"
+        }`;
+        document.getElementById("req-special").className = `requirement ${
+            hasSpecialChar ? "valid" : "invalid"
+        }`;
+        document.getElementById("req-length").className = `requirement ${
+            isLongEnough ? "valid" : "invalid"
+        }`;
+        document.getElementById("matchReqReg").className = `requirement ${
+            passwordsMatch ? "valid" : "invalid"
+        }`;
 
-        const uppercaseLi = document.getElementById("req-uppercase");
-        const lowercaseLi = document.getElementById("req-lowercase");
-        const numberLi = document.getElementById("req-number");
-        const specialLi = document.getElementById("req-special");
-        const lengthLi = document.getElementById("req-length");
-
-        uppercaseStatus.textContent = hasUpperCase ? "Met" : "Not met";
-        lowercaseStatus.textContent = hasLowerCase ? "Met" : "Not met";
-        numberStatus.textContent = hasNumbers ? "Met" : "Not met";
-        specialStatus.textContent = hasSpecialChar ? "Met" : "Not met";
-        lengthStatus.textContent = isLongEnough ? "Met" : "Not met";
-
-        uppercaseLi.classList.toggle('met', hasUpperCase);
-        uppercaseLi.classList.toggle('not-met', !hasUpperCase);
-        lowercaseLi.classList.toggle('met', hasLowerCase);
-        lowercaseLi.classList.toggle('not-met', !hasLowerCase);
-        numberLi.classList.toggle('met', hasNumbers);
-        numberLi.classList.toggle('not-met', !hasNumbers);
-        specialLi.classList.toggle('met', hasSpecialChar);
-        specialLi.classList.toggle('not-met', !hasSpecialChar);
-        lengthLi.classList.toggle('met', isLongEnough);
-        lengthLi.classList.toggle('not-met', !isLongEnough);
-
-        return {
-            isValid: hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough,
-            errors: []
-        };
+        const allValid = hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough && passwordsMatch;
+        signUpBtn.disabled = !allValid;
     }
 
     // Add input event listeners for real-time password checking
     if (passwordInput) {
-        passwordInput.addEventListener("input", (e) => {
-            checkPasswordRequirements(e.target.value);
-        });
+        passwordInput.addEventListener("input", checkPasswordRequirements);
+    }
+    if (confirmPasswordInput) {
+        confirmPasswordInput.addEventListener("input", checkPasswordRequirements);
     }
 
-    // Password validation function
+    // Password validation function (kept for initial form submission validation)
     function validatePassword(password) {
         const hasUpperCase = /[A-Z]/.test(password);
         const hasLowerCase = /[a-z]/.test(password);
         const hasNumbers = /\d/.test(password);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?\":{}|<>]/.test(password);
         const isLongEnough = password.length >= 8;
 
         const errors = [];
@@ -93,18 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }).then((response) => response.json());
     }
 
-    // Named function to handle login (for auto-login after registration)
-    function handleLogin(username, password) {
-        return fetch(API_BASE + "auth/login.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
-        }).then((response) => response.json());
-    }
-
     // Register form submit event
     if (registerForm) {
-        registerForm.addEventListener("submit", (e) => {
+        registerForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const data = {
@@ -131,24 +223,113 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            registerUser(data)
-                .then((result) => {
-                    if (!result.success) {
-                        throw new Error(result.message || "Registration failed.");
-                    }
-                    return handleLogin(data.username, data.password);
-                })
-                .then((loginResult) => {
-                    if (loginResult.success) {
-                        window.location.href = "dashboard.html";
-                    } else {
-                        alert("Account created, but login failed.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Registration failed:", error);
-                    alert(error.message || "An error occurred during registration.");
-                });
+            // Send registration data to initiate OTP process
+            const registerBtn = document.querySelector(".primary-btn");
+            registerBtn.disabled = true;
+            registerBtn.textContent = "Sending OTP...";
+
+            try {
+                // Use the registerUser function which calls auth/register.php directly
+                const result = await registerUser(data);
+                if (result.success) {
+                    registrationPhoneNumber = data.phone_number;
+                    document.getElementById("maskedPhoneForReg").textContent = maskPhoneNumber(registrationPhoneNumber);
+                    showRegScreen(2); // Show OTP verification screen
+                    startResendTimer("regTimer", "resendRegOtpLink", "resendRegInterval");
+                    setupOtpInputs("otp_form");
+                    clearOtpInputs("otp_form");
+                } else {
+                    alert(result.message || "Registration failed. Please try again.");
+                }
+            } catch (error) {
+                console.error("Registration initiation failed:", error);
+                alert("An error occurred during registration. Please try again.");
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.textContent = "Sign Up";
+            }
         });
     }
+
+    // OTP form submission for registration
+    const otpForm = document.getElementById("otp_form");
+    if (otpForm) {
+        otpForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const otp = getOtpValue("otp_form");
+
+            if (otp.length !== 6) {
+                alert("Please enter the complete 6-digit verification code.");
+                return;
+            }
+
+            const verifyBtn = document.getElementById("verifyRegOtpBtn");
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = "Verifying...";
+
+            try {
+                const result = await verifyRegistrationOtp(registrationPhoneNumber, otp);
+                if (result.success) {
+                    alert(result.message || "Registration successful! You can now log in.");
+                    window.location.href = "login.html"; // Redirect to login page
+                } else {
+                    alert(result.message || "Invalid verification code. Please try again.");
+                    clearOtpInputs("otp_form");
+                }
+            } catch (error) {
+                console.error("OTP verification failed:", error);
+                alert("An error occurred during OTP verification. Please try again.");
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = "Verify Code";
+            }
+        });
+    }
+
+    // Back to Registration button
+    const backToRegFormBtn = document.getElementById("backToRegFormBtn");
+    if (backToRegFormBtn) {
+        backToRegFormBtn.addEventListener("click", () => {
+            clearInterval(resendRegInterval);
+            showRegScreen(1);
+            clearOtpInputs("otp_form");
+            // Re-check password requirements when returning to registration screen
+            checkPasswordRequirements();
+        });
+    }
+
+    // Resend Registration OTP
+    const resendRegOtpLink = document.getElementById("resendRegOtpLink");
+    if (resendRegOtpLink) {
+        resendRegOtpLink.addEventListener("click", async () => {
+            if (resendRegOtpLink.classList.contains("disabled")) return;
+
+            resendRegOtpLink.classList.add("disabled");
+            startResendTimer("regTimer", "resendRegOtpLink", "resendRegInterval");
+
+            try {
+                // Only send phone number for resend OTP
+                const result = await fetch(`${API_BASE}auth/register.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone_number: registrationPhoneNumber, resend: true })
+                }).then(response => response.json());
+
+                if (result.success) {
+                    alert("New verification code sent!");
+                    clearOtpInputs("otp_form");
+                } else {
+                    alert(result.message || "Failed to resend code. Please try again.");
+                }
+            } catch (error) {
+                alert("An error occurred while resending code. Please try again.");
+            }
+        });
+    }
+
+    // Initialize password requirements check on load
+    checkPasswordRequirements();
 });

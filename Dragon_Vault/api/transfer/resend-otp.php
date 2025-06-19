@@ -2,11 +2,6 @@
 require_once '../_headers.php';
 require_once '../../includes/db.php';
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Check if user is logged in
 if (!isset($_SESSION['account_holder_id'])) {
     echo json_encode(['success' => false, 'error' => 'Unauthorized access']);
@@ -48,32 +43,57 @@ try {
         throw new Exception('No pending transaction found');
     }
 
-    // Generate new OTP
-    $new_otp = 123456;
+    // Generate new random 6-digit OTP
+    $new_otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
-    // Update transaction with new OTP
-    $stmt = $pdo->prepare("
-        UPDATE user_transaction 
-        SET otp_code = ? 
-        WHERE user_transaction_id = ?
-    ");
-    $stmt->execute([$new_otp, $transaction['user_transaction_id']]);
-
-    // Store new OTP in otp_log table
+    // Insert new OTP into otp_log and get its id
     $stmt = $pdo->prepare("
         INSERT INTO otp_log (
             account_number,
+            phone_number,
             otp_code,
             purpose,
             expires_at,
             is_used
-        ) VALUES (?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
+        ) VALUES (?, ?, ?, 'Transaction', DATE_ADD(NOW(), INTERVAL 5 MINUTE), 0)
     ");
-    $stmt->execute([$source_account_no, $new_otp]);
+    $stmt->execute([$source_account_no, $transaction['phone_number'], $new_otp]);
+    $otp_log_id = $pdo->lastInsertId();
 
-    // Send new OTP via SMS (implement your SMS sending logic here)
-    // For now, we'll just log it
-    error_log("New OTP for transaction {$transaction['user_transaction_id']}: $new_otp sent to {$transaction['phone_number']}");
+    // Update transaction with new OTP and new otp_log_id
+    $stmt = $pdo->prepare("
+        UPDATE user_transaction 
+        SET otp_code = ?, otp_log_id = ?
+        WHERE user_transaction_id = ?
+    ");
+    $stmt->execute([$new_otp, $otp_log_id, $transaction['user_transaction_id']]);
+
+    // Send new OTP via SMS using the SMS OTP API
+    $smsData = [
+        'phone_number' => $transaction['phone_number'],
+        'otp' => $new_otp,
+        'purpose' => 'Transaction'
+    ];
+
+    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+    $smsResponse = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    // Log the SMS sending
+    error_log("Resent OTP for transaction {$transaction['user_transaction_id']}: $new_otp sent to {$transaction['phone_number']}. SMS API response: $smsResponse");
+
+    $smsResult = json_decode($smsResponse, true);
+    if ($httpCode !== 200 || !isset($smsResult['success']) || !$smsResult['success']) {
+        throw new Exception("Failed to send OTP via SMS. Please try again.");
+    }
 
     // Commit transaction
     $pdo->commit();

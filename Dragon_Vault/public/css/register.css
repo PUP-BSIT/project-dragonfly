@@ -107,6 +107,34 @@ body {
     font-size: 16px;
 }
 
+.screen {
+    display: none;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.screen-subtitle {
+    text-align: center;
+    color: #cccccc;
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
 .form-section {
     margin-bottom: 25px;
 }
@@ -142,6 +170,7 @@ body {
     color: #333;
     outline: none;
     transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .input-field:focus {
@@ -153,7 +182,7 @@ body {
     color: #666;
 }
 
-.register-btn {
+.primary-btn {
     width: 100%;
     padding: 15px;
     background: linear-gradient(45deg, #7b2cbf, #9d4edd);
@@ -166,17 +195,141 @@ body {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.register-btn:hover {
+.primary-btn:hover {
     background: linear-gradient(45deg, #9d4edd, #c77dff);
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
 }
 
+.primary-btn:disabled {
+    background: rgba(123, 44, 191, 0.5);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.secondary-btn {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    color: #9d4edd;
+    border: 2px solid #9d4edd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.secondary-btn:hover {
+    background: rgba(157, 78, 221, 0.1);
+    transform: translateY(-2px);
+}
+
+.otp-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.otp-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.otp-input:focus {
+    border-color: #9d4edd;
+    background: white;
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+}
+
+.resend-container {
+    text-align: center;
+    margin: 20px 0;
+    color: #cccccc;
+    font-size: 14px;
+}
+
+.resend-link {
+    color: #9d4edd;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.resend-link:hover {
+    color: #c77dff;
+}
+
+.resend-link.disabled {
+    color: #666;
+    cursor: not-allowed;
+}
+
+.timer {
+    color: #9d4edd;
+    font-weight: bold;
+}
+
+.password-requirements {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #cccccc;
+}
+
+.requirement {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.requirement.valid {
+    color: #4ade80;
+}
+
+.requirement.invalid {
+    color: #f87171;
+}
+
+.progress-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
 .login-link {
     text-align: center;
+    margin-top: 20px;
     font-size: 14px;
     color: #cccccc;
 }
@@ -193,20 +346,21 @@ body {
 }
 
 @media (max-width: 320px) {
-    .register-box {
+    .register-box,
+    .forgot-password-box {
         padding: 20px 8px;
         margin: 10px;
-        max-width: 120%;
+        max-width: 98vw;
     }
 
     .header {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         padding: 10px 8px;
     }
 
     .logo {
-        padding: 10px 8px;
+        padding: 10px 0;
         gap: 6px;
     }
 
@@ -216,75 +370,74 @@ body {
         font-size: 18px;
     }
 
-    .logo-text,
-    .brand-name {
+    .logo-text {
         font-size: 16px;
     }
 
     .nav-links {
-        gap: 10px;
+        gap: 8px;
     }
 
     .nav-links a {
         font-size: 14px;
-        padding: 4px 6px;
+        padding: 3px 6px;
     }
 
-    .register-title {
+    .screen-title {
         font-size: 18px;
-        margin-bottom: 6px;
     }
 
+    .screen-subtitle,
     .welcome-text {
+        font-size: 13px;
+        margin-bottom: 18px;
+    }
+
+    .input-field,
+    .primary-btn,
+    .secondary-btn {
         font-size: 12px;
-        margin-bottom: 15px;
-    }
-
-    .section-label {
-        font-size: 13px;
-        margin-bottom: 8px;
-    }
-
-    .input-field {
         padding: 10px;
-        font-size: 13px;
     }
 
-    .register-btn {
-        padding: 10px;
-        font-size: 13px;
-        margin-bottom: 12px;
+    .otp-input {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
     }
 
-    .login-link {
-        font-size: 12px;
+    .progress-bar {
+        margin: 10px 0;
     }
 
     .password-requirements {
-        padding: 6px;
         font-size: 12px;
+        padding: 8px;
+        margin: 8px 0;
     }
 
-    .password-requirements li {
+    .requirement {
         font-size: 12px;
+        gap: 4px;
     }
 }
 
 @media (min-width: 321px) and (max-width: 376px) {
-    .register-box {
-        padding: 28px 12px;
+    .register-box,
+    .forgot-password-box {
+        padding: 24px 10px;
         margin: 12px;
-        max-width: 100%;
+        max-width: 96vw;
     }
 
     .header {
         flex-direction: column;
-        align-items: center;
-        padding: 12px 12px;
+        align-items: flex-start;
+        padding: 12px 10px;
     }
 
     .logo {
-        padding: 12px 10px;
+        padding: 12px 0;
         gap: 8px;
     }
 
@@ -294,75 +447,74 @@ body {
         font-size: 20px;
     }
 
-    .logo-text,
-    .brand-name {
-        font-size: 20px;
+    .logo-text {
+        font-size: 18px;
     }
 
     .nav-links {
-        gap: 16px;
+        gap: 10px;
     }
 
     .nav-links a {
         font-size: 15px;
-        padding: 5px 8px;
+        padding: 4px 8px;
     }
 
-    .register-title {
+    .screen-title {
         font-size: 20px;
-        margin-bottom: 8px;
     }
 
+    .screen-subtitle,
     .welcome-text {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .input-field,
+    .primary-btn,
+    .secondary-btn {
         font-size: 13px;
-        margin-bottom: 18px;
-    }
-
-    .section-label {
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
-
-    .input-field {
         padding: 12px;
-        font-size: 14px;
     }
 
-    .register-btn {
-        padding: 12px;
-        font-size: 14px;
-        margin-bottom: 14px;
+    .otp-input {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
     }
 
-    .login-link {
-        font-size: 13px;
+    .progress-bar {
+        margin: 12px 0;
     }
 
     .password-requirements {
-        padding: 8px;
         font-size: 13px;
+        padding: 10px;
+        margin: 10px 0;
     }
 
-    .password-requirements li {
+    .requirement {
         font-size: 13px;
+        gap: 6px;
     }
 }
 
 @media (min-width: 376px) and (max-width: 426px) {
-    .register-box {
-        padding: 32px 16px;
-        margin: 14px;
-        max-width: 100%;
+    .register-box,
+    .forgot-password-box {
+        padding: 28px 14px;
+        margin: 16px;
+        max-width: 94vw;
     }
 
     .header {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         padding: 14px 14px;
     }
 
     .logo {
-        padding: 14px 12px;
+        padding: 14px 0;
         gap: 9px;
     }
 
@@ -372,66 +524,59 @@ body {
         font-size: 22px;
     }
 
-    .logo-text,
-    .brand-name {
-        font-size: 24px;
+    .logo-text {
+        font-size: 22px;
     }
 
     .nav-links {
-        gap: 20px;
+        gap: 18px;
     }
 
     .nav-links a {
         font-size: 16px;
-        padding: 6px 10px;
+        padding: 5px 9px;
     }
 
-    .register-title {
+    .screen-title {
         font-size: 22px;
-        margin-bottom: 9px;
     }
 
+    .screen-subtitle,
     .welcome-text {
-        font-size: 14px;
-        margin-bottom: 22px;
-    }
-
-    .section-label {
         font-size: 15px;
-        margin-bottom: 12px;
+        margin-bottom: 24px;
     }
 
-    .input-field {
+    .input-field,
+    .primary-btn,
+    .secondary-btn {
+        font-size: 15px;
         padding: 13px;
-        font-size: 15px;
     }
 
-    .register-btn {
-        padding: 13px;
-        font-size: 15px;
-        margin-bottom: 16px;
+    .otp-input {
+        width: 36px;
+        height: 36px;
+        font-size: 17px;
     }
 
-    .login-link {
-        font-size: 13.5px;
+    .progress-bar {
+        margin: 16px 0;
     }
 
     .password-requirements {
-        padding: 9px;
-        font-size: 13.5px;
+        font-size: 14px;
+        padding: 12px;
+        margin: 12px 0;
     }
 
-    .password-requirements li {
-        font-size: 13.5px;
+    .requirement {
+        font-size: 14px;
+        gap: 7px;
     }
 }
 
-@media (max-width: 600px) {
-    .form-row {
-        flex-direction: column;
-        gap: 15px;
-    }
-
+@media (max-width: 480px) {
     .register-box {
         padding: 30px 20px;
         margin: 20px;
@@ -441,18 +586,18 @@ body {
         padding: 15px 20px;
     }
 
-    .brand-name {
+    .logo-text {
         font-size: 20px;
     }
 
-    .register-title {
+    .screen-title {
         font-size: 24px;
     }
-}
 
-@media (max-width: 480px) {
-    .form-row {
-        flex-direction: column;
+    .otp-input {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
 }
 
@@ -484,42 +629,4 @@ body {
 
 .toggle-password:hover {
     opacity: 0.8;
-}
-
-.password-requirements {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-}
-
-.password-requirements p {
-    margin: 0 0 5px 0;
-    font-weight: bold;
-    color: #333;
-}
-
-.password-requirements ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.password-requirements li {
-    margin: 5px 0;
-    color: #666;
-    font-size: 14px;
-}
-
-.password-requirements li.met {
-    color: green;
-}
-
-.password-requirements li.not-met {
-    color: red;
-}
-
-.req-status {
-    font-weight: bold;
-    margin-right: 8px;
 }

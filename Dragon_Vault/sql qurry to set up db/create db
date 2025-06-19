@@ -50,7 +50,19 @@ CREATE TABLE IF NOT EXISTS teller_transaction (
     FOREIGN KEY (account_number) REFERENCES account(account_number)
 );
 
--- User Transaction Table
+-- OTP Log Table
+CREATE TABLE IF NOT EXISTS otp_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_number BIGINT,
+    phone_number VARCHAR(15),
+    otp_code VARCHAR(6) NOT NULL,
+    purpose ENUM('Transaction', 'Login', 'Registration', 'Forgot Password') DEFAULT 'Transaction',
+    expires_at DATETIME NOT NULL,
+    is_used BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (account_number) REFERENCES account(account_number) ON DELETE SET NULL
+);
+
+-- User Transaction Table (now references otp_log)
 CREATE TABLE IF NOT EXISTS user_transaction (
     user_transaction_id INT AUTO_INCREMENT PRIMARY KEY,
     account_number BIGINT NOT NULL,
@@ -60,16 +72,8 @@ CREATE TABLE IF NOT EXISTS user_transaction (
     transaction_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
     recipient_account_number BIGINT,
-    recipient_bank_code VARCHAR(20)
-);
-
--- OTP Log Table (Optional)
-CREATE TABLE IF NOT EXISTS otp_log (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    account_number BIGINT NOT NULL,
-    otp_code VARCHAR(6) NOT NULL,
-    purpose ENUM('Transaction', 'Login') DEFAULT 'Transaction',
-    expires_at DATETIME NOT NULL,
-    is_used BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (account_number) REFERENCES account(account_number)
+    recipient_bank_code VARCHAR(20),
+    otp_log_id INT,
+    FOREIGN KEY (account_number) REFERENCES account(account_number),
+    FOREIGN KEY (otp_log_id) REFERENCES otp_log(id) ON DELETE SET NULL
 );

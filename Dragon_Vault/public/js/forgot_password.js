@@ -129,33 +129,60 @@ function updatePasswordRequirements() {
 
 // API simulation (replace with actual API calls)
 async function sendOtp(phone) {
-    // Simulate API call
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            console.log(`OTP sent to ${phone}`);
-            resolve({ success: true });
-        }, 1000);
-    });
+    try {
+        const response = await fetch(`${API_BASE}otp/send_forgot_password_otp.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ phone_number: phone })
+        });
+        const data = await response.json();
+        return { success: data.success };
+    } catch (error) {
+        console.error('Error sending OTP:', error);
+        return { success: false };
+    }
 }
 
 async function verifyOtp(phone, otp) {
-    // Simulate API call
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const isValid = otp === "123456"; // Demo OTP
-            resolve({ success: isValid });
-        }, 1000);
-    });
+    try {
+        const response = await fetch(`${API_BASE}otp/verify_forgot_password_otp.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ phone_number: phone, otp: otp })
+        });
+
+        const data = await response.json();
+        return { success: data.success };
+    } catch (error) {
+        console.error('Error verifying OTP:', error);
+        return { success: false };
+    }
 }
 
 async function resetPassword(phone, newPassword) {
-    // Simulate API call
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            console.log(`Password reset for ${phone}`);
-            resolve({ success: true });
-        }, 1000);
-    });
+    try {
+        const response = await fetch(`${API_BASE}auth/reset_password.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phone_number: phone,
+                new_password: newPassword
+            })
+        });
+
+        const data = await response.json();
+        console.log('Password reset API response:', data); // Log the response
+        return { success: data.success };
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        return { success: false };
+    }
 }
 
 // Event listeners

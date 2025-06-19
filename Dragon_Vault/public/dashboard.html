@@ -16,32 +16,26 @@
                 <h1 class="logo-text">DragonVault</h1>
             </div>
             <nav class="nav-buttons">
-                <button class="nav-btn active" 
-                    onclick="goToHome()">
+                <button class="nav-btn active" onclick="goToHome()">
                     Home
                 </button>
-                <button class="nav-btn" 
-                    onclick="goToProfile()">
-                    Profile
-                </button>
-                <button class="nav-btn" 
-                    onclick="logout()">
-                    Log out
-                </button>
+                <button class="nav-btn" onclick="goToProfile()">Profile</button>
+                <button class="nav-btn" onclick="logout()">Log out</button>
             </nav>
         </header>
         <main class="main-content">
             <section class="welcome-section">
                 <h1 class="welcome-title">Welcome, John Doe!</h1>
                 <div class="account-number-container">
-                    <div class="account-number">Account Number: ****-****-**</div>
-                    <img 
-                        src="../assets/hide.png" 
-                        alt="Toggle visibility" 
-                        class="toggle-visibility-icon" 
+                    <div class="account-number">
+                        Account Number: ****-****-**
+                    </div>
+                    <img
+                        src="../assets/hide.png"
+                        alt="Toggle visibility"
+                        class="toggle-visibility-icon"
                         id="toggleVisibilityIcon"
-                        onclick="toggleAccountNumberVisibility()"
-                    />
+                        onclick="toggleAccountNumberVisibility()" />
                 </div>
             </section>
             <div class="dashboard-grid">
@@ -51,8 +45,9 @@
                 </div>
                 <div class="transfer-card">
                     <h2 class="transfer-title">Transfer Funds</h2>
-                    <button id="transferBtn" 
-                        class="select-btn" 
+                    <button
+                        id="transferBtn"
+                        class="select-btn"
                         onclick="goToTransfer()">
                         Start Transfer
                     </button>
@@ -65,22 +60,11 @@
                 </div>
                 <div class="view-all-container">
                     <a href="transaction_history.html">
-                        <button class="view-all-btn">
-                            View All
-                        </button>
+                        <button class="view-all-btn">View All</button>
                     </a>
                 </div>
             </section>
         </main>
-        <footer class="footer">
-            <div class="footer-content">
-                &copy; 2025 DragonVault! All rights reserved.
-                <div class="footer-links">
-                    <a href="terms_and_conditions.html">Terms and Conditions</a>
-                    <a href="about_us.html">About Us</a>
-                </div>
-            </div>
-        </footer>
         <script src="./js/dashboard.js"></script>
     </body>
 </html>

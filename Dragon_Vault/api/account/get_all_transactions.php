@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../_headers.php';
 require_once '../../includes/db.php';
 
@@ -58,6 +57,13 @@ try {
     $tellerStmt = $pdo->prepare($tellerQuery);
     $tellerStmt->execute($accountNumbers);
     $tellerTransactions = $tellerStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Convert timestamps for teller transactions to Asia/Manila timezone with Y-m-d H:i:s format
+    foreach ($tellerTransactions as &$transaction) {
+        $dateTime = new DateTime($transaction['transaction_timestamp'], new DateTimeZone('UTC'));
+        $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
+        $transaction['transaction_timestamp'] = $dateTime->format('Y-m-d H:i:s');
+    }
 
     echo json_encode([
         "success" => true,

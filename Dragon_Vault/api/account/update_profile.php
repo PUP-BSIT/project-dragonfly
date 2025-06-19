@@ -1,6 +1,6 @@
 <?php
-session_start();
 require_once __DIR__ . '/../_headers.php';
+require_once '../../includes/sanitize.php';
 
 if (!isset($_SESSION['account_holder_id'])) {
     echo json_encode(['success' => false, 'message' => 'Not logged in']);
@@ -16,22 +16,21 @@ if (!isset($data['fullName'], $data['email'])) {
 require_once '../../includes/db.php';
 
 $account_holder_id = $_SESSION['account_holder_id'];
-$fullName = trim($data['fullName']);
-$email = trim($data['email']);
-$phone = isset($data['phone']) ? trim($data['phone']) : null;
+$fullName = sanitize_db_input($data['fullName']);
+$email = sanitize_db_input($data['email']);
+$phone = isset($data['phone']) ? sanitize_db_input($data['phone']) : null;
 
 // Split full name
-
 $nameParts = explode(' ', $fullName);
-$first_name = $nameParts[0];
+$first_name = sanitize_db_input($nameParts[0]);
 $middle_initial = null;
 $last_name = null;
 
 if (count($nameParts) === 2) {
-    $last_name = $nameParts[1];
+    $last_name = sanitize_db_input($nameParts[1]);
 } elseif (count($nameParts) > 2) {
-    $middle_initial = substr($nameParts[1], 0, 1);
-    $last_name = $nameParts[count($nameParts) - 1];
+    $middle_initial = sanitize_db_input(substr($nameParts[1], 0, 1));
+    $last_name = sanitize_db_input($nameParts[count($nameParts) - 1]);
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -53,4 +52,6 @@ $sql = "UPDATE account_holder SET first_name = ?, middle_initial = ?, last_name 
 $stmt = $pdo->prepare($sql);
 $success = $stmt->execute([$first_name, $middle_initial, $last_name, $email, $phone, $account_holder_id]);
 
-echo json_encode(['success' => $success]);
+// Sanitize the response data
+$response = ['success' => $success];
+echo json_encode(sanitize_json_output($response));

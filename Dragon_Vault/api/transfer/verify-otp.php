@@ -2,11 +2,6 @@
 require_once '../_headers.php';
 require_once '../../includes/db.php';
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Check if user is logged in
 if (!isset($_SESSION['account_holder_id'])) {
     echo json_encode(['success' => false, 'error' => 'Unauthorized access']);
@@ -56,7 +51,7 @@ try {
     error_log("Attempting to find pending transaction with OTP. Found: " . json_encode($transaction));
 
     if (!$transaction) {
-        throw new Exception('Invalid OTP or no matching pending transaction found');
+        throw new Exception('The OTP code you entered does not match. Please try again.');
     }
 
     // Log the found transaction
@@ -207,18 +202,28 @@ try {
 
     error_log("Updated transaction status to Completed");
 
-    // Mark OTP as used in otp_log
-    $stmt = $pdo->prepare("
-        UPDATE otp_log 
-        SET is_used = 1 
-        WHERE account_number = ? 
-        AND otp_code = ? 
-        AND purpose = 'Transaction'
-        AND is_used = 0
-    ");
-    $stmt->execute([$source_account_no, $otp]);
-
-    error_log("Marked OTP as used");
+    // Mark OTP as used in otp_log using otp_log_id
+    if (!empty($transaction['otp_log_id'])) {
+        $stmt = $pdo->prepare("
+            UPDATE otp_log 
+            SET is_used = 1 
+            WHERE id = ?
+        ");
+        $stmt->execute([$transaction['otp_log_id']]);
+        error_log("Marked OTP as used by otp_log_id");
+    } else {
+        // Fallback for legacy transactions
+        $stmt = $pdo->prepare("
+            UPDATE otp_log 
+            SET is_used = 1 
+            WHERE account_number = ? 
+            AND otp_code = ? 
+            AND purpose = 'Transaction'
+            AND is_used = 0
+        ");
+        $stmt->execute([$source_account_no, $otp]);
+        error_log("Marked OTP as used by account_number and otp_code (legacy)");
+    }
 
     // Commit transaction
     $pdo->commit();

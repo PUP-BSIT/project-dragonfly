@@ -222,6 +222,8 @@ body {
     .nav-links a {
         font-size: 14px;
         padding: 3px 6px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #9b5dd4;
     }
 
     .login-title {
@@ -285,6 +287,8 @@ body {
     .nav-links a {
         font-size: 16px;
         padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #9b5dd4;
     }
 
     .login-title {
@@ -348,6 +352,8 @@ body {
     .nav-links a {
         font-size: 17px;
         padding: 5px 9px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #9b5dd4;
     }
 
     .login-title {

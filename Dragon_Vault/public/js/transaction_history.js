@@ -320,3 +320,37 @@ function logout() {
             alert("An error occurred during logout.");
         });
 }
+
+// Mobile menu toggle functionality (copied from dashboard.js)
+function toggleMobileMenu() {
+    const mobileNav = document.getElementById("mobileNav");
+    const hamburger = document.querySelector(".hamburger-menu");
+
+    mobileNav.classList.toggle("active");
+    hamburger.classList.toggle("active");
+}
+
+// Close mobile menu when clicking outside
+if (!window._transactionHistoryMobileMenuEventsAdded) {
+    document.addEventListener("click", function (event) {
+        const mobileNav = document.getElementById("mobileNav");
+        const hamburger = document.querySelector(".hamburger-menu");
+
+        if (
+            mobileNav &&
+            mobileNav.classList.contains("active") &&
+            !mobileNav.contains(event.target) &&
+            !hamburger.contains(event.target)
+        ) {
+            toggleMobileMenu();
+        }
+    });
+
+    // Prevent menu close when clicking inside mobile nav
+    if (document.getElementById("mobileNav")) {
+        document.getElementById("mobileNav").addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+    }
+    window._transactionHistoryMobileMenuEventsAdded = true;
+}

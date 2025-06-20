@@ -283,8 +283,10 @@ body {
 
     .nav-links a {
         font-size: 16px;
-        padding: 5px 0;
+        padding: 5px 5px;
         margin-left: 0px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #9b5dd4;
     }
 
     .hero-section {
@@ -397,8 +399,10 @@ body {
 
     .nav-links a {
         font-size: 16px;
-        padding: 5px 0;
+        padding: 5px 5px;
         margin-left: 0px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #9b5dd4;
     }
 
     .hero-section {
@@ -512,8 +516,10 @@ body {
 
     .nav-links a {
         font-size: 16px;
-        padding: 5px 0;
+        padding: 5px 5px;
         margin-left: 0px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #9b5dd4;
     }
 
     .hero-section {

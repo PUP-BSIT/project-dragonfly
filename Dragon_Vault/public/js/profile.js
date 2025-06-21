@@ -70,7 +70,15 @@ function toggleEditMode() {
     const displayCard = document.getElementById("profileDisplay");
     const editCard = document.getElementById("profileEdit");
 
-    document.getElementById("editFullName").value = currentUserData.full_name;
+    // Parse the full name to populate separate fields
+    const nameParts = currentUserData.full_name.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts[nameParts.length - 1] || '';
+    const middleInitial = nameParts.length > 2 ? nameParts[1] : '';
+
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editMiddleInitial").value = middleInitial;
+    document.getElementById("editLastName").value = lastName;
     document.getElementById("editEmail").value = currentUserData.email;
     document.getElementById("editPhone").value = currentUserData.phone || "";
 
@@ -92,7 +100,9 @@ function handleProfileUpdate(e) {
 
     const formData = new FormData(e.target);
     const updateData = {
-        fullName: formData.get("fullName"),
+        firstName: formData.get("firstName"),
+        middleInitial: formData.get("middleInitial"),
+        lastName: formData.get("lastName"),
         email: formData.get("email"),
         phone: formData.get("phone"),
     };
@@ -119,7 +129,14 @@ function handleProfileUpdate(e) {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                currentUserData = { ...currentUserData, ...updateData };
+                // Update currentUserData with new values
+                currentUserData.first_name = updateData.firstName;
+                currentUserData.middle_initial = updateData.middleInitial;
+                currentUserData.last_name = updateData.lastName;
+                currentUserData.full_name = `${updateData.firstName} ${updateData.middleInitial ? updateData.middleInitial + ' ' : ''}${updateData.lastName}`.trim();
+                currentUserData.email = updateData.email;
+                currentUserData.phone = updateData.phone;
+                
                 displayUserProfile(currentUserData);
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");

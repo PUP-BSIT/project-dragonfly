@@ -155,6 +155,12 @@
     gap: 10px;
 }
 
+.form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 15px;
+}
+
 .form-label {
     font-size: 14px;
     font-weight: 600;

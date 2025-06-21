@@ -63,12 +63,6 @@ function setupEventListeners() {
             closePasswordModal();
         }
     });
-
-    document.getElementById("deleteModal").addEventListener("click", (e) => {
-        if (e.target.id === "deleteModal") {
-            closeDeleteModal();
-        }
-    });
 }
 
 // Toggle edit mode
@@ -254,68 +248,6 @@ function handlePasswordChange(e) {
         .finally(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        });
-}
-
-// Delete account modal functions
-function confirmDeleteAccount() {
-    document.getElementById("deleteModal").style.display = "flex";
-    document.getElementById("deletePassword").focus();
-}
-
-function closeDeleteModal() {
-    document.getElementById("deleteModal").style.display = "none";
-    document.getElementById("deletePassword").value = "";
-}
-
-// Handle account deletion
-function deleteAccount() {
-    const password = document.getElementById("deletePassword").value;
-
-    if (!password) {
-        alert("Please enter your password to confirm account deletion.");
-        return;
-    }
-
-    const finalConfirm = confirm(
-        "This is your final warning. Your account and all data will be permanently deleted. Are you absolutely sure?"
-    );
-
-    if (!finalConfirm) return;
-
-    const deleteBtn = document.querySelector(".delete-confirm-btn");
-    const originalText = deleteBtn.textContent;
-    deleteBtn.textContent = "Deleting...";
-    deleteBtn.disabled = true;
-
-    fetch(API_BASE + "account/delete_account.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            password: password,
-        }),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.success) {
-                alert(
-                    "Your account has been successfully deleted. You will be redirected to the homepage."
-                );
-                window.location.href = "../../index.html";
-            } else {
-                alert(data.message || "Failed to delete account. Please verify your password and try again.");
-            }
-        })
-        .catch((err) => {
-            console.error("Error deleting account:", err);
-            alert("An error occurred while deleting your account.");
-        })
-        .finally(() => {
-            deleteBtn.textContent = originalText;
-            deleteBtn.disabled = false;
         });
 }
 

@@ -70,6 +70,7 @@ const Validation = {
         const accountNumber = document.getElementById("accountNumber").value.trim();
         const amount = document.getElementById("amount").value.trim();
         const bankSelect = document.getElementById("bankSelect");
+        const sourceAccount = localStorage.getItem('accountNumber');
 
         let isValid = true;
         let errorMessage = "";
@@ -86,6 +87,10 @@ const Validation = {
             this.showFieldError("accountNumber", "Account number must be at least 6 digits");
             isValid = false;
             errorMessage += "• Account number must be at least 6 digits\n";
+        } else if (sourceAccount && accountNumber === sourceAccount) {
+            this.showFieldError("accountNumber", "You cannot transfer money to your own account");
+            isValid = false;
+            errorMessage += "• You cannot transfer money to your own account\n";
         }
 
         // Validate amount

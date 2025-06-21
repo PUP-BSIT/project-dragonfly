@@ -75,6 +75,11 @@ try {
         throw new Exception('Recipient account not found');
     }
 
+    // Check if user is trying to transfer to their own account
+    if ($source_account['account_number'] == $recipient_account_no) {
+        throw new Exception('You cannot transfer money to your own account');
+    }
+
     // Generate a random 6-digit OTP
     $otp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 

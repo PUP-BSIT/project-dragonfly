@@ -17,12 +17,40 @@
                     class="logo-img" />
                 <h1 class="logo-text">DragonVault</h1>
             </div>
+            <!-- Desktop Navigation -->
             <nav class="nav-buttons">
                 <button class="nav-btn" onclick="goToHome()">Home</button>
                 <button class="nav-btn" onclick="goToProfile()">Profile</button>
                 <button class="nav-btn" onclick="logout()">Log out</button>
             </nav>
+            <!-- Mobile Hamburger Menu -->
+            <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
         </header>
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav" id="mobileNav">
+            <button class="close-btn" onclick="toggleMobileMenu()">
+                &times;
+            </button>
+            <button
+                class="mobile-nav-btn"
+                onclick="goToHome(); toggleMobileMenu()">
+                Home
+            </button>
+            <button
+                class="mobile-nav-btn"
+                onclick="goToProfile(); toggleMobileMenu()">
+                Profile
+            </button>
+            <button
+                class="mobile-nav-btn"
+                onclick="logout(); toggleMobileMenu()">
+                Log out
+            </button>
+        </div>
 
         <main class="main-content">
             <div class="transactions-container">

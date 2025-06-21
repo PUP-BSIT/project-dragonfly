@@ -12,16 +12,18 @@ function initializeSSE() {
     }
 
     try {
-        eventSource = new EventSource(API_BASE + "events/stream-transactions.php");
+        eventSource = new EventSource(
+            API_BASE + "events/stream-transactions.php"
+        );
 
         // Handle connection established
-        eventSource.addEventListener('connected', function(event) {
-            console.log('SSE Connected:', event.data);
+        eventSource.addEventListener("connected", function (event) {
+            console.log("SSE Connected:", event.data);
             reconnectAttempts = 0;
         });
 
         // Handle specific events
-        eventSource.addEventListener('transaction_expired', function(event) {
+        eventSource.addEventListener("transaction_expired", function (event) {
             const data = JSON.parse(event.data);
             console.log(data.message);
             if (data.expired_transactions > 0) {
@@ -29,9 +31,9 @@ function initializeSSE() {
             }
         });
 
-        eventSource.addEventListener('error', function(event) {
+        eventSource.addEventListener("error", function (event) {
             console.warn("SSE Error:", event);
-            
+
             // Close the connection on error
             if (eventSource) {
                 eventSource.close();
@@ -39,7 +41,7 @@ function initializeSSE() {
             }
         });
 
-        eventSource.addEventListener('heartbeat', function(event) {
+        eventSource.addEventListener("heartbeat", function (event) {
             // Just keep the connection alive
             console.debug("SSE Heartbeat:", new Date().toISOString());
         });
@@ -58,9 +60,9 @@ function formatAccountNumber(accountNumber) {
     if (!accountNumber) {
         return "Account: ****-****-**";
     }
-    
+
     const accountStr = accountNumber.toString();
-    
+
     // For 10-digit account numbers: show last 4 digits, mask the rest
     if (accountStr.length === 10) {
         const lastFour = accountStr.substring(6, 10); // Get last 4 digits
@@ -77,106 +79,133 @@ function formatFullAccountNumber(accountNumber) {
     if (!accountNumber) {
         return "Account: ****-****-**";
     }
-    
+
     const accountStr = accountNumber.toString();
-    
+
     // For 10-digit account numbers: format as XXXX-XX-XXXX
     if (accountStr.length === 10) {
-        return `Account: ${accountStr.substring(0, 4)}-${accountStr.substring(4, 6)}-${accountStr.substring(6, 10)}`;
+        return `Account: ${accountStr.substring(0, 4)}-${accountStr.substring(
+            4,
+            6
+        )}-${accountStr.substring(6, 10)}`;
     } else {
         // Fallback for any unexpected account number lengths
         return `Account: ${accountStr}`;
     }
 }
 
+// Global variables
+let fullAccountNumber = "";
+let isAccountNumberVisible = false;
+
+// Mobile menu toggle functionality
+function toggleMobileMenu() {
+    const mobileNav = document.getElementById("mobileNav");
+    const hamburger = document.querySelector(".hamburger-menu");
+
+    mobileNav.classList.toggle("active");
+    hamburger.classList.toggle("active");
+}
+
 // Toggle account number visibility
 function toggleAccountNumberVisibility() {
-    const toggleIcon = document.getElementById('toggleVisibilityIcon');
+    const toggleIcon = document.getElementById("toggleVisibilityIcon");
     const accountNumberElem = document.querySelector(".account-number");
-    
+
     if (isAccountNumberVisible) {
         // Hide the account number
         accountNumberElem.textContent = formatAccountNumber(fullAccountNumber);
-        toggleIcon.src = '../assets/hide.png';
-        toggleIcon.alt = 'Show account number';
+        toggleIcon.src = "../assets/hide.png";
+        toggleIcon.alt = "Show account number";
         isAccountNumberVisible = false;
     } else {
         // Show the full account number
-        accountNumberElem.textContent = formatFullAccountNumber(fullAccountNumber);
-        toggleIcon.src = '../assets/unhide.png';
-        toggleIcon.alt = 'Hide account number';
+        accountNumberElem.textContent =
+            formatFullAccountNumber(fullAccountNumber);
+        toggleIcon.src = "../assets/unhide.png";
+        toggleIcon.alt = "Hide account number";
         isAccountNumberVisible = true;
     }
 }
 
 // Fetch and display recent transactions
 function fetchRecentTransactions() {
-    console.log('Fetching recent transactions...');
-    fetch('/Dragon_Vault/api/account/get_recent_transaction.php', {
-        method: 'GET',
-        credentials: 'include', // Important for session cookies
+    console.log("Fetching recent transactions...");
+    fetch("/Dragon_Vault/api/account/get_recent_transaction.php", {
+        method: "GET",
+        credentials: "include", // Important for session cookies
         headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache'
-        }
+            Accept: "application/json",
+            "Cache-Control": "no-cache",
+        },
     })
-    .then(res => {
-        console.log('Response status:', res.status);
-        if (!res.ok) {
-            if (res.status === 401) {
-                console.error('Session expired or not logged in');
-                handleError("Session expired. Please log in again.");
-                return;
-            }
-            throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-    })
-    .then(data => {
-        console.log('Received data:', data);
-        const container = document.querySelector(".transactions-content");
-        if (!data.success) {
-            console.error('API returned error:', data.message);
-            if (data.message === 'Not logged in') {
-                handleError("Session expired. Please log in again.");
-                return;
-            }
-            container.innerHTML = `<p>Error: ${data.message || 'Failed to load transactions'}</p>`;
-            return;
-        }
-        if (data.transactions.length === 0) {
-            container.innerHTML = "<p>No recent transactions to display</p>";
-            return;
-        }
-
-        container.innerHTML = data.transactions.map(tx => {
-            let transactionTypeDisplay = tx.transaction_type;
-            let sourceDisplay = tx.source.toUpperCase(); // Default to original source
-
-            if (tx.source === 'user' || tx.source === 'user_inbound') {
-                sourceDisplay = 'USER';
-                if (tx.source === 'user') {
-                    transactionTypeDisplay = 'Sent Transfer';
+        .then((res) => {
+            console.log("Response status:", res.status);
+            if (!res.ok) {
+                if (res.status === 401) {
+                    console.error("Session expired or not logged in");
+                    handleError("Session expired. Please log in again.");
+                    return;
                 }
-            } else if (tx.source === 'teller') {
-                sourceDisplay = 'TELLER';
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log("Received data:", data);
+            const container = document.querySelector(".transactions-content");
+            if (!data.success) {
+                console.error("API returned error:", data.message);
+                if (data.message === "Not logged in") {
+                    handleError("Session expired. Please log in again.");
+                    return;
+                }
+                container.innerHTML = `<p>Error: ${
+                    data.message || "Failed to load transactions"
+                }</p>`;
+                return;
+            }
+            if (data.transactions.length === 0) {
+                container.innerHTML =
+                    "<p>No recent transactions to display</p>";
+                return;
             }
 
-            return `
+            container.innerHTML = data.transactions
+                .map((tx) => {
+                    let transactionTypeDisplay = tx.transaction_type;
+                    let sourceDisplay = tx.source.toUpperCase(); // Default to original source
+
+                    if (tx.source === "user" || tx.source === "user_inbound") {
+                        sourceDisplay = "USER";
+                        if (tx.source === "user") {
+                            transactionTypeDisplay = "Sent Transfer";
+                        }
+                    } else if (tx.source === "teller") {
+                        sourceDisplay = "TELLER";
+                    }
+
+                    return `
             <div class="transaction-item">
                 <span class="source-label">${sourceDisplay}</span>
                 <span class="type">${transactionTypeDisplay}</span>
-                <span class="amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</span>
-                <span class="timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</span>
+                <span class="amount">&#8369;${parseFloat(tx.amount).toFixed(
+                    2
+                )}</span>
+                <span class="timestamp">${new Date(
+                    tx.transaction_timestamp
+                ).toLocaleString()}</span>
             </div>
         `;
-        }).join('');
-    })
-    .catch(err => {
-        console.error('Failed to fetch transactions:', err);
-        document.querySelector(".transactions-content").innerHTML = 
-            `<p>Error loading transactions: ${err.message}</p>`;
-    });
+                })
+                .join("");
+        })
+        .catch((err) => {
+            console.error("Failed to fetch transactions:", err);
+            document.querySelector(
+                ".transactions-content"
+            ).innerHTML = `<p>Error loading transactions: ${err.message}</p>`;
+        });
 }
 
 // Navigation functions
@@ -221,43 +250,16 @@ function logout() {
         });
 }
 
-// Global variables
-let fullAccountNumber = '';
-let isAccountNumberVisible = false;
-
-// Initialize dashboard when DOM is loaded
-document.addEventListener("DOMContentLoaded", () => {
-    const balanceAmountElem = document.querySelector(".balance-amount");
-    const transactionsContentElem = document.querySelector(".transactions-content");
-    const welcomeTitleElem = document.querySelector(".welcome-title");
-    const accountNumberElem = document.querySelector(".account-number");
-
-    // Set up navigation button click handlers
-    document.querySelectorAll(".nav-btn").forEach((button) => {
-        button.addEventListener("click", function () {
-            document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
-            this.classList.add("active");
-        });
-    });
-
-    // Fetch account data and transactions first
-    fetchAccountData();
-    fetchRecentTransactions();
-
-    // Initialize SSE connection after a short delay
-    setTimeout(initializeSSE, 500);
-});
-
 // Function to fetch account data
 function fetchAccountData() {
-    console.log('Fetching account data...');
+    console.log("Fetching account data...");
     fetch("/Dragon_Vault/api/account/balance.php", {
         method: "GET",
-        credentials: "include"
+        credentials: "include",
     })
         .then((res) => {
             if (!res.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error("Network response was not ok");
             }
             return res.json();
         })
@@ -285,13 +287,18 @@ function updateDashboard(data) {
 
     if (data.account_number) {
         fullAccountNumber = data.account_number;
-        accountNumberElem.textContent = formatAccountNumber(data.account_number);
+        accountNumberElem.textContent = formatAccountNumber(
+            data.account_number
+        );
     }
 
-    const formattedBalance = parseFloat(data.total_balance).toLocaleString("en-PH", {
-        style: "currency",
-        currency: "PHP",
-    });
+    const formattedBalance = parseFloat(data.total_balance).toLocaleString(
+        "en-PH",
+        {
+            style: "currency",
+            currency: "PHP",
+        }
+    );
     balanceAmountElem.textContent = formattedBalance;
 }
 
@@ -301,8 +308,56 @@ function handleError(message) {
     window.location.href = "../../index.html";
 }
 
+// Initialize dashboard when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    const balanceAmountElem = document.querySelector(".balance-amount");
+    const transactionsContentElem = document.querySelector(
+        ".transactions-content"
+    );
+    const welcomeTitleElem = document.querySelector(".welcome-title");
+    const accountNumberElem = document.querySelector(".account-number");
+
+    // Set up navigation button click handlers
+    document.querySelectorAll(".nav-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+            document
+                .querySelectorAll(".nav-btn")
+                .forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+        });
+    });
+
+    // Fetch account data and transactions first
+    fetchAccountData();
+    fetchRecentTransactions();
+
+    // Initialize SSE connection after a short delay
+    setTimeout(initializeSSE, 500);
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener("click", function (event) {
+    const mobileNav = document.getElementById("mobileNav");
+    const hamburger = document.querySelector(".hamburger-menu");
+
+    if (
+        mobileNav.classList.contains("active") &&
+        !mobileNav.contains(event.target) &&
+        !hamburger.contains(event.target)
+    ) {
+        toggleMobileMenu();
+    }
+});
+
+// Prevent menu close when clicking inside mobile nav
+document
+    .getElementById("mobileNav")
+    .addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+
 // Clean up SSE connection when leaving the page
-window.addEventListener('beforeunload', () => {
+window.addEventListener("beforeunload", () => {
     if (eventSource) {
         eventSource.close();
         eventSource = null;

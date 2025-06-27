@@ -1,5 +1,4 @@
 <?php
-file_put_contents(__DIR__ . '/sms_otp.log', date('Y-m-d H:i:s') . " - Test log entry\n", FILE_APPEND);
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../_headers.php';
 

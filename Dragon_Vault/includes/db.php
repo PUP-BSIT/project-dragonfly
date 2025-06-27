@@ -8,11 +8,23 @@ if (file_exists($env_file)) {
     }
 }
 
-// Fallbacks for XAMPP/local development
-$host = getenv('DB_HOST') ?: 'localhost';
-$db   = getenv('DB_NAME') ?: 'u147312066_DragonVaultDB'; 
-$user = getenv('DB_USER') ?: 'root';
-$pass = getenv('DB_PASS') ?: '';
+// Detect if running on localhost or 127.0.0.1
+$localHosts = ['localhost', '127.0.0.1'];
+$currentHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '');
+
+if (in_array($currentHost, $localHosts, true)) {
+    // Local development (XAMPP)
+    $host = 'localhost';
+    $db   = 'u147312066_DragonVaultDB'; // Change to your local DB name if different
+    $user = 'root';
+    $pass = '';
+} else {
+    // Production or other environment
+    $host = getenv('DB_HOST') ?: 'localhost';
+    $db   = getenv('DB_NAME') ?: 'u147312066_DragonVaultDB';
+    $user = getenv('DB_USER') ?: 'root';
+    $pass = getenv('DB_PASS') ?: '';
+}
 
 // PDO options for better security
 $options = [

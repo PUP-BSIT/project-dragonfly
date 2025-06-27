@@ -35,9 +35,16 @@ $options = [
     PDO::ATTR_TIMEOUT => 5, // 5 second timeout
 ];
 
+// Set PHP timezone to match production
+if (function_exists('date_default_timezone_set')) {
+    date_default_timezone_set('Asia/Manila');
+}
+
 try {
     $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass, $options);
+    // Set MySQL timezone to Asia/Manila
+    $pdo->exec("SET time_zone = '+08:00'");
 } catch (PDOException $e) {
     // Log the error but don't expose details to the user
     error_log("Database connection failed: " . $e->getMessage());

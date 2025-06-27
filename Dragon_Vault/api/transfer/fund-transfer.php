@@ -125,6 +125,9 @@ try {
     error_log("Created transaction with ID: " . $transaction_id);
 
     // Send OTP via SMS
+    $otpApiUrl = (in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']))
+        ? 'http://localhost/Dragon_Vault/api/otp/send_sms_otp.php'
+        : 'https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php';
     $smsData = [
         'phone_number' => $source_account['phone_number'],
         'otp' => $otp,
@@ -133,7 +136,7 @@ try {
 
     error_log("Attempting to send SMS OTP for transaction: " . json_encode($smsData));
 
-    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    $ch = curl_init($otpApiUrl);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

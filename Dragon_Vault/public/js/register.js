@@ -3,7 +3,7 @@ let registrationPhoneNumber = "";
 let resendRegTimer = 0;
 let resendRegInterval;
 
-const API_BASE = location.hostname === "localhost"
+const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? "http://localhost/Dragon_Vault/api/"
   : "https://dragonvault.site/Dragon_Vault/api/";
 

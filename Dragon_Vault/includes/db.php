@@ -8,11 +8,23 @@ if (file_exists($env_file)) {
     }
 }
 
-// Database configuration from environment variables
-$host = getenv('DB_HOST');
-$db   = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
+// Detect if running on localhost or 127.0.0.1
+$localHosts = ['localhost', '127.0.0.1'];
+$currentHost = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '');
+
+if (in_array($currentHost, $localHosts, true)) {
+    // Local development (XAMPP)
+    $host = 'localhost';
+    $db   = 'u147312066_DragonVaultDB'; // Change to your local DB name if different
+    $user = 'root';
+    $pass = '';
+} else {
+    // Production or other environment
+    $host = getenv('DB_HOST') ?: 'localhost';
+    $db   = getenv('DB_NAME') ?: 'u147312066_DragonVaultDB';
+    $user = getenv('DB_USER') ?: 'root';
+    $pass = getenv('DB_PASS') ?: '';
+}
 
 // PDO options for better security
 $options = [
@@ -23,9 +35,16 @@ $options = [
     PDO::ATTR_TIMEOUT => 5, // 5 second timeout
 ];
 
+// Set PHP timezone to match production
+if (function_exists('date_default_timezone_set')) {
+    date_default_timezone_set('Asia/Manila');
+}
+
 try {
     $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass, $options);
+    // Set MySQL timezone to Asia/Manila
+    $pdo->exec("SET time_zone = '+08:00'");
 } catch (PDOException $e) {
     // Log the error but don't expose details to the user
     error_log("Database connection failed: " . $e->getMessage());

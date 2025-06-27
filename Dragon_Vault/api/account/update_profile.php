@@ -1,4 +1,8 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once __DIR__ . '/../_headers.php';
 require_once '../../includes/sanitize.php';
 
@@ -8,7 +12,7 @@ if (!isset($_SESSION['account_holder_id'])) {
 }
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (!isset($data['fullName'], $data['email'])) {
+if (!isset($data['firstName'], $data['lastName'], $data['email'])) {
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;
 }
@@ -16,42 +20,40 @@ if (!isset($data['fullName'], $data['email'])) {
 require_once '../../includes/db.php';
 
 $account_holder_id = $_SESSION['account_holder_id'];
-$fullName = sanitize_db_input($data['fullName']);
-$email = sanitize_db_input($data['email']);
-$phone = isset($data['phone']) ? sanitize_db_input($data['phone']) : null;
-
-// Split full name
-$nameParts = explode(' ', $fullName);
-$first_name = sanitize_db_input($nameParts[0]);
-$middle_initial = null;
-$last_name = null;
-
-if (count($nameParts) === 2) {
-    $last_name = sanitize_db_input($nameParts[1]);
-} elseif (count($nameParts) > 2) {
-    $middle_initial = sanitize_db_input(substr($nameParts[1], 0, 1));
-    $last_name = sanitize_db_input($nameParts[count($nameParts) - 1]);
-}
+$first_name = trim($data['firstName']);
+$middle_initial = isset($data['middleInitial']) && !empty($data['middleInitial']) ? trim($data['middleInitial']) : null;
+$last_name = trim($data['lastName']);
+$email = trim($data['email']);
+$phone = isset($data['phone']) ? trim($data['phone']) : null;
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['success' => false, 'message' => 'Invalid email format']);
     exit;
 }
 
-// Check if email already exists
-$sqlCheck = "SELECT account_holder_id FROM account_holder WHERE email = ? AND account_holder_id != ?";
-$stmtCheck = $pdo->prepare($sqlCheck);
-$stmtCheck->execute([$email, $account_holder_id]);
-if ($stmtCheck->fetch()) {
-    echo json_encode(['success' => false, 'message' => 'Email already in use']);
-    exit;
+try {
+    // Check if email already exists
+    $sqlCheck = "SELECT account_holder_id FROM account_holder WHERE email = ? AND account_holder_id != ?";
+    $stmtCheck = $pdo->prepare($sqlCheck);
+    $stmtCheck->execute([$email, $account_holder_id]);
+    if ($stmtCheck->fetch()) {
+        echo json_encode(['success' => false, 'message' => 'Email already in use']);
+        exit;
+    }
+
+    // Update
+    $sql = "UPDATE account_holder SET first_name = ?, middle_initial = ?, last_name = ?, email = ?, phone_number = ? WHERE account_holder_id = ?";
+    $stmt = $pdo->prepare($sql);
+    $success = $stmt->execute([$first_name, $middle_initial, $last_name, $email, $phone, $account_holder_id]);
+
+    if ($success) {
+        echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);
+    } else {
+        $errorInfo = $stmt->errorInfo();
+        echo json_encode(['success' => false, 'message' => 'Failed to update profile', 'error' => $errorInfo]);
+    }
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => 'General error: ' . $e->getMessage()]);
 }
-
-// Update
-$sql = "UPDATE account_holder SET first_name = ?, middle_initial = ?, last_name = ?, email = ?, phone_number = ? WHERE account_holder_id = ?";
-$stmt = $pdo->prepare($sql);
-$success = $stmt->execute([$first_name, $middle_initial, $last_name, $email, $phone, $account_holder_id]);
-
-// Sanitize the response data
-$response = ['success' => $success];
-echo json_encode(sanitize_json_output($response));

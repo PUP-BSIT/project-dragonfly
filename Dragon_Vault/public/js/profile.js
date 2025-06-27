@@ -1,4 +1,6 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 let currentUserData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -63,12 +65,6 @@ function setupEventListeners() {
             closePasswordModal();
         }
     });
-
-    document.getElementById("deleteModal").addEventListener("click", (e) => {
-        if (e.target.id === "deleteModal") {
-            closeDeleteModal();
-        }
-    });
 }
 
 // Toggle edit mode
@@ -76,7 +72,15 @@ function toggleEditMode() {
     const displayCard = document.getElementById("profileDisplay");
     const editCard = document.getElementById("profileEdit");
 
-    document.getElementById("editFullName").value = currentUserData.full_name;
+    // Parse the full name to populate separate fields
+    const nameParts = currentUserData.full_name.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts[nameParts.length - 1] || '';
+    const middleInitial = nameParts.length > 2 ? nameParts[1] : '';
+
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editMiddleInitial").value = middleInitial;
+    document.getElementById("editLastName").value = lastName;
     document.getElementById("editEmail").value = currentUserData.email;
     document.getElementById("editPhone").value = currentUserData.phone || "";
 
@@ -98,7 +102,9 @@ function handleProfileUpdate(e) {
 
     const formData = new FormData(e.target);
     const updateData = {
-        fullName: formData.get("fullName"),
+        firstName: formData.get("firstName"),
+        middleInitial: formData.get("middleInitial"),
+        lastName: formData.get("lastName"),
         email: formData.get("email"),
         phone: formData.get("phone"),
     };
@@ -125,7 +131,14 @@ function handleProfileUpdate(e) {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                currentUserData = { ...currentUserData, ...updateData };
+                // Update currentUserData with new values
+                currentUserData.first_name = updateData.firstName;
+                currentUserData.middle_initial = updateData.middleInitial;
+                currentUserData.last_name = updateData.lastName;
+                currentUserData.full_name = `${updateData.firstName} ${updateData.middleInitial ? updateData.middleInitial + ' ' : ''}${updateData.lastName}`.trim();
+                currentUserData.email = updateData.email;
+                currentUserData.phone = updateData.phone;
+                
                 displayUserProfile(currentUserData);
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");
@@ -254,68 +267,6 @@ function handlePasswordChange(e) {
         .finally(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        });
-}
-
-// Delete account modal functions
-function confirmDeleteAccount() {
-    document.getElementById("deleteModal").style.display = "flex";
-    document.getElementById("deletePassword").focus();
-}
-
-function closeDeleteModal() {
-    document.getElementById("deleteModal").style.display = "none";
-    document.getElementById("deletePassword").value = "";
-}
-
-// Handle account deletion
-function deleteAccount() {
-    const password = document.getElementById("deletePassword").value;
-
-    if (!password) {
-        alert("Please enter your password to confirm account deletion.");
-        return;
-    }
-
-    const finalConfirm = confirm(
-        "This is your final warning. Your account and all data will be permanently deleted. Are you absolutely sure?"
-    );
-
-    if (!finalConfirm) return;
-
-    const deleteBtn = document.querySelector(".delete-confirm-btn");
-    const originalText = deleteBtn.textContent;
-    deleteBtn.textContent = "Deleting...";
-    deleteBtn.disabled = true;
-
-    fetch(API_BASE + "account/delete_account.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            password: password,
-        }),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.success) {
-                alert(
-                    "Your account has been successfully deleted. You will be redirected to the homepage."
-                );
-                window.location.href = "../../index.html";
-            } else {
-                alert(data.message || "Failed to delete account. Please verify your password and try again.");
-            }
-        })
-        .catch((err) => {
-            console.error("Error deleting account:", err);
-            alert("An error occurred while deleting your account.");
-        })
-        .finally(() => {
-            deleteBtn.textContent = originalText;
-            deleteBtn.disabled = false;
         });
 }
 

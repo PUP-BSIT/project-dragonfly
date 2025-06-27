@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/dashboard.css" />
         <link rel="stylesheet" href="css/profile.css" />
-        <link rel="icon" href="logo.png" />
+        <link rel="icon" href="../assets/logo.png" />
         <title>Profile - DragonVault</title>
     </head>
     <body>
@@ -96,22 +96,40 @@
                     id="profileEdit"
                     style="display: none">
                     <form class="edit-form" id="editForm">
-                        <div class="form-group">
-                            <label class="form-label" for="editFullName"
-                                >Full Name</label
-                            >
-                            <input
-                                type="text"
-                                id="editFullName"
-                                name="fullName"
-                                class="form-input"
-                                required />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="editFirstName">First Name</label>
+                                <input
+                                    type="text"
+                                    id="editFirstName"
+                                    name="firstName"
+                                    class="form-input"
+                                    required />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="editMiddleInitial">Middle Initial</label>
+                                <input
+                                    type="text"
+                                    id="editMiddleInitial"
+                                    name="middleInitial"
+                                    class="form-input"
+                                    maxlength="1" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="editLastName">Last Name</label>
+                                <input
+                                    type="text"
+                                    id="editLastName"
+                                    name="lastName"
+                                    class="form-input"
+                                    required />
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label" for="editEmail"
-                                >Email Address</label
-                            >
+                            <label class="form-label" for="editEmail">Email Address</label>
                             <input
                                 type="email"
                                 id="editEmail"
@@ -121,9 +139,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label" for="editPhone"
-                                >Phone Number</label
-                            >
+                            <label class="form-label" for="editPhone">Phone Number</label>
                             <input
                                 type="tel"
                                 id="editPhone"

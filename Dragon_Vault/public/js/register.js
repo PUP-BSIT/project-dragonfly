@@ -3,7 +3,9 @@ let registrationPhoneNumber = "";
 let resendRegTimer = 0;
 let resendRegInterval;
 
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 
 // Screen navigation
 function showRegScreen(screenNum) {

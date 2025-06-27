@@ -1,4 +1,6 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 
 // Navigation module for handling screen transitions and navigation
 const Navigation = {

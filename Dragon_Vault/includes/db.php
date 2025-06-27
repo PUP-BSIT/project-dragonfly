@@ -10,7 +10,7 @@ if (file_exists($env_file)) {
 
 // Fallbacks for XAMPP/local development
 $host = getenv('DB_HOST') ?: 'localhost';
-$db   = getenv('DB_NAME') ?: 'dragon_vault'; // Change 'dragon_vault' to your actual DB name if different
+$db   = getenv('DB_NAME') ?: 'u147312066_DragonVaultDB'; 
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS') ?: '';
 

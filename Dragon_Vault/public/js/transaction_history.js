@@ -1,4 +1,6 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 const ITEMS_PER_PAGE = 10;
 
 // Store the current state

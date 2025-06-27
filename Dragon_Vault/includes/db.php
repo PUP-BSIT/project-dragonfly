@@ -8,11 +8,11 @@ if (file_exists($env_file)) {
     }
 }
 
-// Database configuration from environment variables
-$host = getenv('DB_HOST');
-$db   = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
+// Fallbacks for XAMPP/local development
+$host = getenv('DB_HOST') ?: 'localhost';
+$db   = getenv('DB_NAME') ?: 'dragon_vault'; // Change 'dragon_vault' to your actual DB name if different
+$user = getenv('DB_USER') ?: 'root';
+$pass = getenv('DB_PASS') ?: '';
 
 // PDO options for better security
 $options = [

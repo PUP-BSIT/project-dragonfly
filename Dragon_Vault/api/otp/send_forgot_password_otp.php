@@ -55,7 +55,10 @@ try {
         'purpose' => 'Forgot Password'
     ];
 
-    $ch = curl_init('https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php');
+    $otpApiUrl = (in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1']))
+        ? 'http://localhost/Dragon_Vault/api/otp/send_sms_otp.php'
+        : 'https://dragonvault.site/Dragon_Vault/api/otp/send_sms_otp.php';
+    $ch = curl_init($otpApiUrl);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($smsData));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

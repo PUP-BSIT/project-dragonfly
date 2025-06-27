@@ -1,5 +1,7 @@
 // /Dragon_Vault/private/js/teller_deposit.js
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("lookupForm").addEventListener("submit", function(e) {

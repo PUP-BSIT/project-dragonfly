@@ -238,6 +238,12 @@
     gap: var(--spacing-sm);
 }
 
+.form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 15px;
+}
+
 .form-label {
     font-size: var(--font-xs);
     font-weight: var(--font-semibold);

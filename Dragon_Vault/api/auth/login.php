@@ -20,7 +20,7 @@ if (isset($data['check_session']) && $data['check_session'] === true) {
         echo json_encode([
             "success" => true,
             "already_logged_in" => true,
-            "redirect" => "../Dragon_Vault/public/dashboard.html"
+            "redirect" => "../../public/dashboard.html"
         ]);
     } else {
         echo json_encode([

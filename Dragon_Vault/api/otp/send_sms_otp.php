@@ -1,5 +1,4 @@
 <?php
-file_put_contents(__DIR__ . '/sms_otp.log', date('Y-m-d H:i:s') . " - Test log entry\n", FILE_APPEND);
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../_headers.php';
 
@@ -183,20 +182,17 @@ function sendOTPViaSemaphore($phoneNumber, $otp, $purpose) {
 }
 
 function sendOTP($phoneNumber, $otp, $purpose) {
+    /*
     try {
         error_log("Starting OTP send process for $phoneNumber, purpose: $purpose");
-        
         // Send OTP via Semaphore
         $smsResult = sendOTPViaSemaphore($phoneNumber, $otp, $purpose);
-        
         error_log("SMS sent successfully. Message ID: " . $smsResult['message_id']);
-        
         return [
             'success' => true,
             'message' => 'OTP sent successfully',
             'message_id' => $smsResult['message_id']
         ];
-        
     } catch (Exception $e) {
         error_log("Error sending OTP: " . $e->getMessage());
         return [
@@ -204,6 +200,14 @@ function sendOTP($phoneNumber, $otp, $purpose) {
             'message' => 'Failed to send OTP: ' . $e->getMessage()
         ];
     }
+    */
+    // For testing: do not send SMS, just log and return success
+    error_log("[TEST MODE] Would send OTP $otp to $phoneNumber for $purpose");
+    return [
+        'success' => true,
+        'message' => '[TEST MODE] OTP not sent, but treated as success',
+        'message_id' => 'test-mode-message-id'
+    ];
 }
 
 // Handle incoming requests

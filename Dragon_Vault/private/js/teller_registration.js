@@ -1,4 +1,6 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("teller_register_form");
@@ -57,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         branch: document.getElementById("branch").value,
         email: document.getElementById("email").value,
         username: document.getElementById("username").value,
-        password: document.getElementById("password").value
+        password: document.getElementById("password_input").value
       };
 
       registerTeller(formData)

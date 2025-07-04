@@ -1,3 +1,110 @@
+/* CSS Root Variables */
+:root {
+    /* Color Variables */
+    --primary-purple: #7b2cbf;
+    --primary-purple-light: #9d4edd;
+    --primary-purple-lighter: #c77dff;
+    --accent-purple: #9b5dd4;
+    --dark-purple: #1a0b2e;
+    --medium-purple: #2d1b69;
+    
+    /* Text Colors */
+    --text-white: white;
+    --text-light-gray: #cccccc;
+    --text-dark: #333;
+    --text-medium: #666;
+    --text-success: #4ade80;
+    --text-error: #f87171;
+    
+    /* Background Gradients */
+    --bg-main-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    --bg-button-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    --bg-button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
+    --bg-progress-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    
+    /* Transparency Variables */
+    --bg-header: rgba(0, 0, 0, 0.2);
+    --bg-register-box: rgba(0, 0, 0, 0.6);
+    --bg-input: rgba(255, 255, 255, 0.9);
+    --bg-input-focus: white;
+    --bg-nav-hover: rgba(255, 255, 255, 0.1);
+    --bg-secondary-hover: rgba(157, 78, 221, 0.1);
+    --bg-requirements: rgba(255, 255, 255, 0.1);
+    --bg-progress: rgba(255, 255, 255, 0.2);
+    --bg-disabled: rgba(123, 44, 191, 0.5);
+    
+    /* Border Colors */
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-otp: rgba(255, 255, 255, 0.3);
+    --border-secondary: #9d4edd;
+    --border-focus: #9d4edd;
+    
+    /* Shadow Variables */
+    --shadow-box: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-box-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
+    --shadow-button: 0 10px 20px rgba(123, 44, 191, 0.3);
+    --shadow-input-focus: 0 0 10px rgba(123, 44, 191, 0.3);
+    --shadow-otp-focus: 0 0 10px rgba(123, 44, 191, 0.3);
+    
+    /* Spacing Variables */
+    --spacing-xs: 5px;
+    --spacing-sm: 8px;
+    --spacing-md: 10px;
+    --spacing-lg: 15px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 25px;
+    --spacing-3xl: 30px;
+    --spacing-4xl: 40px;
+    --spacing-5xl: 50px;
+    
+    /* Font Size Variables */
+    --font-xs: 12px;
+    --font-sm: 14px;
+    --font-md: 16px;
+    --font-lg: 18px;
+    --font-xl: 20px;
+    --font-2xl: 24px;
+    --font-3xl: 28px;
+    
+    /* Font Weight Variables */
+    --font-normal: normal;
+    --font-bold: bold;
+    
+    /* Border Radius Variables */
+    --radius-sm: 2px;
+    --radius-md: 8px;
+    --radius-lg: 20px;
+    
+    /* Size Variables */
+    --logo-size: 50px;
+    --logo-size-sm: 36px;
+    --logo-size-md: 40px;
+    --logo-size-lg: 44px;
+    --otp-size: 50px;
+    --otp-size-xs: 28px;
+    --otp-size-sm: 32px;
+    --otp-size-md: 36px;
+    --otp-size-lg: 40px;
+    --progress-height: 4px;
+    
+    /* Transition Variables */
+    --transition-default: all 0.3s ease;
+    --transition-color: color 0.3s ease;
+    --transition-width: width 0.3s ease;
+    
+    /* Animation Variables */
+    --animation-slide: slideIn 0.5s ease-in-out;
+    
+    /* Backdrop Filter Variables */
+    --backdrop-blur: blur(10px);
+    
+    /* Z-index Variables */
+    --z-toggle: 2;
+    
+    /* Container Variables */
+    --container-max-width: 1000px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,64 +113,64 @@
 
 body {
     font-family: "Times New Roman", sans-serif;
-    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    background: var(--bg-main-gradient);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    color: white;
+    color: var(--text-white);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
+    padding: 0px var(--spacing-3xl);
+    background: var(--bg-header);
+    backdrop-filter: var(--backdrop-blur);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    padding: 20px 30px;
-    gap: 10px;
+    padding: var(--spacing-xl) var(--spacing-3xl);
+    gap: var(--spacing-md);
 }
 
 .logo-img {
-    width: 50px;
-    height: 50px;
+    width: var(--logo-size);
+    height: var(--logo-size);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: var(--font-2xl);
 }
 
 .logo-text {
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
+    font-size: var(--font-3xl);
+    font-weight: var(--font-bold);
+    color: var(--text-white);
 }
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: var(--spacing-3xl);
 }
 
 .nav-links a {
-    color: white;
-    margin-left: 10px;
+    color: var(--text-white);
+    margin-left: var(--spacing-md);
     text-decoration: none;
-    font-size: 18px;
-    padding: 5px 10px;
-    transition: all 0.3s ease;
+    font-size: var(--font-lg);
+    padding: var(--spacing-xs) var(--spacing-md);
+    transition: var(--transition-default);
 }
 
 .nav-links a:hover {
-    padding: 5px 10px;
+    padding: var(--spacing-xs) var(--spacing-md);
     border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #9b5dd4;
+    border-radius: var(--radius-md);
+    background: var(--bg-nav-hover);
+    color: var(--accent-purple);
     transform: translateY(-3px);
 }
 
@@ -72,44 +179,44 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: var(--spacing-xl);
 }
 
 .register-box {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
+    background: var(--bg-register-box);
+    backdrop-filter: var(--backdrop-blur);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4xl);
     width: 100%;
-    max-width: 1000px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    max-width: var(--container-max-width);
+    box-shadow: var(--shadow-box);
+    border: 1px solid var(--border-light);
+    transition: var(--transition-default);
 }
 
 .register-box:hover {
-    box-shadow: 0 20px 40px rgba(123, 44, 191, 0.3);
+    box-shadow: var(--shadow-box-hover);
     transform: translateY(-5px);
 }
 
 .register-title {
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: white;
+    font-size: var(--font-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-white);
 }
 
 .welcome-text {
     text-align: center;
-    color: #cccccc;
-    margin-bottom: 30px;
-    font-size: 16px;
+    color: var(--text-light-gray);
+    margin-bottom: var(--spacing-3xl);
+    font-size: var(--font-md);
 }
 
 .screen {
     display: none;
-    animation: slideIn 0.5s ease-in-out;
+    animation: var(--animation-slide);
 }
 
 .screen.active {
@@ -119,7 +226,7 @@ body {
 @keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateX(20px);
+        transform: translateX(var(--spacing-xl));
     }
     to {
         opacity: 1;
@@ -129,28 +236,28 @@ body {
 
 .screen-subtitle {
     text-align: center;
-    color: #cccccc;
-    margin-bottom: 30px;
-    font-size: 16px;
+    color: var(--text-light-gray);
+    margin-bottom: var(--spacing-3xl);
+    font-size: var(--font-md);
     line-height: 1.4;
 }
 
 .form-section {
-    margin-bottom: 25px;
+    margin-bottom: var(--spacing-2xl);
 }
 
 .section-label {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 15px;
+    color: var(--text-white);
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--spacing-lg);
     display: block;
 }
 
 .form-row {
     display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
 }
 
 .form-group {
@@ -163,49 +270,49 @@ body {
 
 .input-field {
     width: 100%;
-    padding: 15px;
+    padding: var(--spacing-lg);
     border: none;
-    background: rgba(255, 255, 255, 0.9);
-    font-size: 16px;
-    color: #333;
+    background: var(--bg-input);
+    font-size: var(--font-md);
+    color: var(--text-dark);
     outline: none;
-    transition: all 0.3s ease;
-    border-radius: 8px;
+    transition: var(--transition-default);
+    border-radius: var(--radius-md);
 }
 
 .input-field:focus {
-    background: white;
-    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+    background: var(--bg-input-focus);
+    box-shadow: var(--shadow-input-focus);
 }
 
 .input-field::placeholder {
-    color: #666;
+    color: var(--text-medium);
 }
 
 .primary-btn {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(45deg, #7b2cbf, #9d4edd);
-    color: white;
+    padding: var(--spacing-lg);
+    background: var(--bg-button-gradient);
+    color: var(--text-white);
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-lg);
 }
 
 .primary-btn:hover {
-    background: linear-gradient(45deg, #9d4edd, #c77dff);
+    background: var(--bg-button-hover-gradient);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+    box-shadow: var(--shadow-button);
 }
 
 .primary-btn:disabled {
-    background: rgba(123, 44, 191, 0.5);
+    background: var(--bg-disabled);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -213,178 +320,180 @@ body {
 
 .secondary-btn {
     width: 100%;
-    padding: 15px;
+    padding: var(--spacing-lg);
     background: transparent;
-    color: #9d4edd;
-    border: 2px solid #9d4edd;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    color: var(--primary-purple-light);
+    border: 2px solid var(--border-secondary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-lg);
 }
 
 .secondary-btn:hover {
-    background: rgba(157, 78, 221, 0.1);
+    background: var(--bg-secondary-hover);
     transform: translateY(-2px);
 }
 
 .otp-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
 }
 
 .otp-input {
-    width: 50px;
-    height: 50px;
+    width: var(--otp-size);
+    height: var(--otp-size);
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    color: #333;
+    font-size: var(--spacing-xl);
+    font-weight: var(--font-bold);
+    border: 2px solid var(--border-otp);
+    background: var(--bg-input);
+    border-radius: var(--radius-md);
+    color: var(--text-dark);
     outline: none;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
 }
 
 .otp-input:focus {
-    border-color: #9d4edd;
-    background: white;
-    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+    border-color: var(--border-focus);
+    background: var(--bg-input-focus);
+    box-shadow: var(--shadow-otp-focus);
 }
 
 .resend-container {
     text-align: center;
-    margin: 20px 0;
-    color: #cccccc;
-    font-size: 14px;
+    margin: var(--spacing-xl) 0;
+    color: var(--text-light-gray);
+    font-size: var(--font-sm);
 }
 
 .resend-link {
-    color: #9d4edd;
+    color: var(--primary-purple-light);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: var(--font-bold);
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: var(--transition-color);
 }
 
 .resend-link:hover {
-    color: #c77dff;
+    color: var(--primary-purple-lighter);
 }
 
 .resend-link.disabled {
-    color: #666;
+    color: var(--text-medium);
     cursor: not-allowed;
 }
 
 .timer {
-    color: #9d4edd;
-    font-weight: bold;
+    color: var(--primary-purple-light);
+    font-weight: var(--font-bold);
 }
 
 .password-requirements {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
-    font-size: 14px;
-    color: #cccccc;
+    background: var(--bg-requirements);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+    font-size: var(--font-sm);
+    color: var(--text-light-gray);
 }
 
 .requirement {
-    margin: 5px 0;
+    margin: var(--spacing-xs) 0;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--spacing-sm);
 }
 
 .requirement.valid {
-    color: #4ade80;
+    color: var(--text-success);
 }
 
 .requirement.invalid {
-    color: #f87171;
+    color: var(--text-error);
 }
 
 .progress-bar {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
-    margin: 20px 0;
+    height: var(--progress-height);
+    background: var(--bg-progress);
+    border-radius: var(--radius-sm);
+    margin: var(--spacing-xl) 0;
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    background: var(--bg-progress-gradient);
     width: 0%;
-    transition: width 0.3s ease;
+    transition: var(--transition-width);
 }
 
 .login-link {
     text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #cccccc;
+    margin-top: var(--spacing-xl);
+    font-size: var(--font-sm);
+    color: var(--text-light-gray);
 }
 
 .login-link a {
-    color: #9d4edd;
+    color: var(--primary-purple-light);
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-weight: var(--font-bold);
+    transition: var(--transition-color);
 }
 
 .login-link a:hover {
-    color: #c77dff;
+    color: var(--primary-purple-lighter);
 }
 
 @media (max-width: 320px) {
     .register-box,
     .forgot-password-box {
-        padding: 20px 8px;
-        margin: 10px;
+        padding: var(--spacing-xl) var(--spacing-sm);
+        margin: var(--spacing-md);
         max-width: 98vw;
     }
 
     .header {
         flex-direction: column;
         align-items: flex-start;
-        padding: 10px 8px;
+        padding: var(--spacing-md) var(--spacing-sm);
     }
 
     .logo {
-        padding: 10px 0;
+        padding: var(--spacing-md) 0;
         gap: 6px;
     }
 
     .logo-img {
-        width: 36px;
-        height: 36px;
-        font-size: 18px;
+        width: var(--logo-size-sm);
+        height: var(--logo-size-sm);
+        font-size: var(--font-lg);
     }
 
     .logo-text {
-        font-size: 16px;
+        font-size: var(--font-md);
     }
 
     .nav-links {
-        gap: 8px;
+        gap: var(--spacing-sm);
     }
 
     .nav-links a {
-        font-size: 14px;
+        font-size: var(--font-sm);
         padding: 3px 6px;
+        background: var(--bg-nav-hover);
+        color: var(--accent-purple);
     }
 
     .screen-title {
-        font-size: 18px;
+        font-size: var(--font-lg);
     }
 
     .screen-subtitle,
@@ -396,28 +505,28 @@ body {
     .input-field,
     .primary-btn,
     .secondary-btn {
-        font-size: 12px;
-        padding: 10px;
+        font-size: var(--font-xs);
+        padding: var(--spacing-md);
     }
 
     .otp-input {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
+        width: var(--otp-size-xs);
+        height: var(--otp-size-xs);
+        font-size: var(--font-sm);
     }
 
     .progress-bar {
-        margin: 10px 0;
+        margin: var(--spacing-md) 0;
     }
 
     .password-requirements {
-        font-size: 12px;
-        padding: 8px;
-        margin: 8px 0;
+        font-size: var(--font-xs);
+        padding: var(--spacing-sm);
+        margin: var(--spacing-sm) 0;
     }
 
     .requirement {
-        font-size: 12px;
+        font-size: var(--font-xs);
         gap: 4px;
     }
 }
@@ -425,72 +534,74 @@ body {
 @media (min-width: 321px) and (max-width: 376px) {
     .register-box,
     .forgot-password-box {
-        padding: 24px 10px;
-        margin: 12px;
+        padding: 24px var(--spacing-md);
+        margin: var(--spacing-xs);
         max-width: 96vw;
     }
 
     .header {
         flex-direction: column;
         align-items: flex-start;
-        padding: 12px 10px;
+        padding: var(--spacing-xs) var(--spacing-md);
     }
 
     .logo {
-        padding: 12px 0;
-        gap: 8px;
+        padding: var(--spacing-xs) 0;
+        gap: var(--spacing-sm);
     }
 
     .logo-img {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
+        width: var(--logo-size-md);
+        height: var(--logo-size-md);
+        font-size: var(--spacing-xl);
     }
 
     .logo-text {
-        font-size: 18px;
+        font-size: var(--font-lg);
     }
 
     .nav-links {
-        gap: 10px;
+        gap: var(--spacing-md);
     }
 
     .nav-links a {
-        font-size: 15px;
-        padding: 4px 8px;
+        font-size: var(--spacing-lg);
+        padding: 4px var(--spacing-sm);
+        background: var(--bg-nav-hover);
+        color: var(--accent-purple);
     }
 
     .screen-title {
-        font-size: 20px;
+        font-size: var(--spacing-xl);
     }
 
     .screen-subtitle,
     .welcome-text {
-        font-size: 14px;
-        margin-bottom: 20px;
+        font-size: var(--font-sm);
+        margin-bottom: var(--spacing-xl);
     }
 
     .input-field,
     .primary-btn,
     .secondary-btn {
         font-size: 13px;
-        padding: 12px;
+        padding: var(--spacing-xs);
     }
 
     .otp-input {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
+        width: var(--otp-size-sm);
+        height: var(--otp-size-sm);
+        font-size: var(--font-md);
     }
 
     .progress-bar {
-        margin: 12px 0;
+        margin: var(--spacing-xs) 0;
     }
 
     .password-requirements {
         font-size: 13px;
-        padding: 10px;
-        margin: 10px 0;
+        padding: var(--spacing-md);
+        margin: var(--spacing-md) 0;
     }
 
     .requirement {
@@ -502,25 +613,25 @@ body {
 @media (min-width: 376px) and (max-width: 426px) {
     .register-box,
     .forgot-password-box {
-        padding: 28px 14px;
-        margin: 16px;
+        padding: 28px var(--font-sm);
+        margin: var(--font-md);
         max-width: 94vw;
     }
 
     .header {
         flex-direction: column;
         align-items: flex-start;
-        padding: 14px 14px;
+        padding: var(--font-sm) var(--font-sm);
     }
 
     .logo {
-        padding: 14px 0;
+        padding: var(--font-sm) 0;
         gap: 9px;
     }
 
     .logo-img {
-        width: 44px;
-        height: 44px;
+        width: var(--logo-size-lg);
+        height: var(--logo-size-lg);
         font-size: 22px;
     }
 
@@ -533,8 +644,10 @@ body {
     }
 
     .nav-links a {
-        font-size: 16px;
-        padding: 5px 9px;
+        font-size: var(--font-md);
+        padding: var(--spacing-xs) 9px;
+        background: var(--bg-nav-hover);
+        color: var(--accent-purple);
     }
 
     .screen-title {
@@ -543,61 +656,61 @@ body {
 
     .screen-subtitle,
     .welcome-text {
-        font-size: 15px;
+        font-size: var(--spacing-lg);
         margin-bottom: 24px;
     }
 
     .input-field,
     .primary-btn,
     .secondary-btn {
-        font-size: 15px;
+        font-size: var(--spacing-lg);
         padding: 13px;
     }
 
     .otp-input {
-        width: 36px;
-        height: 36px;
+        width: var(--otp-size-md);
+        height: var(--otp-size-md);
         font-size: 17px;
     }
 
     .progress-bar {
-        margin: 16px 0;
+        margin: var(--font-md) 0;
     }
 
     .password-requirements {
-        font-size: 14px;
-        padding: 12px;
-        margin: 12px 0;
+        font-size: var(--font-sm);
+        padding: var(--spacing-xs);
+        margin: var(--spacing-xs) 0;
     }
 
     .requirement {
-        font-size: 14px;
+        font-size: var(--font-sm);
         gap: 7px;
     }
 }
 
 @media (max-width: 480px) {
     .register-box {
-        padding: 30px 20px;
-        margin: 20px;
+        padding: var(--spacing-3xl) var(--spacing-xl);
+        margin: var(--spacing-xl);
     }
 
     .header {
-        padding: 15px 20px;
+        padding: var(--spacing-lg) var(--spacing-xl);
     }
 
     .logo-text {
-        font-size: 20px;
+        font-size: var(--spacing-xl);
     }
 
     .screen-title {
-        font-size: 24px;
+        font-size: var(--font-2xl);
     }
 
     .otp-input {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
+        width: var(--otp-size-lg);
+        height: var(--otp-size-lg);
+        font-size: var(--font-lg);
     }
 }
 
@@ -611,20 +724,20 @@ body {
 
 .toggle-password {
     position: absolute;
-    right: 10px;
+    right: var(--spacing-md);
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px 10px;
-    font-size: 16px;
-    color: #333;
-    z-index: 2;
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-md);
+    color: var(--text-dark);
+    z-index: var(--z-toggle);
 }
 
 .toggle-password:focus {
-    outline: 2px solid #7b2cbf;
+    outline: 2px solid var(--primary-purple);
 }
 
 .toggle-password:hover {

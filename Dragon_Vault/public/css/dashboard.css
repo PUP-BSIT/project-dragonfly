@@ -594,6 +594,207 @@ body {
 }
 
 /* Media Queries */
+/* Mobile S */
+@media (max-width: 321px) {
+    .header {
+        padding: 8px var(--spacing-xs);
+    }
+
+    .logo-text {
+        font-size: var(--font-sm);
+    }
+
+    .logo-img {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-sm);
+    }
+
+    .main-content {
+        padding: var(--spacing-sm) 2px;
+    }
+
+    .welcome-section {
+        padding: var(--spacing-sm);
+    }
+
+    .welcome-title {
+        font-size: var(--font-sm);
+    }
+
+    .account-number {
+        font-size: 0.9em;
+        padding: 4px 6px;
+    }
+
+    .balance-card,
+    .transfer-card {
+        padding: var(--spacing-md) var(--spacing-xs);
+    }
+
+    .balance-title,
+    .transfer-title {
+        font-size: var(--font-sm);
+    }
+
+    .balance-amount {
+        font-size: var(--font-xl);
+    }
+
+    .transactions-section {
+        padding: var(--spacing-sm) 2px;
+    }
+
+    .transactions-header {
+        font-size: var(--font-sm);
+    }
+
+    .mobile-nav-btn {
+        padding: 10px var(--spacing-lg);
+        font-size: var(--font-sm);
+        min-width: 120px;
+    }
+
+    .dashboard-grid {
+        gap: var(--spacing-sm);
+    }
+
+    .transaction-item span {
+        font-size: 12px;
+        padding: 8px 4px;
+    }
+
+    .toggle-visibility-icon {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-sm);
+    }
+}
+
+/* Mobile M */
+@media (max-width: 376px) {
+    .header {
+        padding: 10px var(--spacing-sm);
+    }
+
+    .logo-text {
+        font-size: var(--font-md);
+    }
+
+    .logo-img {
+        width: 32px;
+        height: 32px;
+        font-size: var(--font-md);
+    }
+
+    .main-content {
+        padding: var(--spacing-md) var(--spacing-xs);
+    }
+
+    .welcome-section {
+        padding: var(--spacing-md);
+    }
+
+    .welcome-title {
+        font-size: var(--font-lg);
+    }
+
+    .account-number {
+        font-size: 1.1em;
+        padding: 6px 8px;
+    }
+
+    .balance-card,
+    .transfer-card {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    .balance-title,
+    .transfer-title {
+        font-size: var(--font-md);
+    }
+
+    .balance-amount {
+        font-size: var(--font-xxxl);
+    }
+
+    .transactions-section {
+        padding: var(--spacing-md) var(--spacing-xs);
+    }
+
+    .transactions-header {
+        font-size: var(--font-md);
+    }
+
+    .mobile-nav-btn {
+        padding: 10px var(--spacing-lg);
+        font-size: var(--font-md);
+        min-width: 150px;
+    }
+}
+
+/* Mobile L */
+@media (max-width: 426px) {
+    .header {
+        padding: 12px var(--spacing-md);
+    }
+
+    .logo-text {
+        font-size: var(--font-md);
+    }
+
+    .logo-img {
+        width: 35px;
+        height: 35px;
+        font-size: var(--font-md);
+    }
+
+    .main-content {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .welcome-section {
+        padding: var(--spacing-md);
+    }
+
+    .welcome-title {
+        font-size: var(--font-lg);
+    }
+
+    .account-number {
+        font-size: 1em;
+        padding: var(--spacing-xs) 8px;
+    }
+
+    .balance-card,
+    .transfer-card {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .balance-title,
+    .transfer-title {
+        font-size: var(--font-md);
+    }
+
+    .balance-amount {
+        font-size: var(--font-xxxl);
+    }
+
+    .transactions-section {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    .transactions-header {
+        font-size: var(--font-md);
+    }
+
+    .mobile-nav-btn {
+        padding: 12px var(--spacing-xl);
+        font-size: var(--font-md);
+        min-width: 180px;
+    }
+}
+
 @media (max-width: 768px) {
     .header {
         padding: var(--spacing-md) var(--spacing-lg);
@@ -662,67 +863,5 @@ body {
         font-size: 1em;
         padding: 4px 6px;
         margin-top: 4px;
-    }
-}
-
-/* Mobile M-L */
-@media (max-width: 426px) {
-    .header {
-        padding: 12px var(--spacing-md);
-    }
-
-    .logo-text {
-        font-size: var(--font-md);
-    }
-
-    .logo-img {
-        width: 35px;
-        height: 35px;
-        font-size: var(--font-md);
-    }
-
-    .main-content {
-        padding: var(--spacing-md) var(--spacing-sm);
-    }
-
-    .welcome-section {
-        padding: var(--spacing-md);
-    }
-
-    .welcome-title {
-        font-size: var(--font-lg);
-    }
-
-    .account-number {
-        font-size: 1em;
-        padding: var(--spacing-xs) 8px;
-    }
-
-    .balance-card,
-    .transfer-card {
-        padding: var(--spacing-lg) var(--spacing-md);
-    }
-
-    .balance-title,
-    .transfer-title {
-        font-size: var(--font-md);
-    }
-
-    .balance-amount {
-        font-size: var(--font-xxxl);
-    }
-
-    .transactions-section {
-        padding: var(--spacing-md) var(--spacing-sm);
-    }
-
-    .transactions-header {
-        font-size: var(--font-md);
-    }
-
-    .mobile-nav-btn {
-        padding: 12px var(--spacing-xl);
-        font-size: var(--font-md);
-        min-width: 180px;
     }
 }

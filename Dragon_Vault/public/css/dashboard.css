@@ -447,19 +447,19 @@ body {
 
     .transaction-item .type {
         flex: 2;
-        min-width: 100px;
+        min-width: 60px;
         text-align: left;
     }
 
     .transaction-item .amount {
         flex: 1;
-        min-width: 80px;
+        min-width: 60px;
         text-align: right;
     }
 
     .transaction-item .timestamp {
         flex: 1.5;
-        min-width: 120px;
+        min-width: 60px;
         text-align: right;
     }
 

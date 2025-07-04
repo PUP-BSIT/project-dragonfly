@@ -358,7 +358,7 @@ body {
 }
 
 .select-btn {
-    background: linear-gradient(180deg, var(--accent-indigo), #47307d);
+    background: linear-gradient(180deg, var(--accent-blue), #6366f1);
     border: none;
     padding: var(--spacing-md) 25px;
     color: var(--white);
@@ -371,7 +371,7 @@ body {
 }
 
 .select-btn:hover {
-    box-shadow: var(--shadow-blue);
+    box-shadow: var(--secondary-purple);
 }
 
 .transactions-section {

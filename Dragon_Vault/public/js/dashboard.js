@@ -1,5 +1,6 @@
-// Your existing JavaScript functionality
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 
 // SSE connection for monitoring expired transactions
 let eventSource = null;
@@ -231,7 +232,7 @@ function logout() {
 
     fetch("/Dragon_Vault/api/auth/logout.php", {
         method: "POST",
-        credentials: "include",
+        credentials: "include"
     })
         .then((res) => res.json())
         .then((data) => {

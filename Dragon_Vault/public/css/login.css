@@ -1,3 +1,79 @@
+:root {
+    /* Colors */
+    --primary-bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    --primary-color: #1a0b2e;
+    --secondary-color: #2d1b69;
+    --accent-color: #7b2cbf;
+    --purple-primary: #7b2cbf;
+    --purple-secondary: #9d4edd;
+    --purple-hover: #9b5dd4;
+    --purple-light: #c77dff;
+    --text-primary: white;
+    --text-secondary: #cccccc;
+    --text-muted: #666;
+    --input-text: #333;
+    
+    /* Background Colors */
+    --header-bg: rgba(0, 0, 0, 0.2);
+    --login-box-bg: rgba(0, 0, 0, 0.6);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --input-focus-bg: white;
+    --nav-hover-bg: rgba(255, 255, 255, 0.1);
+    --button-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    --button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
+    
+    /* Borders */
+    --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Shadows */
+    --shadow-login-box: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-login-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
+    --shadow-input-focus: 0 0 10px rgba(123, 44, 191, 0.3);
+    --shadow-button-hover: 0 10px 20px rgba(123, 44, 191, 0.3);
+    
+    /* Typography */
+    --font-family: "Times New Roman", sans-serif;
+    --font-size-logo: 28px;
+    --font-size-nav: 18px;
+    --font-size-title: 28px;
+    --font-size-welcome: 16px;
+    --font-size-input: 16px;
+    --font-size-button: 16px;
+    --font-size-link: 14px;
+    --font-weight-bold: bold;
+    --letter-spacing-button: 1px;
+    
+    /* Spacing */
+    --padding-header: 0px 30px;
+    --padding-logo: 20px 30px;
+    --padding-login-box: 40px;
+    --padding-input: 15px;
+    --padding-button: 15px;
+    --gap-logo: 10px;
+    --gap-nav: 30px;
+    --margin-title: 10px;
+    --margin-welcome: 30px;
+    --margin-form-group: 20px;
+    --margin-forgot: 20px 0;
+    --margin-register: 20px;
+    --border-radius-login: 20px;
+    --border-radius-button: 8px;
+    --border-radius-nav: 8px;
+    
+    /* Dimensions */
+    --logo-size: 50px;
+    --logo-font-size: 24px;
+    --login-box-max-width: 600px;
+    --container-flex: 0.5;
+    
+    /* Effects */
+    --backdrop-blur: blur(10px);
+    --transition-default: all 0.3s ease;
+    --transform-hover: translateY(-3px);
+    --transform-login-hover: translateY(-5px);
+    --transform-button-hover: translateY(-2px);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,70 +81,70 @@
 }
 
 body {
-    font-family: "Times New Roman", sans-serif;
-    background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    font-family: var(--font-family);
+    background: var(--primary-bg-gradient);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    color: white;
+    color: var(--text-primary);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 30px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
+    padding: var(--padding-header);
+    background: var(--header-bg);
+    backdrop-filter: var(--backdrop-blur);
 }
 
 .logo {
     display: flex;
     align-items: center;
-    padding: 20px 30px;
-    gap: 10px;
+    padding: var(--padding-logo);
+    gap: var(--gap-logo);
 }
 
 .logo-img {
-    width: 50px;
-    height: 50px;
+    width: var(--logo-size);
+    height: var(--logo-size);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: var(--logo-font-size);
 }
 
 .logo-text {
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
+    font-size: var(--font-size-logo);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
 }
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: var(--gap-nav);
 }
 
 .nav-links a {
-    color: white;
+    color: var(--text-primary);
     margin-left: 10px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: var(--font-size-nav);
     padding: 5px 10px;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
 }
 
 .nav-links a:hover {
     padding: 5px 10px;
     border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #9b5dd4;
-    transform: translateY(-3px);
+    border-radius: var(--border-radius-nav);
+    background: var(--nav-hover-bg);
+    color: var(--purple-hover);
+    transform: var(--transform-hover);
 }
 
 .container {
-    flex: 0.5;
+    flex: var(--container-flex);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,326 +152,243 @@ body {
 }
 
 .login-box {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 40px;
+    background: var(--login-box-bg);
+    backdrop-filter: var(--backdrop-blur);
+    border-radius: var(--border-radius-login);
+    padding: var(--padding-login-box);
     width: 100%;
-    max-width: 600px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    max-width: var(--login-box-max-width);
+    box-shadow: var(--shadow-login-box);
+    border: var(--border-glass);
+    transition: var(--transition-default);
 }
 
 .login-box:hover {
-    box-shadow: 0 20px 40px rgba(123, 44, 191, 0.3);
-    transform: translateY(-5px);
+    box-shadow: var(--shadow-login-hover);
+    transform: var(--transform-login-hover);
 }
 
 .login-title {
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: white;
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--margin-title);
+    color: var(--text-primary);
 }
 
 .welcome-text {
     text-align: center;
-    color: #cccccc;
-    margin-bottom: 30px;
-    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: var(--margin-welcome);
+    font-size: var(--font-size-welcome);
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: var(--margin-form-group);
 }
 
 .input-field {
     width: 100%;
-    padding: 15px;
+    padding: var(--padding-input);
     border: none;
-    background: rgba(255, 255, 255, 0.9);
-    font-size: 16px;
-    color: #333;
+    background: var(--input-bg);
+    font-size: var(--font-size-input);
+    color: var(--input-text);
     outline: none;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
 }
 
 .input-field:focus {
-    background: white;
-    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+    background: var(--input-focus-bg);
+    box-shadow: var(--shadow-input-focus);
 }
 
 .input-field::placeholder {
-    color: #666;
+    color: var(--text-muted);
 }
 
 .forgot-password {
     text-align: center;
-    margin: 20px 0;
+    margin: var(--margin-forgot);
 }
 
 .forgot-password a {
-    color: #cccccc;
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease;
+    font-size: var(--font-size-link);
+    transition: var(--transition-default);
 }
 
 .forgot-password a:hover {
-    color: #9d4edd;
+    color: var(--purple-secondary);
 }
 
 .signin-btn {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(45deg, #7b2cbf, #9d4edd);
-    color: white;
+    padding: var(--padding-button);
+    background: var(--button-gradient);
+    color: var(--text-primary);
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: var(--border-radius-button);
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-bold);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition-default);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: var(--letter-spacing-button);
 }
 
 .signin-btn:hover {
-    background: linear-gradient(45deg, #9d4edd, #c77dff);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+    background: var(--button-hover-gradient);
+    transform: var(--transform-button-hover);
+    box-shadow: var(--shadow-button-hover);
 }
 
 .register-link {
     text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #cccccc;
+    margin-top: var(--margin-register);
+    font-size: var(--font-size-link);
+    color: var(--text-secondary);
 }
 
 .register-link a {
-    color: #9d4edd;
+    color: var(--purple-secondary);
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    font-weight: var(--font-weight-bold);
+    transition: var(--transition-default);
 }
 
 .register-link a:hover {
-    color: #c77dff;
+    color: var(--purple-light);
 }
 
+/* Mobile S - 320px */
 @media (max-width: 320px) {
+    :root {
+        --padding-login-box: 20px 8px;
+        --padding-header: 10px 8px;
+        --padding-logo: 10px 8px;
+        --gap-logo: 6px;
+        --logo-size: 36px;
+        --logo-font-size: 18px;
+        --font-size-logo: 16px;
+        --font-size-nav: 14px;
+        --font-size-title: 18px;
+        --font-size-welcome: 12px;
+        --font-size-input: 14px;
+        --font-size-button: 14px;
+        --font-size-link: 12px;
+        --padding-input: 10px;
+        --padding-button: 10px;
+        --gap-nav: 10px;
+        --margin-welcome: 18px;
+        --login-box-max-width: 98vw;
+    }
+
     .login-box {
-        padding: 20px 8px;
         margin: 10px;
-        max-width: 98vw;
     }
 
     .header {
         flex-direction: column;
         align-items: center;
-        padding: 10px 8px;
-    }
-
-    .logo {
-        padding: 10px 8px;
-        gap: 6px;
-    }
-
-    .logo-img {
-        width: 36px;
-        height: 36px;
-        font-size: 18px;
-    }
-
-    .logo-text,
-    .brand-name {
-        font-size: 16px;
-    }
-
-    .nav-links {
-        gap: 10px;
     }
 
     .nav-links a {
-        font-size: 14px;
         padding: 3px 6px;
-        background: rgba(255, 255, 255, 0.1);
-        color: #9b5dd4;
-    }
-
-    .login-title {
-        font-size: 18px;
-    }
-
-    .welcome-text {
-        font-size: 12px;
-        margin-bottom: 18px;
-    }
-
-    .input-field {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .signin-btn {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .register-link,
-    .forgot-password a {
-        font-size: 12px;
+        background: var(--nav-hover-bg);
+        color: var(--purple-hover);
     }
 }
 
+/* Mobile M - 321px to 375px */
 @media (min-width: 321px) and (max-width: 376px) {
+    :root {
+        --padding-login-box: 24px 12px;
+        --padding-header: 12px 12px;
+        --padding-logo: 12px 12px;
+        --gap-logo: 8px;
+        --logo-size: 40px;
+        --logo-font-size: 20px;
+        --font-size-logo: 20px;
+        --font-size-nav: 16px;
+        --font-size-title: 20px;
+        --font-size-welcome: 14px;
+        --font-size-input: 15px;
+        --font-size-button: 15px;
+        --font-size-link: 13px;
+        --padding-input: 12px;
+        --padding-button: 12px;
+        --gap-nav: 16px;
+        --margin-welcome: 22px;
+        --login-box-max-width: 96vw;
+    }
+
     .login-box {
-        padding: 24px 12px;
         margin: 12px;
-        max-width: 96vw;
     }
 
     .header {
         flex-direction: column;
         align-items: center;
-        padding: 12px 12px;
-    }
-
-    .logo {
-        padding: 12px 12px;
-        gap: 8px;
-    }
-
-    .logo-img {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-
-    .logo-text,
-    .brand-name {
-        font-size: 20px;
-    }
-
-    .nav-links {
-        gap: 16px;
     }
 
     .nav-links a {
-        font-size: 16px;
         padding: 4px 8px;
-        background: rgba(255, 255, 255, 0.1);
-        color: #9b5dd4;
-    }
-
-    .login-title {
-        font-size: 20px;
-    }
-
-    .welcome-text {
-        font-size: 14px;
-        margin-bottom: 22px;
-    }
-
-    .input-field {
-        padding: 12px;
-        font-size: 15px;
-    }
-
-    .signin-btn {
-        padding: 12px;
-        font-size: 15px;
-    }
-
-    .register-link,
-    .forgot-password a {
-        font-size: 13px;
+        background: var(--nav-hover-bg);
+        color: var(--purple-hover);
     }
 }
 
+/* Mobile L - 376px to 425px */
 @media (min-width: 376px) and (max-width: 426px) {
+    :root {
+        --padding-login-box: 32px 16px;
+        --padding-header: 14px 16px;
+        --padding-logo: 14px 16px;
+        --gap-logo: 9px;
+        --logo-size: 44px;
+        --logo-font-size: 22px;
+        --font-size-logo: 24px;
+        --font-size-nav: 17px;
+        --font-size-title: 24px;
+        --font-size-welcome: 15px;
+        --font-size-input: 16px;
+        --font-size-button: 16px;
+        --font-size-link: 14px;
+        --padding-input: 13px;
+        --padding-button: 13px;
+        --gap-nav: 22px;
+        --margin-welcome: 26px;
+        --login-box-max-width: 94vw;
+    }
+
     .login-box {
-        padding: 32px 16px;
         margin: 16px;
-        max-width: 94vw;
     }
 
     .header {
         flex-direction: column;
         align-items: center;
-        padding: 14px 16px;
-    }
-
-    .logo {
-        padding: 14px 16px;
-        gap: 9px;
-    }
-
-    .logo-img {
-        width: 44px;
-        height: 44px;
-        font-size: 22px;
-    }
-
-    .logo-text,
-    .brand-name {
-        font-size: 24px;
-    }
-
-    .nav-links {
-        gap: 22px;
     }
 
     .nav-links a {
-        font-size: 17px;
         padding: 5px 9px;
-        background: rgba(255, 255, 255, 0.1);
-        color: #9b5dd4;
-    }
-
-    .login-title {
-        font-size: 24px;
-    }
-
-    .welcome-text {
-        font-size: 15px;
-        margin-bottom: 26px;
-    }
-
-    .input-field {
-        padding: 13px;
-        font-size: 16px;
-    }
-
-    .signin-btn {
-        padding: 13px;
-        font-size: 16px;
-    }
-
-    .register-link,
-    .forgot-password a {
-        font-size: 14px;
+        background: var(--nav-hover-bg);
+        color: var(--purple-hover);
     }
 }
 
+/* Mobile General - up to 480px */
 @media (max-width: 480px) {
+    :root {
+        --padding-login-box: 30px 20px;
+        --padding-header: 15px 20px;
+        --font-size-logo: 20px;
+        --font-size-title: 24px;
+    }
+
     .login-box {
-        padding: 30px 20px;
         margin: 20px;
-    }
-
-    .header {
-        padding: 15px 20px;
-    }
-
-    .brand-name {
-        font-size: 20px;
-    }
-
-    .login-title {
-        font-size: 24px;
     }
 }

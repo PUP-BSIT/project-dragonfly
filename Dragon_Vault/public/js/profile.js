@@ -1,4 +1,6 @@
-const API_BASE = "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 let currentUserData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,10 +73,10 @@ function toggleEditMode() {
     const editCard = document.getElementById("profileEdit");
 
     // Parse the full name to populate separate fields
-    const nameParts = currentUserData.full_name.split(" ");
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts[nameParts.length - 1] || "";
-    const middleInitial = nameParts.length > 2 ? nameParts[1] : "";
+    const nameParts = currentUserData.full_name.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts[nameParts.length - 1] || '';
+    const middleInitial = nameParts.length > 2 ? nameParts[1] : '';
 
     document.getElementById("editFirstName").value = firstName;
     document.getElementById("editMiddleInitial").value = middleInitial;
@@ -133,14 +135,9 @@ function handleProfileUpdate(e) {
                 currentUserData.first_name = updateData.firstName;
                 currentUserData.middle_initial = updateData.middleInitial;
                 currentUserData.last_name = updateData.lastName;
-                currentUserData.full_name = `${updateData.firstName} ${
-                    updateData.middleInitial
-                        ? updateData.middleInitial + " "
-                        : ""
-                }${updateData.lastName}`.trim();
+                currentUserData.full_name = `${updateData.firstName} ${updateData.middleInitial ? updateData.middleInitial + ' ' : ''}${updateData.lastName}`.trim();
                 currentUserData.email = updateData.email;
                 currentUserData.phone = updateData.phone;
-
                 displayUserProfile(currentUserData);
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");

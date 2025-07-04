@@ -9,7 +9,6 @@
     --accent-indigo: #4338ca;
     --white: #ffffff;
     --light-gray: #ececec;
-    --success-green: #4caf50;
     
     /* Transparency Variables */
     --glass-light: rgba(255, 255, 255, 0.1);
@@ -82,10 +81,7 @@
 body {
     font-family: var(--font-primary);
     background: var(--primary-gradient);
-    font-family: var(--font-primary);
-    background: var(--primary-gradient);
     min-height: 100vh;
-    color: var(--white);
     color: var(--white);
 }
 
@@ -93,9 +89,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-lg) var(--spacing-xl);
-    background: var(--glass-dark);
-    backdrop-filter: var(--blur-light);
     padding: var(--spacing-lg) var(--spacing-xl);
     background: var(--glass-dark);
     backdrop-filter: var(--blur-light);
@@ -108,7 +101,6 @@ body {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    gap: var(--spacing-sm);
 }
 
 .logo-img {
@@ -118,14 +110,11 @@ body {
     align-items: center;
     justify-content: center;
     font-size: var(--font-xxl);
-    font-size: var(--font-xxl);
 }
 
 .logo-text {
     font-size: var(--font-xxxl);
-    font-size: var(--font-xxxl);
     font-weight: bold;
-    color: var(--white);
     color: var(--white);
 }
 
@@ -138,14 +127,9 @@ body {
     background: var(--glass-light);
     border-radius: var(--border-radius);
     transition: all var(--transition-normal);
-    padding: var(--spacing-xs);
-    background: var(--glass-light);
-    border-radius: var(--border-radius);
-    transition: all var(--transition-normal);
 }
 
 .hamburger-menu:hover {
-    background: var(--glass-medium);
     background: var(--glass-medium);
 }
 
@@ -153,9 +137,7 @@ body {
     width: 25px;
     height: 3px;
     background-color: var(--white);
-    background-color: var(--white);
     margin: 3px 0;
-    transition: var(--transition-normal);
     transition: var(--transition-normal);
     border-radius: 2px;
 }
@@ -177,24 +159,16 @@ body {
 .nav-buttons {
     display: flex;
     gap: var(--spacing-md);
-    gap: var(--spacing-md);
 }
 
 .nav-btn {
-    font-family: var(--font-serif);
-    padding: var(--spacing-sm) var(--spacing-lg);
     font-family: var(--font-serif);
     padding: var(--spacing-sm) var(--spacing-lg);
     border: none;
     border-radius: var(--border-radius);
     background: var(--glass-light);
     color: var(--white);
-    border-radius: var(--border-radius);
-    background: var(--glass-light);
-    color: var(--white);
     cursor: pointer;
-    transition: all var(--transition-normal);
-    font-size: var(--font-md);
     transition: all var(--transition-normal);
     font-size: var(--font-md);
 }
@@ -202,13 +176,10 @@ body {
 .nav-btn:hover {
     box-shadow: var(--shadow-purple);
     background: var(--glass-medium);
-    box-shadow: var(--shadow-purple);
-    background: var(--glass-medium);
     transform: translateY(-2px);
 }
 
 .nav-btn.active {
-    background: var(--purple-medium);
     background: var(--purple-medium);
 }
 
@@ -222,16 +193,12 @@ body {
     height: 100%;
     background: var(--glass-overlay);
     backdrop-filter: var(--blur-heavy);
-    background: var(--glass-overlay);
-    backdrop-filter: var(--blur-heavy);
     z-index: 1000;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: var(--spacing-xl);
-    gap: var(--spacing-xl);
     opacity: 0;
-    transition: all var(--transition-normal);
     transition: all var(--transition-normal);
 }
 
@@ -243,25 +210,16 @@ body {
 .mobile-nav-btn {
     font-family: var(--font-serif);
     padding: var(--spacing-md) var(--spacing-xxl);
-    font-family: var(--font-serif);
-    padding: var(--spacing-md) var(--spacing-xxl);
     border: none;
-    border-radius: var(--border-radius-large);
-    background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
-    color: var(--white);
     border-radius: var(--border-radius-large);
     background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
     color: var(--white);
     cursor: pointer;
     transition: all var(--transition-normal);
     font-size: var(--font-lg);
-    transition: all var(--transition-normal);
-    font-size: var(--font-lg);
     font-weight: 600;
     min-width: 200px;
     text-align: center;
-    backdrop-filter: var(--blur-light);
-    border: 1px solid var(--glass-medium);
     backdrop-filter: var(--blur-light);
     border: 1px solid var(--glass-medium);
 }
@@ -270,13 +228,9 @@ body {
     transform: translateY(-3px);
     box-shadow: var(--shadow-purple-strong);
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(99, 102, 241, 0.7));
-    box-shadow: var(--shadow-purple-strong);
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(99, 102, 241, 0.7));
 }
 
 .mobile-nav-btn.active {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(99, 102, 241, 0.8));
-    box-shadow: var(--shadow-glow);
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(99, 102, 241, 0.8));
     box-shadow: var(--shadow-glow);
 }
@@ -285,17 +239,11 @@ body {
     position: absolute;
     top: var(--spacing-xl);
     right: var(--spacing-xl);
-    top: var(--spacing-xl);
-    right: var(--spacing-xl);
     background: none;
     border: none;
     color: var(--white);
     font-size: var(--spacing-xl);
-    color: var(--white);
-    font-size: var(--spacing-xl);
     cursor: pointer;
-    width: var(--spacing-xxl);
-    height: var(--spacing-xxl);
     width: var(--spacing-xxl);
     height: var(--spacing-xxl);
     display: flex;
@@ -303,18 +251,14 @@ body {
     justify-content: center;
     border-radius: var(--border-radius-circle);
     transition: all var(--transition-normal);
-    border-radius: var(--border-radius-circle);
-    transition: all var(--transition-normal);
 }
 
 .close-btn:hover {
-    background: var(--glass-light);
     background: var(--glass-light);
     transform: rotate(90deg);
 }
 
 .main-content {
-    padding: var(--spacing-xl);
     padding: var(--spacing-xl);
     max-width: 1200px;
     margin: 0 auto;
@@ -327,16 +271,9 @@ body {
     margin-bottom: var(--spacing-xl);
     backdrop-filter: var(--blur-heavy);
     border: 1px solid var(--glass-light);
-    background: linear-gradient(135deg, var(--purple-light), var(--violet-light));
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--spacing-xl);
-    backdrop-filter: var(--blur-heavy);
-    border: 1px solid var(--glass-light);
 }
 
 .welcome-title {
-    font-size: var(--font-huge);
     font-size: var(--font-huge);
     font-weight: bold;
     margin-bottom: 8px;
@@ -347,40 +284,29 @@ body {
     align-items: center;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-xs);
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-xs);
 }
 
 .account-number {
     font-size: 1.7em;
     color: var(--light-gray);
-    color: var(--light-gray);
     font-weight: normal;
-    border: 2px solid var(--white);
     border: 2px solid var(--white);
     padding: 8px 12px;
     border-radius: var(--border-radius-small);
-    border-radius: var(--border-radius-small);
     display: inline-block;
-    background-color: var(--glass-light);
     background-color: var(--glass-light);
 }
 
 .toggle-visibility-icon {
     width: var(--spacing-xxl);
     height: var(--spacing-xxl);
-    width: var(--spacing-xxl);
-    height: var(--spacing-xxl);
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity var(--transition-fast);
-    border-radius: var(--border-radius-circle);
     transition: opacity var(--transition-fast);
     border-radius: var(--border-radius-circle);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--font-lg);
     font-size: var(--font-lg);
 }
 
@@ -393,16 +319,9 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-xl);
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
 }
 
 .balance-card {
-    background: linear-gradient(135deg, var(--purple-medium), var(--blue-light));
-    padding: var(--spacing-xxl) var(--spacing-xl);
-    border-radius: var(--border-radius);
-    backdrop-filter: var(--blur-heavy);
-    border: 1px solid var(--glass-light);
     background: linear-gradient(135deg, var(--purple-medium), var(--blue-light));
     padding: var(--spacing-xxl) var(--spacing-xl);
     border-radius: var(--border-radius);
@@ -412,19 +331,14 @@ body {
 
 .balance-title {
     font-size: var(--font-xxl);
-    font-size: var(--font-xxl);
     font-weight: 600;
-    margin-bottom: var(--spacing-md);
-    opacity: var(--white-09);
     margin-bottom: var(--spacing-md);
     opacity: var(--white-09);
 }
 
 .balance-amount {
     font-size: var(--font-massive);
-    font-size: var(--font-massive);
     font-weight: bold;
-    color: var(--white);
     color: var(--white);
 }
 
@@ -434,43 +348,30 @@ body {
     border-radius: var(--border-radius);
     backdrop-filter: var(--blur-heavy);
     border: 1px solid var(--glass-light);
-    background: linear-gradient(135deg, var(--blue-medium), var(--purple-light));
-    padding: var(--spacing-xxl) var(--spacing-xl);
-    border-radius: var(--border-radius);
-    backdrop-filter: var(--blur-heavy);
-    border: 1px solid var(--glass-light);
 }
 
 .transfer-title {
     font-size: var(--font-xxl);
-    font-size: var(--font-xxl);
     font-weight: 600;
     margin-bottom: 25px;
-    opacity: var(--white-09);
     opacity: var(--white-09);
 }
 
 .select-btn {
-    background: linear-gradient(170deg, var(--accent-blue), #47307d);
+    background: linear-gradient(180deg, var(--accent-blue), #6366f1);
     border: none;
-    padding: var(--spacing-md) 25px;
-    color: var(--white);
-    font-size: var(--font-sm);
     padding: var(--spacing-md) 25px;
     color: var(--white);
     font-size: var(--font-sm);
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-normal);
-    transition: all var(--transition-normal);
     width: 100%;
-    border-radius: var(--border-radius);
     border-radius: var(--border-radius);
 }
 
 .select-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-blue);
+    box-shadow: var(--secondary-purple);
 }
 
 .transactions-section {
@@ -479,15 +380,9 @@ body {
     border-radius: var(--border-radius);
     backdrop-filter: var(--blur-heavy);
     border: 1px solid var(--glass-light);
-    background: linear-gradient(135deg, var(--violet-light), rgba(139, 92, 246, 0.1));
-    padding: var(--spacing-xl);
-    border-radius: var(--border-radius);
-    backdrop-filter: var(--blur-heavy);
-    border: 1px solid var(--glass-light);
 }
 
 .transactions-header {
-    font-size: var(--font-xxxl);
     font-size: var(--font-xxxl);
     font-weight: bold;
     margin-bottom: var(--spacing-lg);
@@ -575,7 +470,7 @@ body {
 
 .view-all-btn {
     padding: 8px var(--spacing-sm);
-    background-color: var(--success-green);
+    background-color: var(--accent-blue);
     color: var(--white);
     border: none;
     border-radius: 4px;
@@ -595,7 +490,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    align-items: center;
     justify-content: flex-start;
     color: rgba(255, 255, 255, 0.7);
     font-size: 18px;
@@ -603,25 +497,19 @@ body {
     gap: 10px; /* Space between transaction items */
     padding: 10px; /* Padding inside the content box */
     width: 100%; /* Ensure it takes full available width */
-    gap: 10px; /* Space between transaction items */
-    padding: 10px; /* Padding inside the content box */
-    width: 100%; /* Ensure it takes full available width */
 }
 
-/* Consolidated and refined transaction-item styles */
 /* Consolidated and refined transaction-item styles */
 .transaction-item {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 0; /* Padding will be on the inner spans */
-    padding: 0; /* Padding will be on the inner spans */
     line-height: 1.5;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    min-height: 60px; /* Consistent height for each item */
     min-height: 60px; /* Consistent height for each item */
     box-sizing: border-box;
     transition: background-color 0.3s ease;
@@ -639,18 +527,13 @@ body {
     padding: 15px 10px; /* Padding inside each column */
     border-right: 1px solid rgba(255, 255, 255, 0.1); /* Vertical separators */
     box-sizing: border-box; /* Include padding in span's total width */
-    padding: 15px 10px; /* Padding inside each column */
-    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Vertical separators */
-    box-sizing: border-box; /* Include padding in span's total width */
 }
 
 .transaction-item span:last-child {
     border-right: none; /* No border for the last column */
-    border-right: none; /* No border for the last column */
 }
 
 .transaction-item .source-label {
-    flex: 0 0 80px; /* Fixed width for source label */
     flex: 0 0 80px; /* Fixed width for source label */
     font-weight: bold;
     text-align: left;
@@ -659,14 +542,10 @@ body {
 .transaction-item .type {
     flex: 2; /* Allows type to take more space */
     min-width: 100px; /* Minimum width for uniformity */
-    flex: 2; /* Allows type to take more space */
-    min-width: 100px; /* Minimum width for uniformity */
     text-align: left;
 }
 
 .transaction-item .amount {
-    flex: 1; /* Allows amount to take some space */
-    min-width: 80px; /* Minimum width for uniformity */
     flex: 1; /* Allows amount to take some space */
     min-width: 80px; /* Minimum width for uniformity */
     text-align: right;
@@ -675,34 +554,9 @@ body {
 .transaction-item .timestamp {
     flex: 1.5; /* Allows timestamp to take more space */
     min-width: 120px; /* Minimum width for uniformity */
-    flex: 1.5; /* Allows timestamp to take more space */
-    min-width: 120px; /* Minimum width for uniformity */
     text-align: right;
 }
 
-.account-number {
-    font-size: 1.7em;
-    color: #ececec;
-    font-weight: normal;
-    border: 2px solid white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    display: inline-block;
-    margin-top: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Account Number Container with Toggle Icon */
-.account-number-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.toggle-visibility-icon {
-    width: 40px;
-    height: 40px;
 .account-number {
     font-size: 1.7em;
     color: #ececec;
@@ -737,32 +591,23 @@ body {
 
 .toggle-visibility-icon:active {
     transform: scale(0.95);
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
-}
-
-.toggle-visibility-icon:hover {
-    opacity: 1;
-}
-
-.toggle-visibility-icon:active {
-    transform: scale(0.95);
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+/* Mobile S */
+@media (max-width: 321px) {
     .header {
-        padding: var(--spacing-md) var(--spacing-lg);
+        padding: 8px var(--spacing-xs);
     }
 
     .logo-text {
-        font-size: var(--font-xl);
+        font-size: var(--font-sm);
     }
 
     .logo-img {
-        width: var(--spacing-xxl);
-        height: var(--spacing-xxl);
-        font-size: var(--font-lg);
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-sm);
     }
 
     .main-content {
@@ -777,14 +622,19 @@ body {
         font-size: var(--font-sm);
     }
 
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
+    .account-number {
+        font-size: 0.9em;
+        padding: 4px 6px;
     }
 
     .balance-card,
     .transfer-card {
-        padding: 25px var(--spacing-lg);
+        padding: var(--spacing-md) var(--spacing-xs);
+    }
+
+    .balance-title,
+    .transfer-title {
+        font-size: var(--font-sm);
     }
 
     .balance-amount {
@@ -838,47 +688,58 @@ body {
     }
 
     .main-content {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: var(--spacing-md) var(--spacing-xs);
+    }
+
+    .welcome-section {
+        padding: var(--spacing-md);
     }
 
     .welcome-title {
-        font-size: var(--font-xxl);
+        font-size: var(--font-lg);
     }
 
     .account-number {
-        font-size: 1.2em;
-        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 1.1em;
+        padding: 6px 8px;
+    }
+
+    .balance-card,
+    .transfer-card {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    .balance-title,
+    .transfer-title {
+        font-size: var(--font-md);
+    }
+
+    .balance-amount {
+        font-size: var(--font-xxxl);
     }
 
     .transactions-section {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: var(--spacing-md) var(--spacing-xs);
     }
 
     .transactions-header {
-        font-size: var(--font-xl);
+        font-size: var(--font-md);
     }
 
-    .view-all-btn {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-
-    .account-number {
-        font-size: 1em;
-        padding: 4px 6px;
-        margin-top: 4px;
+    .mobile-nav-btn {
+        padding: 10px var(--spacing-lg);
+        font-size: var(--font-md);
+        min-width: 150px;
     }
 }
 
-/* Mobile M-L */
+/* Mobile L */
 @media (max-width: 426px) {
     .header {
-        padding: 12px var(--spacing-md);
         padding: 12px var(--spacing-md);
     }
 
     .logo-text {
-        font-size: var(--font-md);
         font-size: var(--font-md);
     }
 
@@ -886,60 +747,48 @@ body {
         width: 35px;
         height: 35px;
         font-size: var(--font-md);
-        font-size: var(--font-md);
     }
 
     .main-content {
-        padding: var(--spacing-md) var(--spacing-sm);
         padding: var(--spacing-md) var(--spacing-sm);
     }
 
     .welcome-section {
         padding: var(--spacing-md);
-        padding: var(--spacing-md);
     }
 
     .welcome-title {
-        font-size: var(--font-lg);
         font-size: var(--font-lg);
     }
 
     .account-number {
         font-size: 1em;
         padding: var(--spacing-xs) 8px;
-        padding: var(--spacing-xs) 8px;
     }
 
     .balance-card,
     .transfer-card {
-        padding: var(--spacing-lg) var(--spacing-md);
         padding: var(--spacing-lg) var(--spacing-md);
     }
 
     .balance-title,
     .transfer-title {
         font-size: var(--font-md);
-        font-size: var(--font-md);
     }
 
     .balance-amount {
-        font-size: var(--font-xxxl);
         font-size: var(--font-xxxl);
     }
 
     .transactions-section {
         padding: var(--spacing-md) var(--spacing-sm);
-        padding: var(--spacing-md) var(--spacing-sm);
     }
 
     .transactions-header {
         font-size: var(--font-md);
-        font-size: var(--font-md);
     }
 
     .mobile-nav-btn {
-        padding: 12px var(--spacing-xl);
-        font-size: var(--font-md);
         padding: 12px var(--spacing-xl);
         font-size: var(--font-md);
         min-width: 180px;

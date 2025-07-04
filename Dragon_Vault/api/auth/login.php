@@ -14,7 +14,24 @@ require_once '../../includes/db.php';
 // Get JSON input
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Validate input
+// If this is just a session check, allow it
+if (isset($data['check_session']) && $data['check_session'] === true) {
+    if (isset($_SESSION['account_holder_id'])) {
+        echo json_encode([
+            "success" => true,
+            "already_logged_in" => true,
+            "redirect" => "../../public/dashboard.html"
+        ]);
+    } else {
+        echo json_encode([
+            "success" => false,
+            "already_logged_in" => false
+        ]);
+    }
+    exit();
+}
+
+// Validate input for normal login
 if (!isset($data['username'], $data['password'])) {
     http_response_code(400);
     echo json_encode(["error" => "Missing username or password."]);

@@ -15,7 +15,7 @@
     --container-bg-start: rgba(139, 92, 246, 0.3);
     --container-bg-end: rgba(168, 85, 247, 0.2);
     --container-border: rgba(255, 255, 255, 0.1);
-    --container-shadow: rgba(0, 0, 0, 0.3);
+    --container-shadow: rgba(0, 0, 0, 0.5);
     
     /* Accent Colors */
     --accent-purple-dark: #5a008c;
@@ -27,8 +27,8 @@
     --btn-bg-primary: rgba(255, 255, 255, 0.1);
     --btn-bg-hover: rgba(255, 255, 255, 0.2);
     --btn-bg-active: rgba(139, 92, 246, 0.4);
-    --btn-shadow-hover: rgba(139, 92, 246, 0.4);
-    --btn-shadow-active: rgba(139, 92, 246, 0.6);
+    --btn-shadow-hover: rgba(0, 0, 0, 0.6);
+    --btn-shadow-active: rgba(0, 0, 0, 0.7);
     
     /* Input Colors */
     --input-border: rgba(255, 255, 255, 0.2);
@@ -39,12 +39,12 @@
     /* Load More Button */
     --loadmore-bg-start: #6366f1;
     --loadmore-bg-end: #47307d;
-    --loadmore-shadow: rgba(99, 102, 241, 0.4);
+    --loadmore-shadow: rgba(0, 0, 0, 0.6);
     --loadmore-disabled: rgba(255, 255, 255, 0.1);
     
     /* Table Colors */
     --table-border: #5a008c;
-    --table-shadow: rgba(0, 0, 0, 0.2);
+    --table-shadow: rgba(0, 0, 0, 0.4);
     
     /* Spacing Variables */
     --container-max-width: 1200px;
@@ -90,15 +90,74 @@ body {
     border: 1px solid var(--container-border);
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-    color: var(--text-primary);
-    margin-bottom: 30px;
+/* Header Layout */
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.header-section h1 {
+    margin: 0;
     font-size: var(--font-size-h1);
     font-weight: bold;
     letter-spacing: var(--letter-spacing-h1);
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+
+.header-section .search-container {
+    margin: 0;
+    flex: 1;
+    max-width: 400px;
+}
+
+/* Controls Section */
+.controls-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.sort-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.transaction-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#transaction-search {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--border-radius-small);
+    background-color: var(--input-bg);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+#transaction-search::placeholder {
+    color: var(--text-placeholder);
+}
+
+#transaction-search:focus {
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 3px var(--input-focus-shadow);
 }
 
 h2 {
@@ -111,41 +170,6 @@ h2 {
     padding-bottom: 10px;
 }
 
-.transaction-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.search-container {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-#transaction-search {
-    width: 100%;
-    max-width: 500px;
-    padding: 12px 20px;
-    border: 1px solid var(--input-border);
-    border-radius: var(--border-radius-small);
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-    font-size: var(--font-size-base);
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#transaction-search::placeholder {
-    color: var(--text-placeholder);
-}
-
-#transaction-search:focus {
-    border-color: var(--input-focus-border);
-    box-shadow: 0 0 0 3px var(--input-focus-shadow);
-}
-
 /* Button Formatting (General) */
 .tab-btn,
 .sort-btn {
@@ -156,16 +180,16 @@ h2 {
     background: var(--btn-bg-primary);
     color: var(--text-primary);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     font-size: var(--font-size-base);
     margin: 5px;
+    white-space: nowrap;
 }
 
 .tab-btn:hover,
 .sort-btn:hover {
     box-shadow: 0 4px 10px var(--btn-shadow-hover);
     background: var(--btn-bg-hover);
-    transform: translateY(-2px);
 }
 
 .tab-btn.active,
@@ -183,14 +207,21 @@ h2 {
     display: flex;
 }
 
+/* Table Container for horizontal scrolling */
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 2px 8px var(--table-shadow);
+}
+
 .transaction-table {
     width: 100%;
+    min-width: 800px; /* Minimum width to prevent crushing */
     border-collapse: collapse;
-    margin-top: 20px;
     background-color: var(--accent-purple-table);
     border-radius: var(--border-radius-small);
     overflow: hidden;
-    box-shadow: 0 2px 8px var(--table-shadow);
 }
 
 .transaction-table th,
@@ -199,6 +230,8 @@ h2 {
     text-align: left;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--table-border);
+    word-wrap: break-word;
+    white-space: nowrap;
 }
 
 .transaction-table th {
@@ -207,6 +240,9 @@ h2 {
     text-transform: uppercase;
     font-size: var(--font-size-table);
     letter-spacing: var(--letter-spacing-table);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .transaction-table tr:hover {
@@ -227,206 +263,295 @@ h2 {
     color: var(--text-primary);
     font-size: var(--font-size-base);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
     font-family: var(--secondary-font);
 }
 
 .load-more-btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 6px 20px var(--loadmore-shadow);
 }
 
 .load-more-btn:disabled {
     background: var(--loadmore-disabled);
     cursor: not-allowed;
-    transform: none;
     box-shadow: none;
 }
 
-/* Mobile S */
-@media (max-width: 320px) {
+/* RESPONSIVE DESIGN */
+
+/* Large Desktop (1200px+) - Default styles above */
+
+/* Desktop/Laptop (992px - 1199px) */
+@media (max-width: 1199px) {
     .transactions-container {
-        margin: 8px;
-        padding: 8px;
-        max-width: 100vw;
-    }
-
-    h1 {
-        font-size: 1.3em;
-        margin-bottom: 16px;
-    }
-
-    h2 {
-        font-size: 1em;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        padding-bottom: 5px;
-    }
-
-    .transaction-tabs {
-        flex-direction: column;
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-
-    .tab-btn,
-    .sort-btn {
-        font-size: 13px;
-        padding: 7px 10px;
-        margin: 3px 0;
-        width: 100%;
-    }
-
-    .search-container {
-        margin-bottom: 10px;
-    }
-
-    #transaction-search {
-        max-width: 100vw;
-        font-size: 13px;
-        padding: 8px 10px;
-    }
-
-    .transaction-table th,
-    .transaction-table td {
-        padding: 7px 8px;
-        font-size: 12px;
-    }
-
-    .load-more-btn {
-        font-size: 13px;
-        padding: 8px 12px;
+        margin: 30px;
+        padding: 25px;
     }
 }
 
-/* Mobile M */
-@media (max-width: 376px) {
+/* Tablet (768px - 991px) */
+@media (max-width: 991px) {
     .transactions-container {
-        margin: 12px;
-        padding: 10px;
-        max-width: 100vw;
-    }
-
-    h1 {
-        font-size: 1.1em;
-        margin-bottom: 12px;
-    }
-
-    h2 {
-        font-size: 0.95em;
-        margin-top: 14px;
-        margin-bottom: 8px;
-        padding-bottom: 4px;
-    }
-
-    .transaction-tabs {
-        flex-direction: column;
-        gap: 4px;
-        margin-bottom: 8px;
-    }
-
-    .tab-btn,
-    .sort-btn {
-        font-size: 12px;
-        padding: 6px 8px;
-        margin: 2px 0;
-        width: 100%;
-    }
-
-    .search-container {
-        margin-bottom: 8px;
-    }
-
-    #transaction-search {
-        max-width: 100vw;
-        font-size: 12px;
-        padding: 7px 8px;
-    }
-
-    .transaction-table th,
-    .transaction-table td {
-        padding: 6px 6px;
-        font-size: 11px;
-    }
-
-    .load-more-btn {
-        font-size: 12px;
-        padding: 7px 10px;
-    }
-}
-
-/* Mobile L */
-@media (max-width: 426px) {
-    .transactions-container {
-        margin: 16px;
-        padding: 12px;
-        max-width: 80vw;
-    }
-
-    h1 {
-        font-size: 1.5em;
-        margin-bottom: 18px;
-    }
-
-    h2 {
-        font-size: 1.1em;
-        margin-top: 18px;
-        margin-bottom: 12px;
-        padding-bottom: 6px;
-    }
-
-    .transaction-tabs {
-        flex-direction: column;
-        gap: 6px;
-        margin-bottom: 12px;
-    }
-
-    .tab-btn,
-    .sort-btn {
-        font-size: 14px;
-        padding: 8px 12px;
-        margin: 4px 0;
-        width: 100%;
-    }
-
-    .search-container {
-        margin-bottom: 12px;
-    }
-
-    #transaction-search {
-        max-width: 100vw;
-        font-size: 14px;
-        padding: 9px 12px;
-    }
-
-    .transaction-table th,
-    .transaction-table td {
-        padding: 8px 10px;
-        font-size: 13px;
-    }
-
-    .load-more-btn {
-        font-size: 14px;
-        padding: 9px 14px;
-    }
-}
-
-@media (max-width: 768px) {
-    .transactions-container {
-        margin: 20px;
+        margin: 25px;
         padding: 20px;
     }
-
-    .transaction-tabs {
+    
+    .header-section {
         flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
     }
-
-    .tab-btn {
-        width: 100%;
+    
+    .header-section h1 {
+        text-align: center;
+        font-size: 2em;
     }
-
+    
+    .header-section .search-container {
+        max-width: 100%;
+    }
+    
+    .controls-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .sort-controls {
+        justify-content: center;
+    }
+    
+    .transaction-tabs {
+        justify-content: center;
+    }
+    
     .transaction-table {
-        display: block;
-        overflow-x: auto;
+        min-width: 700px;
+    }
+}
+
+/* Mobile Large (481px - 767px) */
+@media (max-width: 767px) {
+    .transactions-container {
+        margin: 20px;
+        padding: 18px;
+    }
+    
+    .header-section h1 {
+        font-size: 1.8em;
+    }
+    
+    .transaction-table {
+        min-width: 600px;
+        font-size: 0.8em;
+    }
+    
+    .transaction-table th,
+    .transaction-table td {
+        padding: 8px 10px;
+    }
+    
+    .table-container {
+        /* Add subtle scrollbar styling */
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-purple-medium) var(--accent-purple-table);
+    }
+    
+    .table-container::-webkit-scrollbar {
+        height: 8px;
+    }
+    
+    .table-container::-webkit-scrollbar-track {
+        background: var(--accent-purple-table);
+    }
+    
+    .table-container::-webkit-scrollbar-thumb {
+        background: var(--accent-purple-medium);
+        border-radius: 4px;
+    }
+}
+
+/* Mobile Medium (376px - 480px) */
+@media (max-width: 480px) {
+    .transactions-container {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    .header-section h1 {
+        font-size: 1.5em;
+    }
+    
+    .tab-btn,
+    .sort-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin: 3px;
+    }
+    
+    #transaction-search {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .transaction-table {
+        min-width: 550px;
+        font-size: 0.75em;
+    }
+    
+    .transaction-table th,
+    .transaction-table td {
+        padding: 6px 8px;
+    }
+    
+    .load-more-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+    
+    h2 {
+        font-size: 1.4em;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+}
+
+/* Mobile Small (320px - 375px) */
+@media (max-width: 375px) {
+    .transactions-container {
+        margin: 10px;
+        padding: 12px;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .header-section h1 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+    
+    .tab-btn,
+    .sort-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin: 2px;
+    }
+    
+    #transaction-search {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .transaction-table {
+        min-width: 500px;
+        font-size: 0.7em;
+    }
+    
+    .transaction-table th,
+    .transaction-table td {
+        padding: 5px 6px;
+    }
+    
+    .load-more-btn {
+        font-size: 13px;
+        padding: 8px 16px;
+    }
+    
+    h2 {
+        font-size: 1.2em;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+    
+    .controls-section {
+        gap: 10px;
+    }
+}
+
+/* Mobile Extra Small (240px - 319px) */
+@media (max-width: 319px) {
+    .transactions-container {
+        margin: 8px;
+        padding: 10px;
+        max-width: calc(100vw - 16px);
+    }
+    
+    .header-section h1 {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+    }
+    
+    .tab-btn,
+    .sort-btn {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin: 1px;
+    }
+    
+    #transaction-search {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .transaction-table {
+        min-width: 450px;
+        font-size: 0.65em;
+    }
+    
+    .transaction-table th,
+    .transaction-table td {
+        padding: 4px 5px;
+    }
+    
+    .load-more-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    h2 {
+        font-size: 1em;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Landscape phone orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    .transactions-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .header-section h1 {
+        font-size: 1.4em;
+    }
+    
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Ensure tables are always visible with proper overflow handling */
+@media (max-width: 991px) {
+    .table-container {
+        position: relative;
+    }
+    
+    .table-container::after {
+        content: "← Scroll to view more →";
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: var(--text-placeholder);
+        opacity: 0.7;
+        pointer-events: none;
+    }
+}
+
+/* Hide scroll hint on larger screens */
+@media (min-width: 992px) {
+    .table-container::after {
+        display: none;
     }
 }

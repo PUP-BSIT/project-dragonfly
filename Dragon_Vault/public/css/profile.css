@@ -530,3 +530,13 @@
 .success-notification.visible {
     transform: translateX(0);
 }
+
+/* Add unmet requirement style for password modal */
+.requirement-not-met {
+    color: #ef4444; /* Tailwind's red-500 */
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}

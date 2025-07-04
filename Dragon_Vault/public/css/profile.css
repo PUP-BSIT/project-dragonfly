@@ -132,28 +132,7 @@
     border: var(--border-white-10);
 }
 
-.profile-avatar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: var(--spacing-3xl);
-}
 
-.avatar-circle {
-    width: var(--avatar-lg);
-    height: var(--avatar-lg);
-    border-radius: var(--radius-full);
-    background: var(--bg-avatar-gradient);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 4px solid var(--white-transparent-20);
-}
-
-.avatar-initials {
-    font-size: var(--font-2xl);
-    font-weight: var(--font-bold);
-    color: white;
-}
 
 .profile-details {
     display: grid;
@@ -236,6 +215,12 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 15px;
 }
 
 .form-row {

@@ -138,12 +138,14 @@ function handleProfileUpdate(e) {
                 currentUserData.full_name = `${updateData.firstName} ${updateData.middleInitial ? updateData.middleInitial + ' ' : ''}${updateData.lastName}`.trim();
                 currentUserData.email = updateData.email;
                 currentUserData.phone = updateData.phone;
-                
                 displayUserProfile(currentUserData);
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");
             } else {
-                alert(data.message || "Failed to update profile. Please try again.");
+                alert(
+                    data.message ||
+                        "Failed to update profile. Please try again."
+                );
             }
         })
         .catch((err) => {
@@ -181,11 +183,11 @@ function checkProfilePasswordRequirements(password) {
     const specialLi = document.getElementById("profile-req-special");
     const lengthLi = document.getElementById("profile-req-length");
 
-    const uppercaseStatus = uppercaseLi.querySelector('.req-status');
-    const lowercaseStatus = lowercaseLi.querySelector('.req-status');
-    const numberStatus = numberLi.querySelector('.req-status');
-    const specialStatus = specialLi.querySelector('.req-status');
-    const lengthStatus = lengthLi.querySelector('.req-status');
+    const uppercaseStatus = uppercaseLi.querySelector(".req-status");
+    const lowercaseStatus = lowercaseLi.querySelector(".req-status");
+    const numberStatus = numberLi.querySelector(".req-status");
+    const specialStatus = specialLi.querySelector(".req-status");
+    const lengthStatus = lengthLi.querySelector(".req-status");
 
     uppercaseStatus.textContent = hasUpperCase ? "Met" : "Not met";
     lowercaseStatus.textContent = hasLowerCase ? "Met" : "Not met";
@@ -193,18 +195,24 @@ function checkProfilePasswordRequirements(password) {
     specialStatus.textContent = hasSpecialChar ? "Met" : "Not met";
     lengthStatus.textContent = isLongEnough ? "Met" : "Not met";
 
-    uppercaseLi.classList.toggle('met', hasUpperCase);
-    uppercaseLi.classList.toggle('not-met', !hasUpperCase);
-    lowercaseLi.classList.toggle('met', hasLowerCase);
-    lowercaseLi.classList.toggle('not-met', !hasLowerCase);
-    numberLi.classList.toggle('met', hasNumbers);
-    numberLi.classList.toggle('not-met', !hasNumbers);
-    specialLi.classList.toggle('met', hasSpecialChar);
-    specialLi.classList.toggle('not-met', !hasSpecialChar);
-    lengthLi.classList.toggle('met', isLongEnough);
-    lengthLi.classList.toggle('not-met', !isLongEnough);
+    uppercaseLi.classList.toggle("met", hasUpperCase);
+    uppercaseLi.classList.toggle("not-met", !hasUpperCase);
+    lowercaseLi.classList.toggle("met", hasLowerCase);
+    lowercaseLi.classList.toggle("not-met", !hasLowerCase);
+    numberLi.classList.toggle("met", hasNumbers);
+    numberLi.classList.toggle("not-met", !hasNumbers);
+    specialLi.classList.toggle("met", hasSpecialChar);
+    specialLi.classList.toggle("not-met", !hasSpecialChar);
+    lengthLi.classList.toggle("met", isLongEnough);
+    lengthLi.classList.toggle("not-met", !isLongEnough);
 
-    return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough;
+    return (
+        hasUpperCase &&
+        hasLowerCase &&
+        hasNumbers &&
+        hasSpecialChar &&
+        isLongEnough
+    );
 }
 
 // Add input event listener for real-time feedback
@@ -231,7 +239,9 @@ function handlePasswordChange(e) {
 
     // Strong password validation
     if (!checkProfilePasswordRequirements(newPassword)) {
-        alert("Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters.");
+        alert(
+            "Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters."
+        );
         return;
     }
 
@@ -257,7 +267,10 @@ function handlePasswordChange(e) {
                 closePasswordModal();
                 showSuccessMessage("Password changed successfully!");
             } else {
-                alert(data.message || "Failed to change password. Please try again.");
+                alert(
+                    data.message ||
+                        "Failed to change password. Please try again."
+                );
             }
         })
         .catch((err) => {
@@ -323,7 +336,9 @@ function showSuccessMessage(message) {
 // Handle navigation button active states
 document.querySelectorAll(".nav-btn").forEach((button) => {
     button.addEventListener("click", function () {
-        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
+        document
+            .querySelectorAll(".nav-btn")
+            .forEach((btn) => btn.classList.remove("active"));
         this.classList.add("active");
     });
 });
@@ -355,9 +370,11 @@ if (!window._profileMobileMenuEventsAdded) {
 
     // Prevent menu close when clicking inside mobile nav
     if (document.getElementById("mobileNav")) {
-        document.getElementById("mobileNav").addEventListener("click", function (event) {
-            event.stopPropagation();
-        });
+        document
+            .getElementById("mobileNav")
+            .addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
     }
     window._profileMobileMenuEventsAdded = true;
 }

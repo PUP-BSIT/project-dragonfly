@@ -462,7 +462,7 @@ body {
 
     .header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         padding: var(--spacing-md) var(--spacing-sm);
     }
 
@@ -541,7 +541,7 @@ body {
 
     .header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         padding: var(--spacing-xs) var(--spacing-md);
     }
 
@@ -620,7 +620,7 @@ body {
 
     .header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         padding: var(--font-sm) var(--font-sm);
     }
 

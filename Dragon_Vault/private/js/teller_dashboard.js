@@ -38,6 +38,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
   });
+
+  // Clear transaction-related sessionStorage when dashboard loads
+  sessionStorage.removeItem('account_number');
+  sessionStorage.removeItem('customer_name');
+  sessionStorage.removeItem('account_type');
+  sessionStorage.removeItem('balance');
+  sessionStorage.removeItem('withdraw_amount');
+  sessionStorage.removeItem('deposit_amount');
+  sessionStorage.removeItem('previous_balance');
+  sessionStorage.removeItem('new_balance');
+  sessionStorage.removeItem('transaction_id');
+  sessionStorage.removeItem('teller_id');
 });
 
 /**

@@ -9,7 +9,6 @@
     --accent-indigo: #4338ca;
     --white: #ffffff;
     --light-gray: #ececec;
-    --success-green: #4caf50;
     
     /* Transparency Variables */
     --glass-light: rgba(255, 255, 255, 0.1);
@@ -359,7 +358,7 @@ body {
 }
 
 .select-btn {
-    background: linear-gradient(170deg, var(--accent-blue), #47307d);
+    background: linear-gradient(180deg, var(--accent-indigo), #47307d);
     border: none;
     padding: var(--spacing-md) 25px;
     color: var(--white);
@@ -372,7 +371,6 @@ body {
 }
 
 .select-btn:hover {
-    transform: translateY(-3px);
     box-shadow: var(--shadow-blue);
 }
 
@@ -472,7 +470,7 @@ body {
 
 .view-all-btn {
     padding: 8px var(--spacing-sm);
-    background-color: var(--success-green);
+    background-color: var(--accent-blue);
     color: var(--white);
     border: none;
     border-radius: 4px;

@@ -20,8 +20,6 @@ if (!$apiKey || !$senderId || !$apiUrl) {
     exit;
 }
 
-// Set up log file
-$logFile = __DIR__ . '/sms_otp.log';
 
 // Check if directory is writable
 if (!is_writable(dirname($logFile))) {

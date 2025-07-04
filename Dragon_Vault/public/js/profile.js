@@ -1,6 +1,9 @@
 const API_BASE = location.hostname === "localhost"
   ? "http://localhost/Dragon_Vault/api/"
   : "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 let currentUserData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -81,6 +84,15 @@ function toggleEditMode() {
     document.getElementById("editFirstName").value = firstName;
     document.getElementById("editMiddleInitial").value = middleInitial;
     document.getElementById("editLastName").value = lastName;
+    // Parse the full name to populate separate fields
+    const nameParts = currentUserData.full_name.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts[nameParts.length - 1] || '';
+    const middleInitial = nameParts.length > 2 ? nameParts[1] : '';
+
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editMiddleInitial").value = middleInitial;
+    document.getElementById("editLastName").value = lastName;
     document.getElementById("editEmail").value = currentUserData.email;
     document.getElementById("editPhone").value = currentUserData.phone || "";
 
@@ -102,6 +114,9 @@ function handleProfileUpdate(e) {
 
     const formData = new FormData(e.target);
     const updateData = {
+        firstName: formData.get("firstName"),
+        middleInitial: formData.get("middleInitial"),
+        lastName: formData.get("lastName"),
         firstName: formData.get("firstName"),
         middleInitial: formData.get("middleInitial"),
         lastName: formData.get("lastName"),
@@ -138,6 +153,7 @@ function handleProfileUpdate(e) {
                 currentUserData.full_name = `${updateData.firstName} ${updateData.middleInitial ? updateData.middleInitial + ' ' : ''}${updateData.lastName}`.trim();
                 currentUserData.email = updateData.email;
                 currentUserData.phone = updateData.phone;
+                
                 displayUserProfile(currentUserData);
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");
@@ -177,34 +193,35 @@ function checkProfilePasswordRequirements(password) {
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const isLongEnough = password.length >= 8;
 
-    const uppercaseLi = document.getElementById("profile-req-uppercase");
-    const lowercaseLi = document.getElementById("profile-req-lowercase");
-    const numberLi = document.getElementById("profile-req-number");
-    const specialLi = document.getElementById("profile-req-special");
-    const lengthLi = document.getElementById("profile-req-length");
+    const reqs = [
+        { id: "profile-req-uppercase", met: hasUpperCase },
+        { id: "profile-req-lowercase", met: hasLowerCase },
+        { id: "profile-req-number", met: hasNumbers },
+        { id: "profile-req-special", met: hasSpecialChar },
+        { id: "profile-req-length", met: isLongEnough }
+    ];
+    let unmetCount = 0;
+    reqs.forEach(r => {
+        const el = document.getElementById(r.id);
+        if (el) {
+            if (r.met) {
+                el.style.display = 'none';
+                el.classList.remove('requirement-not-met');
+            } else {
+                el.style.display = 'flex';
+                el.classList.add('requirement-not-met');
+                unmetCount++;
+            }
+        }
+    });
 
-    const uppercaseStatus = uppercaseLi.querySelector(".req-status");
-    const lowercaseStatus = lowercaseLi.querySelector(".req-status");
-    const numberStatus = numberLi.querySelector(".req-status");
-    const specialStatus = specialLi.querySelector(".req-status");
-    const lengthStatus = lengthLi.querySelector(".req-status");
-
-    uppercaseStatus.textContent = hasUpperCase ? "Met" : "Not met";
-    lowercaseStatus.textContent = hasLowerCase ? "Met" : "Not met";
-    numberStatus.textContent = hasNumbers ? "Met" : "Not met";
-    specialStatus.textContent = hasSpecialChar ? "Met" : "Not met";
-    lengthStatus.textContent = isLongEnough ? "Met" : "Not met";
-
-    uppercaseLi.classList.toggle("met", hasUpperCase);
-    uppercaseLi.classList.toggle("not-met", !hasUpperCase);
-    lowercaseLi.classList.toggle("met", hasLowerCase);
-    lowercaseLi.classList.toggle("not-met", !hasLowerCase);
-    numberLi.classList.toggle("met", hasNumbers);
-    numberLi.classList.toggle("not-met", !hasNumbers);
-    specialLi.classList.toggle("met", hasSpecialChar);
-    specialLi.classList.toggle("not-met", !hasSpecialChar);
-    lengthLi.classList.toggle("met", isLongEnough);
-    lengthLi.classList.toggle("not-met", !isLongEnough);
+    // Show/hide requirements box
+    const reqBox = document.querySelector('.password-requirements');
+    if (password.length >= 8 && unmetCount > 0) {
+        reqBox.style.display = 'block';
+    } else {
+        reqBox.style.display = 'none';
+    }
 
     return (
         hasUpperCase &&
@@ -220,6 +237,11 @@ const newPasswordInput = document.getElementById("newPassword");
 if (newPasswordInput) {
     newPasswordInput.addEventListener("input", (e) => {
         checkProfilePasswordRequirements(e.target.value);
+    });
+    // Hide all requirements individually on load
+    ["profile-req-uppercase","profile-req-lowercase","profile-req-number","profile-req-special","profile-req-length"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'flex';
     });
 }
 

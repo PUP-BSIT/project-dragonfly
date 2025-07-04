@@ -242,7 +242,8 @@ function displayTransactions(type) {
 
     // Display transactions
     if (transactionsToShow.length === 0 && state[type].currentPage === 1) {
-        tableBody.innerHTML = `<tr><td colspan="8" style="text-align: center;">No transactions found.</td></tr>`;
+        const colSpan = type === 'teller' ? 5 : 8;
+        tableBody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align: center;">No transactions found.</td></tr>`;
     } else {
         transactionsToShow.forEach(tx => {
             const row = document.createElement("tr");
@@ -250,35 +251,35 @@ function displayTransactions(type) {
             switch(type) {
                 case 'outbound':
                     row.innerHTML = `
-                        <td>${tx.user_transaction_id}</td>
-                        <td>${tx.transaction_type}</td>
-                        <td>${tx.account_number || 'N/A'}</td>
-                        <td>&#8369;${parseFloat(tx.amount).toFixed(2)}</td>
-                        <td>${tx.status}</td>
-                        <td>${tx.recipient_account_number || 'N/A'}</td>
-                        <td>${tx.recipient_bank_code || 'N/A'}</td>
-                        <td>${new Date(tx.transaction_timestamp).toLocaleString()}</td>
+                        <td data-label="ID">${tx.user_transaction_id}</td>
+                        <td data-label="Type">${tx.transaction_type}</td>
+                        <td data-label="Account Number">${tx.account_number || 'N/A'}</td>
+                        <td data-label="Amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</td>
+                        <td data-label="Status">${tx.status}</td>
+                        <td data-label="Recipient Account">${tx.recipient_account_number || 'N/A'}</td>
+                        <td data-label="Recipient Bank">${tx.recipient_bank_code || 'N/A'}</td>
+                        <td data-label="Timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</td>
                     `;
                     break;
                 case 'inbound':
                     row.innerHTML = `
-                        <td>${tx.user_transaction_id}</td>
-                        <td>${tx.transaction_type}</td>
-                        <td>${tx.recipient_account_number || 'N/A'}</td>
-                        <td>&#8369;${parseFloat(tx.amount).toFixed(2)}</td>
-                        <td>${tx.status}</td>
-                        <td>${tx.account_number || 'N/A'}</td>
-                        <td>${tx.recipient_bank_code || 'N/A'}</td>
-                        <td>${new Date(tx.transaction_timestamp).toLocaleString()}</td>
+                        <td data-label="ID">${tx.user_transaction_id}</td>
+                        <td data-label="Type">${tx.transaction_type}</td>
+                        <td data-label="Account Number">${tx.recipient_account_number || 'N/A'}</td>
+                        <td data-label="Amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</td>
+                        <td data-label="Status">${tx.status}</td>
+                        <td data-label="Sender Account">${tx.account_number || 'N/A'}</td>
+                        <td data-label="Sender Bank">${tx.recipient_bank_code || 'N/A'}</td>
+                        <td data-label="Timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</td>
                     `;
                     break;
                 case 'teller':
                     row.innerHTML = `
-                        <td>${tx.teller_transaction_id}</td>
-                        <td>${tx.transaction_type}</td>
-                        <td>&#8369;${parseFloat(tx.amount).toFixed(2)}</td>
-                        <td>${tx.teller_first_name} ${tx.teller_last_name}</td>
-                        <td>${new Date(tx.transaction_timestamp).toLocaleString()}</td>
+                        <td data-label="ID">${tx.teller_transaction_id}</td>
+                        <td data-label="Type">${tx.transaction_type}</td>
+                        <td data-label="Amount">&#8369;${parseFloat(tx.amount).toFixed(2)}</td>
+                        <td data-label="Teller">${tx.teller_first_name} ${tx.teller_last_name}</td>
+                        <td data-label="Timestamp">${new Date(tx.transaction_timestamp).toLocaleString()}</td>
                     `;
                     break;
             }

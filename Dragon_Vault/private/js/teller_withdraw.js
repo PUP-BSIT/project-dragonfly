@@ -3,6 +3,20 @@ const API_BASE = location.hostname === "localhost"
   : "https://dragonvault.site/Dragon_Vault/api/";
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Pre-fill logic for repeat/switch
+  if (sessionStorage.getItem('account_number') && sessionStorage.getItem('customer_name')) {
+    document.getElementById('account_number').value = sessionStorage.getItem('account_number');
+    if (sessionStorage.getItem('account_type') && sessionStorage.getItem('balance')) {
+      document.getElementById('account_details').style.display = 'block';
+      document.getElementById('customer_name').textContent = sessionStorage.getItem('customer_name');
+      document.getElementById('account_type').textContent = sessionStorage.getItem('account_type');
+      document.getElementById('account_balance').textContent = sessionStorage.getItem('balance');
+      if (sessionStorage.getItem('withdraw_amount')) {
+        document.getElementById('withdraw_amount').value = sessionStorage.getItem('withdraw_amount');
+      }
+    }
+  }
+
   document.getElementById("lookupForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const accountNumber = document.getElementById("account_number").value;

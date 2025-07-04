@@ -54,28 +54,19 @@
 
         <main class="main-content">
             <div class="transactions-container">
-                <h1>Transaction History</h1>
-
-                <div class="search-container">
-                    <input
-                        type="text"
-                        id="transaction-search"
-                        placeholder="Search transactions..." />
+                <!-- Header Section with Title and Search -->
+                <div class="header-section">
+                    <h1>Transaction History</h1>
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            id="transaction-search"
+                            placeholder="Search transactions..." />
+                    </div>
                 </div>
 
-                <div class="transaction-tabs">
-                    <button class="tab-btn active" data-tab="outbound">
-                        Outbound Transactions
-                    </button>
-                    <button class="tab-btn" data-tab="inbound">
-                        Inbound Transactions
-                    </button>
-                    <button class="tab-btn" data-tab="teller">
-                        Teller Transactions
-                    </button>
-                </div>
-
-                <div class="tab-content active" id="outbound-tab">
+                <!-- Controls Section with Sort and Tab Buttons -->
+                <div class="controls-section">
                     <div class="sort-controls">
                         <button
                             class="sort-btn active"
@@ -90,23 +81,40 @@
                             Oldest First
                         </button>
                     </div>
-                    <table class="transaction-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Type</th>
-                                <th>Account Number</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Recipient Account</th>
-                                <th>Recipient Bank</th>
-                                <th>Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-outbound-transaction-body">
-                            <!-- User outbound transactions will be populated here -->
-                        </tbody>
-                    </table>
+                    
+                    <div class="transaction-tabs">
+                        <button class="tab-btn active" data-tab="outbound">
+                            Outbound
+                        </button>
+                        <button class="tab-btn" data-tab="inbound">
+                            Inbound
+                        </button>
+                        <button class="tab-btn" data-tab="teller">
+                            Teller
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-content active" id="outbound-tab">
+                    <div class="table-container">
+                        <table class="transaction-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Account Number</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Recipient Account</th>
+                                    <th>Recipient Bank</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-outbound-transaction-body">
+                                <!-- User outbound transactions will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="load-more-container">
                         <button class="load-more-btn" id="load-more-outbound">
                             Load More
@@ -115,37 +123,25 @@
                 </div>
 
                 <div class="tab-content" id="inbound-tab">
-                    <div class="sort-controls">
-                        <button
-                            class="sort-btn active"
-                            data-sort-order="DESC"
-                            data-type="inbound">
-                            Most Recent First
-                        </button>
-                        <button
-                            class="sort-btn"
-                            data-sort-order="ASC"
-                            data-type="inbound">
-                            Oldest First
-                        </button>
+                    <div class="table-container">
+                        <table class="transaction-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Account Number</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Sender Account</th>
+                                    <th>Sender Bank</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-inbound-transaction-body">
+                                <!-- User inbound transactions will be populated here -->
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="transaction-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Type</th>
-                                <th>Account Number</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Sender Account</th>
-                                <th>Sender Bank</th>
-                                <th>Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-inbound-transaction-body">
-                            <!-- User inbound transactions will be populated here -->
-                        </tbody>
-                    </table>
                     <div class="load-more-container">
                         <button class="load-more-btn" id="load-more-inbound">
                             Load More
@@ -154,34 +150,22 @@
                 </div>
 
                 <div class="tab-content" id="teller-tab">
-                    <div class="sort-controls">
-                        <button
-                            class="sort-btn active"
-                            data-sort-order="DESC"
-                            data-type="teller">
-                            Most Recent First
-                        </button>
-                        <button
-                            class="sort-btn"
-                            data-sort-order="ASC"
-                            data-type="teller">
-                            Oldest First
-                        </button>
+                    <div class="table-container">
+                        <table class="transaction-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Teller</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teller-transaction-body">
+                                <!-- Teller transactions will be populated here -->
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="transaction-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Type</th>
-                                <th>Amount</th>
-                                <th>Teller</th>
-                                <th>Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody id="teller-transaction-body">
-                            <!-- Teller transactions will be populated here -->
-                        </tbody>
-                    </table>
                     <div class="load-more-container">
                         <button class="load-more-btn" id="load-more-teller">
                             Load More

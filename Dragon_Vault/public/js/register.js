@@ -127,35 +127,47 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
 
+        const isLongEnough = password.length >= 8;
         const hasUpperCase = /[A-Z]/.test(password);
         const hasLowerCase = /[a-z]/.test(password);
         const hasNumbers = /\d/.test(password);
         const hasSpecialChar = /[!@#$%^&*(),.?\":{}|<>]/.test(password);
-        const isLongEnough = password.length >= 8;
         const passwordsMatch = password === confirmPassword && password.length > 0;
 
-        // Update requirement indicators
-        document.getElementById("req-uppercase").className = `requirement ${
-            hasUpperCase ? "valid" : "invalid"
-        }`;
-        document.getElementById("req-lowercase").className = `requirement ${
-            hasLowerCase ? "valid" : "invalid"
-        }`;
-        document.getElementById("req-number").className = `requirement ${
-            hasNumbers ? "valid" : "invalid"
-        }`;
-        document.getElementById("req-special").className = `requirement ${
-            hasSpecialChar ? "valid" : "invalid"
-        }`;
-        document.getElementById("req-length").className = `requirement ${
-            isLongEnough ? "valid" : "invalid"
-        }`;
-        document.getElementById("matchReqReg").className = `requirement ${
-            passwordsMatch ? "valid" : "invalid"
-        }`;
+        // Individual requirement visibility and red color
+        const reqs = [
+            { id: "req-length", met: isLongEnough },
+            { id: "req-uppercase", met: hasUpperCase },
+            { id: "req-lowercase", met: hasLowerCase },
+            { id: "req-number", met: hasNumbers },
+            { id: "req-special", met: hasSpecialChar },
+            { id: "matchReqReg", met: passwordsMatch }
+        ];
+        let unmetCount = 0;
+        reqs.forEach(r => {
+            const el = document.getElementById(r.id);
+            if (el) {
+                if (r.met) {
+                    el.style.display = 'none';
+                    el.classList.remove('requirement-not-met');
+                } else {
+                    el.style.display = 'flex';
+                    el.classList.add('requirement-not-met');
+                    unmetCount++;
+                }
+            }
+        });
 
-        const allValid = hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough && passwordsMatch;
+        const allValid = isLongEnough && hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && passwordsMatch;
         signUpBtn.disabled = !allValid;
+
+        // Show/hide requirements box
+        const reqBox = document.querySelector('.password-requirements');
+        if (password.length >= 8 && unmetCount > 0) {
+            reqBox.style.display = 'block';
+        } else {
+            reqBox.style.display = 'none';
+        }
     }
 
     // Add input event listeners for real-time password checking
@@ -334,4 +346,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize password requirements check on load
     checkPasswordRequirements();
+
+    // Hide all requirements individually on load
+    ["req-length","req-uppercase","req-lowercase","req-number","req-special","matchReqReg"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.style.display = 'flex';
+            el.classList.add('requirement-not-met');
+        }
+    });
+
+    const reqBox = document.querySelector('.password-requirements');
+    if (reqBox) reqBox.style.display = 'none';
 });

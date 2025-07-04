@@ -105,6 +105,113 @@
     --container-max-width: 1000px;
 }
 
+/* CSS Root Variables */
+:root {
+    /* Color Variables */
+    --primary-purple: #7b2cbf;
+    --primary-purple-light: #9d4edd;
+    --primary-purple-lighter: #c77dff;
+    --accent-purple: #9b5dd4;
+    --dark-purple: #1a0b2e;
+    --medium-purple: #2d1b69;
+    
+    /* Text Colors */
+    --text-white: white;
+    --text-light-gray: #cccccc;
+    --text-dark: #333;
+    --text-medium: #666;
+    --text-success: #4ade80;
+    --text-error: #f87171;
+    
+    /* Background Gradients */
+    --bg-main-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    --bg-button-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    --bg-button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
+    --bg-progress-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    
+    /* Transparency Variables */
+    --bg-header: rgba(0, 0, 0, 0.2);
+    --bg-register-box: rgba(0, 0, 0, 0.6);
+    --bg-input: rgba(255, 255, 255, 0.9);
+    --bg-input-focus: white;
+    --bg-nav-hover: rgba(255, 255, 255, 0.1);
+    --bg-secondary-hover: rgba(157, 78, 221, 0.1);
+    --bg-requirements: rgba(255, 255, 255, 0.1);
+    --bg-progress: rgba(255, 255, 255, 0.2);
+    --bg-disabled: rgba(123, 44, 191, 0.5);
+    
+    /* Border Colors */
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-otp: rgba(255, 255, 255, 0.3);
+    --border-secondary: #9d4edd;
+    --border-focus: #9d4edd;
+    
+    /* Shadow Variables */
+    --shadow-box: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-box-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
+    --shadow-button: 0 10px 20px rgba(123, 44, 191, 0.3);
+    --shadow-input-focus: 0 0 10px rgba(123, 44, 191, 0.3);
+    --shadow-otp-focus: 0 0 10px rgba(123, 44, 191, 0.3);
+    
+    /* Spacing Variables */
+    --spacing-xs: 5px;
+    --spacing-sm: 8px;
+    --spacing-md: 10px;
+    --spacing-lg: 15px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 25px;
+    --spacing-3xl: 30px;
+    --spacing-4xl: 40px;
+    --spacing-5xl: 50px;
+    
+    /* Font Size Variables */
+    --font-xs: 12px;
+    --font-sm: 14px;
+    --font-md: 16px;
+    --font-lg: 18px;
+    --font-xl: 20px;
+    --font-2xl: 24px;
+    --font-3xl: 28px;
+    
+    /* Font Weight Variables */
+    --font-normal: normal;
+    --font-bold: bold;
+    
+    /* Border Radius Variables */
+    --radius-sm: 2px;
+    --radius-md: 8px;
+    --radius-lg: 20px;
+    
+    /* Size Variables */
+    --logo-size: 50px;
+    --logo-size-sm: 36px;
+    --logo-size-md: 40px;
+    --logo-size-lg: 44px;
+    --otp-size: 50px;
+    --otp-size-xs: 28px;
+    --otp-size-sm: 32px;
+    --otp-size-md: 36px;
+    --otp-size-lg: 40px;
+    --progress-height: 4px;
+    
+    /* Transition Variables */
+    --transition-default: all 0.3s ease;
+    --transition-color: color 0.3s ease;
+    --transition-width: width 0.3s ease;
+    
+    /* Animation Variables */
+    --animation-slide: slideIn 0.5s ease-in-out;
+    
+    /* Backdrop Filter Variables */
+    --backdrop-blur: blur(10px);
+    
+    /* Z-index Variables */
+    --z-toggle: 2;
+    
+    /* Container Variables */
+    --container-max-width: 1000px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -114,9 +221,11 @@
 body {
     font-family: "Times New Roman", sans-serif;
     background: var(--bg-main-gradient);
+    background: var(--bg-main-gradient);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    color: var(--text-white);
     color: var(--text-white);
 }
 
@@ -127,6 +236,9 @@ body {
     padding: 0px var(--spacing-3xl);
     background: var(--bg-header);
     backdrop-filter: var(--backdrop-blur);
+    padding: 0px var(--spacing-3xl);
+    background: var(--bg-header);
+    backdrop-filter: var(--backdrop-blur);
 }
 
 .logo {
@@ -134,18 +246,26 @@ body {
     align-items: center;
     padding: var(--spacing-xl) var(--spacing-3xl);
     gap: var(--spacing-md);
+    padding: var(--spacing-xl) var(--spacing-3xl);
+    gap: var(--spacing-md);
 }
 
 .logo-img {
+    width: var(--logo-size);
+    height: var(--logo-size);
     width: var(--logo-size);
     height: var(--logo-size);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: var(--font-2xl);
+    font-size: var(--font-2xl);
 }
 
 .logo-text {
+    font-size: var(--font-3xl);
+    font-weight: var(--font-bold);
+    color: var(--text-white);
     font-size: var(--font-3xl);
     font-weight: var(--font-bold);
     color: var(--text-white);
@@ -154,12 +274,18 @@ body {
 .nav-links {
     display: flex;
     gap: var(--spacing-3xl);
+    gap: var(--spacing-3xl);
 }
 
 .nav-links a {
     color: var(--text-white);
     margin-left: var(--spacing-md);
+    color: var(--text-white);
+    margin-left: var(--spacing-md);
     text-decoration: none;
+    font-size: var(--font-lg);
+    padding: var(--spacing-xs) var(--spacing-md);
+    transition: var(--transition-default);
     font-size: var(--font-lg);
     padding: var(--spacing-xs) var(--spacing-md);
     transition: var(--transition-default);
@@ -167,7 +293,11 @@ body {
 
 .nav-links a:hover {
     padding: var(--spacing-xs) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md);
     border: none;
+    border-radius: var(--radius-md);
+    background: var(--bg-nav-hover);
+    color: var(--accent-purple);
     border-radius: var(--radius-md);
     background: var(--bg-nav-hover);
     color: var(--accent-purple);
@@ -180,9 +310,14 @@ body {
     align-items: center;
     justify-content: center;
     padding: var(--spacing-xl);
+    padding: var(--spacing-xl);
 }
 
 .register-box {
+    background: var(--bg-register-box);
+    backdrop-filter: var(--backdrop-blur);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4xl);
     background: var(--bg-register-box);
     backdrop-filter: var(--backdrop-blur);
     border-radius: var(--radius-lg);
@@ -192,15 +327,24 @@ body {
     box-shadow: var(--shadow-box);
     border: 1px solid var(--border-light);
     transition: var(--transition-default);
+    max-width: var(--container-max-width);
+    box-shadow: var(--shadow-box);
+    border: 1px solid var(--border-light);
+    transition: var(--transition-default);
 }
 
 .register-box:hover {
+    box-shadow: var(--shadow-box-hover);
     box-shadow: var(--shadow-box-hover);
     transform: translateY(-5px);
 }
 
 .register-title {
     text-align: center;
+    font-size: var(--font-3xl);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--spacing-md);
+    color: var(--text-white);
     font-size: var(--font-3xl);
     font-weight: var(--font-bold);
     margin-bottom: var(--spacing-md);
@@ -212,10 +356,14 @@ body {
     color: var(--text-light-gray);
     margin-bottom: var(--spacing-3xl);
     font-size: var(--font-md);
+    color: var(--text-light-gray);
+    margin-bottom: var(--spacing-3xl);
+    font-size: var(--font-md);
 }
 
 .screen {
     display: none;
+    animation: var(--animation-slide);
     animation: var(--animation-slide);
 }
 
@@ -226,6 +374,7 @@ body {
 @keyframes slideIn {
     from {
         opacity: 0;
+        transform: translateX(var(--spacing-xl));
         transform: translateX(var(--spacing-xl));
     }
     to {
@@ -239,14 +388,22 @@ body {
     color: var(--text-light-gray);
     margin-bottom: var(--spacing-3xl);
     font-size: var(--font-md);
+    color: var(--text-light-gray);
+    margin-bottom: var(--spacing-3xl);
+    font-size: var(--font-md);
     line-height: 1.4;
 }
 
 .form-section {
     margin-bottom: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
 }
 
 .section-label {
+    color: var(--text-white);
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--spacing-lg);
     color: var(--text-white);
     font-size: var(--font-md);
     font-weight: var(--font-bold);
@@ -256,6 +413,8 @@ body {
 
 .form-row {
     display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
@@ -271,11 +430,17 @@ body {
 .input-field {
     width: 100%;
     padding: var(--spacing-lg);
+    padding: var(--spacing-lg);
     border: none;
     background: var(--bg-input);
     font-size: var(--font-md);
     color: var(--text-dark);
+    background: var(--bg-input);
+    font-size: var(--font-md);
+    color: var(--text-dark);
     outline: none;
+    transition: var(--transition-default);
+    border-radius: var(--radius-md);
     transition: var(--transition-default);
     border-radius: var(--radius-md);
 }
@@ -283,9 +448,12 @@ body {
 .input-field:focus {
     background: var(--bg-input-focus);
     box-shadow: var(--shadow-input-focus);
+    background: var(--bg-input-focus);
+    box-shadow: var(--shadow-input-focus);
 }
 
 .input-field::placeholder {
+    color: var(--text-medium);
     color: var(--text-medium);
 }
 
@@ -294,24 +462,35 @@ body {
     padding: var(--spacing-lg);
     background: var(--bg-button-gradient);
     color: var(--text-white);
+    padding: var(--spacing-lg);
+    background: var(--bg-button-gradient);
+    color: var(--text-white);
     border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
     border-radius: var(--radius-md);
     font-size: var(--font-md);
     font-weight: var(--font-bold);
     cursor: pointer;
     transition: var(--transition-default);
+    transition: var(--transition-default);
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
 
 .primary-btn:hover {
     background: var(--bg-button-hover-gradient);
+    background: var(--bg-button-hover-gradient);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-button);
     box-shadow: var(--shadow-button);
 }
 
 .primary-btn:disabled {
+    background: var(--bg-disabled);
     background: var(--bg-disabled);
     cursor: not-allowed;
     transform: none;
@@ -321,7 +500,13 @@ body {
 .secondary-btn {
     width: 100%;
     padding: var(--spacing-lg);
+    padding: var(--spacing-lg);
     background: transparent;
+    color: var(--primary-purple-light);
+    border: 2px solid var(--border-secondary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
     color: var(--primary-purple-light);
     border: 2px solid var(--border-secondary);
     border-radius: var(--radius-md);
@@ -329,12 +514,15 @@ body {
     font-weight: var(--font-bold);
     cursor: pointer;
     transition: var(--transition-default);
+    transition: var(--transition-default);
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
 
 .secondary-btn:hover {
+    background: var(--bg-secondary-hover);
     background: var(--bg-secondary-hover);
     transform: translateY(-2px);
 }
@@ -344,9 +532,13 @@ body {
     justify-content: center;
     gap: var(--spacing-md);
     margin: var(--spacing-xl) 0;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
 }
 
 .otp-input {
+    width: var(--otp-size);
+    height: var(--otp-size);
     width: var(--otp-size);
     height: var(--otp-size);
     text-align: center;
@@ -356,11 +548,21 @@ body {
     background: var(--bg-input);
     border-radius: var(--radius-md);
     color: var(--text-dark);
+    font-size: var(--spacing-xl);
+    font-weight: var(--font-bold);
+    border: 2px solid var(--border-otp);
+    background: var(--bg-input);
+    border-radius: var(--radius-md);
+    color: var(--text-dark);
     outline: none;
+    transition: var(--transition-default);
     transition: var(--transition-default);
 }
 
 .otp-input:focus {
+    border-color: var(--border-focus);
+    background: var(--bg-input-focus);
+    box-shadow: var(--shadow-otp-focus);
     border-color: var(--border-focus);
     background: var(--bg-input-focus);
     box-shadow: var(--shadow-otp-focus);
@@ -371,26 +573,36 @@ body {
     margin: var(--spacing-xl) 0;
     color: var(--text-light-gray);
     font-size: var(--font-sm);
+    margin: var(--spacing-xl) 0;
+    color: var(--text-light-gray);
+    font-size: var(--font-sm);
 }
 
 .resend-link {
     color: var(--primary-purple-light);
+    color: var(--primary-purple-light);
     text-decoration: none;
     font-weight: var(--font-bold);
+    font-weight: var(--font-bold);
     cursor: pointer;
+    transition: var(--transition-color);
     transition: var(--transition-color);
 }
 
 .resend-link:hover {
     color: var(--primary-purple-lighter);
+    color: var(--primary-purple-lighter);
 }
 
 .resend-link.disabled {
+    color: var(--text-medium);
     color: var(--text-medium);
     cursor: not-allowed;
 }
 
 .timer {
+    color: var(--primary-purple-light);
+    font-weight: var(--font-bold);
     color: var(--primary-purple-light);
     font-weight: var(--font-bold);
 }
@@ -402,24 +614,38 @@ body {
     margin: var(--spacing-lg) 0;
     font-size: var(--font-sm);
     color: var(--text-light-gray);
+    background: var(--bg-requirements);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+    font-size: var(--font-sm);
+    color: var(--text-light-gray);
 }
 
 .requirement {
     margin: var(--spacing-xs) 0;
+    margin: var(--spacing-xs) 0;
     display: flex;
     align-items: center;
+    gap: var(--spacing-sm);
     gap: var(--spacing-sm);
 }
 
 .requirement.valid {
     color: var(--text-success);
+    color: var(--text-success);
 }
 
 .requirement.invalid {
     color: var(--text-error);
+    color: var(--text-error);
 }
 
 .progress-bar {
+    height: var(--progress-height);
+    background: var(--bg-progress);
+    border-radius: var(--radius-sm);
+    margin: var(--spacing-xl) 0;
     height: var(--progress-height);
     background: var(--bg-progress);
     border-radius: var(--radius-sm);
@@ -430,7 +656,9 @@ body {
 .progress-fill {
     height: 100%;
     background: var(--bg-progress-gradient);
+    background: var(--bg-progress-gradient);
     width: 0%;
+    transition: var(--transition-width);
     transition: var(--transition-width);
 }
 
@@ -439,22 +667,31 @@ body {
     margin-top: var(--spacing-xl);
     font-size: var(--font-sm);
     color: var(--text-light-gray);
+    margin-top: var(--spacing-xl);
+    font-size: var(--font-sm);
+    color: var(--text-light-gray);
 }
 
 .login-link a {
     color: var(--primary-purple-light);
+    color: var(--primary-purple-light);
     text-decoration: none;
+    font-weight: var(--font-bold);
+    transition: var(--transition-color);
     font-weight: var(--font-bold);
     transition: var(--transition-color);
 }
 
 .login-link a:hover {
     color: var(--primary-purple-lighter);
+    color: var(--primary-purple-lighter);
 }
 
 @media (max-width: 320px) {
     .register-box,
     .forgot-password-box {
+        padding: var(--spacing-xl) var(--spacing-sm);
+        margin: var(--spacing-md);
         padding: var(--spacing-xl) var(--spacing-sm);
         margin: var(--spacing-md);
         max-width: 98vw;
@@ -468,6 +705,7 @@ body {
 
     .logo {
         padding: var(--spacing-md) 0;
+        padding: var(--spacing-md) 0;
         gap: 6px;
     }
 
@@ -475,24 +713,33 @@ body {
         width: var(--logo-size-sm);
         height: var(--logo-size-sm);
         font-size: var(--font-lg);
+        width: var(--logo-size-sm);
+        height: var(--logo-size-sm);
+        font-size: var(--font-lg);
     }
 
     .logo-text {
+        font-size: var(--font-md);
         font-size: var(--font-md);
     }
 
     .nav-links {
         gap: var(--spacing-sm);
+        gap: var(--spacing-sm);
     }
 
     .nav-links a {
         font-size: var(--font-sm);
+        font-size: var(--font-sm);
         padding: 3px 6px;
+        background: var(--bg-nav-hover);
+        color: var(--accent-purple);
         background: var(--bg-nav-hover);
         color: var(--accent-purple);
     }
 
     .screen-title {
+        font-size: var(--font-lg);
         font-size: var(--font-lg);
     }
 
@@ -507,9 +754,14 @@ body {
     .secondary-btn {
         font-size: var(--font-xs);
         padding: var(--spacing-md);
+        font-size: var(--font-xs);
+        padding: var(--spacing-md);
     }
 
     .otp-input {
+        width: var(--otp-size-xs);
+        height: var(--otp-size-xs);
+        font-size: var(--font-sm);
         width: var(--otp-size-xs);
         height: var(--otp-size-xs);
         font-size: var(--font-sm);
@@ -517,15 +769,20 @@ body {
 
     .progress-bar {
         margin: var(--spacing-md) 0;
+        margin: var(--spacing-md) 0;
     }
 
     .password-requirements {
         font-size: var(--font-xs);
         padding: var(--spacing-sm);
         margin: var(--spacing-sm) 0;
+        font-size: var(--font-xs);
+        padding: var(--spacing-sm);
+        margin: var(--spacing-sm) 0;
     }
 
     .requirement {
+        font-size: var(--font-xs);
         font-size: var(--font-xs);
         gap: 4px;
     }
@@ -534,6 +791,8 @@ body {
 @media (min-width: 321px) and (max-width: 376px) {
     .register-box,
     .forgot-password-box {
+        padding: 24px var(--spacing-md);
+        margin: var(--spacing-xs);
         padding: 24px var(--spacing-md);
         margin: var(--spacing-xs);
         max-width: 96vw;
@@ -548,9 +807,14 @@ body {
     .logo {
         padding: var(--spacing-xs) 0;
         gap: var(--spacing-sm);
+        padding: var(--spacing-xs) 0;
+        gap: var(--spacing-sm);
     }
 
     .logo-img {
+        width: var(--logo-size-md);
+        height: var(--logo-size-md);
+        font-size: var(--spacing-xl);
         width: var(--logo-size-md);
         height: var(--logo-size-md);
         font-size: var(--spacing-xl);
@@ -558,9 +822,11 @@ body {
 
     .logo-text {
         font-size: var(--font-lg);
+        font-size: var(--font-lg);
     }
 
     .nav-links {
+        gap: var(--spacing-md);
         gap: var(--spacing-md);
     }
 
@@ -569,14 +835,21 @@ body {
         padding: 4px var(--spacing-sm);
         background: var(--bg-nav-hover);
         color: var(--accent-purple);
+        font-size: var(--spacing-lg);
+        padding: 4px var(--spacing-sm);
+        background: var(--bg-nav-hover);
+        color: var(--accent-purple);
     }
 
     .screen-title {
+        font-size: var(--spacing-xl);
         font-size: var(--spacing-xl);
     }
 
     .screen-subtitle,
     .welcome-text {
+        font-size: var(--font-sm);
+        margin-bottom: var(--spacing-xl);
         font-size: var(--font-sm);
         margin-bottom: var(--spacing-xl);
     }
@@ -586,9 +859,13 @@ body {
     .secondary-btn {
         font-size: 13px;
         padding: var(--spacing-xs);
+        padding: var(--spacing-xs);
     }
 
     .otp-input {
+        width: var(--otp-size-sm);
+        height: var(--otp-size-sm);
+        font-size: var(--font-md);
         width: var(--otp-size-sm);
         height: var(--otp-size-sm);
         font-size: var(--font-md);
@@ -596,10 +873,13 @@ body {
 
     .progress-bar {
         margin: var(--spacing-xs) 0;
+        margin: var(--spacing-xs) 0;
     }
 
     .password-requirements {
         font-size: 13px;
+        padding: var(--spacing-md);
+        margin: var(--spacing-md) 0;
         padding: var(--spacing-md);
         margin: var(--spacing-md) 0;
     }
@@ -615,6 +895,8 @@ body {
     .forgot-password-box {
         padding: 28px var(--font-sm);
         margin: var(--font-md);
+        padding: 28px var(--font-sm);
+        margin: var(--font-md);
         max-width: 94vw;
     }
 
@@ -626,10 +908,13 @@ body {
 
     .logo {
         padding: var(--font-sm) 0;
+        padding: var(--font-sm) 0;
         gap: 9px;
     }
 
     .logo-img {
+        width: var(--logo-size-lg);
+        height: var(--logo-size-lg);
         width: var(--logo-size-lg);
         height: var(--logo-size-lg);
         font-size: 22px;
@@ -648,6 +933,10 @@ body {
         padding: var(--spacing-xs) 9px;
         background: var(--bg-nav-hover);
         color: var(--accent-purple);
+        font-size: var(--font-md);
+        padding: var(--spacing-xs) 9px;
+        background: var(--bg-nav-hover);
+        color: var(--accent-purple);
     }
 
     .screen-title {
@@ -657,6 +946,7 @@ body {
     .screen-subtitle,
     .welcome-text {
         font-size: var(--spacing-lg);
+        font-size: var(--spacing-lg);
         margin-bottom: 24px;
     }
 
@@ -664,10 +954,13 @@ body {
     .primary-btn,
     .secondary-btn {
         font-size: var(--spacing-lg);
+        font-size: var(--spacing-lg);
         padding: 13px;
     }
 
     .otp-input {
+        width: var(--otp-size-md);
+        height: var(--otp-size-md);
         width: var(--otp-size-md);
         height: var(--otp-size-md);
         font-size: 17px;
@@ -675,15 +968,20 @@ body {
 
     .progress-bar {
         margin: var(--font-md) 0;
+        margin: var(--font-md) 0;
     }
 
     .password-requirements {
         font-size: var(--font-sm);
         padding: var(--spacing-xs);
         margin: var(--spacing-xs) 0;
+        font-size: var(--font-sm);
+        padding: var(--spacing-xs);
+        margin: var(--spacing-xs) 0;
     }
 
     .requirement {
+        font-size: var(--font-sm);
         font-size: var(--font-sm);
         gap: 7px;
     }
@@ -693,21 +991,29 @@ body {
     .register-box {
         padding: var(--spacing-3xl) var(--spacing-xl);
         margin: var(--spacing-xl);
+        padding: var(--spacing-3xl) var(--spacing-xl);
+        margin: var(--spacing-xl);
     }
 
     .header {
+        padding: var(--spacing-lg) var(--spacing-xl);
         padding: var(--spacing-lg) var(--spacing-xl);
     }
 
     .logo-text {
         font-size: var(--spacing-xl);
+        font-size: var(--spacing-xl);
     }
 
     .screen-title {
         font-size: var(--font-2xl);
+        font-size: var(--font-2xl);
     }
 
     .otp-input {
+        width: var(--otp-size-lg);
+        height: var(--otp-size-lg);
+        font-size: var(--font-lg);
         width: var(--otp-size-lg);
         height: var(--otp-size-lg);
         font-size: var(--font-lg);
@@ -725,6 +1031,7 @@ body {
 .toggle-password {
     position: absolute;
     right: var(--spacing-md);
+    right: var(--spacing-md);
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -734,9 +1041,14 @@ body {
     font-size: var(--font-md);
     color: var(--text-dark);
     z-index: var(--z-toggle);
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-md);
+    color: var(--text-dark);
+    z-index: var(--z-toggle);
 }
 
 .toggle-password:focus {
+    outline: 2px solid var(--primary-purple);
     outline: 2px solid var(--primary-purple);
 }
 

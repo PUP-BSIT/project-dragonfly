@@ -1,6 +1,9 @@
 const API_BASE = location.hostname === "localhost"
   ? "http://localhost/Dragon_Vault/api/"
   : "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE = location.hostname === "localhost"
+  ? "http://localhost/Dragon_Vault/api/"
+  : "https://dragonvault.site/Dragon_Vault/api/";
 let currentUserData = {};
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -81,6 +84,15 @@ function toggleEditMode() {
     document.getElementById("editFirstName").value = firstName;
     document.getElementById("editMiddleInitial").value = middleInitial;
     document.getElementById("editLastName").value = lastName;
+    // Parse the full name to populate separate fields
+    const nameParts = currentUserData.full_name.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts[nameParts.length - 1] || '';
+    const middleInitial = nameParts.length > 2 ? nameParts[1] : '';
+
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editMiddleInitial").value = middleInitial;
+    document.getElementById("editLastName").value = lastName;
     document.getElementById("editEmail").value = currentUserData.email;
     document.getElementById("editPhone").value = currentUserData.phone || "";
 
@@ -102,6 +114,9 @@ function handleProfileUpdate(e) {
 
     const formData = new FormData(e.target);
     const updateData = {
+        firstName: formData.get("firstName"),
+        middleInitial: formData.get("middleInitial"),
+        lastName: formData.get("lastName"),
         firstName: formData.get("firstName"),
         middleInitial: formData.get("middleInitial"),
         lastName: formData.get("lastName"),
@@ -143,7 +158,10 @@ function handleProfileUpdate(e) {
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");
             } else {
-                alert(data.message || "Failed to update profile. Please try again.");
+                alert(
+                    data.message ||
+                        "Failed to update profile. Please try again."
+                );
             }
         })
         .catch((err) => {
@@ -205,7 +223,13 @@ function checkProfilePasswordRequirements(password) {
         reqBox.style.display = 'none';
     }
 
-    return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough;
+    return (
+        hasUpperCase &&
+        hasLowerCase &&
+        hasNumbers &&
+        hasSpecialChar &&
+        isLongEnough
+    );
 }
 
 // Add input event listener for real-time feedback
@@ -237,7 +261,9 @@ function handlePasswordChange(e) {
 
     // Strong password validation
     if (!checkProfilePasswordRequirements(newPassword)) {
-        alert("Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters.");
+        alert(
+            "Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters."
+        );
         return;
     }
 
@@ -263,7 +289,10 @@ function handlePasswordChange(e) {
                 closePasswordModal();
                 showSuccessMessage("Password changed successfully!");
             } else {
-                alert(data.message || "Failed to change password. Please try again.");
+                alert(
+                    data.message ||
+                        "Failed to change password. Please try again."
+                );
             }
         })
         .catch((err) => {
@@ -329,7 +358,9 @@ function showSuccessMessage(message) {
 // Handle navigation button active states
 document.querySelectorAll(".nav-btn").forEach((button) => {
     button.addEventListener("click", function () {
-        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
+        document
+            .querySelectorAll(".nav-btn")
+            .forEach((btn) => btn.classList.remove("active"));
         this.classList.add("active");
     });
 });
@@ -361,9 +392,11 @@ if (!window._profileMobileMenuEventsAdded) {
 
     // Prevent menu close when clicking inside mobile nav
     if (document.getElementById("mobileNav")) {
-        document.getElementById("mobileNav").addEventListener("click", function (event) {
-            event.stopPropagation();
-        });
+        document
+            .getElementById("mobileNav")
+            .addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
     }
     window._profileMobileMenuEventsAdded = true;
 }

@@ -63,12 +63,6 @@ function setupEventListeners() {
             closePasswordModal();
         }
     });
-
-    document.getElementById("deleteModal").addEventListener("click", (e) => {
-        if (e.target.id === "deleteModal") {
-            closeDeleteModal();
-        }
-    });
 }
 
 // Toggle edit mode
@@ -76,7 +70,15 @@ function toggleEditMode() {
     const displayCard = document.getElementById("profileDisplay");
     const editCard = document.getElementById("profileEdit");
 
-    document.getElementById("editFullName").value = currentUserData.full_name;
+    // Parse the full name to populate separate fields
+    const nameParts = currentUserData.full_name.split(" ");
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts[nameParts.length - 1] || "";
+    const middleInitial = nameParts.length > 2 ? nameParts[1] : "";
+
+    document.getElementById("editFirstName").value = firstName;
+    document.getElementById("editMiddleInitial").value = middleInitial;
+    document.getElementById("editLastName").value = lastName;
     document.getElementById("editEmail").value = currentUserData.email;
     document.getElementById("editPhone").value = currentUserData.phone || "";
 
@@ -98,7 +100,9 @@ function handleProfileUpdate(e) {
 
     const formData = new FormData(e.target);
     const updateData = {
-        fullName: formData.get("fullName"),
+        firstName: formData.get("firstName"),
+        middleInitial: formData.get("middleInitial"),
+        lastName: formData.get("lastName"),
         email: formData.get("email"),
         phone: formData.get("phone"),
     };
@@ -125,12 +129,26 @@ function handleProfileUpdate(e) {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                currentUserData = { ...currentUserData, ...updateData };
+                // Update currentUserData with new values
+                currentUserData.first_name = updateData.firstName;
+                currentUserData.middle_initial = updateData.middleInitial;
+                currentUserData.last_name = updateData.lastName;
+                currentUserData.full_name = `${updateData.firstName} ${
+                    updateData.middleInitial
+                        ? updateData.middleInitial + " "
+                        : ""
+                }${updateData.lastName}`.trim();
+                currentUserData.email = updateData.email;
+                currentUserData.phone = updateData.phone;
+
                 displayUserProfile(currentUserData);
                 cancelEdit();
                 showSuccessMessage("Profile updated successfully!");
             } else {
-                alert(data.message || "Failed to update profile. Please try again.");
+                alert(
+                    data.message ||
+                        "Failed to update profile. Please try again."
+                );
             }
         })
         .catch((err) => {
@@ -168,11 +186,11 @@ function checkProfilePasswordRequirements(password) {
     const specialLi = document.getElementById("profile-req-special");
     const lengthLi = document.getElementById("profile-req-length");
 
-    const uppercaseStatus = uppercaseLi.querySelector('.req-status');
-    const lowercaseStatus = lowercaseLi.querySelector('.req-status');
-    const numberStatus = numberLi.querySelector('.req-status');
-    const specialStatus = specialLi.querySelector('.req-status');
-    const lengthStatus = lengthLi.querySelector('.req-status');
+    const uppercaseStatus = uppercaseLi.querySelector(".req-status");
+    const lowercaseStatus = lowercaseLi.querySelector(".req-status");
+    const numberStatus = numberLi.querySelector(".req-status");
+    const specialStatus = specialLi.querySelector(".req-status");
+    const lengthStatus = lengthLi.querySelector(".req-status");
 
     uppercaseStatus.textContent = hasUpperCase ? "Met" : "Not met";
     lowercaseStatus.textContent = hasLowerCase ? "Met" : "Not met";
@@ -180,18 +198,24 @@ function checkProfilePasswordRequirements(password) {
     specialStatus.textContent = hasSpecialChar ? "Met" : "Not met";
     lengthStatus.textContent = isLongEnough ? "Met" : "Not met";
 
-    uppercaseLi.classList.toggle('met', hasUpperCase);
-    uppercaseLi.classList.toggle('not-met', !hasUpperCase);
-    lowercaseLi.classList.toggle('met', hasLowerCase);
-    lowercaseLi.classList.toggle('not-met', !hasLowerCase);
-    numberLi.classList.toggle('met', hasNumbers);
-    numberLi.classList.toggle('not-met', !hasNumbers);
-    specialLi.classList.toggle('met', hasSpecialChar);
-    specialLi.classList.toggle('not-met', !hasSpecialChar);
-    lengthLi.classList.toggle('met', isLongEnough);
-    lengthLi.classList.toggle('not-met', !isLongEnough);
+    uppercaseLi.classList.toggle("met", hasUpperCase);
+    uppercaseLi.classList.toggle("not-met", !hasUpperCase);
+    lowercaseLi.classList.toggle("met", hasLowerCase);
+    lowercaseLi.classList.toggle("not-met", !hasLowerCase);
+    numberLi.classList.toggle("met", hasNumbers);
+    numberLi.classList.toggle("not-met", !hasNumbers);
+    specialLi.classList.toggle("met", hasSpecialChar);
+    specialLi.classList.toggle("not-met", !hasSpecialChar);
+    lengthLi.classList.toggle("met", isLongEnough);
+    lengthLi.classList.toggle("not-met", !isLongEnough);
 
-    return hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar && isLongEnough;
+    return (
+        hasUpperCase &&
+        hasLowerCase &&
+        hasNumbers &&
+        hasSpecialChar &&
+        isLongEnough
+    );
 }
 
 // Add input event listener for real-time feedback
@@ -218,7 +242,9 @@ function handlePasswordChange(e) {
 
     // Strong password validation
     if (!checkProfilePasswordRequirements(newPassword)) {
-        alert("Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters.");
+        alert(
+            "Password must contain: uppercase letter, lowercase letter, number, special character, and at least 8 characters."
+        );
         return;
     }
 
@@ -244,7 +270,10 @@ function handlePasswordChange(e) {
                 closePasswordModal();
                 showSuccessMessage("Password changed successfully!");
             } else {
-                alert(data.message || "Failed to change password. Please try again.");
+                alert(
+                    data.message ||
+                        "Failed to change password. Please try again."
+                );
             }
         })
         .catch((err) => {
@@ -254,68 +283,6 @@ function handlePasswordChange(e) {
         .finally(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        });
-}
-
-// Delete account modal functions
-function confirmDeleteAccount() {
-    document.getElementById("deleteModal").style.display = "flex";
-    document.getElementById("deletePassword").focus();
-}
-
-function closeDeleteModal() {
-    document.getElementById("deleteModal").style.display = "none";
-    document.getElementById("deletePassword").value = "";
-}
-
-// Handle account deletion
-function deleteAccount() {
-    const password = document.getElementById("deletePassword").value;
-
-    if (!password) {
-        alert("Please enter your password to confirm account deletion.");
-        return;
-    }
-
-    const finalConfirm = confirm(
-        "This is your final warning. Your account and all data will be permanently deleted. Are you absolutely sure?"
-    );
-
-    if (!finalConfirm) return;
-
-    const deleteBtn = document.querySelector(".delete-confirm-btn");
-    const originalText = deleteBtn.textContent;
-    deleteBtn.textContent = "Deleting...";
-    deleteBtn.disabled = true;
-
-    fetch(API_BASE + "account/delete_account.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            password: password,
-        }),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.success) {
-                alert(
-                    "Your account has been successfully deleted. You will be redirected to the homepage."
-                );
-                window.location.href = "../../index.html";
-            } else {
-                alert(data.message || "Failed to delete account. Please verify your password and try again.");
-            }
-        })
-        .catch((err) => {
-            console.error("Error deleting account:", err);
-            alert("An error occurred while deleting your account.");
-        })
-        .finally(() => {
-            deleteBtn.textContent = originalText;
-            deleteBtn.disabled = false;
         });
 }
 
@@ -372,7 +339,9 @@ function showSuccessMessage(message) {
 // Handle navigation button active states
 document.querySelectorAll(".nav-btn").forEach((button) => {
     button.addEventListener("click", function () {
-        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
+        document
+            .querySelectorAll(".nav-btn")
+            .forEach((btn) => btn.classList.remove("active"));
         this.classList.add("active");
     });
 });
@@ -404,9 +373,11 @@ if (!window._profileMobileMenuEventsAdded) {
 
     // Prevent menu close when clicking inside mobile nav
     if (document.getElementById("mobileNav")) {
-        document.getElementById("mobileNav").addEventListener("click", function (event) {
-            event.stopPropagation();
-        });
+        document
+            .getElementById("mobileNav")
+            .addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
     }
     window._profileMobileMenuEventsAdded = true;
 }

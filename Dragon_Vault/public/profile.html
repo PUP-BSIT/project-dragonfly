@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/dashboard.css" />
         <link rel="stylesheet" href="css/profile.css" />
-        <link rel="icon" href="logo.png" />
+        <link rel="icon" href="../assets/logo.png" />
         <title>Profile - DragonVault</title>
     </head>
     <body>
@@ -20,7 +20,9 @@
             <!-- Desktop Navigation -->
             <nav class="nav-buttons">
                 <button class="nav-btn" onclick="goToHome()">Home</button>
-                <button class="nav-btn active" onclick="goToProfile()">Profile</button>
+                <button class="nav-btn active" onclick="goToProfile()">
+                    Profile
+                </button>
                 <button class="nav-btn" onclick="logout()">Log out</button>
             </nav>
 
@@ -34,10 +36,24 @@
 
         <!-- Mobile Navigation Overlay -->
         <div class="mobile-nav" id="mobileNav">
-            <button class="close-btn" onclick="toggleMobileMenu()">&times;</button>
-            <button class="mobile-nav-btn" onclick="goToHome(); toggleMobileMenu()">Home</button>
-            <button class="mobile-nav-btn active" onclick="goToProfile(); toggleMobileMenu()">Profile</button>
-            <button class="mobile-nav-btn" onclick="logout(); toggleMobileMenu()">Log out</button>
+            <button class="close-btn" onclick="toggleMobileMenu()">
+                &times;
+            </button>
+            <button
+                class="mobile-nav-btn"
+                onclick="goToHome(); toggleMobileMenu()">
+                Home
+            </button>
+            <button
+                class="mobile-nav-btn active"
+                onclick="goToProfile(); toggleMobileMenu()">
+                Profile
+            </button>
+            <button
+                class="mobile-nav-btn"
+                onclick="logout(); toggleMobileMenu()">
+                Log out
+            </button>
         </div>
 
         <main class="main-content">
@@ -51,14 +67,6 @@
             <div class="profile-container">
                 <!-- Profile Information Display -->
                 <div class="profile-info-card" id="profileDisplay">
-                    <div class="profile-avatar">
-                        <div class="avatar-circle">
-                            <span class="avatar-initials" id="avatarInitials"
-                                >JD</span
-                            >
-                        </div>
-                    </div>
-
                     <div class="profile-details">
                         <div class="detail-group">
                             <label class="detail-label">Full Name</label>
@@ -96,16 +104,44 @@
                     id="profileEdit"
                     style="display: none">
                     <form class="edit-form" id="editForm">
-                        <div class="form-group">
-                            <label class="form-label" for="editFullName"
-                                >Full Name</label
-                            >
-                            <input
-                                type="text"
-                                id="editFullName"
-                                name="fullName"
-                                class="form-input"
-                                required />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="editFirstName"
+                                    >First Name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="editFirstName"
+                                    name="firstName"
+                                    class="form-input"
+                                    required />
+                            </div>
+
+                            <div class="form-group">
+                                <label
+                                    class="form-label"
+                                    for="editMiddleInitial"
+                                    >Middle Initial</label
+                                >
+                                <input
+                                    type="text"
+                                    id="editMiddleInitial"
+                                    name="middleInitial"
+                                    class="form-input"
+                                    maxlength="1" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="editLastName"
+                                    >Last Name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="editLastName"
+                                    name="lastName"
+                                    class="form-input"
+                                    required />
+                            </div>
                         </div>
 
                         <div class="form-group">

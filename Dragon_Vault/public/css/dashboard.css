@@ -551,21 +551,21 @@ body {
 }
 
     .transaction-item .type {
-        flex: 2;
-        min-width: 100px;
-        text-align: left;
+        flex: 2 !important;
+        min-width: 50px !important;
+        text-align: left !important;
     }
 
     .transaction-item .amount {
-        flex: 1;
-        min-width: 80px;
-        text-align: right;
+        flex: 1 !important;
+        min-width: 50px !important;
+        text-align: right !important;
     }
 
     .transaction-item .timestamp {
-        flex: 1.5;
-        min-width: 120px;
-        text-align: right;
+        flex: 1.5 !important;
+        min-width: 60px !important;
+        text-align: right !important;
     }
 
 .view-all-container {

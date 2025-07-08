@@ -1,9 +1,68 @@
+:root {
+  /* Font Variables */
+  --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: "Times New Roman", Times, serif;
+  
+  /* Color Variables */
+  --bg-primary: #1b0036;
+  --bg-secondary: #0c001a;
+  --bg-tertiary: #0d001f;
+  --text-primary: white;
+  --accent-primary: #9f00e8;
+  --accent-secondary: #6a00a3;
+  --accent-hover-primary: #8a00cc;
+  --accent-hover-secondary: #53008a;
+  --shadow-primary: #450078;
+  --shadow-secondary: rgba(0, 0, 0, 0.4);
+  --button-cancel: #666;
+  --button-cancel-secondary: #444;
+  --button-cancel-hover: #555;
+  --button-cancel-hover-secondary: #333;
+  
+  /* Spacing Variables */
+  --spacing-xs: 10px;
+  --spacing-sm: 12px;
+  --spacing-md: 20px;
+  --spacing-lg: 25px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 40px;
+  
+  /* Border Radius Variables */
+  --border-radius-sm: 6px;
+  --border-radius-md: 15px;
+  
+  /* Font Size Variables */
+  --font-size-sm: 14px;
+  --font-size-md: 20px;
+  --font-size-lg: 22px;
+  
+  /* Font Weight Variables */
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  
+  /* Dimension Variables */
+  --header-height: 60px;
+  --logo-height: 40px;
+  --container-max-width: 500px;
+  --z-index-header: 1000;
+  
+  /* Letter Spacing Variables */
+  --letter-spacing-wide: 1px;
+  
+  /* Box Shadow Variables */
+  --box-shadow-header: 0 2px 8px var(--shadow-secondary);
+  --box-shadow-container: 0 0 12px var(--shadow-primary);
+  
+  /* Transition Variables */
+  --transition-background: background 0.3s;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-primary);
   margin: 0;
-  padding: 20px;
-  background-color: #1b0036;
-  color: white;
+  padding: var(--spacing-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,18 +71,18 @@ body {
 }
 
 .header {
-  background: #0c001a;
-  padding: 0 20px;
+  background: var(--bg-secondary);
+  padding: 0 var(--spacing-md);
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 60px;
+  height: var(--header-height);
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  z-index: var(--z-index-header);
+  box-shadow: var(--box-shadow-header);
 }
 
 .logo-container {
@@ -32,69 +91,69 @@ body {
 }
 
 .logo {
-  height: 40px;
+  height: var(--logo-height);
   width: auto;
-  margin-right: 12px;
+  margin-right: var(--spacing-sm);
 }
 
 .brand-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: white;
-  letter-spacing: 1px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  letter-spacing: var(--letter-spacing-wide);
 }
 
 .confirm-container {
-  background: #0d001f;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 12px #450078;
-  max-width: 500px;
+  background: var(--bg-tertiary);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--box-shadow-container);
+  max-width: var(--container-max-width);
   width: 100%;
   text-align: left;
 }
 
 h2 {
   text-align: center;
-  font-size: 22px;
-  margin-bottom: 25px;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-lg);
   margin-top: 0;
 }
 
 p {
-  font-size: 14px;
-  margin-bottom: 12px;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
 }
 
 span {
-  color: #9f00e8;
+  color: var(--accent-primary);
 }
 
 .button-container {
   text-align: center;
-  margin-top: 30px;
+  margin-top: var(--spacing-xl);
 }
 
 button {
-  padding: 10px 20px;
+  padding: var(--spacing-xs) var(--spacing-md);
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
   cursor: pointer;
-  color: white;
-  background: linear-gradient(to right, #9f00e8, #6a00a3);
-  transition: background 0.3s;
-  margin: 0 10px;
+  color: var(--text-primary);
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+  transition: var(--transition-background);
+  margin: 0 var(--spacing-xs);
 }
 
 button:hover {
-  background: linear-gradient(to right, #8a00cc, #53008a);
+  background: linear-gradient(to right, var(--accent-hover-primary), var(--accent-hover-secondary));
 }
 
 #cancel_btn {
-  background: linear-gradient(to right, #666, #444);
+  background: linear-gradient(to right, var(--button-cancel), var(--button-cancel-secondary));
 }
 
 #cancel_btn:hover {
-  background: linear-gradient(to right, #555, #333);
+  background: linear-gradient(to right, var(--button-cancel-hover), var(--button-cancel-hover-secondary));
 }

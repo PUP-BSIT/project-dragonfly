@@ -303,6 +303,10 @@ function goToProfile() {
     window.location.href = "profile.html";
 }
 
+function goToContactUs() {
+    window.location.href = "contact_us_dashboard.html";
+}
+
 function logout() {
     fetch(API_BASE + "auth/logout.php", {
         method: "POST",
@@ -349,6 +353,14 @@ document.querySelectorAll(".nav-btn").forEach((button) => {
     button.addEventListener("click", function () {
         document
             .querySelectorAll(".nav-btn")
+            .forEach((btn) => btn.classList.remove("active"));
+        this.classList.add("active");
+    });
+});
+document.querySelectorAll(".mobile-nav-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+        document
+            .querySelectorAll(".mobile-nav-btn")
             .forEach((btn) => btn.classList.remove("active"));
         this.classList.add("active");
     });

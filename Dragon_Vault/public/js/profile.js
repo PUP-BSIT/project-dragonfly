@@ -56,22 +56,10 @@ function loadUserProfile() {
 
 // Display user profile information
 function displayUserProfile(user) {
-    const initials = getInitials(user.full_name);
-    document.getElementById("avatarInitials").textContent = initials;
-
     document.getElementById("displayFullName").textContent = user.full_name;
     document.getElementById("displayEmail").textContent = user.email;
     document.getElementById("displayPhone").textContent =
         user.phone || "Not provided";
-}
-
-// Get initials from full name
-function getInitials(fullName) {
-    return fullName
-        .split(" ")
-        .map((name) => name.charAt(0).toUpperCase())
-        .join("")
-        .substring(0, 2);
 }
 
 // Setup event listeners

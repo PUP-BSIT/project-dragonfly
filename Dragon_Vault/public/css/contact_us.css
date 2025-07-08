@@ -257,7 +257,7 @@ body {
 }
 
 .container {
-    flex: 1;
+    flex: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -492,6 +492,7 @@ body {
     }
 }
 
+/* Mobile M  */
 @media (max-width: 480px) {
     .header {
         flex-direction: column;
@@ -565,6 +566,7 @@ body {
     }
 }
 
+/* Mobile L  */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

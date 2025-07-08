@@ -1,9 +1,33 @@
 const API_BASE = location.hostname === "localhost"
   ? "http://localhost/Dragon_Vault/api/"
   : "https://dragonvault.site/Dragon_Vault/api/";
-let currentUserData = {};
 
-document.addEventListener("DOMContentLoaded", () => {
+// Fetch user session info from login.php
+function fetchUserSession() {
+    return fetch(API_BASE + "auth/login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ check_session: true })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.already_logged_in) {
+                return data;
+            } else {
+                window.location.href = "../../index.html";
+                return null;
+            }
+        })
+        .catch(() => {
+            window.location.href = "../../index.html";
+            return null;
+        });
+}
+
+// On DOMContentLoaded, check session and fetch profile
+window.addEventListener("DOMContentLoaded", async () => {
+    await fetchUserSession(); // still check session, but don't set displayUsername
     loadUserProfile();
     setupEventListeners();
 });

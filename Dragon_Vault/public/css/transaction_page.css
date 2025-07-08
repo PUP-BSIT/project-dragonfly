@@ -257,14 +257,16 @@ h2 {
 
 .load-more-btn {
     padding: 12px 24px;
-    background: linear-gradient(170deg, var(--loadmore-bg-start), var(--loadmore-bg-end));
+    font-family: var(--secondary-font);
     border: none;
     border-radius: var(--border-radius-small);
+    background: var(--btn-bg-primary);
     color: var(--text-primary);
-    font-size: var(--font-size-base);
     cursor: pointer;
-    transition: box-shadow 0.3s ease;
-    font-family: var(--secondary-font);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: var(--font-size-base);
+    margin: 5px;
+    white-space: nowrap;
 }
 
 .load-more-btn:hover {

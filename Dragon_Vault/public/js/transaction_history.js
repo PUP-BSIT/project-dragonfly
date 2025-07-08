@@ -323,6 +323,10 @@ function goToProfile() {
     window.location.href = "profile.html";
 }
 
+function goToContactUs() {
+    window.location.href = "contact_us_dashboard.html";
+}
+
 function logout() {
     fetch("/Dragon_Vault/api/auth/logout.php", {
         method: "POST",

@@ -180,7 +180,6 @@ function sendOTPViaSemaphore($phoneNumber, $otp, $purpose) {
 }
 
 function sendOTP($phoneNumber, $otp, $purpose) {
-    /*
     try {
         error_log("Starting OTP send process for $phoneNumber, purpose: $purpose");
         // Send OTP via Semaphore
@@ -198,14 +197,6 @@ function sendOTP($phoneNumber, $otp, $purpose) {
             'message' => 'Failed to send OTP: ' . $e->getMessage()
         ];
     }
-    */
-    // For testing: do not send SMS, just log and return success
-    error_log("[TEST MODE] Would send OTP $otp to $phoneNumber for $purpose");
-    return [
-        'success' => true,
-        'message' => '[TEST MODE] OTP not sent, but treated as success',
-        'message_id' => 'test-mode-message-id'
-    ];
 }
 
 // Handle incoming requests

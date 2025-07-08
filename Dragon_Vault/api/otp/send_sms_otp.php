@@ -2,6 +2,9 @@
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../_headers.php';
 
+// Define log file path
+$logFile = __DIR__ . '/sms_otp.log';
+
 // Get environment variables
 $apiKey = getenv('SMS_API_KEY');
 $apiUrl = getenv('SMS_API_URL');
@@ -194,7 +197,8 @@ function sendOTP($phoneNumber, $otp, $purpose) {
         error_log("Error sending OTP: " . $e->getMessage());
         return [
             'success' => false,
-            'message' => 'Failed to send OTP: ' . $e->getMessage()
+            'message' => 'Failed to send OTP: ' . $e->getMessage(),
+            'debug' => $e->getMessage()
         ];
     }
 }
@@ -223,13 +227,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     try {
         $result = sendOTP($phoneNumber, $otp, $purpose);
-        echo json_encode($result);
+        // If failure, include debug info in the response
+        if (!$result['success'] && isset($result['debug'])) {
+            echo json_encode([
+                'success' => false,
+                'message' => $result['message'],
+                'debug' => $result['debug']
+            ]);
+        } else {
+            echo json_encode($result);
+        }
     } catch (Exception $e) {
         error_log("Error in SMS OTP handler: " . $e->getMessage());
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Server error: ' . $e->getMessage()
+            'message' => 'Server error: ' . $e->getMessage(),
+            'debug' => $e->getMessage()
         ]);
     }
 } else {

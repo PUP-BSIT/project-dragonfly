@@ -330,6 +330,7 @@ body {
     .navbar {
         flex-direction: column;
         padding: 10px 10px;
+        position: relative;
     }
 
     .logo {
@@ -446,6 +447,7 @@ body {
     .navbar {
         flex-direction: column;
         padding: 10px 10px;
+        position: relative;
     }
 
     .logo {
@@ -562,6 +564,7 @@ body {
     .navbar {
         flex-direction: column;
         padding: 10px 10px;
+        position: relative;
     }
 
     .logo {

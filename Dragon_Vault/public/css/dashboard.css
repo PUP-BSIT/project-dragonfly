@@ -598,6 +598,7 @@ body {
 @media (max-width: 321px) {
     .header {
         padding: 8px var(--spacing-xs);
+        position: relative;
     }
 
     .logo-text {
@@ -675,6 +676,7 @@ body {
 @media (max-width: 376px) {
     .header {
         padding: 10px var(--spacing-sm);
+        position: relative;
     }
 
     .logo-text {
@@ -737,6 +739,7 @@ body {
 @media (max-width: 426px) {
     .header {
         padding: 12px var(--spacing-md);
+        position: relative;
     }
 
     .logo-text {

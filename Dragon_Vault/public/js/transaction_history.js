@@ -65,16 +65,8 @@ function initializeTabs() {
             // Set search input value for the active tab
             searchInput.value = state[tabName].searchTerm;
 
-            // Update active states for sort buttons within the new tab
-            sortButtons.forEach(sortBtn => {
-                if (sortBtn.dataset.type === tabName) {
-                    if (sortBtn.dataset.sortOrder === state[tabName].sortOrder) {
-                        sortBtn.classList.add('active');
-                    } else {
-                        sortBtn.classList.remove('active');
-                    }
-                }
-            });
+            // Update sort button states for the current tab
+            updateSortButtonStates(tabName);
 
             // Load data for the newly active tab
             // No need to refetch from API if data is already in state, just re-display filtered/sorted
@@ -94,22 +86,48 @@ function initializeTabs() {
     // Initialize sort buttons
     sortButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const tabName = button.dataset.type;
             const sortOrder = button.dataset.sortOrder;
-            console.log(`Sort button clicked: Tab=${tabName}, Order=${sortOrder}`); // Debugging
+            const currentTab = document.querySelector('.tab-btn.active').dataset.tab;
+            
+            console.log(`Sort button clicked: Tab=${currentTab}, Order=${sortOrder}`); // Debugging
             
             // Update sort order in state
-            state[tabName].sortOrder = sortOrder;
-            state[tabName].currentPage = 1; // Reset to first page on sort change
+            state[currentTab].sortOrder = sortOrder;
+            state[currentTab].currentPage = 1; // Reset to first page on sort change
 
             // Update active states for sort buttons
-            document.querySelectorAll(`.sort-btn[data-type="${tabName}"]`).forEach(btn => {
-                btn.classList.remove('active');
-            });
+            sortButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
 
-            loadTransactions(tabName, sortOrder); // Re-fetch data with new sort order
+            // If we already have data, just re-sort and display
+            if (state[currentTab].transactions.length > 0) {
+                // Sort the existing transactions
+                state[currentTab].transactions.sort((a, b) => {
+                    const dateA = new Date(a.transaction_timestamp);
+                    const dateB = new Date(b.transaction_timestamp);
+                    if (sortOrder === 'ASC') {
+                        return dateA - dateB;
+                    } else {
+                        return dateB - dateA;
+                    }
+                });
+                displayTransactions(currentTab);
+            } else {
+                // Load fresh data with new sort order
+                loadTransactions(currentTab, sortOrder);
+            }
         });
+    });
+}
+
+function updateSortButtonStates(tabName) {
+    const sortButtons = document.querySelectorAll('.sort-btn');
+    sortButtons.forEach(btn => {
+        if (btn.dataset.sortOrder === state[tabName].sortOrder) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
     });
 }
 

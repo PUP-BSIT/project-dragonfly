@@ -44,21 +44,10 @@ function loadUserProfile() {
 // Display user profile information
 function displayUserProfile(user) {
     const fullName = user.full_name;
-    const initials = getInitials(fullName);
 
-    document.getElementById("avatarInitials").textContent = initials;
     document.getElementById("displayFullName").textContent = fullName;
     document.getElementById("displayEmail").textContent = user.email;
     document.getElementById("displayBranch").textContent = user.branch;
-}
-
-// Get initials from full name
-function getInitials(fullName) {
-    return fullName
-        .split(" ")
-        .map((name) => name.charAt(0).toUpperCase())
-        .join("")
-        .substring(0, 2);
 }
 
 // Setup event listeners
@@ -94,7 +83,6 @@ function toggleEditMode() {
     displayCard.style.display = "none";
     editCard.style.display = "block";
 }
-
 
 // Cancel edit mode
 function cancelEdit() {

@@ -1,28 +1,106 @@
+/* CSS Custom Properties (Root Variables) */
+:root {
+  /* Font Variables */
+  --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
+  --font-serif: "Times New Roman", Times, serif;
+  
+  /* Color Variables */
+  --color-primary-bg: #1b0036;
+  --color-secondary-bg: #0c001a;
+  --color-tertiary-bg: #0d001f;
+  --color-white: white;
+  --color-accent: #9f00e8;
+  --color-accent-dark: #6a00a3;
+  --color-accent-hover: #8a00cc;
+  --color-accent-hover-dark: #53008a;
+  --color-cancel: #666;
+  --color-cancel-dark: #444;
+  --color-cancel-hover: #555;
+  --color-cancel-hover-dark: #333;
+  --color-shadow: #450078;
+  
+  /* Spacing Variables */
+  --spacing-xs: 6px;
+  --spacing-sm: 8px;
+  --spacing-md: 10px;
+  --spacing-lg: 12px;
+  --spacing-xl: 15px;
+  --spacing-xxl: 20px;
+  --spacing-xxxl: 25px;
+  --spacing-huge: 30px;
+  --spacing-massive: 40px;
+  
+  /* Border Radius Variables */
+  --radius-sm: 6px;
+  --radius-md: 15px;
+  
+  /* Font Size Variables */
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-md: 22px;
+  
+  /* Dimension Variables */
+  --logo-height: 30px;
+  --header-height: 50px;
+  --container-max-width: 500px;
+  --button-padding: 10px 20px;
+  --header-padding: 8px 20px;
+  --container-padding: 40px;
+  --body-padding: 20px;
+  
+  /* Shadow Variables */
+  --shadow-glow: 0 0 12px #450078;
+  
+  /* Transition Variables */
+  --transition-fast: 0.3s;
+  
+  /* Z-index Variables */
+  --z-header: 1000;
+  
+  /* Margin Variables */
+  --margin-logo: 10px;
+  --margin-title-bottom: 25px;
+  --margin-title-top: 0;
+  --margin-text-bottom: 12px;
+  --margin-button-top: 30px;
+  --margin-button-horizontal: 0 10px;
+  
+  /* Layout Variables */
+  --min-height-viewport: 100vh;
+  --width-full: 100%;
+  
+  /* Gradient Variables */
+  --gradient-primary: linear-gradient(to right, #9f00e8, #6a00a3);
+  --gradient-primary-hover: linear-gradient(to right, #8a00cc, #53008a);
+  --gradient-cancel: linear-gradient(to right, #666, #444);
+  --gradient-cancel-hover: linear-gradient(to right, #555, #333);
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-primary);
   margin: 0;
-  padding: 20px;
-  background-color: #1b0036;
-  color: white;
+  padding: var(--body-padding);
+  background-color: var(--color-primary-bg);
+  color: var(--color-white);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: var(--min-height-viewport);
   box-sizing: border-box;
 }
 
 .header {
-  background: #0c001a;
-  padding: 8px 20px;
+  background: var(--color-secondary-bg);
+  padding: var(--header-padding);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
+  height: var(--header-height);
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  z-index: 1000;
+  width: var(--width-full);
+  z-index: var(--z-header);
   box-sizing: border-box;
 }
 
@@ -32,66 +110,66 @@ body {
 }
 
 .logo {
-  height: 30px;
-  margin-right: 10px;
+  height: var(--logo-height);
+  margin-right: var(--margin-logo);
 }
 
 .brand-name {
-  font-size: 16px;
+  font-size: var(--font-size-sm);
   font-weight: bold;
 }
 
 .confirm-container {
-  background: #0d001f;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 12px #450078;
-  max-width: 500px;
-  width: 100%;
+  background: var(--color-tertiary-bg);
+  padding: var(--container-padding);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glow);
+  max-width: var(--container-max-width);
+  width: var(--width-full);
   text-align: left;
 }
 
 h2 {
   text-align: center;
-  font-size: 22px;
-  margin-bottom: 25px;
-  margin-top: 0;
+  font-size: var(--font-size-md);
+  margin-bottom: var(--margin-title-bottom);
+  margin-top: var(--margin-title-top);
 }
 
 p {
-  font-size: 14px;
-  margin-bottom: 12px;
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--margin-text-bottom);
 }
 
 span {
-  color: #9f00e8;
+  color: var(--color-accent);
 }
 
 .button-container {
   text-align: center;
-  margin-top: 30px;
+  margin-top: var(--margin-button-top);
 }
 
 button {
-  padding: 10px 20px;
+  padding: var(--button-padding);
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
   cursor: pointer;
-  color: white;
-  background: linear-gradient(to right, #9f00e8, #6a00a3);
-  transition: background 0.3s;
-  margin: 0 10px;
+  color: var(--color-white);
+  background: var(--gradient-primary);
+  transition: background var(--transition-fast);
+  margin: var(--margin-button-horizontal);
 }
 
 button:hover {
-  background: linear-gradient(to right, #8a00cc, #53008a);
+  background: var(--gradient-primary-hover);
 }
 
 #cancel_btn {
-  background: linear-gradient(to right, #666, #444);
+  background: var(--gradient-cancel);
 }
 
 #cancel_btn:hover {
-  background: linear-gradient(to right, #555, #333);
+  background: var(--gradient-cancel-hover);
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Next Transaction</title>
+  <link rel="stylesheet" href="../css/teller_deposit_next.css">
+  <link rel="icon" href="/Dragon_Vault/assets/logo.png" />
+</head>
+
+<header class="header">
+    <div class="logo-container">
+      <img src="/Dragon_Vault/assets/logo.png" alt="DragonVault Logo" 
+        class="logo" />
+      <div class="brand-name">DragonVault</div>
+    </div>
+  </header>
+  
+<body>
+  <div class="next-container">
+    <h2>Transaction Complete</h2>
+    <p>What would you like to do next?</p>
+    
+    <div class="account-info">
+      <p><strong>Current Account:</strong> <span id="account_number"></span></p>
+      <p><strong>Customer:</strong> <span id="customer_name"></span></p>
+      <p><strong>Current Balance:</strong> ₱<span id="current_balance"></span></p>
+    </div>
+
+    <div class="button-container">
+      <button id="repeat_deposit_btn">Continue Deposit on Same Account</button>
+      <button id="switch_withdraw_btn">Switch to Withdraw</button>
+      <button id="back_dashboard_btn">Back to Home</button>
+    </div>
+ </div>
+
+  <script src="../js/teller_deposit_next.js"></script>
+</body>
+</html>

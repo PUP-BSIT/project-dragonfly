@@ -140,20 +140,17 @@ body {
     font-size: var(--font-size-small);
     font-family: var(--font-primary);
     cursor: pointer;
-    transition: var(--transition-primary);
+    transition: var(--transition-background);
     padding: 8px 16px;
     border-radius: var(--border-radius-small);
 }
 
 .nav-btn:hover {
     background-color: var(--color-accent);
-    box-shadow: var(--shadow-button);
-    transform: scale(1.05);
 }
 
 .nav-btn.active {
     background-color: var(--color-accent-light);
-    box-shadow: var(--shadow-button-active);
 }
 
 /* Main Content */
@@ -259,7 +256,7 @@ body {
     font-family: var(--font-primary);
     border-radius: var(--border-radius-medium);
     cursor: pointer;
-    transition: var(--transition-primary);
+    transition: var(--transition-background);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -267,8 +264,11 @@ body {
 }
 
 .edit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+    opacity: 0.9;
+}
+
+.edit-btn:active {
+    opacity: 0.8;
 }
 
 /* Profile Edit Card */
@@ -343,7 +343,7 @@ body {
     font-family: var(--font-primary);
     border-radius: var(--border-radius-medium);
     cursor: pointer;
-    transition: var(--transition-primary);
+    transition: var(--transition-background);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -351,8 +351,11 @@ body {
 }
 
 .save-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-success);
+    opacity: 0.9;
+}
+
+.save-btn:active {
+    opacity: 0.8;
 }
 
 .cancel-btn {
@@ -365,13 +368,16 @@ body {
     font-family: var(--font-primary);
     border-radius: var(--border-radius-medium);
     cursor: pointer;
-    transition: var(--transition-primary);
+    transition: var(--transition-background);
     white-space: nowrap;
 }
 
 .cancel-btn:hover {
     background: var(--bg-overlay-hover);
-    transform: translateY(-2px);
+}
+
+.cancel-btn:active {
+    background: var(--bg-overlay-light);
 }
 
 /* Security Card */
@@ -405,7 +411,7 @@ body {
     font-family: var(--font-primary);
     border-radius: var(--border-radius-medium);
     cursor: pointer;
-    transition: var(--transition-primary);
+    transition: var(--transition-background);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -413,8 +419,11 @@ body {
 }
 
 .security-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-warning);
+    opacity: 0.9;
+}
+
+.security-btn:active {
+    opacity: 0.8;
 }
 
 /* Modal Styles */
@@ -536,7 +545,6 @@ body {
 .footer-links a:hover {
     color: #8b5cf6;
     background-color: rgba(139, 92, 246, 0.1);
-    transform: translateY(-1px);
 }
 
 /* Tablet Responsive Design */

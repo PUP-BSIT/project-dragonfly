@@ -56,16 +56,16 @@
   --action-grid-min-width: 280px;
   --action-grid-min-width-tablet: 250px;
   
-  /* Shadow Variables */
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(69, 0, 120, 0.4);
-  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 8px 20px rgba(0, 0, 0, 0.4);
-  --shadow-mobile: 0 4px 15px rgba(0, 0, 0, 0.3);
-  --shadow-icon: 0 4px 8px rgba(0, 0, 0, 0.3);
+  /* Shadow Variables - Made more subtle for formal look */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-mobile: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-icon: none;
   
-  /* Transition Variables */
-  --transition-fast: 0.3s;
+  /* Transition Variables - Faster for formal feel */
+  --transition-fast: 0.15s;
   --transition-instant: 0.01ms;
   
   /* Z-index Variables */
@@ -79,10 +79,10 @@
   --opacity-light: 0.9;
   --opacity-border: 0.1;
   
-  /* Transform Variables */
-  --transform-hover-up: translateY(-2px);
-  --transform-hover-down: translateY(-5px);
-  --transform-scale: scale(1.05);
+  /* Transform Variables - Removed fancy transforms */
+  --transform-hover-up: none;
+  --transform-hover-down: none;
+  --transform-scale: none;
   --transform-mobile-hide: translateY(-100%);
   --transform-mobile-show: translateY(0);
   
@@ -206,7 +206,7 @@ button {
   border-radius: var(--radius-sm);
 }
 
-/* Navigation options */
+/* Navigation options - Formal button styles */
 .nav-options {
   display: flex;
   gap: var(--gap-nav);
@@ -220,15 +220,17 @@ button {
   font-size: var(--font-size-md);
   text-decoration: none;
   padding: var(--padding-nav-link);
-  transition: all var(--transition-fast) ease;
+  transition: background-color var(--transition-fast) ease;
   border-radius: var(--radius-md);
   white-space: nowrap;
 }
 
 .nav-options a:hover {
   background-color: var(--color-accent);
-  box-shadow: var(--shadow-md);
-  transform: var(--transform-hover-up);
+}
+
+.nav-options a:active {
+  background-color: rgba(69, 0, 120, 0.8);
 }
 
 /* Main content */
@@ -261,7 +263,7 @@ button {
   opacity: var(--opacity-light);
 }
 
-/* Action buttons */
+/* Action buttons - Formal styles */
 .actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--action-grid-min-width), 1fr));
@@ -284,25 +286,27 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: all var(--transition-fast) ease;
+  transition: background-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
   border: 1px solid rgba(255, 255, 255, var(--opacity-border));
+  cursor: pointer;
 }
 
 .action-box:hover {
-  transform: var(--transform-hover-down);
+  background: linear-gradient(145deg, rgba(12, 0, 26, 0.9), rgba(26, 0, 51, 0.9));
   box-shadow: var(--shadow-xl);
+}
+
+.action-box:active {
+  background: linear-gradient(145deg, rgba(12, 0, 26, 0.7), rgba(26, 0, 51, 0.7));
+  box-shadow: var(--shadow-md);
 }
 
 .action-icon {
   width: var(--icon-size-lg);
   height: var(--icon-size-lg);
   margin-bottom: var(--margin-icon);
-  transition: transform var(--transition-fast) ease;
-  filter: drop-shadow(var(--shadow-icon));
-}
-
-.action-box:hover .action-icon {
-  transform: var(--transform-scale);
+  transition: none;
+  filter: none;
 }
 
 .action-text {

@@ -132,11 +132,7 @@ p {
 }
 
 .account-info {
-  background: var(--bg-secondary);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-sm);
   margin: var(--spacing-lg) 0;
-  border: 1px solid var(--accent-primary);
 }
 
 .account-info p {

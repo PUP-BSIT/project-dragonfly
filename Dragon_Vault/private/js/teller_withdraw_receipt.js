@@ -28,20 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("teller_id").textContent = sessionStorage.getItem("teller_id");
 
   document.getElementById("print_btn").addEventListener("click", () => window.print());
-  document.getElementById("new_transaction_btn").addEventListener("click", () => {
-    sessionStorage.removeItem("withdraw_amount");
-    sessionStorage.setItem("balance", sessionStorage.getItem("new_balance") || "");
-    window.location.href = "teller_withdraw.html";
-  });
-  document.getElementById("switch_to_deposit_btn").addEventListener("click", () => {
-    sessionStorage.setItem("account_number", sessionStorage.getItem("account_number"));
-    sessionStorage.setItem("customer_name", sessionStorage.getItem("customer_name"));
-    sessionStorage.setItem("account_type", sessionStorage.getItem("account_type") || "");
-    sessionStorage.setItem("balance", sessionStorage.getItem("new_balance") || "");
-    sessionStorage.removeItem("deposit_amount");
-    window.location.href = "../deposit/teller_deposit.html";
-  });
-  document.getElementById("dashboard_btn").addEventListener("click", () => {
-    window.location.href = "../teller_dashboard.html";
+  
+  document.getElementById("next_btn").addEventListener("click", () => {
+    window.location.href = "teller_withdraw_next.html";
   });
 });

@@ -43,6 +43,66 @@ document.addEventListener("DOMContentLoaded", function () {
         state[currentTab].currentPage = 1; // Reset to first page on search
         displayTransactions(currentTab); // Re-display with filtered data
     });
+
+    // --- Mobile Selects Logic ---
+    const mobileSortSelect = document.getElementById('mobile-sort-select');
+    const mobileTabSelect = document.getElementById('mobile-tab-select');
+
+    if (mobileSortSelect) {
+        mobileSortSelect.addEventListener('change', function() {
+            // Get current tab (from mobile select or fallback to active tab)
+            let currentTab = 'outbound';
+            if (mobileTabSelect) {
+                currentTab = mobileTabSelect.value;
+            } else {
+                const activeTabBtn = document.querySelector('.tab-btn.active');
+                if (activeTabBtn) currentTab = activeTabBtn.dataset.tab;
+            }
+            const sortOrder = mobileSortSelect.value;
+            state[currentTab].sortOrder = sortOrder;
+            state[currentTab].currentPage = 1;
+            // Update sort button states for consistency (if visible)
+            updateSortButtonStates(currentTab);
+            // Sort or reload data
+            if (state[currentTab].transactions.length > 0) {
+                state[currentTab].transactions.sort((a, b) => {
+                    const dateA = new Date(a.transaction_timestamp);
+                    const dateB = new Date(b.transaction_timestamp);
+                    if (sortOrder === 'ASC') {
+                        return dateA - dateB;
+                    } else {
+                        return dateB - dateA;
+                    }
+                });
+                displayTransactions(currentTab);
+            } else {
+                loadTransactions(currentTab, sortOrder);
+            }
+        });
+    }
+
+    if (mobileTabSelect) {
+        mobileTabSelect.addEventListener('change', function() {
+            const tabName = mobileTabSelect.value;
+            // Update tab button states for consistency (if visible)
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName));
+            document.querySelectorAll('.tab-content').forEach(tabContent => tabContent.classList.toggle('active', tabContent.id === `${tabName}-tab`));
+            // Set search input value for the active tab
+            searchInput.value = state[tabName].searchTerm;
+            // Update sort select to match state
+            if (mobileSortSelect) {
+                mobileSortSelect.value = state[tabName].sortOrder;
+            }
+            // Update sort button states for consistency (if visible)
+            updateSortButtonStates(tabName);
+            // Load or display data
+            if (state[tabName].transactions.length === 0) {
+                loadTransactions(tabName, state[tabName].sortOrder);
+            } else {
+                displayTransactions(tabName);
+            }
+        });
+    }
 });
 
 function initializeTabs() {

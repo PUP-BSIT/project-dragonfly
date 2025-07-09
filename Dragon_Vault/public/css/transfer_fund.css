@@ -591,3 +591,175 @@ body {
         font-size: var(--font-md);
     }
 }
+
+/* Media Queries */
+/* Mobile S */
+@media (max-width: 321px) {
+    .card {
+        margin: var(--spacing-xs);
+        padding: var(--spacing-xl) var(--spacing-md);
+        max-width: 98vw;
+    }
+
+    .header {
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+        padding: 2px;
+    }
+
+    .brand-name {
+        font-size: var(--font-lg);
+    }
+
+    .card-title {
+        font-size: var(--font-xl);
+    }
+
+    .main-content {
+        padding: var(--spacing-md);
+    }
+
+    .otp-inputs {
+        gap: var(--spacing-xs);
+    }
+
+    .otp-input {
+        width: 32px;
+        height: 32px;
+        font-size: var(--font-sm);
+    }
+
+    .button-group,
+    .button-group-centered {
+        flex-direction: flex;
+        gap: var(--spacing-sm);
+    }
+
+    .btn {
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: var(--font-xs);
+    }
+
+    .balance-box {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* Mobile M */
+@media (max-width: 376px) {
+    .card {
+        margin: var(--spacing-xs);
+        padding: var(--spacing-xl) var(--spacing-md);
+        max-width: 98vw;
+    }
+
+    .header {
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    .logo {
+        width: 40px;
+        height: 40px;
+        padding: 2px;
+    }
+
+    .brand-name {
+        font-size: var(--font-md);
+    }
+
+    .card-title {
+        font-size: var(--font-lg);
+    }
+
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+
+    .otp-inputs {
+        gap: var(--spacing-xs);
+    }
+
+    .otp-input {
+        width: 28px;
+        height: 28px;
+        font-size: var(--font-xs);
+    }
+
+    .button-group,
+    .button-group-centered {
+        flex-direction: flex;
+        gap: var(--spacing-xs);
+    }
+
+    .btn {
+        padding: var(--spacing-md) var(--spacing-md);
+        font-size: var(--font-xs);
+    }
+
+    .balance-box {
+        padding: var(--spacing-md);
+    }
+}
+
+/* Mobile L */
+@media (max-width: 426px) {
+    .card {
+        margin: var(--spacing-xs);
+        padding: var(--spacing-xl) var(--spacing-md);
+        max-width: 98vw;
+    }
+
+    .header {
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    .logo {
+        width: 36px;
+        height: 36px;
+        padding: 2px;
+    }
+
+    .brand-name {
+        font-size: var(--font-md);
+    }
+
+    .card-title {
+        font-size: var(--font-lg);
+    }
+
+    .main-content {
+        padding: var(--spacing-sm);
+    }
+
+    .otp-inputs {
+        gap: var(--spacing-xs);
+    }
+
+    .otp-input {
+        width: 24px;
+        height: 24px;
+        font-size: var(--font-xs);
+    }
+
+    .button-group,
+    .button-group-centered {
+        flex-direction: flex;
+        gap: var(--spacing-xs);
+    }
+
+    .btn {
+        padding: var(--spacing-md) var(--spacing-md);
+        font-size: var(--font-xs);
+    }
+
+    .balance-box {
+        padding: var(--spacing-md);
+    }
+}

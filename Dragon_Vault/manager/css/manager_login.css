@@ -30,13 +30,9 @@
 
     /* Borders */
     --border-glass: 1px solid rgba(255, 255, 255, 0.1);
-<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
-
-=======
     --border-transparent: 1px solid transparent;
     --border-nav-hover: 1px solid #ececec55;
-    
->>>>>>> main:Dragon_Vault/manager/css/login.css
+
     /* Shadows */
     --shadow-login-box: 0 20px 40px rgba(0, 0, 0, 0.3);
     --shadow-login-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
@@ -75,25 +71,16 @@
     --margin-error: 10px;
     --border-radius-login: 20px;
     --border-radius-button: 8px;
-<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
-    --border-radius-nav: 8px;
-
-=======
     --border-radius-nav: 6px;
-    
->>>>>>> main:Dragon_Vault/manager/css/login.css
+
     /* Dimensions */
     --logo-img-size: 36px;
     --logo-text-size: 20px;
     --logo-font-size: 18px;
     --login-box-max-width: 600px;
     --container-flex: 0.5;
-<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
-
-=======
     --body-min-height: 100vh;
-    
->>>>>>> main:Dragon_Vault/manager/css/login.css
+
     /* Effects */
     --backdrop-blur: blur(10px);
     --transition-default: all 0.3s ease;
@@ -178,7 +165,8 @@ body {
     border: var(--border-transparent);
 }
 
-.nav-links a:hover, .nav-links a:focus {
+.nav-links a:hover,
+.nav-links a:focus {
     background: var(--nav-hover-bg);
     color: var(--text-primary);
     border: var(--border-nav-hover);
@@ -207,14 +195,11 @@ body {
     transition: var(--transition-none);
 }
 
-<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
-=======
 .login-box:hover {
     box-shadow: var(--shadow-login-box);
     transform: var(--transform-none);
 }
 
->>>>>>> main:Dragon_Vault/manager/css/login.css
 .login-title {
     text-align: var(--text-align-center);
     font-size: var(--font-size-title);
@@ -271,15 +256,8 @@ body {
 }
 
 .signin-btn:hover {
-<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
     background: var(--button-hover-gradient);
     box-shadow: none;
-=======
-    background: var(--button-gradient);
-    color: var(--text-primary);
-    transform: var(--transform-none);
-    box-shadow: var(--box-shadow-none);
->>>>>>> main:Dragon_Vault/manager/css/login.css
 }
 
 #login_error {
@@ -406,12 +384,4 @@ body {
         --font-size-title: 24px;
         --margin-login-box: 20px;
     }
-<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
-
-    .login-box {
-        margin: 20px;
-    }
 }
-=======
-}
->>>>>>> main:Dragon_Vault/manager/css/login.css

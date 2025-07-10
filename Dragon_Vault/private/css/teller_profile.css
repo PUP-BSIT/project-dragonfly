@@ -507,46 +507,6 @@ body {
     font-size: var(--font-size-small);
 }
 
-/* Footer Styles */
-.footer {
-    background-color: var(--color-secondary);
-    color: var(--color-white);
-    padding: var(--gap-large) var(--padding-large);
-    margin-top: 50px;
-    border-top: var(--border-primary);
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--padding-small);
-    font-size: var(--font-size-small);
-    font-family: var(--font-primary);
-    opacity: var(--opacity-high);
-}
-
-.footer-links {
-    display: flex;
-    gap: var(--padding-small);
-}
-
-.footer-links a {
-    color: var(--color-white);
-    text-decoration: none;
-    transition: var(--transition-primary);
-    padding: 5px var(--gap-extra-small);
-    border-radius: 4px;
-}
-
-.footer-links a:hover {
-    color: #8b5cf6;
-    background-color: rgba(139, 92, 246, 0.1);
-}
-
 /* Tablet Responsive Design */
 @media (max-width: 1024px) {
     .main-content {
@@ -678,21 +638,6 @@ body {
     .card-title {
         font-size: var(--padding-small);
     }
-    
-    .footer {
-        padding: 25px var(--padding-small);
-        margin-top: var(--padding-medium);
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-        gap: var(--gap-small);
-    }
-    
-    .footer-links {
-        gap: var(--gap-small);
-    }
 }
 
 /* Small Mobile Responsive Design */
@@ -762,19 +707,6 @@ body {
 
     .card-title {
         font-size: var(--font-size-medium);
-    }
-    
-    .footer {
-        padding: var(--padding-small) var(--gap-small);
-    }
-    
-    .footer-content {
-        font-size: 13px;
-    }
-    
-    .footer-links {
-        flex-direction: column;
-        gap: var(--gap-extra-small);
     }
 }
 

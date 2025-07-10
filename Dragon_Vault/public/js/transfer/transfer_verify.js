@@ -250,8 +250,36 @@ const ApiService = {
     }
 };
 
+function fetchUserPhoneNumber() {
+    fetch(API_BASE + "account/profile.php", {
+        method: "GET",
+        credentials: "include"
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.phone_number) {
+                // Mask the phone number for privacy (e.g., 0912***6789)
+                const phone = data.phone_number;
+                let masked = phone;
+                if (phone.length >= 11) {
+                    masked = phone.substring(0, 4) + '***' + phone.substring(phone.length - 4);
+                }
+                const otpPhoneSpan = document.querySelector('.otp-phone');
+                if (otpPhoneSpan) {
+                    otpPhoneSpan.textContent = `(${masked})`;
+                }
+                console.log("Hello");
+            }
+        })
+        .catch(() => {
+            // Fallback: leave as default or hide
+        });
+}
+
 // Initialize the application when the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
+    // Fetch and display user's phone number for OTP
+    fetchUserPhoneNumber();
     // Set up OTP input handling
     const otpInputs = document.querySelectorAll(".otp-input");
     otpInputs.forEach((input, index) => {

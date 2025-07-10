@@ -2,6 +2,19 @@
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../_headers.php';
 
+// Check if SMS gateway is enabled
+$smsEnabledStmt = $pdo->prepare("SELECT config_value FROM system_config WHERE config_key = 'sms_gateway_enabled'");
+$smsEnabledStmt->execute();
+$smsEnabled = $smsEnabledStmt->fetchColumn();
+if ($smsEnabled !== 'true') {
+    http_response_code(503);
+    echo json_encode([
+        'success' => false,
+        'message' => 'SMS gateway is currently disabled by the system administrator.'
+    ]);
+    exit;
+}
+
 // Define log file path
 $logFile = __DIR__ . '/sms_otp.log';
 

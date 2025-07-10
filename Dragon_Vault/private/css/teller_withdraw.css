@@ -36,10 +36,11 @@
   /* Font Weight Variables */
   --font-weight-normal: 400;
   --font-weight-bold: bold;
-  
+  --font-weight-semibold: 600; /* Added */
+
   /* Dimension Variables */
-  --header-height: 50px;
-  --logo-height: 30px;
+  --header-height: 60px; /* Updated */
+  --logo-height: 40px;   /* Updated */
   --form-max-width: 400px;
   --z-index-header: 1000;
   
@@ -48,6 +49,9 @@
   
   /* Transition Variables */
   --transition-background: background 0.3s;
+
+  /* Letter Spacing */
+  --letter-spacing-wide: 1px; /* Added */
 }
 
 body {
@@ -60,11 +64,11 @@ body {
 
 .header {
   background: var(--bg-secondary);
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: 0 var(--spacing-md); /* Updated */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--header-height);
+  height: var(--header-height); /* Updated */
   position: fixed;
   top: 0;
   left: 0;
@@ -79,13 +83,14 @@ body {
 }
 
 .logo {
-  height: var(--logo-height);
+  height: var(--logo-height); 
   margin-right: var(--spacing-sm);
 }
 
 .brand-name {
   font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide); 
 }
 
 /* Page Title */

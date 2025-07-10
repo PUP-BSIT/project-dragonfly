@@ -19,11 +19,14 @@
     --input-bg: rgba(255, 255, 255, 0.9);
     --input-focus-bg: white;
     --nav-hover-bg: rgba(255, 255, 255, 0.1);
-    --button-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    --nav-hover-border: #ececec55;
+    --button-gradient: linear-gradient(45deg, #6910b7, #882ad4);
     --button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
     
     /* Borders */
     --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+    --border-transparent: 1px solid transparent;
+    --border-nav-hover: 1px solid #ececec55;
     
     /* Shadows */
     --shadow-login-box: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -41,14 +44,16 @@
     --font-size-button: 16px;
     --font-size-link: 14px;
     --font-weight-bold: bold;
+    --font-weight-normal: normal;
     --letter-spacing-button: 1px;
     
     /* Spacing */
-    --padding-header: 0px 30px;
-    --padding-logo: 20px 30px;
+    --padding-header: 20px 30px;
+    --padding-logo: 0px;
     --padding-login-box: 40px;
     --padding-input: 15px;
     --padding-button: 15px;
+    --padding-nav-link: 6px 18px;
     --gap-logo: 10px;
     --gap-nav: 30px;
     --margin-title: 10px;
@@ -56,22 +61,38 @@
     --margin-form-group: 20px;
     --margin-forgot: 20px 0;
     --margin-register: 20px;
+    --margin-nav-link: 10px;
+    --margin-login-box: 20px;
+    --margin-error: 10px;
     --border-radius-login: 20px;
     --border-radius-button: 8px;
-    --border-radius-nav: 8px;
+    --border-radius-nav: 6px;
     
     /* Dimensions */
-    --logo-size: 50px;
-    --logo-font-size: 24px;
+    --logo-img-size: 36px;
+    --logo-text-size: 20px;
+    --logo-font-size: 18px;
     --login-box-max-width: 600px;
     --container-flex: 0.5;
+    --body-min-height: 100vh;
     
     /* Effects */
     --backdrop-blur: blur(10px);
     --transition-default: all 0.3s ease;
+    --transition-none: none;
     --transform-hover: translateY(-3px);
     --transform-login-hover: translateY(-5px);
     --transform-button-hover: translateY(-2px);
+    --transform-none: none;
+    --outline-none: none;
+    --box-shadow-none: none;
+    --background-none: none;
+    --display-none: none;
+    --display-flex: flex;
+    --text-transform-uppercase: uppercase;
+    --text-align-center: center;
+    --cursor-pointer: pointer;
+    --width-full: 100%;
 }
 
 * {
@@ -83,14 +104,14 @@
 body {
     font-family: var(--font-family);
     background: var(--primary-bg-gradient);
-    min-height: 100vh;
-    display: flex;
+    min-height: var(--body-min-height);
+    display: var(--display-flex);
     flex-direction: column;
     color: var(--text-primary);
 }
 
 .header {
-    display: flex;
+    display: var(--display-flex);
     justify-content: space-between;
     align-items: center;
     padding: var(--padding-header);
@@ -99,56 +120,61 @@ body {
 }
 
 .logo {
-    display: flex;
+    display: var(--display-flex);
     align-items: center;
-    padding: var(--padding-logo);
     gap: var(--gap-logo);
+    padding: var(--padding-logo);
+    margin-left: 0;
 }
 
 .logo-img {
-    width: var(--logo-size);
-    height: var(--logo-size);
-    display: flex;
+    width: var(--logo-img-size);
+    height: var(--logo-img-size);
+    display: var(--display-flex);
     align-items: center;
     justify-content: center;
     font-size: var(--logo-font-size);
 }
 
 .logo-text {
-    font-size: var(--font-size-logo);
+    font-size: var(--logo-text-size);
     font-weight: var(--font-weight-bold);
     color: var(--text-primary);
 }
 
 .nav-links {
-    display: flex;
+    display: var(--display-flex);
     gap: var(--gap-nav);
 }
 
 .nav-links a {
     color: var(--text-primary);
-    margin-left: 10px;
-    text-decoration: none;
+    margin-left: var(--margin-nav-link);
+    text-decoration: var(--transition-none);
     font-size: var(--font-size-nav);
-    padding: 5px 10px;
-    transition: var(--transition-default);
+    padding: var(--padding-nav-link);
+    border-radius: var(--border-radius-nav);
+    background: var(--background-none);
+    font-weight: var(--font-weight-normal);
+    transition: var(--transition-none);
+    border: var(--border-transparent);
 }
 
-.nav-links a:hover {
-    padding: 5px 10px;
-    border: none;
-    border-radius: var(--border-radius-nav);
+.nav-links a:hover, .nav-links a:focus {
     background: var(--nav-hover-bg);
-    color: var(--purple-hover);
-    transform: var(--transform-hover);
+    color: var(--text-primary);
+    border: var(--border-nav-hover);
+    border-radius: var(--border-radius-nav);
+    outline: var(--outline-none);
+    box-shadow: var(--box-shadow-none);
 }
 
 .container {
     flex: var(--container-flex);
-    display: flex;
+    display: var(--display-flex);
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: var(--margin-login-box);
 }
 
 .login-box {
@@ -156,20 +182,20 @@ body {
     backdrop-filter: var(--backdrop-blur);
     border-radius: var(--border-radius-login);
     padding: var(--padding-login-box);
-    width: 100%;
+    width: var(--width-full);
     max-width: var(--login-box-max-width);
     box-shadow: var(--shadow-login-box);
     border: var(--border-glass);
-    transition: var(--transition-default);
+    transition: var(--transition-none);
 }
 
 .login-box:hover {
-    box-shadow: var(--shadow-login-hover);
-    transform: var(--transform-login-hover);
+    box-shadow: var(--shadow-login-box);
+    transform: var(--transform-none);
 }
 
 .login-title {
-    text-align: center;
+    text-align: var(--text-align-center);
     font-size: var(--font-size-title);
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--margin-title);
@@ -177,7 +203,7 @@ body {
 }
 
 .welcome-text {
-    text-align: center;
+    text-align: var(--text-align-center);
     color: var(--text-secondary);
     margin-bottom: var(--margin-welcome);
     font-size: var(--font-size-welcome);
@@ -188,13 +214,13 @@ body {
 }
 
 .input-field {
-    width: 100%;
+    width: var(--width-full);
     padding: var(--padding-input);
-    border: none;
+    border: var(--transition-none);
     background: var(--input-bg);
     font-size: var(--font-size-input);
     color: var(--input-text);
-    outline: none;
+    outline: var(--outline-none);
     transition: var(--transition-default);
 }
 
@@ -208,43 +234,45 @@ body {
 }
 
 .signin-btn {
-    width: 100%;
+    width: var(--width-full);
     padding: var(--padding-button);
     background: var(--button-gradient);
     color: var(--text-primary);
-    border: none;
+    border: var(--transition-none);
     border-radius: var(--border-radius-button);
     font-size: var(--font-size-button);
     font-weight: var(--font-weight-bold);
-    cursor: pointer;
-    transition: var(--transition-default);
-    text-transform: uppercase;
+    cursor: var(--cursor-pointer);
+    transition: var(--transition-none);
+    text-transform: var(--text-transform-uppercase);
     letter-spacing: var(--letter-spacing-button);
+    box-shadow: var(--box-shadow-none);
 }
 
 .signin-btn:hover {
-    background: var(--button-hover-gradient);
-    transform: var(--transform-button-hover);
-    box-shadow: var(--shadow-button-hover);
+    background: var(--button-gradient);
+    color: var(--text-primary);
+    transform: var(--transform-none);
+    box-shadow: var(--box-shadow-none);
 }
 
 #login_error {
     color: #ffb3b3;
-    text-align: center;
-    margin-top: 10px;
-    display: none;
+    text-align: var(--text-align-center);
+    margin-top: var(--margin-error);
+    display: var(--display-none);
 }
 
 /* Mobile S - 320px */
 @media (max-width: 320px) {
     :root {
         --padding-login-box: 20px 8px;
-        --padding-header: 10px 8px;
-        --padding-logo: 10px 8px;
+        --padding-header: 15px 8px;
+        --padding-logo: 0px;
         --gap-logo: 6px;
-        --logo-size: 36px;
+        --logo-img-size: 36px;
         --logo-font-size: 18px;
-        --font-size-logo: 16px;
+        --logo-text-size: 16px;
         --font-size-nav: 14px;
         --font-size-title: 18px;
         --font-size-welcome: 12px;
@@ -253,13 +281,11 @@ body {
         --font-size-link: 12px;
         --padding-input: 10px;
         --padding-button: 10px;
+        --padding-nav-link: 3px 6px;
         --gap-nav: 10px;
         --margin-welcome: 18px;
+        --margin-login-box: 10px;
         --login-box-max-width: 98vw;
-    }
-
-    .login-box {
-        margin: 10px;
     }
 
     .header {
@@ -268,7 +294,6 @@ body {
     }
 
     .nav-links a {
-        padding: 3px 6px;
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
@@ -278,12 +303,12 @@ body {
 @media (min-width: 321px) and (max-width: 376px) {
     :root {
         --padding-login-box: 24px 12px;
-        --padding-header: 12px 12px;
-        --padding-logo: 12px 12px;
+        --padding-header: 18px 12px;
+        --padding-logo: 0px;
         --gap-logo: 8px;
-        --logo-size: 40px;
+        --logo-img-size: 40px;
         --logo-font-size: 20px;
-        --font-size-logo: 20px;
+        --logo-text-size: 20px;
         --font-size-nav: 16px;
         --font-size-title: 20px;
         --font-size-welcome: 14px;
@@ -292,13 +317,11 @@ body {
         --font-size-link: 13px;
         --padding-input: 12px;
         --padding-button: 12px;
+        --padding-nav-link: 4px 8px;
         --gap-nav: 16px;
         --margin-welcome: 22px;
+        --margin-login-box: 12px;
         --login-box-max-width: 96vw;
-    }
-
-    .login-box {
-        margin: 12px;
     }
 
     .header {
@@ -307,7 +330,6 @@ body {
     }
 
     .nav-links a {
-        padding: 4px 8px;
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
@@ -317,12 +339,12 @@ body {
 @media (min-width: 376px) and (max-width: 426px) {
     :root {
         --padding-login-box: 32px 16px;
-        --padding-header: 14px 16px;
-        --padding-logo: 14px 16px;
+        --padding-header: 20px 16px;
+        --padding-logo: 0px;
         --gap-logo: 9px;
-        --logo-size: 44px;
+        --logo-img-size: 44px;
         --logo-font-size: 22px;
-        --font-size-logo: 24px;
+        --logo-text-size: 24px;
         --font-size-nav: 17px;
         --font-size-title: 24px;
         --font-size-welcome: 15px;
@@ -331,13 +353,11 @@ body {
         --font-size-link: 14px;
         --padding-input: 13px;
         --padding-button: 13px;
+        --padding-nav-link: 5px 9px;
         --gap-nav: 22px;
         --margin-welcome: 26px;
+        --margin-login-box: 16px;
         --login-box-max-width: 94vw;
-    }
-
-    .login-box {
-        margin: 16px;
     }
 
     .header {
@@ -346,7 +366,6 @@ body {
     }
 
     .nav-links a {
-        padding: 5px 9px;
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
@@ -356,12 +375,9 @@ body {
 @media (max-width: 480px) {
     :root {
         --padding-login-box: 30px 20px;
-        --padding-header: 15px 20px;
+        --padding-header: 18px 20px;
         --font-size-logo: 20px;
         --font-size-title: 24px;
+        --margin-login-box: 20px;
     }
-
-    .login-box {
-        margin: 20px;
-    }
-} 
+}

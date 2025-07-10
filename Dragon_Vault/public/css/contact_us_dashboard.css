@@ -29,7 +29,7 @@
     --bg-input: rgba(255, 255, 255, 0.9);
     --bg-input-focus: white;
     --bg-nav-link: rgba(255, 255, 255, 0.1);
-    --bg-info-hover: rgba(123, 44, 191, 0.2);
+    --bg-info-hover: rgba(123, 44, 191, 0.15);
 
     /* Border Colors */
     --border-glass: rgba(255, 255, 255, 0.1);
@@ -170,6 +170,7 @@
     color: var(--text-primary);
 }
 
+/* FORMAL INFO ITEM STYLING - Removed fancy effects */
 .info-item {
     display: flex;
     align-items: center;
@@ -179,13 +180,12 @@
     padding: var(--padding-info-item);
     border-radius: var(--radius-xl);
     border: 1px solid var(--border-glass);
-    transition: var(--transition-fast);
+    /* Removed transition effect */
 }
 
 .info-item:hover {
     background: var(--bg-info-hover);
-    transform: var(--transform-hover-x);
-    box-shadow: var(--shadow-light);
+    /* Removed transform and box-shadow effects */
 }
 
 .info-icon {
@@ -220,6 +220,7 @@
     line-height: var(--line-height-base);
 }
 
+/* FORMAL CONTACT BOX STYLING - Removed fancy effects */
 .contact-box {
     background: var(--bg-glass-dark);
     backdrop-filter: var(--blur-light);
@@ -229,13 +230,8 @@
     max-width: var(--max-width-contact-box);
     box-shadow: var(--shadow-medium);
     border: 1px solid var(--border-glass);
-    transition: var(--transition-fast);
+    /* Removed transition effect */
     flex: 1;
-}
-
-.contact-box:hover {
-    box-shadow: var(--shadow-heavy);
-    transform: var(--transform-hover-up);
 }
 
 .contact-title {
@@ -253,43 +249,44 @@
 .input-field {
     width: 100%;
     padding: var(--padding-input);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     background: var(--bg-input);
     font-size: var(--font-size-small);
     color: var(--text-dark);
     outline: none;
-    transition: var(--transition-fast);
     border-radius: var(--radius-md);
+    /* Removed transition effect */
 }
 
 .input-field:focus {
     background: var(--bg-input-focus);
-    box-shadow: var(--shadow-input);
+    border-color: var(--accent-purple-light);
+    /* Removed box-shadow effect */
 }
 
 .input-field::placeholder {
     color: var(--text-muted);
 }
 
+/* FORMAL BUTTON STYLING - Removed fancy effects */
 .signin-btn {
     width: 100%;
     padding: var(--padding-input);
     background: linear-gradient(45deg, var(--accent-purple-light), var(--accent-purple-medium));
     color: var(--text-primary);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
     font-size: var(--font-size-small);
     font-weight: bold;
     cursor: pointer;
-    transition: var(--transition-fast);
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wide);
+    /* Removed transition effect */
 }
 
 .signin-btn:hover {
     background: linear-gradient(45deg, var(--accent-purple-medium), var(--accent-purple-bright));
-    transform: var(--transform-hover-button);
-    box-shadow: var(--shadow-button);
+    /* Removed transform and box-shadow effects */
 }
 
 /* Mobile S  */

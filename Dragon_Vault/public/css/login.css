@@ -68,10 +68,10 @@
     
     /* Effects */
     --backdrop-blur: blur(10px);
-    --transition-default: all 0.3s ease;
-    --transform-hover: translateY(-3px);
-    --transform-login-hover: translateY(-5px);
-    --transform-button-hover: translateY(-2px);
+    --transition-default: all 0.2s ease;
+    --transform-hover: none;
+    --transform-login-hover: none;
+    --transform-button-hover: none;
 }
 
 * {
@@ -140,7 +140,6 @@ body {
     border-radius: var(--border-radius-nav);
     background: var(--nav-hover-bg);
     color: var(--purple-hover);
-    transform: var(--transform-hover);
 }
 
 .container {
@@ -164,8 +163,7 @@ body {
 }
 
 .login-box:hover {
-    box-shadow: var(--shadow-login-hover);
-    transform: var(--transform-login-hover);
+    box-shadow: var(--shadow-login-box);
 }
 
 .login-title {
@@ -187,6 +185,11 @@ body {
     margin-bottom: var(--margin-form-group);
 }
 
+/* Password group styling */
+.password-group {
+    position: relative;
+}
+
 .input-field {
     width: 100%;
     padding: var(--padding-input);
@@ -205,6 +208,24 @@ body {
 
 .input-field::placeholder {
     color: var(--text-muted);
+}
+
+/* Password toggle styling */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: var(--transition-default);
+    filter: brightness(0); /* Makes the icon black */
+    opacity: 0.7;
+}
+
+.password-toggle:hover {
+    opacity: 1;
 }
 
 .forgot-password {
@@ -240,8 +261,7 @@ body {
 
 .signin-btn:hover {
     background: var(--button-hover-gradient);
-    transform: var(--transform-button-hover);
-    box-shadow: var(--shadow-button-hover);
+    box-shadow: none;
 }
 
 .register-link {
@@ -299,6 +319,12 @@ body {
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
+
+    .password-toggle {
+        width: 16px;
+        height: 16px;
+        right: 10px;
+    }
 }
 
 /* Mobile M - 321px to 375px */
@@ -338,6 +364,12 @@ body {
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
+
+    .password-toggle {
+        width: 18px;
+        height: 18px;
+        right: 12px;
+    }
 }
 
 /* Mobile L - 376px to 425px */
@@ -376,6 +408,12 @@ body {
         padding: 5px 9px;
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
+    }
+
+    .password-toggle {
+        width: 19px;
+        height: 19px;
+        right: 13px;
     }
 }
 

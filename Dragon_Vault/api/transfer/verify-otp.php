@@ -106,7 +106,7 @@ try {
             $external_payload = [
                 'transaction_amount' => floatval($transaction['amount']),
                 'source_account_no' => $source_account_no,
-                'source_bank_code' => 'DragonVault',
+                'source_bank_code' => 'Dragon Vault',
                 'recipient_account_no' => $transaction['recipient_account_number']
             ];
 
@@ -134,7 +134,7 @@ try {
             $external_payload = [
                 'transaction_amount' => floatval($transaction['amount']),
                 'source_account_no' => $source_account_no,
-                'source_bank_code' => 'Dragon Vault',
+                'source_bank_code' => 'DragonVault',
                 'recipient_account_no' => $transaction['recipient_account_number']
             ];
 

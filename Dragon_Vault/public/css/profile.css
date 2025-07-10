@@ -355,8 +355,6 @@
     border: var(--border-white-10);
 }
 
-
-
 .profile-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -399,6 +397,7 @@
     justify-content: center;
 }
 
+/* FORMAL BUTTON STYLES - REMOVED FANCY EFFECTS */
 .edit-btn {
     background: var(--bg-edit-btn-gradient);
     border: none;
@@ -408,15 +407,14 @@
     font-weight: var(--font-semibold);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: var(--transition-default);
+    transition: opacity 0.2s ease;
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
 }
 
 .edit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-btn-hover);
+    opacity: 0.9;
 }
 
 /* Profile Edit Card */
@@ -438,12 +436,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    gap: 15px;
 }
 
 .form-row {
@@ -489,6 +481,7 @@
     margin-top: var(--spacing-sm);
 }
 
+/* FORMAL BUTTON STYLES - REMOVED FANCY EFFECTS */
 .save-btn {
     background: var(--bg-save-btn-gradient);
     border: none;
@@ -498,15 +491,14 @@
     font-weight: var(--font-semibold);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: var(--transition-default);
+    transition: opacity 0.2s ease;
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
 }
 
 .save-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-success-hover);
+    opacity: 0.9;
 }
 
 .cancel-btn {
@@ -518,12 +510,11 @@
     font-weight: var(--font-semibold);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: var(--transition-default);
+    transition: opacity 0.2s ease;
 }
 
 .cancel-btn:hover {
-    background: var(--white-transparent-20);
-    transform: translateY(-2px);
+    opacity: 0.9;
 }
 
 /* Security Card */
@@ -546,6 +537,7 @@
     justify-content: flex-start;
 }
 
+/* FORMAL BUTTON STYLES - REMOVED FANCY EFFECTS */
 .security-btn {
     background: var(--bg-security-btn-gradient);
     border: none;
@@ -555,15 +547,14 @@
     font-weight: var(--font-semibold);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: var(--transition-default);
+    transition: opacity 0.2s ease;
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
 }
 
 .security-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-warning-hover);
+    opacity: 0.9;
 }
 
 /* Danger Zone */
@@ -644,11 +635,11 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-full);
-    transition: var(--transition-background);
+    transition: opacity 0.2s ease;
 }
 
 .modal-close:hover {
-    background: var(--white-transparent-10);
+    opacity: 0.8;
 }
 
 .modal-body {

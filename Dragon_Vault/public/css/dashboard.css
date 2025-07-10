@@ -118,7 +118,7 @@ body {
     color: var(--white);
 }
 
-/* Hamburger Menu Styles */
+/* Hamburger Menu Styles - FORMAL */
 .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -126,11 +126,12 @@ body {
     padding: var(--spacing-xs);
     background: var(--glass-light);
     border-radius: var(--border-radius);
-    transition: all var(--transition-normal);
+    /* Removed fancy transitions and hover effects */
 }
 
 .hamburger-menu:hover {
     background: var(--glass-medium);
+    /* Simple background change only */
 }
 
 .hamburger-line {
@@ -138,11 +139,11 @@ body {
     height: 3px;
     background-color: var(--white);
     margin: 3px 0;
-    transition: var(--transition-normal);
     border-radius: 2px;
+    /* Removed fancy transitions */
 }
 
-/* Hamburger animation when active */
+/* Hamburger animation when active - SIMPLIFIED */
 .hamburger-menu.active .hamburger-line:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
@@ -169,14 +170,13 @@ body {
     background: var(--glass-light);
     color: var(--white);
     cursor: pointer;
-    transition: all var(--transition-normal);
     font-size: var(--font-md);
+    /* Removed all fancy transitions and hover effects */
 }
 
 .nav-btn:hover {
-    box-shadow: var(--shadow-purple);
+    /* Removed fancy shadow and transform effects */
     background: var(--glass-medium);
-    transform: translateY(-2px);
 }
 
 .nav-btn.active {
@@ -207,6 +207,7 @@ body {
     opacity: 1;
 }
 
+/* Mobile Navigation Buttons - FORMAL */
 .mobile-nav-btn {
     font-family: var(--font-serif);
     padding: var(--spacing-md) var(--spacing-xxl);
@@ -215,26 +216,26 @@ body {
     background: linear-gradient(135deg, var(--purple-dark), var(--blue-dark));
     color: var(--white);
     cursor: pointer;
-    transition: all var(--transition-normal);
     font-size: var(--font-lg);
     font-weight: 600;
     min-width: 200px;
     text-align: center;
     backdrop-filter: var(--blur-light);
     border: 1px solid var(--glass-medium);
+    /* Removed fancy transitions and hover effects */
 }
 
 .mobile-nav-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-purple-strong);
+    /* Removed fancy transform and shadow effects */
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(99, 102, 241, 0.7));
 }
 
 .mobile-nav-btn.active {
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(99, 102, 241, 0.8));
-    box-shadow: var(--shadow-glow);
+    /* Removed fancy glow effect */
 }
 
+/* Close Button - FORMAL */
 .close-btn {
     position: absolute;
     top: var(--spacing-xl);
@@ -250,12 +251,12 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius-circle);
-    transition: all var(--transition-normal);
+    /* Removed fancy transitions */
 }
 
 .close-btn:hover {
     background: var(--glass-light);
-    transform: rotate(90deg);
+    /* Removed fancy rotation effect */
 }
 
 .main-content {
@@ -297,21 +298,27 @@ body {
     background-color: var(--glass-light);
 }
 
+/* Toggle Visibility Icon - FORMAL */
 .toggle-visibility-icon {
     width: var(--spacing-xxl);
     height: var(--spacing-xxl);
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity var(--transition-fast);
     border-radius: var(--border-radius-circle);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: var(--font-lg);
+    /* Removed fancy transitions */
 }
 
 .toggle-visibility-icon:hover {
     opacity: 1;
+}
+
+.toggle-visibility-icon:active {
+    /* Removed fancy scale effect */
+    opacity: 0.9;
 }
 
 .dashboard-grid {
@@ -357,6 +364,7 @@ body {
     opacity: var(--white-09);
 }
 
+/* Select Button - FORMAL */
 .select-btn {
     background: linear-gradient(180deg, var(--accent-blue), #6366f1);
     border: none;
@@ -365,13 +373,14 @@ body {
     font-size: var(--font-sm);
     font-weight: 500;
     cursor: pointer;
-    transition: all var(--transition-normal);
     width: 100%;
     border-radius: var(--border-radius);
+    /* Removed fancy transitions */
 }
 
 .select-btn:hover {
-    box-shadow: var(--secondary-purple);
+    /* Removed fancy shadow effects */
+    background: linear-gradient(180deg, #5855ea, #5855ea);
 }
 
 .transactions-section {
@@ -405,6 +414,7 @@ body {
     width: 100%;
 }
 
+/* Transaction Item - FORMAL */
 .transaction-item {
     background-color: var(--white-05);
     border: 1px solid var(--glass-light);
@@ -417,8 +427,8 @@ body {
     width: 100%;
     min-height: 60px;
     box-sizing: border-box;
-    transition: background-color var(--transition-normal);
     margin-bottom: var(--spacing-xs);
+    /* Removed fancy transitions */
 }
 
 .transaction-item:hover {
@@ -445,29 +455,30 @@ body {
     text-align: left;
 }
 
-    .transaction-item .type {
-        flex: 2 !important;
-        min-width: 50px !important;
-        text-align: left !important;
-    }
+.transaction-item .type {
+    flex: 2 !important;
+    min-width: 50px !important;
+    text-align: left !important;
+}
 
-    .transaction-item .amount {
-        flex: 1 !important;
-        min-width: 50px !important;
-        text-align: right !important;
-    }
+.transaction-item .amount {
+    flex: 1 !important;
+    min-width: 50px !important;
+    text-align: right !important;
+}
 
-    .transaction-item .timestamp {
-        flex: 1.5 !important;
-        min-width: 60px !important;
-        text-align: right !important;
-    }
+.transaction-item .timestamp {
+    flex: 1.5 !important;
+    min-width: 60px !important;
+    text-align: right !important;
+}
 
 .view-all-container {
     text-align: right;
     margin-top: var(--spacing-sm);
 }
 
+/* View All Button */
 .view-all-btn {
     padding: 8px var(--spacing-sm);
     background-color: var(--accent-blue);
@@ -477,7 +488,10 @@ body {
     cursor: pointer;
 }
 
-/* Existing CSS for transactions-content */
+.view-all-btn:hover {
+    background-color: #5855ea;
+}
+
 .transactions-content {
     background: linear-gradient(
         135deg,
@@ -494,25 +508,23 @@ body {
     color: rgba(255, 255, 255, 0.7);
     font-size: 18px;
     flex-direction: column;
-    gap: 10px; /* Space between transaction items */
-    padding: 10px; /* Padding inside the content box */
-    width: 100%; /* Ensure it takes full available width */
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
 }
 
-/* Consolidated and refined transaction-item styles */
 .transaction-item {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    padding: 0; /* Padding will be on the inner spans */
+    padding: 0;
     line-height: 1.5;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    min-height: 60px; /* Consistent height for each item */
+    min-height: 60px;
     box-sizing: border-box;
-    transition: background-color 0.3s ease;
 }
 
 .transaction-item:hover {
@@ -524,36 +536,36 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 15px 10px; /* Padding inside each column */
-    border-right: 1px solid rgba(255, 255, 255, 0.1); /* Vertical separators */
-    box-sizing: border-box; /* Include padding in span's total width */
+    padding: 15px 10px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
 }
 
 .transaction-item span:last-child {
-    border-right: none; /* No border for the last column */
+    border-right: none;
 }
 
 .transaction-item .source-label {
-    flex: 0 0 80px; /* Fixed width for source label */
+    flex: 0 0 80px;
     font-weight: bold;
     text-align: left;
 }
 
 .transaction-item .type {
-    flex: 2; /* Allows type to take more space */
-    min-width: 100px; /* Minimum width for uniformity */
+    flex: 2;
+    min-width: 100px;
     text-align: left;
 }
 
 .transaction-item .amount {
-    flex: 1; /* Allows amount to take some space */
-    min-width: 80px; /* Minimum width for uniformity */
+    flex: 1;
+    min-width: 80px;
     text-align: right;
 }
 
 .transaction-item .timestamp {
-    flex: 1.5; /* Allows timestamp to take more space */
-    min-width: 120px; /* Minimum width for uniformity */
+    flex: 1.5;
+    min-width: 120px;
     text-align: right;
 }
 
@@ -582,7 +594,6 @@ body {
     height: 40px;
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.2s ease;
 }
 
 .toggle-visibility-icon:hover {
@@ -590,7 +601,7 @@ body {
 }
 
 .toggle-visibility-icon:active {
-    transform: scale(0.95);
+    opacity: 0.9;
 }
 
 /* Media Queries */
@@ -813,7 +824,6 @@ body {
         font-size: var(--font-lg);
     }
 
-    /* Hide desktop nav and show hamburger */
     .nav-buttons {
         display: none;
     }

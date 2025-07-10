@@ -21,10 +21,11 @@
     --bg-input: rgba(255, 255, 255, 0.9);
     --bg-input-focus: white;
     --bg-nav-link: rgba(255, 255, 255, 0.1);
-    --bg-info-hover: rgba(123, 44, 191, 0.2);
+    --bg-info-hover: rgba(123, 44, 191, 0.1);
     
     /* Border Colors */
     --border-glass: rgba(255, 255, 255, 0.1);
+    --border-formal: rgba(255, 255, 255, 0.3);
     
     /* Font Family */
     --font-primary: "Times New Roman", sans-serif;
@@ -244,16 +245,11 @@ body {
     text-decoration: none;
     font-size: var(--font-size-body);
     padding: var(--padding-lg);
-    transition: var(--transition-fast);
+    /* Removed fancy hover effects for navigation links */
 }
 
 .nav-links a:hover {
-    padding: var(--padding-lg);
-    border: none;
-    border-radius: var(--radius-md);
-    background: var(--bg-nav-link);
-    color: var(--accent-purple-hover);
-    transform: var(--transform-hover-y);
+    color: var(--text-secondary);
 }
 
 .container {
@@ -289,13 +285,12 @@ body {
     padding: var(--padding-info-item);
     border-radius: var(--radius-xl);
     border: 1px solid var(--border-glass);
-    transition: var(--transition-fast);
+    transition: border-color 0.2s ease;
 }
 
 .info-item:hover {
     background: var(--bg-info-hover);
-    transform: var(--transform-hover-x);
-    box-shadow: var(--shadow-light);
+    border-color: var(--border-formal);
 }
 
 .info-icon {
@@ -339,13 +334,7 @@ body {
     max-width: var(--max-width-contact-box);
     box-shadow: var(--shadow-medium);
     border: 1px solid var(--border-glass);
-    transition: var(--transition-fast);
     flex: 1;
-}
-
-.contact-box:hover {
-    box-shadow: var(--shadow-heavy);
-    transform: var(--transform-hover-up);
 }
 
 .contact-title {
@@ -363,18 +352,18 @@ body {
 .input-field {
     width: 100%;
     padding: var(--padding-input);
-    border: none;
+    border: 1px solid var(--border-glass);
     background: var(--bg-input);
     font-size: var(--font-size-small);
     color: var(--text-dark);
     outline: none;
-    transition: var(--transition-fast);
+    transition: border-color 0.2s ease;
     border-radius: var(--radius-md);
 }
 
 .input-field:focus {
     background: var(--bg-input-focus);
-    box-shadow: var(--shadow-input);
+    border-color: var(--accent-purple-light);
 }
 
 .input-field::placeholder {
@@ -386,20 +375,22 @@ body {
     padding: var(--padding-input);
     background: linear-gradient(45deg, var(--accent-purple-light), var(--accent-purple-medium));
     color: var(--text-primary);
-    border: none;
+    border: 1px solid var(--accent-purple-light);
     border-radius: var(--radius-md);
     font-size: var(--font-size-small);
     font-weight: bold;
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: opacity 0.2s ease;
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wide);
 }
 
 .signin-btn:hover {
-    background: linear-gradient(45deg, var(--accent-purple-medium), var(--accent-purple-bright));
-    transform: var(--transform-hover-button);
-    box-shadow: var(--shadow-button);
+    opacity: 0.9;
+}
+
+.signin-btn:active {
+    opacity: 0.8;
 }
 
 /* Mobile S  */
@@ -618,4 +609,4 @@ body {
     .contact-title {
         font-size: var(--font-size-hero-mobile);
     }
-}
+} 

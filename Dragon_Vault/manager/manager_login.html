@@ -5,9 +5,9 @@
             name="viewport"
             content="width=device-width, 
             initial-scale=1.0" />
-        <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/manager_login.css" />
         <link rel="icon" href="../assets/logo.png" />
-        <title>DragonVault - Sign In</title>
+        <title>Manager Login - DragonVault</title>
     </head>
     <body>
         <div class="header">
@@ -16,49 +16,42 @@
                     src="../assets/logo.png"
                     alt="DragonVault"
                     class="logo-img" />
-                <h1 class="logo-text">DragonVault</h1>
+                <h1 class="logo-text">DragonVault Manager</h1>
             </div>
             <nav class="nav-links">
                 <a href="../../index.html">Home</a>
-                <a href="contact_us.html">Contact Us</a>
-                <a href="about_us.html">About Us</a>
             </nav>
         </div>
         <div class="container">
             <div class="login-box">
-                <h1 class="login-title">Log in to your account</h1>
-                <p class="welcome-text">Welcome back to DragonVault!</p>
+                <h1 class="login-title">Manager Login</h1>
+                <p class="welcome-text">Sign in to the control panel</p>
                 <form id="login_form">
                     <div class="form-group">
                         <input
-                            type="name"
+                            type="text"
                             id="login_username"
                             class="input-field"
                             placeholder="Username:"
                             required />
                     </div>
-                    <div class="form-group password-group">
+                    <div class="form-group">
                         <input
                             type="password"
                             id="login_password"
                             class="input-field"
                             placeholder="Password:"
                             required />
-                        <img
-                            src="../assets/hide.png"
-                            alt="Show Password"
-                            class="password-toggle"
-                            id="password_toggle"
-                            style="display: none" />
-                    </div>
-                    <div class="forgot-password">
-                        <a href="forgot_password.html">Forgot Password?</a>
                     </div>
                     <button type="submit" class="signin-btn">LOG IN</button>
-                    <div class="register-link">
-                        Don't have an account?
-                        <a href="register.html">Register</a>
-                    </div>
+                    <div
+                        id="login_error"
+                        style="
+                            color: #ffb3b3;
+                            text-align: center;
+                            margin-top: 10px;
+                            display: none;
+                        "></div>
                 </form>
             </div>
         </div>

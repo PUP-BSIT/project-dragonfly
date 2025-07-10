@@ -1,55 +1,61 @@
 <!DOCTYPE html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/login.css">
-        <link rel="icon" href="../assets/logo.png">
-        <title>DragonVault - Sign In</title>
-    </head>
-    <body>
-        <div class="header">
-            <div class="logo">
-                <img
-                    src="../assets/logo.png"
-                    alt="DragonVault"
-                    class="logo-img" />
-                <h1 class="logo-text">DragonVault</h1>
-            </div>
-            <nav class="nav-links">
-                <a href="../../index.html">Home</a>
-                <a href="contact_us.html">Contact Us</a>
-                <a href="about_us.html">About Us</a>
-            </nav>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="../assets/logo.png">
+    <title>DragonVault - Sign In</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img
+                src="../assets/logo.png"
+                alt="DragonVault"
+                class="logo-img" />
+            <h1 class="logo-text">DragonVault</h1>
         </div>
-        <div class="container">
-            <div class="login-box">
-                <h1 class="login-title">Log in to your account</h1>
-                <p class="welcome-text">Welcome back to DragonVault!</p>
-                <form id="login_form">
-                    <div class="form-group">
-                        <input type="name" 
-                            id="login_username" 
-                            class="input-field" 
-                            placeholder="Username:" 
-                            required />
-                    </div>
-                    <div class="form-group">
-                        <input type="password" 
-                            id="login_password" 
-                            class="input-field" 
-                            placeholder="Password:" 
-                            required />
-                    </div>
-                    <div class="forgot-password">
-                        <a href="forgot_password.html">Forgot Password?</a>
-                    </div>
-                    <button type="submit" class="signin-btn">SIGN IN</button>
-                    <div class="register-link">
-                        Don't have an account? 
-                        <a href="register.html">Register</a>
-                    </div>
-                </form>
-            </div>
+        <nav class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="contact_us.html">Contact Us</a>
+            <a href="about_us.html">About Us</a>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="login-box">
+            <h1 class="login-title">Log in to your account</h1>
+            <p class="welcome-text">Welcome back to DragonVault!</p>
+            <form id="login_form">
+                <div class="form-group">
+                    <input type="name" 
+                        id="login_username" 
+                        class="input-field" 
+                        placeholder="Username:" 
+                        required />
+                </div>
+                <div class="form-group password-group">
+                    <input type="password" 
+                        id="login_password" 
+                        class="input-field" 
+                        placeholder="Password:" 
+                        required />
+                    <img src="../assets/hide.png" 
+                        alt="Show Password" 
+                        class="password-toggle" 
+                        id="password_toggle"
+                        style="display: none;">
+                </div>
+                <div class="forgot-password">
+                    <a href="forgot_password.html">Forgot Password?</a>
+                </div>
+                <button type="submit" class="signin-btn">SIGN IN</button>
+                <div class="register-link">
+                    Don't have an account? 
+                    <a href="register.html">Register</a>
+                </div>
+            </form>
         </div>
-        <script src="./js/login.js"></script>
-    </body>
+    </div>
+    <script src="./js/login.js"></script>
+</body>
 </html>

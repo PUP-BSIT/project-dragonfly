@@ -1,6 +1,11 @@
 :root {
     /* Colors */
-    --primary-bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    --primary-bg-gradient: linear-gradient(
+        135deg,
+        #1a0b2e 0%,
+        #2d1b69 50%,
+        #7b2cbf 100%
+    );
     --primary-color: #1a0b2e;
     --secondary-color: #2d1b69;
     --accent-color: #7b2cbf;
@@ -12,7 +17,7 @@
     --text-secondary: #cccccc;
     --text-muted: #666;
     --input-text: #333;
-    
+
     /* Background Colors */
     --header-bg: rgba(0, 0, 0, 0.2);
     --login-box-bg: rgba(0, 0, 0, 0.6);
@@ -22,18 +27,22 @@
     --nav-hover-border: #ececec55;
     --button-gradient: linear-gradient(45deg, #6910b7, #882ad4);
     --button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
-    
+
     /* Borders */
     --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
+
+=======
     --border-transparent: 1px solid transparent;
     --border-nav-hover: 1px solid #ececec55;
     
+>>>>>>> main:Dragon_Vault/manager/css/login.css
     /* Shadows */
     --shadow-login-box: 0 20px 40px rgba(0, 0, 0, 0.3);
     --shadow-login-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
     --shadow-input-focus: 0 0 10px rgba(123, 44, 191, 0.3);
     --shadow-button-hover: 0 10px 20px rgba(123, 44, 191, 0.3);
-    
+
     /* Typography */
     --font-family: "Times New Roman", sans-serif;
     --font-size-logo: 28px;
@@ -46,7 +55,7 @@
     --font-weight-bold: bold;
     --font-weight-normal: normal;
     --letter-spacing-button: 1px;
-    
+
     /* Spacing */
     --padding-header: 20px 30px;
     --padding-logo: 0px;
@@ -66,16 +75,25 @@
     --margin-error: 10px;
     --border-radius-login: 20px;
     --border-radius-button: 8px;
+<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
+    --border-radius-nav: 8px;
+
+=======
     --border-radius-nav: 6px;
     
+>>>>>>> main:Dragon_Vault/manager/css/login.css
     /* Dimensions */
     --logo-img-size: 36px;
     --logo-text-size: 20px;
     --logo-font-size: 18px;
     --login-box-max-width: 600px;
     --container-flex: 0.5;
+<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
+
+=======
     --body-min-height: 100vh;
     
+>>>>>>> main:Dragon_Vault/manager/css/login.css
     /* Effects */
     --backdrop-blur: blur(10px);
     --transition-default: all 0.3s ease;
@@ -189,11 +207,14 @@ body {
     transition: var(--transition-none);
 }
 
+<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
+=======
 .login-box:hover {
     box-shadow: var(--shadow-login-box);
     transform: var(--transform-none);
 }
 
+>>>>>>> main:Dragon_Vault/manager/css/login.css
 .login-title {
     text-align: var(--text-align-center);
     font-size: var(--font-size-title);
@@ -250,10 +271,15 @@ body {
 }
 
 .signin-btn:hover {
+<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
+    background: var(--button-hover-gradient);
+    box-shadow: none;
+=======
     background: var(--button-gradient);
     color: var(--text-primary);
     transform: var(--transform-none);
     box-shadow: var(--box-shadow-none);
+>>>>>>> main:Dragon_Vault/manager/css/login.css
 }
 
 #login_error {
@@ -380,4 +406,12 @@ body {
         --font-size-title: 24px;
         --margin-login-box: 20px;
     }
+<<<<<<< HEAD:Dragon_Vault/manager/css/manager_login.css
+
+    .login-box {
+        margin: 20px;
+    }
 }
+=======
+}
+>>>>>>> main:Dragon_Vault/manager/css/login.css

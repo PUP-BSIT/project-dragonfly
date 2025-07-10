@@ -255,25 +255,24 @@ function fetchUserPhoneNumber() {
         method: "GET",
         credentials: "include"
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success && data.phone_number) {
-                // Mask the phone number for privacy (e.g., 0912***6789)
-                const phone = data.phone_number;
-                let masked = phone;
-                if (phone.length >= 11) {
-                    masked = phone.substring(0, 4) + '***' + phone.substring(phone.length - 4);
-                }
-                const otpPhoneSpan = document.querySelector('.otp-phone');
-                if (otpPhoneSpan) {
-                    otpPhoneSpan.textContent = `(${masked})`;
-                }
-                console.log("Hello");
+    .then(res => res.json())
+    .then(data => {
+        const phone = data.phone || data.phone_number;
+        if (data.success && phone) {
+            // Mask the phone number for privacy (e.g., 0912***6789)
+            let masked = phone;
+            if (phone.length >= 11) {
+                masked = phone.substring(0, 4) + '***' + phone.substring(phone.length - 4);
             }
-        })
-        .catch(() => {
-            // Fallback: leave as default or hide
-        });
+            const otpPhoneSpan = document.querySelector('.otp-phone');
+            if (otpPhoneSpan) {
+                otpPhoneSpan.textContent = `(${masked})`;
+            }
+        }
+    })
+    .catch(() => {
+        // Fallback: leave as default or hide
+    });
 }
 
 // Initialize the application when the DOM is loaded

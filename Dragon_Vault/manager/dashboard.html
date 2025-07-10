@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="../assets/logo.png">
+    <title>Manager Dashboard - DragonVault</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="../assets/logo.png" alt="DragonVault" class="logo-img" />
+            <h1 class="logo-text">DragonVault Manager</h1>
+        </div>
+        <button id="logout_btn" class="logout-btn">Logout</button>
+    </div>
+    <div class="container">
+        <div class="dashboard-box">
+            <h2>Welcome, <span id="manager_name">Manager</span></h2>
+            <div class="control-section">
+                <h3>Transfer Limit Control</h3>
+                <form id="transfer_limit_form">
+                    <label for="transfer_limit_input">Current Transfer Limit:</label>
+                    <input type="number" id="transfer_limit_input" class="input-field" min="0" step="0.01" required />
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+                <div id="transfer_limit_feedback" class="feedback"></div>
+            </div>
+            <div class="control-section">
+                <h3>Withdrawal Limit Control</h3>
+                <form id="withdrawal_limit_form">
+                    <label for="withdrawal_limit_input">Current Withdrawal Limit:</label>
+                    <input type="number" id="withdrawal_limit_input" class="input-field" min="0" step="0.01" required />
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+                <div id="withdrawal_limit_feedback" class="feedback"></div>
+            </div>
+            <div class="control-section">
+                <h3>SMS Gateway</h3>
+                <form id="sms_gateway_form">
+                    <label for="sms_gateway_toggle">SMS Gateway Status:</label>
+                    <select id="sms_gateway_toggle" class="input-field">
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                    </select>
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+                <div id="sms_gateway_feedback" class="feedback"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

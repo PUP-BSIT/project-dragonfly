@@ -1,0 +1,177 @@
+:root {
+    --primary-bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    --header-bg: rgba(0, 0, 0, 0.2);
+    --dashboard-box-bg: rgba(0, 0, 0, 0.6);
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --input-focus-bg: white;
+    --button-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    --button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
+    --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+    --shadow-dashboard-box: 0 20px 40px rgba(0, 0, 0, 0.3);
+    --shadow-dashboard-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
+    --font-family: "Times New Roman", sans-serif;
+    --font-size-title: 28px;
+    --font-size-section: 20px;
+    --font-size-input: 16px;
+    --font-size-button: 16px;
+    --font-weight-bold: bold;
+    --border-radius-dashboard: 20px;
+    --border-radius-button: 8px;
+    --padding-dashboard-box: 40px;
+    --padding-input: 15px;
+    --padding-button: 15px;
+    --margin-section: 30px 0;
+    --margin-feedback: 15px 0 0 0;
+    --logout-btn-bg: #f44336;
+    --logout-btn-hover-bg: #d32f2f;
+    --logout-btn-color: #fff;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--primary-bg-gradient);
+    min-height: 100vh;
+    color: #fff;
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 30px;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo-text {
+    font-size: 28px;
+    font-weight: var(--font-weight-bold);
+}
+
+.logout-btn {
+    background: var(--logout-btn-bg);
+    color: var(--logout-btn-color);
+    border: none;
+    border-radius: var(--border-radius-button);
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.logout-btn:hover {
+    background: var(--logout-btn-hover-bg);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.dashboard-box {
+    background: var(--dashboard-box-bg);
+    border-radius: var(--border-radius-dashboard);
+    padding: var(--padding-dashboard-box);
+    box-shadow: var(--shadow-dashboard-box);
+    border: var(--border-glass);
+    width: 100%;
+    max-width: 600px;
+}
+
+.dashboard-box h2 {
+    margin-bottom: 20px;
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+}
+
+.control-section {
+    margin: var(--margin-section);
+}
+
+.control-section h3 {
+    font-size: var(--font-size-section);
+    margin-bottom: 10px;
+}
+
+.input-field {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--padding-input);
+    border: none;
+    background: var(--input-bg);
+    font-size: var(--font-size-input);
+    color: #333;
+    outline: none;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+.input-field:focus {
+    background: var(--input-focus-bg);
+    box-shadow: 0 0 10px rgba(123, 44, 191, 0.3);
+}
+
+.save-btn {
+    background: var(--button-gradient);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius-button);
+    padding: var(--padding-button);
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s;
+    margin-top: 5px;
+}
+.save-btn:hover {
+    background: var(--button-hover-gradient);
+    box-shadow: 0 10px 20px rgba(123, 44, 191, 0.3);
+}
+
+.feedback {
+    margin: var(--margin-feedback);
+    font-size: 15px;
+    min-height: 20px;
+}
+
+@media (max-width: 600px) {
+    .dashboard-box {
+        padding: 20px 10px;
+        max-width: 98vw;
+    }
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 8px;
+    }
+    .logo {
+        padding: 10px 8px;
+    }
+    .input-field {
+        font-size: 15px;
+        padding: 12px;
+        max-width: 100%;
+    }
+}
+@media (max-width: 400px) {
+    .input-field {
+        font-size: 13px;
+        padding: 10px;
+    }
+} 

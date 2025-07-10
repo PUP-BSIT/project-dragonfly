@@ -126,23 +126,20 @@ try {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     $smsResponse = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
-    
-    // Commit transaction
-    $pdo->commit();
-
-    // Prepare success response
-    $response = [
-        'success' => true,
-        'message' => 'OTP has been sent to your registered mobile number for external transfer',
-        'transaction_id' => $transaction_id
-    ];
-
-    // Log success response
-    error_log("Fund Transfer External Success: " . json_encode($response));
-
-    // Return success response
-    echo json_encode($response);
+    // Return the SMS API response directly to the client
+    echo $smsResponse;
+    // Commit transaction only if SMS was sent successfully
+    $smsResult = json_decode($smsResponse, true);
+    if ($httpCode === 200 && isset($smsResult['success']) && $smsResult['success']) {
+        $pdo->commit();
+    } else {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+    }
+    exit;
 
 } catch (Exception $e) {
     // Rollback transaction on error

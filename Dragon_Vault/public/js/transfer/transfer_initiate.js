@@ -110,10 +110,10 @@ const Validation = {
                 this.showFieldError("amount", "Minimum transfer amount is PHP 1.00");
                 isValid = false;
                 errorMessage += "• Minimum transfer amount is PHP 1.00\n";
-            } else if (numericAmount > 500000) {
-                this.showFieldError("amount", "Maximum transfer amount is PHP 500,000.00");
+            } else if (numericAmount > TRANSFER_LIMIT) {
+                this.showFieldError("amount", `Maximum transfer amount is PHP ${TRANSFER_LIMIT.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
                 isValid = false;
-                errorMessage += "• Maximum transfer amount is PHP 500,000.00\n";
+                errorMessage += `• Maximum transfer amount is PHP ${TRANSFER_LIMIT.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}\n`;
             }
         }
 
@@ -312,10 +312,13 @@ const ApiService = {
         })
         .then(data => {
             if (data.success) {
-                // Redirect to verify page
                 window.location.href = "transfer_verify.html";
             } else {
-                alert(data.error || "Transfer initiation failed");
+                if (data.message === "SMS gateway is currently disabled by the system administrator.") {
+                    alert("Transfer failed: " + data.message);
+                } else {
+                    alert(data.error || data.message || "Transfer initiation failed");
+                }
             }
         })
         .catch(error => {
@@ -329,10 +332,28 @@ const ApiService = {
     }
 };
 
+let TRANSFER_LIMIT = 500000; // Default, will be updated from backend
+
+function fetchTransferLimit() {
+    fetch(API_BASE + "config/limits.php")
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.transfer_limit) {
+                TRANSFER_LIMIT = parseFloat(data.transfer_limit);
+            }
+        })
+        .catch(() => {
+            // Use default if fetch fails
+        });
+}
+
 // Initialize the application when the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
     // Load initial balance
     ApiService.loadAvailableBalance();
+
+    // Fetch transfer limit from backend
+    fetchTransferLimit();
 
     // Set up account number input handling
     const accountInput = document.getElementById("accountNumber");

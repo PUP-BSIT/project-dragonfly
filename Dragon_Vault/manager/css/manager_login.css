@@ -1,6 +1,11 @@
 :root {
     /* Colors */
-    --primary-bg-gradient: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #7b2cbf 100%);
+    --primary-bg-gradient: linear-gradient(
+        135deg,
+        #1a0b2e 0%,
+        #2d1b69 50%,
+        #7b2cbf 100%
+    );
     --primary-color: #1a0b2e;
     --secondary-color: #2d1b69;
     --accent-color: #7b2cbf;
@@ -12,7 +17,7 @@
     --text-secondary: #cccccc;
     --text-muted: #666;
     --input-text: #333;
-    
+
     /* Background Colors */
     --header-bg: rgba(0, 0, 0, 0.2);
     --login-box-bg: rgba(0, 0, 0, 0.6);
@@ -21,16 +26,16 @@
     --nav-hover-bg: rgba(255, 255, 255, 0.1);
     --button-gradient: linear-gradient(45deg, #7b2cbf, #9d4edd);
     --button-hover-gradient: linear-gradient(45deg, #9d4edd, #c77dff);
-    
+
     /* Borders */
     --border-glass: 1px solid rgba(255, 255, 255, 0.1);
-    
+
     /* Shadows */
     --shadow-login-box: 0 20px 40px rgba(0, 0, 0, 0.3);
     --shadow-login-hover: 0 20px 40px rgba(123, 44, 191, 0.3);
     --shadow-input-focus: 0 0 10px rgba(123, 44, 191, 0.3);
     --shadow-button-hover: 0 10px 20px rgba(123, 44, 191, 0.3);
-    
+
     /* Typography */
     --font-family: "Times New Roman", sans-serif;
     --font-size-logo: 28px;
@@ -42,7 +47,7 @@
     --font-size-link: 14px;
     --font-weight-bold: bold;
     --letter-spacing-button: 1px;
-    
+
     /* Spacing */
     --padding-header: 0px 30px;
     --padding-logo: 20px 30px;
@@ -59,13 +64,13 @@
     --border-radius-login: 20px;
     --border-radius-button: 8px;
     --border-radius-nav: 8px;
-    
+
     /* Dimensions */
     --logo-size: 50px;
     --logo-font-size: 24px;
     --login-box-max-width: 600px;
     --container-flex: 0.5;
-    
+
     /* Effects */
     --backdrop-blur: blur(10px);
     --transition-default: all 0.3s ease;
@@ -163,11 +168,6 @@ body {
     transition: var(--transition-default);
 }
 
-.login-box:hover {
-    box-shadow: var(--shadow-login-hover);
-    transform: var(--transform-login-hover);
-}
-
 .login-title {
     text-align: center;
     font-size: var(--font-size-title);
@@ -224,8 +224,7 @@ body {
 
 .signin-btn:hover {
     background: var(--button-hover-gradient);
-    transform: var(--transform-button-hover);
-    box-shadow: var(--shadow-button-hover);
+    box-shadow: none;
 }
 
 #login_error {
@@ -364,4 +363,4 @@ body {
     .login-box {
         margin: 20px;
     }
-} 
+}

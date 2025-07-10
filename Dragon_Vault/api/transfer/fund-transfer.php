@@ -157,39 +157,23 @@ try {
     $verboseLog = stream_get_contents($verbose);
     error_log("CURL Verbose Log: " . $verboseLog);
     
-    if (curl_errno($ch)) {
-        $error = curl_error($ch);
-        error_log("SMS API Error: " . $error);
-        curl_close($ch);
-        throw new Exception("Failed to send SMS: " . $error);
-    }
-    
     curl_close($ch);
     fclose($verbose);
 
     error_log("SMS API Response (HTTP $httpCode): " . $smsResponse);
 
     $smsResult = json_decode($smsResponse, true);
-    if ($httpCode !== 200 || !isset($smsResult['success']) || !$smsResult['success']) {
-        error_log("Failed to send SMS. HTTP Code: $httpCode, Response: " . $smsResponse);
-        throw new Exception("Failed to send OTP via SMS. Please try again.");
+    // Return the SMS API response directly to the client
+    echo $smsResponse;
+    // Commit transaction only if SMS was sent successfully
+    if ($httpCode === 200 && isset($smsResult['success']) && $smsResult['success']) {
+        $pdo->commit();
+    } else {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
     }
-
-    // Commit transaction
-    $pdo->commit();
-
-    // Prepare success response
-    $response = [
-        'success' => true,
-        'message' => 'OTP has been sent to your registered mobile number',
-        'transaction_id' => $transaction_id
-    ];
-
-    // Log success response
-    error_log("Fund Transfer Success: " . json_encode($response));
-
-    // Return success response
-    echo json_encode($response);
+    exit;
 
 } catch (Exception $e) {
     // Rollback transaction on error

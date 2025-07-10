@@ -312,10 +312,13 @@ const ApiService = {
         })
         .then(data => {
             if (data.success) {
-                // Redirect to verify page
                 window.location.href = "transfer_verify.html";
             } else {
-                alert(data.error || "Transfer initiation failed");
+                if (data.message === "SMS gateway is currently disabled by the system administrator.") {
+                    alert("Transfer failed: " + data.message);
+                } else {
+                    alert(data.error || data.message || "Transfer initiation failed");
+                }
             }
         })
         .catch(error => {

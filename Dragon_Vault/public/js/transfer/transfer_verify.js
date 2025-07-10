@@ -257,7 +257,8 @@ function fetchUserPhoneNumber() {
     })
     .then(res => res.json())
     .then(data => {
-        const phone = data.phone || data.phone_number;
+        // Try to get phone from user object, fallback to top-level
+        const phone = (data.user && (data.user.phone || data.user.phone_number)) || data.phone || data.phone_number;
         if (data.success && phone) {
             // Mask the phone number for privacy (e.g., 0912***6789)
             let masked = phone;

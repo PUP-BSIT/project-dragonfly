@@ -30,17 +30,17 @@
   
   /* Font Size Variables */
   --font-size-sm: 14px;
-  --font-size-md: 16px;
+  --font-size-md: 20px;
   --font-size-lg: 22px;
   
   /* Font Weight Variables */
   --font-weight-normal: 400;
   --font-weight-bold: bold;
-  --font-weight-semibold: 600; /* Added */
+  --font-weight-semibold: 600; 
 
   /* Dimension Variables */
-  --header-height: 60px; /* Updated */
-  --logo-height: 40px;   /* Updated */
+  --header-height: 60px; 
+  --logo-height: 40px;  
   --form-max-width: 400px;
   --z-index-header: 1000;
   
@@ -51,7 +51,7 @@
   --transition-background: background 0.3s;
 
   /* Letter Spacing */
-  --letter-spacing-wide: 1px; /* Added */
+  --letter-spacing-wide: 1px;
 }
 
 body {
@@ -64,11 +64,11 @@ body {
 
 .header {
   background: var(--bg-secondary);
-  padding: 0 var(--spacing-md); /* Updated */
+  padding: 0 var(--spacing-md); 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--header-height); /* Updated */
+  height: var(--header-height); 
   position: fixed;
   top: 0;
   left: 0;

@@ -52,16 +52,37 @@
                         <label for="transfer_limit_input">
                             Current Transfer Limit:
                         </label>
-                        <input
-                            type="number"
-                            id="transfer_limit_input"
-                            class="input-field"
-                            min="0"
-                            step="0.01"
-                            required />
-                        <button type="submit" class="save-btn">Save</button>
+                        <div class="input-row">
+                            <input
+                                type="number"
+                                id="transfer_limit_input"
+                                class="input-field"
+                                min="0"
+                                step="0.01"
+                                required />
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
                     </form>
                     <div id="transfer_limit_feedback" class="feedback"></div>
+                </div>
+                <div class="control-section">
+                    <h3>Transfer Minimum Control</h3>
+                    <form id="transfer_minimum_form">
+                        <label for="transfer_minimum_input">
+                            Current Transfer Minimum:
+                        </label>
+                        <div class="input-row">
+                            <input
+                                type="number"
+                                id="transfer_minimum_input"
+                                class="input-field"
+                                min="0"
+                                step="0.01"
+                                required />
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
+                    </form>
+                    <div id="transfer_minimum_feedback" class="feedback"></div>
                 </div>
                 <div class="control-section">
                     <h3>Withdrawal Limit Control</h3>
@@ -69,16 +90,56 @@
                         <label for="withdrawal_limit_input">
                             Current Withdrawal Limit:
                         </label>
-                        <input
-                            type="number"
-                            id="withdrawal_limit_input"
-                            class="input-field"
-                            min="0"
-                            step="0.01"
-                            required />
-                        <button type="submit" class="save-btn">Save</button>
+                        <div class="input-row">
+                            <input
+                                type="number"
+                                id="withdrawal_limit_input"
+                                class="input-field"
+                                min="0"
+                                step="0.01"
+                                required />
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
                     </form>
                     <div id="withdrawal_limit_feedback" class="feedback"></div>
+                </div>
+                <div class="control-section">
+                    <h3>Deposit Minimum Control</h3>
+                    <form id="deposit_minimum_form">
+                        <label for="deposit_minimum_input">
+                            Current Deposit Minimum:
+                        </label>
+                        <div class="input-row">
+                            <input
+                                type="number"
+                                id="deposit_minimum_input"
+                                class="input-field"
+                                min="0"
+                                step="0.01"
+                                required />
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
+                    </form>
+                    <div id="deposit_minimum_feedback" class="feedback"></div>
+                </div>
+                <div class="control-section">
+                    <h3>Minimum Withdrawal Control</h3>
+                    <form id="minimum_withdrawal_form">
+                        <label for="minimum_withdrawal_input">
+                            Current Minimum Withdrawal:
+                        </label>
+                        <div class="input-row">
+                            <input
+                                type="number"
+                                id="minimum_withdrawal_input"
+                                class="input-field"
+                                min="0"
+                                step="0.01"
+                                required />
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
+                    </form>
+                    <div id="minimum_withdrawal_feedback" class="feedback"></div>
                 </div>
                 <div class="control-section">
                     <h3>SMS Gateway</h3>
@@ -86,11 +147,13 @@
                         <label for="sms_gateway_toggle">
                             SMS Gateway Status:
                         </label>
-                        <select id="sms_gateway_toggle" class="input-field">
-                            <option value="true">Enabled</option>
-                            <option value="false">Disabled</option>
-                        </select>
-                        <button type="submit" class="save-btn">Save</button>
+                        <div class="input-row">
+                            <select id="sms_gateway_toggle" class="input-field">
+                                <option value="true">Enabled</option>
+                                <option value="false">Disabled</option>
+                            </select>
+                            <button type="submit" class="save-btn">Save</button>
+                        </div>
                     </form>
                     <div id="sms_gateway_feedback" class="feedback"></div>
                 </div>

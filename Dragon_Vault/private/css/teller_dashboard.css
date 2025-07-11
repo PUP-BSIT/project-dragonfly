@@ -3,7 +3,7 @@
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
   --font-serif: "Times New Roman", Times, serif;
   
-  /* Color Variables - Updated to match profile.css */
+  /* Color Variables */
   --color-primary: #1b0036;
   --color-secondary: #0c001a;
   --color-accent: #450078;
@@ -15,7 +15,7 @@
   --color-gradient-start: #4a2a8a;
   --color-gradient-end: #6b4ba8;
   
-  /* Navigation Variables - Updated to match profile.css */
+  /* Navigation Variables */
   --header-height: 70px;
   --header-height-mobile: 60px;
   --header-height-landscape: 50px;
@@ -38,7 +38,7 @@
   --radius-xl: 16px;
   --radius-circle: 50%;
   
-  /* Font Size Variables - Updated to match profile.css */
+  /* Font Size Variables */
   --font-size-xs: 14px;
   --font-size-sm: 15px;
   --font-size-md: 16px;
@@ -73,7 +73,6 @@
   --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.2);
   --shadow-xl: 0 2px 6px rgba(0, 0, 0, 0.25);
   --shadow-mobile: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-icon: none;
   
   /* Transition Variables */
   --transition-primary: all 0.3s ease;
@@ -93,9 +92,6 @@
   --opacity-border: 0.1;
   
   /* Transform Variables */
-  --transform-hover-up: none;
-  --transform-hover-down: none;
-  --transform-scale: none;
   --transform-mobile-hide: translateY(-100%);
   --transform-mobile-show: translateY(0);
   
@@ -104,7 +100,7 @@
   --grid-gap-md: 20px;
   --grid-gap-sm: 15px;
   
-  /* Padding Variables - Updated to match profile.css */
+  /* Padding Variables */
   --padding-large: 40px;
   --padding-medium: 30px;
   --padding-small: 20px;
@@ -130,7 +126,7 @@
   --margin-actions-padding-mobile: 0 5px;
   --margin-banner-bottom: 10px;
   
-  /* Gap Variables - Updated to match profile.css */
+  /* Gap Variables */
   --gap-large: 30px;
   --gap-medium: 20px;
   --gap-small: 15px;
@@ -165,7 +161,7 @@ button {
   cursor: pointer;
 }
 
-/* Navigation bar - Updated to match profile.css exactly */
+/* Navigation bar */
 .navigation-bar {
   position: fixed;
   top: 0;

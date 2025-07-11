@@ -1,10 +1,6 @@
-/* Root Variables */
 :root {
-  /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
-  --font-serif: "Times New Roman", Times, serif;
   
-  /* Color Variables */
   --color-primary-dark: #1b0036;
   --color-secondary-dark: #0c001a;
   --color-tertiary-dark: #0d001f;
@@ -29,7 +25,6 @@
   --color-shadow-button: rgba(159, 0, 232, 0.2);
   --color-shadow-dark: rgba(0, 0, 0, 0.3);
   
-  /* Spacing Variables */
   --spacing-xs: 8px;
   --spacing-sm: 10px;
   --spacing-md: 12px;
@@ -39,13 +34,11 @@
   --spacing-xxxl: 30px;
   --spacing-huge: 40px;
   
-  /* Border Radius Variables */
   --border-radius-sm: 8px;
   --border-radius-md: 10px;
   --border-radius-lg: 12px;
   --border-radius-full: 50%;
   
-  /* Size Variables */
   --header-height: 70px;
   --logo-size: 35px;
   --logo-size-tablet: 30px;
@@ -60,7 +53,6 @@
   --button-padding-mobile: 14px 20px;
   --button-padding-small: 14px 18px;
   
-  /* Font Size Variables */
   --font-size-xs: 13px;
   --font-size-sm: 14px;
   --font-size-md: 15px;
@@ -71,33 +63,24 @@
   --font-size-xxxl: 24px;
   --font-size-huge: 28px;
   
-  /* Transition Variables - Formal transitions */
   --transition-fast: 0.15s ease;
   --transition-transform: background-color 0.15s ease, box-shadow 0.15s ease;
   
-  /* Shadow Variables - Reduced for formal look */
   --shadow-header: 0 2px 10px var(--color-shadow-dark);
   --shadow-container: 0 8px 25px var(--color-shadow);
   --shadow-button: 0 2px 6px var(--color-shadow-button);
   
-  /* Z-index Variables */
   --z-index-header: 1000;
   
-  /* Opacity Variables */
   --opacity-disabled: 0.6;
   --opacity-toggle: 0.7;
   --opacity-full: 1;
   
-  /* Line Height Variables */
   --line-height-base: 1.6;
   
-  /* Transform Variables - Removed fancy transforms */
-  --transform-hover: none;
-  --transform-active: none;
   --transform-center: translateY(-50%);
 }
 
-/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -112,7 +95,6 @@ body {
   line-height: var(--line-height-base);
 }
 
-/* Header */
 .header {
   background: var(--color-secondary-dark);
   padding: var(--spacing-md) var(--spacing-xl);
@@ -146,7 +128,6 @@ body {
   color: var(--color-light-purple);
 }
 
-/* Main content */
 .main-content {
   padding-top: var(--header-height);
   min-height: 100vh;
@@ -156,7 +137,6 @@ body {
   padding: var(--header-height) var(--spacing-xl) var(--spacing-xl);
 }
 
-/* Registration container */
 .registration-container {
   background: linear-gradient(145deg, var(--color-tertiary-dark), var(--color-quaternary-dark));
   border-radius: var(--border-radius-lg);
@@ -175,12 +155,10 @@ body {
   font-weight: bold;
 }
 
-/* Form groups */
 .form-group {
   margin-bottom: var(--spacing-xl);
 }
 
-/* Form labels */
 form label {
   display: block;
   margin-bottom: var(--spacing-xs);
@@ -189,7 +167,6 @@ form label {
   font-weight: 500;
 }
 
-/* Form inputs */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
@@ -214,7 +191,6 @@ form input::placeholder {
   color: var(--color-text-placeholder);
 }
 
-/* Submit button - Formal styling */
 button[type="submit"] {
   background: linear-gradient(135deg, var(--color-gradient-start), var(--color-gradient-end));
   color: var(--color-white);
@@ -239,7 +215,6 @@ button[type="submit"]:active {
   box-shadow: 0 1px 3px var(--color-shadow-button);
 }
 
-/* Message container */
 .message-container {
   min-height: var(--spacing-huge);
   display: flex;
@@ -249,7 +224,6 @@ button[type="submit"]:active {
   margin: var(--spacing-lg) 0;
 }
 
-/* Messages */
 .error-message {
   color: var(--color-error);
   text-align: center;
@@ -264,7 +238,6 @@ button[type="submit"]:active {
   margin: 5px 0;
 }
 
-/* Form note */
 .form-note {
   text-align: center;
   margin-top: var(--spacing-xl);
@@ -284,7 +257,6 @@ button[type="submit"]:active {
   text-decoration: underline;
 }
 
-/* Password container - Fixed spacing */
 .password-container {
   position: relative;
   display: flex;
@@ -293,7 +265,7 @@ button[type="submit"]:active {
 
 .password-container input {
   width: 100%;
-  padding-right: 50px; /* Increased padding to prevent overlap */
+  padding-right: 50px;
 }
 
 .password-toggle {
@@ -313,7 +285,6 @@ button[type="submit"]:active {
   opacity: var(--opacity-full);
 }
 
-/* Tablet styles */
 @media (max-width: 1024px) {
   .main-content {
     padding: 80px var(--spacing-xxxl) var(--spacing-xxxl);
@@ -334,7 +305,6 @@ button[type="submit"]:active {
   }
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
   .header {
     padding: var(--spacing-sm) var(--spacing-lg);
@@ -376,7 +346,7 @@ button[type="submit"]:active {
   form input[type="email"],
   form input[type="password"] {
     padding: var(--input-padding-mobile);
-    font-size: var(--font-size-base); /* Prevents zoom on iOS */
+    font-size: var(--font-size-base);
   }
   
   .password-container input {
@@ -395,7 +365,6 @@ button[type="submit"]:active {
   }
 }
 
-/* Small mobile styles */
 @media (max-width: 480px) {
   .header {
     padding: var(--spacing-xs) var(--spacing-md);
@@ -459,7 +428,6 @@ button[type="submit"]:active {
   }
 }
 
-/* Extra small devices */
 @media (max-width: 360px) {
   .registration-container {
     padding: var(--spacing-lg);
@@ -480,7 +448,6 @@ button[type="submit"]:active {
   }
 }
 
-/* Landscape mobile */
 @media (max-height: 600px) and (orientation: landscape) {
   .main-content {
     padding: 60px var(--spacing-lg) var(--spacing-sm);
@@ -504,20 +471,17 @@ button[type="submit"]:active {
   }
 }
 
-/* Focus styles for better accessibility */
 form input:focus,
 button:focus {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
-/* Loading state */
 button[type="submit"]:disabled {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   .registration-container {
     border: 2px solid var(--color-white);

@@ -8,12 +8,15 @@ if (!isset($_SESSION['account_holder_id'])) {
     echo "data: " . json_encode(['error' => 'Unauthorized']) . "\n\n";
     exit();
 }
+// Release the session lock so other PHP requests (like AJAX calls) can run in 
+// parallel while this script keeps running.
+session_write_close(); 
 
 // Set headers for SSE
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
 header('Connection: keep-alive');
-header('X-Accel-Buffering: no'); // Disable nginx buffering
+header('X-LiteSpeed-Accel-Buffering: no');
 
 // Function to send SSE message
 function sendSSE($data) {
@@ -39,22 +42,30 @@ function checkExpiredTransactions($pdo) {
         $expired = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $updated = 0;
+        $errors = [];
         foreach ($expired as $row) {
             // Mark transaction as Failed
             $stmt1 = $pdo->prepare("UPDATE user_transaction SET status = 'Failed' WHERE user_transaction_id = ?");
-            $stmt1->execute([$row['user_transaction_id']]);
+            if (!$stmt1->execute([$row['user_transaction_id']])) {
+                $errorInfo = $stmt1->errorInfo();
+                $errors[] = "Failed to update user_transaction_id: " . $row['user_transaction_id'] . " Error: " . implode(" | ", $errorInfo);
+            }
             // Mark OTP as used
             $stmt2 = $pdo->prepare("UPDATE otp_log SET is_used = 1 WHERE id = ?");
-            $stmt2->execute([$row['otp_log_id']]);
+            if (!$stmt2->execute([$row['otp_log_id']])) {
+                $errorInfo = $stmt2->errorInfo();
+                $errors[] = "Failed to update otp_log_id: " . $row['otp_log_id'] . " Error: " . implode(" | ", $errorInfo);
+            }
             $updated++;
         }
 
         if ($updated > 0) {
             sendSSE([
                 'event' => 'transaction_expired',
-                'success' => true,
+                'success' => count($errors) === 0,
                 'expired_transactions' => $updated,
                 'message' => "$updated pending transactions expired and marked as failed.",
+                'errors' => $errors,
                 'timestamp' => date('Y-m-d H:i:s')
             ]);
         }
@@ -114,5 +125,5 @@ while (true) {
     ]);
     
     // Sleep for 10 seconds before next check
-    sleep(0.5);
+    sleep(10);
 } 

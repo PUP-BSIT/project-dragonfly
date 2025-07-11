@@ -24,6 +24,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const smsGatewayForm = document.getElementById("sms_gateway_form");
     const smsGatewayFeedback = document.getElementById("sms_gateway_feedback");
 
+    // Register Teller button logic
+    const registerTellerBtn = document.getElementById('register_teller_btn');
+    if (registerTellerBtn) {
+        registerTellerBtn.addEventListener('click', function() {
+            window.location.href = '../private/teller_registration.html';
+        });
+    }
+
     // Fetch manager session info and transfer limit
     fetch(API_BASE + "config.php", {
         method: "GET",

@@ -462,6 +462,8 @@
     font-family: inherit;
     transition: var(--transition-default);
     min-height: var(--input-height);
+    width: 100%;
+    min-width: 300px;
 }
 
 .form-input:focus {

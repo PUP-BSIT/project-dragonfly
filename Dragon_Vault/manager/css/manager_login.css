@@ -217,6 +217,7 @@ body {
 
 .form-group {
     margin-bottom: var(--margin-form-group);
+    position: relative; /* Added for password toggle positioning */
 }
 
 .input-field {
@@ -228,6 +229,7 @@ body {
     color: var(--input-text);
     outline: var(--outline-none);
     transition: var(--transition-default);
+    border-radius: var(--border-radius-button); /* Added border radius for consistency */
 }
 
 .input-field:focus {
@@ -237,6 +239,25 @@ body {
 
 .input-field::placeholder {
     color: var(--text-muted);
+}
+
+.password-toggle {
+    cursor: var(--cursor-pointer);
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    display: none; 
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    filter: brightness(0) saturate(100%);
+}
+
+.password-toggle:hover {
+    opacity: 1;
 }
 
 .signin-btn {
@@ -301,6 +322,13 @@ body {
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
+
+    .password-toggle {
+        right: 10px;
+        width: 18px;
+        height: 18px;
+        display: none; /* Initially hidden */
+    }
 }
 
 /* Mobile M - 321px to 375px */
@@ -337,6 +365,13 @@ body {
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
     }
+
+    .password-toggle {
+        right: 12px;
+        width: 18px;
+        height: 18px;
+        display: none; /* Initially hidden */
+    }
 }
 
 /* Mobile L - 376px to 425px */
@@ -372,6 +407,13 @@ body {
     .nav-links a {
         background: var(--nav-hover-bg);
         color: var(--purple-hover);
+    }
+
+    .password-toggle {
+        right: 13px;
+        width: 19px;
+        height: 19px;
+        display: none; /* Initially hidden */
     }
 }
 

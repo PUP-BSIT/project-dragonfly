@@ -148,6 +148,17 @@ function changePassword() {
 function closePasswordModal() {
     document.getElementById("passwordModal").style.display = "none";
     document.getElementById("passwordForm").reset();
+    // Reset all password toggle icons when modal closes
+    const passwordInputs = document.querySelectorAll('#passwordModal input[type="password"], #passwordModal input[type="text"]');
+    passwordInputs.forEach(input => {
+        const wrapper = input.parentElement;
+        const toggleIcon = wrapper.querySelector('.toggle-password');
+        if (toggleIcon) {
+            toggleIcon.style.display = "none";
+            input.type = "password";
+            toggleIcon.src = "../assets/hide.png";
+        }
+    });
 }
 
 // Handle password change
@@ -222,5 +233,25 @@ function logout() {
 
 // Show success message
 function showSuccessMessage(message) {
-    alert(message); // You can replace this with a custom toast if desired
+    alert(message); 
+}
+
+// Password toggle functions
+function handlePasswordInput(inputElement) {
+    const wrapper = inputElement.parentElement;
+    const toggleIcon = wrapper.querySelector('.toggle-password');
+    if (inputElement.value.trim() !== "") {
+        toggleIcon.style.display = "block";
+    } else {
+        toggleIcon.style.display = "none";
+        inputElement.type = "password";
+        toggleIcon.src = "../assets/hide.png";
+    }
+}
+
+function togglePassword(inputId, toggleIcon) {
+    const input = document.getElementById(inputId);
+    const isHidden = input.type === "password";
+    input.type = isHidden ? "text" : "password";
+    toggleIcon.src = isHidden ? "../assets/unhide.png" : "../assets/hide.png";
 }

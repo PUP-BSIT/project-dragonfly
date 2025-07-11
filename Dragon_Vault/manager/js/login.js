@@ -1,6 +1,7 @@
-const API_BASE = location.hostname === "localhost"
-  ? "http://localhost/Dragon_Vault/api/manager/"
-  : "https://dragonvault.site/Dragon_Vault/api/manager/";
+const API_BASE =
+    location.hostname === "localhost"
+        ? "http://localhost/Dragon_Vault/api/manager/"
+        : "https://dragonvault.site/Dragon_Vault/api/manager/";
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login_form");
@@ -17,15 +18,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
         loginForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const username = document.getElementById("login_username").value.trim();
+            const username = document
+                .getElementById("login_username")
+                .value.trim();
             const password = document.getElementById("login_password").value;
             handleLogin(username, password)
                 .then((result) => {
                     if (result.success) {
-                        window.location.href = "dashboard.html";
+                        window.location.href = "manager_dashboard.html";
                     } else {
                         errorDiv.style.display = "block";
-                        errorDiv.textContent = result.message || result.error || "Invalid credentials.";
+                        errorDiv.textContent =
+                            result.message ||
+                            result.error ||
+                            "Invalid credentials.";
                     }
                 })
                 .catch((error) => {
@@ -34,4 +40,4 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         });
     }
-}); 
+});

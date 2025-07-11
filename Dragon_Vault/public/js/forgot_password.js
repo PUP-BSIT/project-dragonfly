@@ -354,3 +354,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const reqBox = document.querySelector('.password-requirements');
     if (reqBox) reqBox.style.display = 'none';
 });
+// Toggle show/hide password
+document.querySelectorAll('.toggle-password').forEach(icon => {
+    icon.addEventListener('click', function () {
+        const input = document.getElementById(this.dataset.target);
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.src = '../assets/unhide.png';
+        } else {
+            input.type = 'password';
+            this.src = '../assets/hide.png';
+        }
+    });
+});
+

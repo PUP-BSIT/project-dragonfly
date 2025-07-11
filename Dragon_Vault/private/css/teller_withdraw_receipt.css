@@ -1,91 +1,85 @@
 :root {
-  /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
-  
-  /* Color Variables */
-  --bg-primary: #1b0036;
-  --bg-secondary: #0c001a;
-  --bg-tertiary: #0d001f;
-  --text-primary: white;
-  --accent-primary: #9f00e8;
-  --accent-secondary: #6a00a3;
-  --accent-hover-primary: #8a00cc;
-  --accent-hover-secondary: #53008a;
-  --shadow-primary: #450078;
-  --shadow-secondary: rgba(0, 0, 0, 0.4);
-  --button-cancel: #666;
-  --button-cancel-secondary: #444;
-  --button-cancel-hover: #555;
-  --button-cancel-hover-secondary: #333;
-  
-  /* Spacing Variables */
-  --spacing-xs: 10px;
-  --spacing-sm: 12px;
-  --spacing-md: 20px;
-  --spacing-lg: 25px;
-  --spacing-xl: 30px;
-  --spacing-xxl: 40px;
-  --gap-md: 15px;
-  
-  /* Border Radius Variables */
-  --border-radius-sm: 6px;
-  --border-radius-md: 15px;
-  
-  /* Font Size Variables */
-  --font-size-sm: 14px;
-  --font-size-md: 20px;
-  --font-size-lg: 22px;
-  
-  /* Font Weight Variables */
-  --font-weight-semibold: 600;
-  
-  /* Dimension Variables */
-  --header-height: 60px;
-  --logo-height: 40px;
+  --font-serif: "Times New Roman", Times, serif;
+
+  --color-primary-bg: #1b0036;
+  --color-secondary-bg: #0c001a;
+  --color-tertiary-bg: #0d001f;
+  --color-white: white;
+  --color-accent: #9f00e8;
+  --color-border: #450078;
+  --color-shadow: #450078;
+
+  --radius-sm: 6px;
+  --radius-md: 20px; 
+
+  --font-size-xs: 14px;
+  --font-size-md: 22px;
+  --font-size-brand: 18px; 
+
+  --logo-height: 40px;      
+  --header-height: 60px;      
   --container-max-width: 500px;
-  --z-index-header: 1000;
-  --button-min-width: 80px;
-  
-  /* Letter Spacing Variables */
-  --letter-spacing-wide: 1px;
-  
-  /* Box Shadow Variables */
-  --box-shadow-header: 0 2px 8px var(--shadow-secondary);
-  --box-shadow-container: 0 0 12px var(--shadow-primary);
-  
-  /* Transition Variables */
-  --transition-background: background 0.3s;
-  
-  /* Flex Variables */
-  --flex-none: 0 0 auto;
+  --button-padding: 12px 20px;
+  --header-padding: 10px 20px; 
+  --container-padding: 40px;
+  --body-padding: 20px;
+  --border-width: 2px;
+
+  --shadow-glow: 0 0 12px var(--color-shadow);
+
+  --transition-fast: 0.3s;
+
+  --z-header: 1000;
+
+  --margin-logo: 10px;
+  --margin-title-bottom: 25px;
+  --margin-title-top: 0;
+  --margin-text-bottom: 12px;
+  --margin-button-top: 30px;
+  --margin-title-padding-bottom: 10px;
+
+  --min-height-viewport: 100vh;
+  --width-full: 100%;
+  --letter-spacing: 1px;
+  --gap-button: 10px;
+  --font-weight-normal: normal;
+  --font-weight-bold: bold;
+
+  --gradient-primary: linear-gradient(to right, #9f00e8, #6a00a3);
+  --gradient-primary-hover: linear-gradient(to right, #8a00cc, #53008a);
+  --gradient-success: linear-gradient(to right, #4CAF50, #45a049);
+  --gradient-success-hover: linear-gradient(to right, #45a049, #3d8b40);
+  --gradient-neutral: linear-gradient(to right, #666, #444);
+  --gradient-neutral-hover: linear-gradient(to right, #555, #333);
 }
 
 body {
   font-family: var(--font-primary);
   margin: 0;
-  padding: var(--spacing-md);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  padding: var(--body-padding);
+  background-color: var(--color-primary-bg);
+  color: var(--color-white);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: var(--min-height-viewport);
   box-sizing: border-box;
 }
 
 .header {
-  background: var(--bg-secondary);
-  padding: 0 var(--spacing-md);
+  background: var(--color-secondary-bg);
+  padding: var(--header-padding);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-start;
   height: var(--header-height);
-  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: var(--z-index-header);
-  box-shadow: var(--box-shadow-header);
+  width: var(--width-full);
+  z-index: var(--z-header);
+  box-sizing: border-box;
 }
 
 .logo-container {
@@ -95,73 +89,82 @@ body {
 
 .logo {
   height: var(--logo-height);
-  width: auto;
-  margin-right: var(--spacing-sm);
+  margin-right: var(--margin-logo);
 }
 
 .brand-name {
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-primary);
-  letter-spacing: var(--letter-spacing-wide);
+  font-size: var(--font-size-brand); 
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-serif);   
+  color: var(--color-white);        
 }
 
 .receipt-container {
-  background: var(--bg-tertiary);
-  padding: var(--spacing-xxl);
-  border-radius: var(--border-radius-md);
-  box-shadow: var(--box-shadow-container);
+  background: var(--color-tertiary-bg);
+  padding: var(--container-padding);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-glow);
   max-width: var(--container-max-width);
-  width: 100%;
+  width: var(--width-full);
   text-align: left;
 }
 
 h2 {
   text-align: center;
-  font-size: var(--font-size-lg);
-  margin-bottom: var(--spacing-lg);
-  margin-top: 0;
+  font-size: var(--font-size-md);
+  margin-bottom: var(--margin-title-bottom);
+  margin-top: var(--margin-title-top);
+  letter-spacing: var(--letter-spacing);
+  border-bottom: var(--border-width) solid var(--color-border);
+  padding-bottom: var(--margin-title-padding-bottom);
+  font-family: var(--font-serif);
 }
 
 p {
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--margin-text-bottom);
+  display: flex;
+  justify-content: space-between;
 }
 
 span {
-  color: var(--accent-primary);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-normal);
+}
+
+strong {
+  color: var(--color-white);
 }
 
 .button-container {
+  text-align: center;
+  margin-top: var(--margin-button-top);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--gap-md);
-  margin-top: var(--spacing-xl);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--gap-button);
 }
 
 button {
-  padding: var(--spacing-xs) var(--spacing-md);
+  padding: var(--button-padding);
   border: none;
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
   cursor: pointer;
-  color: var(--text-primary);
-  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
-  transition: var(--transition-background);
-  flex: var(--flex-none);
-  min-width: var(--button-min-width);
+  color: var(--color-white);
+  background: var(--gradient-primary);
+  transition: background var(--transition-fast);
+  width: var(--width-full);
+  font-family: var(--font-primary);
 }
 
 button:hover {
-  background: linear-gradient(to right, var(--accent-hover-primary), var(--accent-hover-secondary));
+  background: var(--gradient-primary-hover);
 }
 
 #cancel_btn {
-  background: linear-gradient(to right, var(--button-cancel), var(--button-cancel-secondary));
+  background: var(--gradient-neutral);
 }
 
 #cancel_btn:hover {
-  background: linear-gradient(to right, var(--button-cancel-hover), var(--button-cancel-hover-secondary));
+  background: var(--gradient-neutral-hover);
 }

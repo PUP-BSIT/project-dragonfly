@@ -3,13 +3,15 @@ const API_BASE = location.hostname === "localhost"
   : "https://dragonvault.site/Dragon_Vault/api/";
 
 let WITHDRAWAL_LIMIT = 250000; // Default, will be updated from backend
+let MINIMUM_WITHDRAWAL = 1; // Default, will be updated from backend
 
-function fetchWithdrawalLimit() {
+function fetchWithdrawalLimits() {
   fetch(API_BASE + "config/limits.php")
     .then(res => res.json())
     .then(data => {
-      if (data.success && data.withdrawal_limit) {
-        WITHDRAWAL_LIMIT = parseFloat(data.withdrawal_limit);
+      if (data.success) {
+        if (data.withdrawal_limit) WITHDRAWAL_LIMIT = parseFloat(data.withdrawal_limit);
+        if (data.minimum_withdrawal) MINIMUM_WITHDRAWAL = parseFloat(data.minimum_withdrawal);
         const limitSpan = document.getElementById('withdrawal_limit_display');
         if (limitSpan) {
           limitSpan.textContent = WITHDRAWAL_LIMIT.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -22,8 +24,8 @@ function fetchWithdrawalLimit() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Fetch withdrawal limit from backend
-  fetchWithdrawalLimit();
+  // Fetch withdrawal limits from backend
+  fetchWithdrawalLimits();
 
   // Pre-fill logic for repeat/switch
   if (sessionStorage.getItem('account_number') && sessionStorage.getItem('customer_name')) {
@@ -69,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("withdrawForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const amount = parseFloat(document.getElementById("withdraw_amount").value);
-    if (isNaN(amount) || amount < 1) {
-      document.getElementById("error_message").textContent = "Please enter a valid withdrawal amount.";
+    if (isNaN(amount) || amount < MINIMUM_WITHDRAWAL) {
+      document.getElementById("error_message").textContent = `Minimum withdrawal amount is PHP ${MINIMUM_WITHDRAWAL.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
       return;
     }
     if (amount > WITHDRAWAL_LIMIT) {

@@ -21,13 +21,6 @@ try {
     $stmt->execute([$teller_id]);
     $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Convert transaction timestamps to Asia/Manila timezone
-    foreach ($transactions as &$transaction) {
-        $dateTime = new DateTime($transaction['transaction_timestamp'], new DateTimeZone('UTC'));
-        $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
-        $transaction['transaction_timestamp'] = $dateTime->format('Y-m-d H:i:s');
-    }
-
     echo json_encode(['transactions' => $transactions]);
 } catch (PDOException $e) {
     http_response_code(500);

@@ -1,50 +1,22 @@
 :root {
-  /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
   --font-serif: "Times New Roman", Times, serif;
 
-  /* Color Variables */
   --color-primary-bg: #1b0036;
   --color-secondary-bg: #0c001a;
   --color-tertiary-bg: #0d001f;
   --color-white: white;
   --color-accent: #9f00e8;
-  --color-accent-dark: #6a00a3;
-  --color-accent-hover: #8a00cc;
-  --color-accent-hover-dark: #53008a;
   --color-border: #450078;
   --color-shadow: #450078;
-  --color-success: #4CAF50;
-  --color-success-dark: #45a049;
-  --color-success-hover: #45a049;
-  --color-success-hover-dark: #3d8b40;
-  --color-neutral: #666;
-  --color-neutral-dark: #444;
-  --color-neutral-hover: #555;
-  --color-neutral-hover-dark: #333;
 
-  /* Spacing Variables */
-  --spacing-xs: 6px;
-  --spacing-sm: 8px;
-  --spacing-md: 10px;
-  --spacing-lg: 12px;
-  --spacing-xl: 15px;
-  --spacing-xxl: 20px;
-  --spacing-xxxl: 25px;
-  --spacing-huge: 30px;
-  --spacing-massive: 40px;
-
-  /* Border Radius Variables */
   --radius-sm: 6px;
   --radius-md: 20px; 
 
-  /* Font Size Variables */
   --font-size-xs: 14px;
-  --font-size-sm: 16px;
   --font-size-md: 22px;
   --font-size-brand: 18px; 
 
-  /* Dimension Variables */
   --logo-height: 40px;      
   --header-height: 60px;      
   --container-max-width: 500px;
@@ -54,16 +26,12 @@
   --body-padding: 20px;
   --border-width: 2px;
 
-  /* Shadow Variables */
   --shadow-glow: 0 0 12px var(--color-shadow);
 
-  /* Transition Variables */
   --transition-fast: 0.3s;
 
-  /* Z-index Variables */
   --z-header: 1000;
 
-  /* Margin Variables */
   --margin-logo: 10px;
   --margin-title-bottom: 25px;
   --margin-title-top: 0;
@@ -71,7 +39,6 @@
   --margin-button-top: 30px;
   --margin-title-padding-bottom: 10px;
 
-  /* Layout Variables */
   --min-height-viewport: 100vh;
   --width-full: 100%;
   --letter-spacing: 1px;
@@ -79,7 +46,6 @@
   --font-weight-normal: normal;
   --font-weight-bold: bold;
 
-  /* Gradient Variables */
   --gradient-primary: linear-gradient(to right, #9f00e8, #6a00a3);
   --gradient-primary-hover: linear-gradient(to right, #8a00cc, #53008a);
   --gradient-success: linear-gradient(to right, #4CAF50, #45a049);

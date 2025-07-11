@@ -184,6 +184,39 @@ function changePassword() {
 function closePasswordModal() {
     document.getElementById("passwordModal").style.display = "none";
     document.getElementById("passwordForm").reset();
+    
+    // Hide all password toggle icons when closing modal
+    const passwordInputs = ['currentPassword', 'newPassword', 'confirmPassword'];
+    passwordInputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        const wrapper = input.parentElement;
+        const toggleIcon = wrapper.querySelector('.toggle-password');
+        
+        // Reset input type and icon
+        input.type = "password";
+        toggleIcon.src = "../assets/hide.png";
+        toggleIcon.style.display = "none";
+    });
+}
+
+// Password toggle functions
+function handlePasswordInput(inputElement) {
+    const wrapper = inputElement.parentElement;
+    const toggleIcon = wrapper.querySelector('.toggle-password');
+    if (inputElement.value.trim() !== "") {
+        toggleIcon.style.display = "block";
+    } else {
+        toggleIcon.style.display = "none";
+        inputElement.type = "password";
+        toggleIcon.src = "../assets/hide.png";
+    }
+}
+
+function togglePassword(inputId, toggleIcon) {
+    const input = document.getElementById(inputId);
+    const isHidden = input.type === "password";
+    input.type = isHidden ? "text" : "password";
+    toggleIcon.src = isHidden ? "../assets/unhide.png" : "../assets/hide.png";
 }
 
 // Password requirement check for profile change password

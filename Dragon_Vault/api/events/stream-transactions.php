@@ -8,12 +8,15 @@ if (!isset($_SESSION['account_holder_id'])) {
     echo "data: " . json_encode(['error' => 'Unauthorized']) . "\n\n";
     exit();
 }
+// Release the session lock so other PHP requests (like AJAX calls) can run in 
+// parallel while this script keeps running.
+session_write_close(); 
 
 // Set headers for SSE
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
 header('Connection: keep-alive');
-header('X-Accel-Buffering: no'); // Disable nginx buffering
+header('X-LiteSpeed-Accel-Buffering: no');
 
 // Function to send SSE message
 function sendSSE($data) {
@@ -114,5 +117,5 @@ while (true) {
     ]);
     
     // Sleep for 10 seconds before next check
-    sleep(0.5);
+    sleep(10);
 } 

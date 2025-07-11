@@ -781,7 +781,7 @@ body {
     .hand-with-card {
         width: 400px;
         height: 450px;
-        bottom: 80px;
+        bottom: 40px;
         right: 30px;
     }
 
@@ -890,9 +890,9 @@ body {
     }
 
     .hand-with-card {
-        width: 650px;
-        height: 700px;
-        bottom: -25px;
+        width: 600px;
+        height: 650px;
+        bottom: -100px;
         right: 100px;
     }
 

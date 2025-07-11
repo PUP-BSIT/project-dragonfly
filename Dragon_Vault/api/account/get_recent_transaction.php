@@ -53,11 +53,4 @@ $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Convert transaction timestamps to Asia/Manila timezone for consistent display
-foreach ($transactions as &$transaction) {
-    $dateTime = new DateTime($transaction['transaction_timestamp'], new DateTimeZone('UTC'));
-    $dateTime->setTimezone(new DateTimeZone('Asia/Manila'));
-    $transaction['transaction_timestamp'] = $dateTime->format('Y-m-d H:i:s');
-}
-
 echo json_encode(['success' => true, 'transactions' => $transactions]);

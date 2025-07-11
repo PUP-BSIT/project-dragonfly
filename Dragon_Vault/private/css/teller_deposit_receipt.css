@@ -48,7 +48,7 @@
 
   --gradient-primary: linear-gradient(to right, #9f00e8, #6a00a3);
   --gradient-primary-hover: linear-gradient(to right, #8a00cc, #53008a);
-  --gradient-success: linear-gradient(to right, #4CAF50, #45a049);
+  --gradient-success: linear-gradient(to right, #9f00e8, #6a00a3);
   --gradient-success-hover: linear-gradient(to right, #45a049, #3d8b40);
   --gradient-neutral: linear-gradient(to right, #666, #444);
   --gradient-neutral-hover: linear-gradient(to right, #555, #333);

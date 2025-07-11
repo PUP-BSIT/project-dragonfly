@@ -1,9 +1,7 @@
 :root {
-  /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
   --font-serif: "Times New Roman", Times, serif;
 
-  /* Color Variables */
   --color-primary-bg: #1b0036;
   --color-secondary-bg: #0c001a; 
   --color-tertiary-bg: #0d001f;
@@ -18,28 +16,17 @@
   --color-cancel-hover-dark: #333;
   --color-shadow: #450078;
 
-  /* Spacing Variables */
-  --spacing-xs: 6px;
   --spacing-sm: 10px; 
   --spacing-md: 20px; 
   --spacing-lg: 30px; 
-  --spacing-xl: 80px;
-  --spacing-xxl: 20px;
-  --spacing-xxxl: 25px;
-  --spacing-huge: 30px;
-  --spacing-massive: 40px;
 
-  /* Border Radius Variables */
   --radius-sm: 6px;
   --radius-md: 20px; 
 
-  /* Font Size Variables */
   --font-size-xs: 14px;
-  --font-size-sm: 16px; 
   --font-size-md: 18px; 
   --font-size-lg: 22px;
 
-  /* Dimension Variables */
   --logo-height: 40px;
   --header-height: 60px; 
   --container-max-width: 500px;
@@ -48,16 +35,12 @@
   --container-padding: var(--spacing-lg); 
   --body-padding: 20px;
 
-  /* Shadow Variables */
   --shadow-glow: 0 0 12px var(--color-shadow); 
 
-  /* Transition Variables */
   --transition-fast: 0.3s;
 
-  /* Z-index Variables */
   --z-header: 1000;
 
-  /* Margin Variables */
   --margin-logo: var(--spacing-sm);
   --margin-title-bottom: var(--spacing-lg);
   --margin-title-top: 0;
@@ -65,11 +48,9 @@
   --margin-button-top: var(--spacing-lg);
   --margin-button-horizontal: 0 10px;
 
-  /* Layout Variables */
   --min-height-viewport: 100vh;
   --width-full: 100%;
 
-  /* Gradient Variables */
   --gradient-primary: linear-gradient(to right, var(--color-accent), var(--color-accent-dark));
   --gradient-primary-hover: linear-gradient(to right, var(--color-accent-hover), var(--color-accent-hover-dark));
   --gradient-cancel: linear-gradient(to right, var(--color-cancel), var(--color-cancel-dark));
@@ -115,7 +96,7 @@ body {
 }
 
 .brand-name {
-  font-size: var(--font-size-md); /* 18px */
+  font-size: var(--font-size-md);
   font-weight: bold;
   font-family: var(--font-serif);
   color: var(--color-white);

@@ -1,7 +1,6 @@
 :root {
   /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
-  --font-serif: "Times New Roman", Times, serif;
   
   /* Color Variables */
   --bg-primary: #1b0036;
@@ -34,13 +33,11 @@
   --font-size-lg: 22px;
   
   /* Font Weight Variables */
-  --font-weight-normal: 400;
-  --font-weight-bold: bold;
-  --font-weight-semibold: 600; 
-
+  --font-weight-semibold: 600;
+  
   /* Dimension Variables */
-  --header-height: 60px; 
-  --logo-height: 40px;  
+  --header-height: 60px;
+  --logo-height: 40px;
   --form-max-width: 400px;
   --z-index-header: 1000;
   
@@ -64,11 +61,11 @@ body {
 
 .header {
   background: var(--bg-secondary);
-  padding: 0 var(--spacing-md); 
+  padding: 0 var(--spacing-md);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--header-height); 
+  height: var(--header-height);
   position: fixed;
   top: 0;
   left: 0;
@@ -83,17 +80,16 @@ body {
 }
 
 .logo {
-  height: var(--logo-height); 
+  height: var(--logo-height);
   margin-right: var(--spacing-sm);
 }
 
 .brand-name {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-wide); 
+  letter-spacing: var(--letter-spacing-wide);
 }
 
-/* Page Title */
 h2 {
   text-align: center;
   margin-bottom: var(--spacing-lg);
@@ -101,7 +97,6 @@ h2 {
   color: var(--text-primary);
 }
 
-/* Lookup Form Styling */
 form#lookupForm,
 form#withdrawForm {
   background: var(--bg-tertiary);
@@ -131,7 +126,6 @@ form input {
   color: var(--text-primary);
 }
 
-/* Button Styling */
 form button {
   padding: var(--spacing-sm) var(--spacing-md);
   border: none;
@@ -147,7 +141,6 @@ form button:hover {
   background: linear-gradient(to right, var(--accent-hover-primary), var(--accent-hover-secondary));
 }
 
-/* Account Details Box */
 #account_details {
   max-width: var(--form-max-width);
   margin: 0 auto;
@@ -167,7 +160,6 @@ form button:hover {
   color: var(--accent-primary);
 }
 
-/* Error Message */
 #error_message {
   text-align: center;
   margin-top: var(--spacing-md);

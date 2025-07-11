@@ -23,6 +23,29 @@
         <div class="container">
             <div class="dashboard-box">
                 <h2>Welcome, <span id="manager_name">Manager</span></h2>
+                <!-- Register Teller Button -->
+                <div class="control-section">
+                    <button
+                        id="register_teller_btn"
+                        class="save-btn"
+                        style="
+                            margin-top: 20px;
+                            width: 100%;
+                            font-size: 18px;
+                            background: linear-gradient(
+                                135deg,
+                                #8b5cf6,
+                                #6366f1
+                            );
+                            color: #fff;
+                            border-radius: 8px;
+                            border: none;
+                            padding: 15px 0;
+                            cursor: pointer;
+                        ">
+                        Register Teller
+                    </button>
+                </div>
                 <div class="control-section">
                     <h3>Transfer Limit Control</h3>
                     <form id="transfer_limit_form">
@@ -70,10 +93,6 @@
                         <button type="submit" class="save-btn">Save</button>
                     </form>
                     <div id="sms_gateway_feedback" class="feedback"></div>
-                </div>
-                <!-- Register Teller Button -->
-                <div class="control-section">
-                    <button id="register_teller_btn" class="save-btn" style="margin-top: 20px; width: 100%; font-size: 18px; background: linear-gradient(135deg, #8b5cf6, #6366f1); color: #fff; border-radius: 8px; border: none; padding: 15px 0; cursor: pointer;">Register Teller</button>
                 </div>
             </div>
         </div>

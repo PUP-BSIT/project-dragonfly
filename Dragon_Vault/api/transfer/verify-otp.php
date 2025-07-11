@@ -112,7 +112,7 @@ try {
 
             error_log("Calling StackOverCash API with payload: " . json_encode($external_payload));
 
-            $ch = curl_init('https://dev.stackovercash.site/api/services/soc_transfer');
+            $ch = curl_init('https://stackovercash.site/api/services/soc_transfer');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($external_payload));

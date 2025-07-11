@@ -26,6 +26,16 @@ try {
     // Prepare placeholders for IN clause
     $placeholders = implode(',', array_fill(0, count($accountNumbers), '?'));
 
+    // Helper function to check if a transaction is expired
+    function isTransactionExpired($pdo, $otp_log_id) {
+        if (!$otp_log_id) return false;
+        $stmt = $pdo->prepare("SELECT expires_at, is_used FROM otp_log WHERE id = ?");
+        $stmt->execute([$otp_log_id]);
+        $otp = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$otp) return false;
+        return ($otp['is_used'] == 0 && strtotime($otp['expires_at']) < time());
+    }
+
     // User Outbound Transactions
     $userOutboundQuery = "
         SELECT * FROM user_transaction 
@@ -35,6 +45,13 @@ try {
     $userOutboundStmt = $pdo->prepare($userOutboundQuery);
     $userOutboundStmt->execute($accountNumbers);
     $userOutboundTransactions = $userOutboundStmt->fetchAll(PDO::FETCH_ASSOC);
+    // Update status if expired
+    foreach ($userOutboundTransactions as &$tx) {
+        if ($tx['status'] === 'Pending' && isTransactionExpired($pdo, $tx['otp_log_id'])) {
+            $tx['status'] = 'Failed';
+        }
+    }
+    unset($tx);
 
     // User Inbound Transactions
     $userInboundQuery = "
@@ -45,6 +62,12 @@ try {
     $userInboundStmt = $pdo->prepare($userInboundQuery);
     $userInboundStmt->execute($accountNumbers);
     $userInboundTransactions = $userInboundStmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($userInboundTransactions as &$tx) {
+        if ($tx['status'] === 'Pending' && isTransactionExpired($pdo, $tx['otp_log_id'])) {
+            $tx['status'] = 'Failed';
+        }
+    }
+    unset($tx);
 
     // Teller Transactions (joined with teller info)
     $tellerQuery = "
@@ -57,7 +80,7 @@ try {
     $tellerStmt = $pdo->prepare($tellerQuery);
     $tellerStmt->execute($accountNumbers);
     $tellerTransactions = $tellerStmt->fetchAll(PDO::FETCH_ASSOC);
-
+ 
     echo json_encode([
         "success" => true,
         "user_outbound_transactions" => $userOutboundTransactions,

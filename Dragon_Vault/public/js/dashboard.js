@@ -1,6 +1,7 @@
-const API_BASE = location.hostname === "localhost"
-  ? "http://localhost/Dragon_Vault/api/"
-  : "https://dragonvault.site/Dragon_Vault/api/";
+const API_BASE =
+    location.hostname === "localhost"
+        ? "http://localhost/Dragon_Vault/api/"
+        : "https://dragonvault.site/Dragon_Vault/api/";
 
 // SSE connection for monitoring expired transactions
 let eventSource = null;
@@ -236,16 +237,20 @@ function logout() {
 
     fetch("/Dragon_Vault/api/auth/logout.php", {
         method: "POST",
-        credentials: "include"
+        credentials: "include",
     })
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                // Clear any local storage or session storage if needed
-                localStorage.clear();
-                sessionStorage.clear();
-                // Redirect to login page
-                window.location.href = "../../index.html";
+                if (confirm("Are you sure you want to log out?")) {
+                    // Clear any local storage or session storage if needed
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    // Call logout API again to ensure session is cleared on server
+                    then(() => {
+                        window.location.href = "../../index.html";
+                    });
+                }
             } else {
                 alert("Logout failed. Try again.");
             }

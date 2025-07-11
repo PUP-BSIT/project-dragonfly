@@ -1,75 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teller Dashboard</title>
-  <link rel="stylesheet" href="css/teller_dashboard.css" />
-  <link rel="icon" href="../assets/logo.png" />
-</head>
-<body>
-  <div class="navigation-bar">
-    <div class="logo-container">
-      <img src="../assets/logo.png" alt="logo" class="logo" />
-      <div class="name">
-        <p>DragonVault</p>
-      </div>
-    </div>
-    
-    <button class="mobile-menu-toggle" aria-label="Toggle navigation">
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
-    
-    <div class="nav-options">
-      <a href="teller_dashboard.html">Home</a>
-      <a href="teller_profile.html">Profile</a>
-      <a href="#" id="logoutBtn">Log out</a>
-    </div>
-  </div>
-  
-  <div id="step-home" class="step active">
-    <div class="welcome-banner">
-      <h2>Welcome, <span id="tellerName">Bank Teller</span>!</h2>
-      <p>What would you like to do today?</p>
-    </div>
-    
-    <div class="actions">
-      <a href="./deposit/teller_deposit.html">
-        <div class="action-box action-box-1">
-          <img src="../assets/deposit_icon.png" alt="Deposit" class="action-icon"/>
-          <p class="action-text">Process Deposit</p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Teller Dashboard</title>
+        <link rel="stylesheet" href="css/teller_dashboard.css" />
+        <link rel="icon" href="../assets/logo.png" />
+    </head>
+    <body>
+        <div class="navigation-bar">
+            <div class="logo-container">
+                <img src="../assets/logo.png" alt="logo" class="logo" />
+                <div class="name">
+                    <p>DragonVault</p>
+                </div>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-options">
+                <a href="teller_dashboard.html">Home</a>
+                <a href="teller_profile.html">Profile</a>
+                <a href="#" id="logoutBtn">Log out</a>
+            </div>
         </div>
-      </a>
-      <a href="./withdraw/teller_withdraw.html">
-        <div class="action-box action-box-2">
-          <img src="../assets/withdraw__icon.png" alt="Withdraw" class="action-icon"/>
-          <p class="action-text">Process Withdraw</p>
+
+        <div id="step-home" class="step active">
+            <div class="welcome-banner">
+                <h2>Welcome, <span id="tellerName">Bank Teller</span>!</h2>
+                <p>What would you like to do today?</p>
+            </div>
+
+            <div class="actions">
+                <a href="./deposit/teller_deposit.html">
+                    <div class="action-box action-box-1">
+                        <img
+                            src="../assets/deposit_icon.png"
+                            alt="Deposit"
+                            class="action-icon" />
+                        <p class="action-text">Process Deposit</p>
+                    </div>
+                </a>
+                <a href="./withdraw/teller_withdraw.html">
+                    <div class="action-box action-box-2">
+                        <img
+                            src="../assets/withdraw__icon.png"
+                            alt="Withdraw"
+                            class="action-icon" />
+                        <p class="action-text">Process Withdraw</p>
+                    </div>
+                </a>
+                <a href="./teller_transactions.html">
+                    <div class="action-box action-box-3">
+                        <img
+                            src="../assets/history_icon.png"
+                            alt="History"
+                            class="action-icon" />
+                        <p class="action-text">View Transaction History</p>
+                    </div>
+                </a>
+            </div>
         </div>
-      </a>
-      <a href="./teller_transactions.html">
-        <div class="action-box action-box-3">
-          <img src="../assets/history_icon.png" alt="History" class="action-icon"/>
-          <p class="action-text">View Transaction History</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <script src="js/teller_dashboard.js"></script>
-  <script>
-    // Clear transaction-related sessionStorage when dashboard loads
-    sessionStorage.removeItem('account_number');
-    sessionStorage.removeItem('customer_name');
-    sessionStorage.removeItem('account_type');
-    sessionStorage.removeItem('balance');
-    sessionStorage.removeItem('withdraw_amount');
-    sessionStorage.removeItem('deposit_amount');
-    sessionStorage.removeItem('previous_balance');
-    sessionStorage.removeItem('new_balance');
-    sessionStorage.removeItem('transaction_id');
-    sessionStorage.removeItem('teller_id');
-  </script>
-</body>
+
+        <script src="js/teller_dashboard.js"></script>
+        <script>
+            // Clear transaction-related sessionStorage when dashboard loads
+            sessionStorage.removeItem("account_number");
+            sessionStorage.removeItem("customer_name");
+            sessionStorage.removeItem("account_type");
+            sessionStorage.removeItem("balance");
+            sessionStorage.removeItem("withdraw_amount");
+            sessionStorage.removeItem("deposit_amount");
+            sessionStorage.removeItem("previous_balance");
+            sessionStorage.removeItem("new_balance");
+            sessionStorage.removeItem("transaction_id");
+            sessionStorage.removeItem("teller_id");
+        </script>
+    </body>
 </html>

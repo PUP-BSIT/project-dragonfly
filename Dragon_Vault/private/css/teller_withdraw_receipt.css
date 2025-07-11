@@ -1,7 +1,6 @@
 :root {
   /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
-  --font-serif: "Times New Roman", Times, serif;
   
   /* Color Variables */
   --bg-primary: #1b0036;
@@ -38,7 +37,6 @@
   --font-size-lg: 22px;
   
   /* Font Weight Variables */
-  --font-weight-normal: 400;
   --font-weight-semibold: 600;
   
   /* Dimension Variables */

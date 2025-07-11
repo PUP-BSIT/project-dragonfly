@@ -106,10 +106,10 @@ const Validation = {
                 this.showFieldError("amount", "Please enter a valid amount");
                 isValid = false;
                 errorMessage += "• Please enter a valid amount\n";
-            } else if (numericAmount < 1) {
-                this.showFieldError("amount", "Minimum transfer amount is PHP 1.00");
+            } else if (numericAmount < TRANSFER_MINIMUM) {
+                this.showFieldError("amount", `Minimum transfer amount is PHP ${TRANSFER_MINIMUM.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
                 isValid = false;
-                errorMessage += "• Minimum transfer amount is PHP 1.00\n";
+                errorMessage += `• Minimum transfer amount is PHP ${TRANSFER_MINIMUM.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}\n`;
             } else if (numericAmount > TRANSFER_LIMIT) {
                 this.showFieldError("amount", `Maximum transfer amount is PHP ${TRANSFER_LIMIT.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
                 isValid = false;
@@ -333,17 +333,19 @@ const ApiService = {
 };
 
 let TRANSFER_LIMIT = 500000; // Default, will be updated from backend
+let TRANSFER_MINIMUM = 1; // Default, will be updated from backend
 
-function fetchTransferLimit() {
+function fetchTransferLimits() {
     fetch(API_BASE + "config/limits.php")
         .then(res => res.json())
         .then(data => {
-            if (data.success && data.transfer_limit) {
-                TRANSFER_LIMIT = parseFloat(data.transfer_limit);
+            if (data.success) {
+                if (data.transfer_limit) TRANSFER_LIMIT = parseFloat(data.transfer_limit);
+                if (data.transfer_minimum) TRANSFER_MINIMUM = parseFloat(data.transfer_minimum);
             }
         })
         .catch(() => {
-            // Use default if fetch fails
+            // Use defaults if fetch fails
         });
 }
 
@@ -352,8 +354,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load initial balance
     ApiService.loadAvailableBalance();
 
-    // Fetch transfer limit from backend
-    fetchTransferLimit();
+    // Fetch transfer limits and minimum from backend
+    fetchTransferLimits();
 
     // Set up account number input handling
     const accountInput = document.getElementById("accountNumber");

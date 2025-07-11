@@ -242,15 +242,11 @@ function logout() {
         .then((res) => res.json())
         .then((data) => {
             if (data.success) {
-                if (confirm("Are you sure you want to log out?")) {
-                    // Clear any local storage or session storage if needed
-                    localStorage.clear();
-                    sessionStorage.clear();
-                    // Call logout API again to ensure session is cleared on server
-                    then(() => {
-                        window.location.href = "../../index.html";
-                    });
-                }
+                // Clear any local storage or session storage if needed
+                localStorage.clear();
+                sessionStorage.clear();
+                // Redirect to login page
+                window.location.href = "../../index.html";
             } else {
                 alert("Logout failed. Try again.");
             }

@@ -22,6 +22,11 @@
   --logo-size: 50px;
   --logo-size-mobile: 40px;
   
+  /* Body Content Spacing (separate from navigation) */
+  --body-padding-top: 90px;
+  --body-padding-top-mobile: 80px;
+  --body-padding-top-landscape: 70px;
+  
   /* Spacing Variables */
   --spacing-xs: 5px;
   --spacing-sm: 10px;
@@ -154,7 +159,7 @@ body {
   color: var(--color-text);
   line-height: var(--line-height-base);
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: var(--body-padding-top);
 }
 
 button {
@@ -166,6 +171,7 @@ button {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   height: var(--header-height);
   background-color: var(--color-secondary);
@@ -175,6 +181,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--padding-large);
+  margin: 0;
 }
 
 .logo-container {
@@ -248,7 +255,6 @@ button {
 /* Main content */
 .step {
   display: none;
-  padding-top: var(--header-height);
 }
 
 .step.active {
@@ -364,14 +370,18 @@ button {
 
 /* Mobile styles */
 @media (max-width: 768px) {
-  .navigation-bar {
-    padding: 0 var(--padding-small);
-    height: var(--header-height-mobile);
-    position: relative;
+  body {
+    padding-top: var(--body-padding-top-mobile);
   }
   
-  body {
-    padding-top: 70px;
+  .navigation-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 var(--padding-small);
+    height: var(--header-height-mobile);
+    margin: 0;
   }
   
   .mobile-menu-toggle {
@@ -392,6 +402,7 @@ button {
     visibility: hidden;
     transition: all var(--transition-fast) ease;
     box-shadow: var(--shadow-mobile);
+    margin: 0;
   }
   
   .nav-options.active {
@@ -409,10 +420,6 @@ button {
   
   .nav-options a:last-child {
     border-bottom: none;
-  }
-  
-  .step {
-    padding-top: var(--header-height-mobile);
   }
   
   .logo {
@@ -529,11 +536,16 @@ button {
 /* Landscape orientation adjustments for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
   body {
-    padding-top: 60px;
+    padding-top: var(--body-padding-top-landscape);
   }
   
   .navigation-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: var(--header-height-landscape);
+    margin: 0;
   }
   
   .welcome-banner {
@@ -543,12 +555,9 @@ button {
   .welcome-banner h2 {
     font-size: var(--font-size-large);
   }
-  
-  .step {
-    padding-top: var(--header-height-landscape);
-  }
 }
 
+/* Accessibility and performance */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: var(--transition-instant) !important;

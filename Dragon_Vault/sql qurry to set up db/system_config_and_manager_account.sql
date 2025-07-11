@@ -33,7 +33,7 @@ INSERT INTO system_config (config_key, config_value, description) VALUES
 
 -- Add minimum_withdrawal to system_config
 INSERT INTO system_config (config_key, config_value, description) VALUES
-  ('minimum_withdrawal', '0.00', 'Minimum withdrawal amount per transaction (in currency)');
+  ('minimum_withdrawal', '200.00', 'Minimum withdrawal amount per transaction (in currency)');
 
 -- Insert a sample manager account (replace password hash with a real hash in production)
 INSERT INTO manager_account (username, password, full_name, email) VALUES

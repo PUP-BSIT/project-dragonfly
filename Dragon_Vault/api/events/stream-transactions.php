@@ -42,22 +42,30 @@ function checkExpiredTransactions($pdo) {
         $expired = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $updated = 0;
+        $errors = [];
         foreach ($expired as $row) {
             // Mark transaction as Failed
             $stmt1 = $pdo->prepare("UPDATE user_transaction SET status = 'Failed' WHERE user_transaction_id = ?");
-            $stmt1->execute([$row['user_transaction_id']]);
+            if (!$stmt1->execute([$row['user_transaction_id']])) {
+                $errorInfo = $stmt1->errorInfo();
+                $errors[] = "Failed to update user_transaction_id: " . $row['user_transaction_id'] . " Error: " . implode(" | ", $errorInfo);
+            }
             // Mark OTP as used
             $stmt2 = $pdo->prepare("UPDATE otp_log SET is_used = 1 WHERE id = ?");
-            $stmt2->execute([$row['otp_log_id']]);
+            if (!$stmt2->execute([$row['otp_log_id']])) {
+                $errorInfo = $stmt2->errorInfo();
+                $errors[] = "Failed to update otp_log_id: " . $row['otp_log_id'] . " Error: " . implode(" | ", $errorInfo);
+            }
             $updated++;
         }
 
         if ($updated > 0) {
             sendSSE([
                 'event' => 'transaction_expired',
-                'success' => true,
+                'success' => count($errors) === 0,
                 'expired_transactions' => $updated,
                 'message' => "$updated pending transactions expired and marked as failed.",
+                'errors' => $errors,
                 'timestamp' => date('Y-m-d H:i:s')
             ]);
         }

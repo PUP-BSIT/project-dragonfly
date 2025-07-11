@@ -1,9 +1,7 @@
 :root {
-    /* Font Variables */
     --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
     --font-serif: "Times New Roman", Times, serif;
     
-    /* Color Variables */
     --color-primary: #1b0036;
     --color-secondary: #0c001a;
     --color-accent: #450078;
@@ -11,7 +9,6 @@
     --color-white: white;
     --color-text: white;
     
-    /* Gradient Variables */
     --gradient-primary: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(168, 85, 247, 0.2));
     --gradient-card: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.3));
     --gradient-security: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.3));
@@ -19,14 +16,12 @@
     --gradient-button-success: linear-gradient(135deg, #10b981, #059669);
     --gradient-button-warning: linear-gradient(135deg, #f59e0b, #d97706);
     
-    /* Size Variables */
     --header-height: 70px;
     --header-height-mobile: 60px;
     --header-height-landscape: 50px;
     --logo-size: 50px;
     --logo-size-mobile: 40px;
     
-    /* Spacing Variables */
     --padding-large: 40px;
     --padding-medium: 30px;
     --padding-small: 20px;
@@ -35,31 +30,21 @@
     --gap-small: 15px;
     --gap-extra-small: 10px;
     
-    /* Border Variables */
     --border-radius-large: 12px;
     --border-radius-medium: 8px;
     --border-radius-small: 5px;
     --border-radius-circle: 50%;
     
-    /* Shadow Variables */
     --shadow-primary: 0 2px 10px rgba(0, 0, 0, 0.3);
-    --shadow-button: 0 4px 8px rgba(69, 0, 120, 0.6);
-    --shadow-button-active: 0 4px 8px rgba(74, 42, 138, 0.6);
-    --shadow-hover: 0 8px 25px rgba(99, 102, 241, 0.4);
-    --shadow-success: 0 8px 25px rgba(16, 185, 129, 0.4);
-    --shadow-warning: 0 8px 25px rgba(245, 158, 11, 0.4);
     
-    /* Background Variables */
     --bg-overlay: rgba(255, 255, 255, 0.1);
     --bg-overlay-light: rgba(255, 255, 255, 0.15);
     --bg-overlay-hover: rgba(255, 255, 255, 0.2);
     --bg-modal: rgba(0, 0, 0, 0.7);
     
-    /* Border Variables */
     --border-primary: 1px solid rgba(255, 255, 255, 0.1);
     --border-secondary: 1px solid rgba(255, 255, 255, 0.2);
     
-    /* Font Size Variables */
     --font-size-extra-large: 36px;
     --font-size-large: 24px;
     --font-size-medium: 18px;
@@ -67,15 +52,12 @@
     --font-size-small: 14px;
     --font-size-extra-small: 12px;
     
-    /* Transition Variables */
     --transition-primary: all 0.3s ease;
     --transition-background: background 0.3s ease;
     
-    /* Z-index Variables */
     --z-header: 1000;
     --z-modal: 1000;
     
-    /* Opacity Variables */
     --opacity-high: 0.9;
     --opacity-medium: 0.8;
 }
@@ -153,14 +135,12 @@ body {
     background-color: var(--color-accent-light);
 }
 
-/* Main Content */
 .main-content {
     padding: var(--padding-small) var(--padding-large);
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Profile Header */
 .profile-header {
     background: var(--gradient-primary);
     padding: var(--padding-medium);
@@ -191,7 +171,6 @@ body {
     gap: var(--gap-large);
 }
 
-/* Profile Information Card */
 .profile-info-card {
     background: var(--gradient-card);
     padding: var(--padding-large);
@@ -271,7 +250,6 @@ body {
     opacity: 0.8;
 }
 
-/* Profile Edit Card */
 .profile-edit-card {
     background: var(--gradient-card);
     padding: var(--padding-large);
@@ -380,7 +358,6 @@ body {
     background: var(--bg-overlay-light);
 }
 
-/* Security Card */
 .security-card {
     background: var(--gradient-security);
     padding: var(--padding-medium);
@@ -426,7 +403,6 @@ body {
     opacity: 0.8;
 }
 
-/* Modal Styles */
 .modal {
     position: fixed;
     top: 0;
@@ -507,7 +483,6 @@ body {
     font-size: var(--font-size-small);
 }
 
-/* Tablet Responsive Design */
 @media (max-width: 1024px) {
     .main-content {
         padding: var(--padding-small) var(--padding-medium);
@@ -531,7 +506,6 @@ body {
     }
 }
 
-/* Mobile Responsive Design */
 @media (max-width: 768px) {
     .header {
         padding: 0 var(--padding-small);
@@ -640,7 +614,6 @@ body {
     }
 }
 
-/* Small Mobile Responsive Design */
 @media (max-width: 480px) {
     .header {
         padding: 0 var(--gap-small);
@@ -710,7 +683,6 @@ body {
     }
 }
 
-/* Extra Small Mobile (iPhone SE, etc.) */
 @media (max-width: 375px) {
     .logo-text {
         font-size: var(--font-size-normal);
@@ -726,7 +698,6 @@ body {
     }
 }
 
-/* Landscape orientation adjustments for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
     body {
         padding-top: 60px;

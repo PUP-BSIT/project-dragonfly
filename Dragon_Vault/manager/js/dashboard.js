@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((res) => res.json())
         .then((data) => {
             if (!data.success) {
-                window.location.href = "login.html";
+                window.location.href = "manager_login.html";
                 return;
             }
             managerNameSpan.textContent = data.manager_name || "Manager";

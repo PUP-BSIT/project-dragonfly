@@ -1,10 +1,7 @@
-/* Root Variables */
 :root {
-  /* Font Variables */
   --font-primary: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
   --font-serif: "Times New Roman", Times, serif;
   
-  /* Color Variables */
   --color-primary-bg: #1b0036;
   --color-header-bg: #0c001a;
   --color-form-bg: #0d001f;
@@ -18,14 +15,12 @@
   --color-error: #ff4d4d;
   --color-shadow: #450078;
   
-  /* Spacing Variables */
   --spacing-xs: 8px;
   --spacing-sm: 10px;
   --spacing-md: 20px;
   --spacing-lg: 30px;
   --spacing-xl: 80px;
   
-  /* Size Variables */
   --header-height: 60px;
   --logo-height: 40px;
   --border-radius-sm: 6px;
@@ -33,13 +28,10 @@
   --max-width-form: 400px;
   --shadow-blur: 12px;
   
-  /* Font Size Variables */
   --font-size-sm: 14px;
-  --font-size-md: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 22px;
   
-  /* Other Variables */
   --z-index-header: 1000;
   --transition-duration: 0.3s;
 }
@@ -83,7 +75,6 @@ body {
   font-family: var(--font-serif);
 }
 
-/* Page Title */
 h2 {
   text-align: center;
   margin-bottom: var(--spacing-lg);
@@ -92,7 +83,6 @@ h2 {
   font-family: var(--font-serif);
 }
 
-/* Lookup Form Styling */
 form#lookupForm,
 form#withdrawForm {
   background: var(--color-form-bg);
@@ -124,7 +114,6 @@ form input {
   font-family: var(--font-primary);
 }
 
-/* Button Styling */
 form button {
   padding: var(--spacing-sm) var(--spacing-md);
   border: none;
@@ -141,7 +130,6 @@ form button:hover {
   background: linear-gradient(to right, var(--color-accent-hover), var(--color-accent-hover-dark));
 }
 
-/* Account Details Box */
 #account_details {
   max-width: var(--max-width-form);
   margin: 0 auto;
@@ -163,7 +151,6 @@ form button:hover {
   font-family: var(--font-primary);
 }
 
-/* Error Message */
 #error_message {
   text-align: center;
   margin-top: var(--spacing-md);

@@ -1,16 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_BASE = location.hostname === "localhost"
-        ? "http://localhost/Dragon_Vault/api/manager/"
-        : "https://dragonvault.site/Dragon_Vault/api/manager/";
+    const API_BASE =
+        location.hostname === "localhost"
+            ? "http://localhost/Dragon_Vault/api/manager/"
+            : "https://dragonvault.site/Dragon_Vault/api/manager/";
 
     const managerNameSpan = document.getElementById("manager_name");
     const transferLimitInput = document.getElementById("transfer_limit_input");
     const transferLimitForm = document.getElementById("transfer_limit_form");
-    const transferLimitFeedback = document.getElementById("transfer_limit_feedback");
+    const transferLimitFeedback = document.getElementById(
+        "transfer_limit_feedback"
+    );
     const logoutBtn = document.getElementById("logout_btn");
-    const withdrawalLimitInput = document.getElementById("withdrawal_limit_input");
-    const withdrawalLimitForm = document.getElementById("withdrawal_limit_form");
-    const withdrawalLimitFeedback = document.getElementById("withdrawal_limit_feedback");
+    const withdrawalLimitInput = document.getElementById(
+        "withdrawal_limit_input"
+    );
+    const withdrawalLimitForm = document.getElementById(
+        "withdrawal_limit_form"
+    );
+    const withdrawalLimitFeedback = document.getElementById(
+        "withdrawal_limit_feedback"
+    );
     const smsGatewayToggle = document.getElementById("sms_gateway_toggle");
     const smsGatewayForm = document.getElementById("sms_gateway_form");
     const smsGatewayFeedback = document.getElementById("sms_gateway_feedback");
@@ -18,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fetch manager session info and transfer limit
     fetch(API_BASE + "config.php", {
         method: "GET",
-        credentials: "include"
+        credentials: "include",
     })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
             if (!data.success) {
                 window.location.href = "login.html";
                 return;
@@ -44,15 +53,17 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: JSON.stringify({ transfer_limit: newLimit })
+            body: JSON.stringify({ transfer_limit: newLimit }),
         })
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 if (data.success) {
-                    transferLimitFeedback.textContent = "Transfer limit updated successfully.";
+                    transferLimitFeedback.textContent =
+                        "Transfer limit updated successfully.";
                     transferLimitFeedback.style.color = "#4caf50";
                 } else {
-                    transferLimitFeedback.textContent = data.message || data.error || "Failed to update.";
+                    transferLimitFeedback.textContent =
+                        data.message || data.error || "Failed to update.";
                     transferLimitFeedback.style.color = "#f44336";
                 }
             })
@@ -70,15 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: JSON.stringify({ withdrawal_limit: newLimit })
+            body: JSON.stringify({ withdrawal_limit: newLimit }),
         })
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 if (data.success) {
-                    withdrawalLimitFeedback.textContent = "Withdrawal limit updated successfully.";
+                    withdrawalLimitFeedback.textContent =
+                        "Withdrawal limit updated successfully.";
                     withdrawalLimitFeedback.style.color = "#4caf50";
                 } else {
-                    withdrawalLimitFeedback.textContent = data.message || data.error || "Failed to update.";
+                    withdrawalLimitFeedback.textContent =
+                        data.message || data.error || "Failed to update.";
                     withdrawalLimitFeedback.style.color = "#f44336";
                 }
             })
@@ -96,15 +109,17 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: JSON.stringify({ sms_gateway_enabled: newStatus })
+            body: JSON.stringify({ sms_gateway_enabled: newStatus }),
         })
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 if (data.success) {
-                    smsGatewayFeedback.textContent = "SMS gateway status updated successfully.";
+                    smsGatewayFeedback.textContent =
+                        "SMS gateway status updated successfully.";
                     smsGatewayFeedback.style.color = "#4caf50";
                 } else {
-                    smsGatewayFeedback.textContent = data.message || data.error || "Failed to update.";
+                    smsGatewayFeedback.textContent =
+                        data.message || data.error || "Failed to update.";
                     smsGatewayFeedback.style.color = "#f44336";
                 }
             })
@@ -118,10 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", () => {
         fetch(API_BASE + "logout.php", {
             method: "POST",
-            credentials: "include"
-        })
-            .then(() => {
-                window.location.href = "login.html";
-            });
+            credentials: "include",
+        }).then(() => {
+            window.location.href = "manager_login.html";
+        });
     });
-}); 
+});

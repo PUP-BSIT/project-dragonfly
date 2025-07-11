@@ -1,6 +1,11 @@
 :root {
     /* Colors */
-    --primary-bg-gradient: linear-gradient(135deg, #0f0525 0%, #2d1b69 50%, #6b46c1 100%);
+    --primary-bg-gradient: linear-gradient(
+        135deg,
+        #0f0525 0%,
+        #2d1b69 50%,
+        #6b46c1 100%
+    );
     --primary-color: #0f0525;
     --secondary-color: #2d1b69;
     --accent-color: #6b46c1;
@@ -11,23 +16,23 @@
     --text-secondary: rgba(255, 255, 255, 0.9);
     --text-muted: rgba(255, 255, 255, 0.8);
     --footer-text: #000000;
-    
+
     /* Background Colors */
     --navbar-bg: rgba(0, 0, 0, 0.2);
     --card-bg: rgba(255, 255, 255, 0.1);
     --features-bg: rgba(15, 5, 37, 0.9);
     --footer-bg: rgba(255, 255, 255, 0.05);
     --nav-hover-bg: rgba(255, 255, 255, 0.1);
-    
+
     /* Borders */
     --border-glass: 1px solid rgba(255, 255, 255, 0.2);
     --border-secondary: 2px solid #a855f7;
-    
+
     /* Shadows */
     --shadow-primary: 0 8px 15px rgba(139, 92, 246, 0.6);
     --shadow-secondary: 0 8px 15px rgba(168, 85, 247, 0.4);
     --shadow-card: 0 20px 40px rgba(139, 92, 246, 0.3);
-    
+
     /* Typography */
     --font-family: "Times New Roman", Tahoma, Geneva, Verdana, sans-serif;
     --font-size-hero: 48px;
@@ -38,7 +43,7 @@
     --font-size-footer: 14px;
     --line-height-body: 1.6;
     --line-height-hero: 1.2;
-    
+
     /* Spacing */
     --padding-section: 80px 60px;
     --padding-nav: 0px 30px;
@@ -50,7 +55,7 @@
     --border-radius-button: 50px;
     --border-radius-card: 20px;
     --border-radius-nav: 8px;
-    
+
     /* Dimensions */
     --logo-size: 50px;
     --hero-min-height: 70vh;
@@ -61,7 +66,7 @@
     --hero-visual-height: 100vh;
     --hand-card-width: 600px;
     --hand-card-height: 680px;
-    
+
     /* Effects */
     --backdrop-blur: blur(10px);
     --backdrop-blur-strong: blur(20px);
@@ -187,7 +192,11 @@ body {
 }
 
 .btn.primary {
-    background: linear-gradient(135deg, var(--purple-primary), var(--purple-secondary));
+    background: linear-gradient(
+        135deg,
+        var(--purple-primary),
+        var(--purple-secondary)
+    );
     color: var(--text-primary);
     box-shadow: var(--primary-color);
 }
@@ -819,5 +828,116 @@ body {
     .footer-links a {
         margin-left: 12px;
         font-size: 14px;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1025px) {
+    .navbar {
+        padding: 8px 20px;
+    }
+
+    .logo {
+        padding: 16px 20px;
+        font-size: 22px;
+    }
+
+    .logo-img {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+    }
+
+    .logo-text {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .nav-links a {
+        font-size: 17px;
+        padding: 5px 8px;
+    }
+
+    .hero-section {
+        padding: 100px 80px;
+        min-height: 70vh;
+    }
+
+    .hero-content h1 {
+        font-size: 56px;
+    }
+
+    .hero-content p {
+        font-size: 22px;
+        line-height: 1;
+    }
+
+    .buttons {
+        gap: 28px;
+    }
+
+    .btn {
+        padding: 20px 40px;
+        font-size: 18px;
+    }
+
+    .hero-visual {
+        width: 40vw;
+        height: 70vh;
+    }
+
+    .hand-with-card {
+        width: 650px;
+        height: 700px;
+        bottom: -25px;
+        right: 100px;
+    }
+
+    .features {
+        padding: 100px 80px 120px;
+    }
+
+    .features h2 {
+        font-size: 44px;
+        margin-bottom: 80px;
+    }
+
+    .feature-cards {
+        gap: 60px;
+    }
+
+    .feature-card {
+        width: 340px;
+        padding: 60px 40px;
+    }
+
+    .feature-icon {
+        width: 180px;
+        height: 90px;
+    }
+
+    .feature-card h3 {
+        font-size: 28px;
+    }
+
+    .feature-card p {
+        font-size: 18px;
+    }
+
+    .footer {
+        padding: 18px 60px;
+        font-size: 18px;
+    }
+
+    .footer-content {
+        font-size: 20px;
+    }
+
+    .footer-links a {
+        margin-left: 32px;
+        font-size: 18px;
     }
 }

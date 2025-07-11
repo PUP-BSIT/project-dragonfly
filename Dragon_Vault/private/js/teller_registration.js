@@ -2,6 +2,17 @@ const API_BASE = location.hostname === "localhost"
   ? "http://localhost/Dragon_Vault/api/"
   : "https://dragonvault.site/Dragon_Vault/api/";
 
+// Manager session check
+fetch(API_BASE + 'manager/manager_session_checker.php', {
+     credentials: 'include' })
+  .then(res => res.json())
+  .then(data => {
+    if (!data.logged_in) {
+      alert('Please login as manager first.');
+      window.location.href = API_BASE +  '../manager/manager_login.html';
+    }
+  });
+
 document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("teller_register_form");
 
